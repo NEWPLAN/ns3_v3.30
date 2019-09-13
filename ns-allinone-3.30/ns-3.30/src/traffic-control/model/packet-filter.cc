@@ -21,44 +21,44 @@
 #include "queue-disc.h"
 #include "packet-filter.h"
 
-namespace ns3 {
-
-NS_LOG_COMPONENT_DEFINE ("PacketFilter");
-
-NS_OBJECT_ENSURE_REGISTERED (PacketFilter);
-
-TypeId 
-PacketFilter::GetTypeId (void)
+namespace ns3
 {
-  static TypeId tid = TypeId ("ns3::PacketFilter")
-    .SetParent<Object> ()
-    .SetGroupName ("TrafficControl")
-  ;
+
+NS_LOG_COMPONENT_DEFINE("PacketFilter");
+
+NS_OBJECT_ENSURE_REGISTERED(PacketFilter);
+
+TypeId
+PacketFilter::GetTypeId(void)
+{
+  static TypeId tid = TypeId("ns3::PacketFilter")
+                          .SetParent<Object>()
+                          .SetGroupName("TrafficControl");
   return tid;
 }
 
-PacketFilter::PacketFilter ()
+PacketFilter::PacketFilter()
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
 }
 
 PacketFilter::~PacketFilter()
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
 }
 
 int32_t
-PacketFilter::Classify (Ptr<QueueDiscItem> item) const
+PacketFilter::Classify(Ptr<QueueDiscItem> item) const
 {
-  NS_LOG_FUNCTION (this << item);
+  NS_LOG_FUNCTION(this << item);
 
-  if (!CheckProtocol (item))
+  if (!CheckProtocol(item))
   {
-    NS_LOG_LOGIC ("Unable to classify packets of this protocol");
+    NS_LOG_LOGIC("Unable to classify packets of this protocol");
     return PF_NO_MATCH;
   }
 
-  return DoClassify (item);
+  return DoClassify(item);
 }
 
 } // namespace ns3

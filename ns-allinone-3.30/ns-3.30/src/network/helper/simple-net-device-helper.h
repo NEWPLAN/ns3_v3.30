@@ -28,7 +28,8 @@
 #include "ns3/node-container.h"
 #include "ns3/simple-channel.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \brief build a set of SimpleNetDevice objects
@@ -39,8 +40,8 @@ public:
   /**
    * Construct a SimpleNetDeviceHelper.
    */
-  SimpleNetDeviceHelper ();
-  virtual ~SimpleNetDeviceHelper () {}
+  SimpleNetDeviceHelper();
+  virtual ~SimpleNetDeviceHelper() {}
 
   /**
    * Each net device must have a queue to pass packets through.
@@ -60,11 +61,11 @@ public:
    * Set the type of queue to create and associated to each
    * SimpleNetDevice created through SimpleNetDeviceHelper::Install.
    */
-  void SetQueue (std::string type,
-                 std::string n1 = "", const AttributeValue &v1 = EmptyAttributeValue (),
-                 std::string n2 = "", const AttributeValue &v2 = EmptyAttributeValue (),
-                 std::string n3 = "", const AttributeValue &v3 = EmptyAttributeValue (),
-                 std::string n4 = "", const AttributeValue &v4 = EmptyAttributeValue ());
+  void SetQueue(std::string type,
+                std::string n1 = "", const AttributeValue &v1 = EmptyAttributeValue(),
+                std::string n2 = "", const AttributeValue &v2 = EmptyAttributeValue(),
+                std::string n3 = "", const AttributeValue &v3 = EmptyAttributeValue(),
+                std::string n4 = "", const AttributeValue &v4 = EmptyAttributeValue());
 
   /**
    * Each net device must have a channel to pass packets through.
@@ -84,12 +85,11 @@ public:
    * Set the type of channel to create and associated to each
    * SimpleNetDevice created through SimpleNetDeviceHelper::Install.
    */
-  void SetChannel (std::string type,
-                   std::string n1 = "", const AttributeValue &v1 = EmptyAttributeValue (),
-                   std::string n2 = "", const AttributeValue &v2 = EmptyAttributeValue (),
-                   std::string n3 = "", const AttributeValue &v3 = EmptyAttributeValue (),
-                   std::string n4 = "", const AttributeValue &v4 = EmptyAttributeValue ());
-
+  void SetChannel(std::string type,
+                  std::string n1 = "", const AttributeValue &v1 = EmptyAttributeValue(),
+                  std::string n2 = "", const AttributeValue &v2 = EmptyAttributeValue(),
+                  std::string n3 = "", const AttributeValue &v3 = EmptyAttributeValue(),
+                  std::string n4 = "", const AttributeValue &v4 = EmptyAttributeValue());
 
   /**
    * \param n1 the name of the attribute to set
@@ -98,7 +98,7 @@ public:
    * Set these attributes on each ns3::SimpleNetDevice created
    * by SimpleNetDeviceHelper::Install
    */
-  void SetDeviceAttribute (std::string n1, const AttributeValue &v1);
+  void SetDeviceAttribute(std::string n1, const AttributeValue &v1);
 
   /**
    * \param n1 the name of the attribute to set
@@ -107,7 +107,7 @@ public:
    * Set these attributes on each ns3::CsmaChannel created
    * by SimpleNetDeviceHelper::Install
    */
-  void SetChannelAttribute (std::string n1, const AttributeValue &v1);
+  void SetChannelAttribute(std::string n1, const AttributeValue &v1);
 
   /**
    * SimpleNetDevice is Broadcast capable and ARP needing. This function
@@ -118,7 +118,7 @@ public:
    *
    * \param pointToPointMode True for PointToPoint SimpleNetDevice
    */
-  void SetNetDevicePointToPointMode (bool pointToPointMode);
+  void SetNetDevicePointToPointMode(bool pointToPointMode);
 
   /**
    * This method creates an ns3::SimpleChannel with the attributes configured by
@@ -129,7 +129,7 @@ public:
    * \param node The node to install the device in
    * \returns A container holding the added net device.
    */
-  NetDeviceContainer Install (Ptr<Node> node) const;
+  NetDeviceContainer Install(Ptr<Node> node) const;
 
   /**
    * This method creates an ns3::SimpleNetDevice with the attributes configured by
@@ -140,7 +140,7 @@ public:
    * \param channel The channel to attach to the device.
    * \returns A container holding the added net device.
    */
-  NetDeviceContainer Install (Ptr<Node> node, Ptr<SimpleChannel> channel) const;
+  NetDeviceContainer Install(Ptr<Node> node, Ptr<SimpleChannel> channel) const;
 
   /**
    * This method creates an ns3::SimpleChannel with the attributes configured by
@@ -152,7 +152,7 @@ public:
    * \param c The NodeContainer holding the nodes to be changed.
    * \returns A container holding the added net devices.
    */
-  NetDeviceContainer Install (const NodeContainer &c) const;
+  NetDeviceContainer Install(const NodeContainer &c) const;
 
   /**
    * For each Ptr<node> in the provided container, this method creates an
@@ -164,7 +164,7 @@ public:
    * \param channel The channel to attach to the devices.
    * \returns A container holding the added net devices.
    */
-  NetDeviceContainer Install (const NodeContainer &c, Ptr<SimpleChannel> channel) const;
+  NetDeviceContainer Install(const NodeContainer &c, Ptr<SimpleChannel> channel) const;
 
 private:
   /**
@@ -176,13 +176,12 @@ private:
    * \param channel The channel to attach to the device.
    * \returns The new net device.
    */
-  Ptr<NetDevice> InstallPriv (Ptr<Node> node, Ptr<SimpleChannel> channel) const;
+  Ptr<NetDevice> InstallPriv(Ptr<Node> node, Ptr<SimpleChannel> channel) const;
 
-  ObjectFactory m_queueFactory; //!< Queue factory
-  ObjectFactory m_deviceFactory; //!< NetDevice factory
+  ObjectFactory m_queueFactory;   //!< Queue factory
+  ObjectFactory m_deviceFactory;  //!< NetDevice factory
   ObjectFactory m_channelFactory; //!< Channel factory
-  bool m_pointToPointMode; //!< Install PointToPoint SimpleNetDevice or Broadcast ones
-
+  bool m_pointToPointMode;        //!< Install PointToPoint SimpleNetDevice or Broadcast ones
 };
 
 } // namespace ns3

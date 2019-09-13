@@ -22,34 +22,33 @@
 #include "ns3/socket.h"
 #include "ns3/assert.h"
 
-namespace ns3 {
+namespace ns3
+{
 
-UdpSocketFactoryImpl::UdpSocketFactoryImpl ()
-  : m_udp (0)
+UdpSocketFactoryImpl::UdpSocketFactoryImpl()
+    : m_udp(0)
 {
 }
-UdpSocketFactoryImpl::~UdpSocketFactoryImpl ()
+UdpSocketFactoryImpl::~UdpSocketFactoryImpl()
 {
-  NS_ASSERT (m_udp == 0);
+  NS_ASSERT(m_udp == 0);
 }
 
-void
-UdpSocketFactoryImpl::SetUdp (Ptr<UdpL4Protocol> udp)
+void UdpSocketFactoryImpl::SetUdp(Ptr<UdpL4Protocol> udp)
 {
   m_udp = udp;
 }
 
 Ptr<Socket>
-UdpSocketFactoryImpl::CreateSocket (void)
+UdpSocketFactoryImpl::CreateSocket(void)
 {
-  return m_udp->CreateSocket ();
+  return m_udp->CreateSocket();
 }
 
-void 
-UdpSocketFactoryImpl::DoDispose (void)
+void UdpSocketFactoryImpl::DoDispose(void)
 {
   m_udp = 0;
-  UdpSocketFactory::DoDispose ();
+  UdpSocketFactory::DoDispose();
 }
 
 } // namespace ns3

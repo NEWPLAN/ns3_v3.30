@@ -24,7 +24,8 @@
 #include "ns3/traced-value.h"
 #include "wifi-remote-station-manager.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \brief Ideal rate control algorithm
@@ -48,33 +49,32 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
-  IdealWifiManager ();
-  virtual ~IdealWifiManager ();
+  static TypeId GetTypeId(void);
+  IdealWifiManager();
+  virtual ~IdealWifiManager();
 
-  void SetupPhy (const Ptr<WifiPhy> phy);
-
+  void SetupPhy(const Ptr<WifiPhy> phy);
 
 private:
   //overridden from base class
-  void DoInitialize (void);
-  WifiRemoteStation* DoCreateStation (void) const;
-  void DoReportRxOk (WifiRemoteStation *station,
-                     double rxSnr, WifiMode txMode);
-  void DoReportRtsFailed (WifiRemoteStation *station);
-  void DoReportDataFailed (WifiRemoteStation *station);
-  void DoReportRtsOk (WifiRemoteStation *station,
-                      double ctsSnr, WifiMode ctsMode, double rtsSnr);
-  void DoReportDataOk (WifiRemoteStation *station,
-                       double ackSnr, WifiMode ackMode, double dataSnr);
-  void DoReportAmpduTxStatus (WifiRemoteStation *station,
-                              uint8_t nSuccessfulMpdus, uint8_t nFailedMpdus,
-                              double rxSnr, double dataSnr);
-  void DoReportFinalRtsFailed (WifiRemoteStation *station);
-  void DoReportFinalDataFailed (WifiRemoteStation *station);
-  WifiTxVector DoGetDataTxVector (WifiRemoteStation *station);
-  WifiTxVector DoGetRtsTxVector (WifiRemoteStation *station);
-  bool IsLowLatency (void) const;
+  void DoInitialize(void);
+  WifiRemoteStation *DoCreateStation(void) const;
+  void DoReportRxOk(WifiRemoteStation *station,
+                    double rxSnr, WifiMode txMode);
+  void DoReportRtsFailed(WifiRemoteStation *station);
+  void DoReportDataFailed(WifiRemoteStation *station);
+  void DoReportRtsOk(WifiRemoteStation *station,
+                     double ctsSnr, WifiMode ctsMode, double rtsSnr);
+  void DoReportDataOk(WifiRemoteStation *station,
+                      double ackSnr, WifiMode ackMode, double dataSnr);
+  void DoReportAmpduTxStatus(WifiRemoteStation *station,
+                             uint8_t nSuccessfulMpdus, uint8_t nFailedMpdus,
+                             double rxSnr, double dataSnr);
+  void DoReportFinalRtsFailed(WifiRemoteStation *station);
+  void DoReportFinalDataFailed(WifiRemoteStation *station);
+  WifiTxVector DoGetDataTxVector(WifiRemoteStation *station);
+  WifiTxVector DoGetRtsTxVector(WifiRemoteStation *station);
+  bool IsLowLatency(void) const;
 
   /**
    * Return the minimum SNR needed to successfully transmit
@@ -84,7 +84,7 @@ private:
    *
    * \return the minimum SNR for the given WifiTxVector
    */
-  double GetSnrThreshold (WifiTxVector txVector) const;
+  double GetSnrThreshold(WifiTxVector txVector) const;
   /**
    * Adds a pair of WifiTxVector and the minimum SNR for that given vector
    * to the list.
@@ -92,23 +92,23 @@ private:
    * \param txVector the WifiTxVector storing mode, channel width, and nss
    * \param snr the minimum SNR for the given txVector
    */
-  void AddSnrThreshold (WifiTxVector txVector, double snr);
+  void AddSnrThreshold(WifiTxVector txVector, double snr);
 
   /**
    * Convenience function for selecting a channel width for legacy mode
    * \param mode legacy WifiMode
    * \return the channel width (MHz) for the selected mode
    */
-  uint16_t GetChannelWidthForMode (WifiMode mode) const;
+  uint16_t GetChannelWidthForMode(WifiMode mode) const;
 
   /**
    * A vector of <snr, WifiTxVector> pair holding the minimum SNR for the
    * WifiTxVector
    */
-  typedef std::vector<std::pair<double, WifiTxVector> > Thresholds;
+  typedef std::vector<std::pair<double, WifiTxVector>> Thresholds;
 
-  double m_ber;             //!< The maximum Bit Error Rate acceptable at any transmission mode
-  Thresholds m_thresholds;  //!< List of WifiTxVector and the minimum SNR pair
+  double m_ber;            //!< The maximum Bit Error Rate acceptable at any transmission mode
+  Thresholds m_thresholds; //!< List of WifiTxVector and the minimum SNR pair
 
   TracedValue<uint64_t> m_currentRate; //!< Trace rate changes
 };

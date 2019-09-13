@@ -55,52 +55,52 @@ public:
    * \param addr the IPv6 address
    * \param port the port
    */
-  Ipv6EndPoint (Ipv6Address addr, uint16_t port);
+  Ipv6EndPoint(Ipv6Address addr, uint16_t port);
 
-  ~Ipv6EndPoint ();
+  ~Ipv6EndPoint();
 
   /**
    * \brief Get the local address.
    * \return the local address
    */
-  Ipv6Address GetLocalAddress ();
+  Ipv6Address GetLocalAddress();
 
   /**
    * \brief Set the local address.
    * \param addr the address to set
    */
-  void SetLocalAddress (Ipv6Address addr);
+  void SetLocalAddress(Ipv6Address addr);
 
   /**
    * \brief Get the local port.
    * \return the local port
    */
-  uint16_t GetLocalPort ();
+  uint16_t GetLocalPort();
 
   /**
    * \brief Set the local port.
    * \param port the port to set
    */
-  void SetLocalPort (uint16_t port);
+  void SetLocalPort(uint16_t port);
 
   /**
    * \brief Get the peer address.
    * \return the peer address
    */
-  Ipv6Address GetPeerAddress ();
+  Ipv6Address GetPeerAddress();
 
   /**
    * \brief Get the peer port.
    * \return the peer port
    */
-  uint16_t GetPeerPort ();
+  uint16_t GetPeerPort();
 
   /**
    * \brief Set the peer information (address and port).
    * \param addr peer address
    * \param port peer port
    */
-  void SetPeer (Ipv6Address addr, uint16_t port);
+  void SetPeer(Ipv6Address addr, uint16_t port);
 
   /**
    * \brief Bind a socket to specific device.
@@ -120,7 +120,7 @@ public:
    *
    * \param netdevice Pointer to Netdevice of desired interface
    */
-  void BindToNetDevice (Ptr<NetDevice> netdevice);
+  void BindToNetDevice(Ptr<NetDevice> netdevice);
 
   /**
    * \brief Returns socket's bound netdevice, if any.
@@ -131,25 +131,25 @@ public:
    *
    * \returns Pointer to interface.
    */
-  Ptr<NetDevice> GetBoundNetDevice (void);
+  Ptr<NetDevice> GetBoundNetDevice(void);
 
   /**
    * \brief Set the reception callback.
    * \param callback callback function
    */
-  void SetRxCallback (Callback<void, Ptr<Packet>, Ipv6Header, uint16_t, Ptr<Ipv6Interface> > callback);
+  void SetRxCallback(Callback<void, Ptr<Packet>, Ipv6Header, uint16_t, Ptr<Ipv6Interface>> callback);
 
   /**
    * \brief Set the ICMP callback.
    * \param callback callback function
    */
-  void SetIcmpCallback (Callback<void, Ipv6Address, uint8_t, uint8_t, uint8_t, uint32_t> callback);
+  void SetIcmpCallback(Callback<void, Ipv6Address, uint8_t, uint8_t, uint8_t, uint32_t> callback);
 
   /**
    * \brief Set the default destroy callback.
    * \param callback callback function
    */
-  void SetDestroyCallback (Callback<void> callback);
+  void SetDestroyCallback(Callback<void> callback);
 
   /**
    * \brief Forward the packet to the upper level.
@@ -162,7 +162,7 @@ public:
    * \param port source port
    * \param incomingInterface incoming interface
    */
-  void ForwardUp (Ptr<Packet> p, Ipv6Header header, uint16_t port, Ptr<Ipv6Interface> incomingInterface);
+  void ForwardUp(Ptr<Packet> p, Ipv6Header header, uint16_t port, Ptr<Ipv6Interface> incomingInterface);
 
   /**
    * \brief Forward the ICMP packet to the upper level.
@@ -176,20 +176,20 @@ public:
    * \param code ICMPv6 code
    * \param info ICMPv6 info
    */
-  void ForwardIcmp (Ipv6Address src, uint8_t ttl, uint8_t type,
-                    uint8_t code, uint32_t info);
+  void ForwardIcmp(Ipv6Address src, uint8_t ttl, uint8_t type,
+                   uint8_t code, uint32_t info);
 
   /**
    * \brief Enable or Disable the endpoint Rx capability.
    * \param enabled true if Rx is enabled
    */
-  void SetRxEnabled (bool enabled);
+  void SetRxEnabled(bool enabled);
 
   /**
    * \brief Checks if the endpoint can receive packets.
    * \returns true if the endpoint can receive packets.
    */
-  bool IsRxEnabled (void);
+  bool IsRxEnabled(void);
 
 private:
   /**
@@ -220,7 +220,7 @@ private:
   /**
    * \brief The RX callback.
    */
-  Callback<void, Ptr<Packet>, Ipv6Header, uint16_t, Ptr<Ipv6Interface> > m_rxCallback;
+  Callback<void, Ptr<Packet>, Ipv6Header, uint16_t, Ptr<Ipv6Interface>> m_rxCallback;
 
   /**
    * \brief The ICMPv6 callback.
@@ -241,4 +241,3 @@ private:
 } /* namespace ns3 */
 
 #endif /* IPV6_END_POINT_H */
-

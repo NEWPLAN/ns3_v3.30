@@ -24,7 +24,8 @@
 
 #include "ns3/tcp-option.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup tcp
@@ -54,24 +55,24 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
-  virtual TypeId GetInstanceTypeId (void) const;
+  static TypeId GetTypeId(void);
+  virtual TypeId GetInstanceTypeId(void) const;
 
-  TcpOptionWinScale ();
-  virtual ~TcpOptionWinScale ();
+  TcpOptionWinScale();
+  virtual ~TcpOptionWinScale();
 
-  virtual void Print (std::ostream &os) const;
-  virtual void Serialize (Buffer::Iterator start) const;
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual void Print(std::ostream &os) const;
+  virtual void Serialize(Buffer::Iterator start) const;
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 
-  virtual uint8_t GetKind (void) const;
-  virtual uint32_t GetSerializedSize (void) const;
+  virtual uint8_t GetKind(void) const;
+  virtual uint32_t GetSerializedSize(void) const;
 
   /**
    * \brief Get the scale value (uint8_t)
    * \return The scale value
    */
-  uint8_t GetScale (void) const;
+  uint8_t GetScale(void) const;
 
   /**
    * \brief Set the scale option
@@ -80,7 +81,7 @@ public:
    *
    * \param scale Scale factor
    */
-  void SetScale (uint8_t scale);
+  void SetScale(uint8_t scale);
 
 protected:
   uint8_t m_scale; //!< Window scaling in number of bit shift

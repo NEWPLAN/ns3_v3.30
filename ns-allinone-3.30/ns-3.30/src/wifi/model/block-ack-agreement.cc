@@ -21,151 +21,140 @@
 #include "ns3/log.h"
 #include "block-ack-agreement.h"
 
-namespace ns3 {
-
-NS_LOG_COMPONENT_DEFINE ("BlockAckAgreement");
-
-BlockAckAgreement::BlockAckAgreement (Mac48Address peer, uint8_t tid)
-  : m_peer (peer),
-    m_amsduSupported (0),
-    m_blockAckPolicy (1),
-    m_tid (tid),
-    m_htSupported (0),
-    m_inactivityEvent ()
+namespace ns3
 {
-  NS_LOG_FUNCTION (this << peer << +tid);
+
+NS_LOG_COMPONENT_DEFINE("BlockAckAgreement");
+
+BlockAckAgreement::BlockAckAgreement(Mac48Address peer, uint8_t tid)
+    : m_peer(peer),
+      m_amsduSupported(0),
+      m_blockAckPolicy(1),
+      m_tid(tid),
+      m_htSupported(0),
+      m_inactivityEvent()
+{
+  NS_LOG_FUNCTION(this << peer << +tid);
 }
 
-BlockAckAgreement::~BlockAckAgreement ()
+BlockAckAgreement::~BlockAckAgreement()
 {
-  NS_LOG_FUNCTION (this);
-  m_inactivityEvent.Cancel ();
+  NS_LOG_FUNCTION(this);
+  m_inactivityEvent.Cancel();
 }
 
-void
-BlockAckAgreement::SetBufferSize (uint16_t bufferSize)
+void BlockAckAgreement::SetBufferSize(uint16_t bufferSize)
 {
-  NS_LOG_FUNCTION (this << bufferSize);
-  NS_ASSERT (bufferSize <= 256);
-  NS_ASSERT (bufferSize % 16 == 0);
+  NS_LOG_FUNCTION(this << bufferSize);
+  NS_ASSERT(bufferSize <= 256);
+  NS_ASSERT(bufferSize % 16 == 0);
   m_bufferSize = bufferSize;
 }
 
-void
-BlockAckAgreement::SetTimeout (uint16_t timeout)
+void BlockAckAgreement::SetTimeout(uint16_t timeout)
 {
-  NS_LOG_FUNCTION (this << timeout);
+  NS_LOG_FUNCTION(this << timeout);
   m_timeout = timeout;
 }
 
-void
-BlockAckAgreement::SetStartingSequence (uint16_t seq)
+void BlockAckAgreement::SetStartingSequence(uint16_t seq)
 {
-  NS_LOG_FUNCTION (this << seq);
-  NS_ASSERT (seq < 4096);
+  NS_LOG_FUNCTION(this << seq);
+  NS_ASSERT(seq < 4096);
   m_startingSeq = seq;
 }
 
-void
-BlockAckAgreement::SetStartingSequenceControl (uint16_t seq)
+void BlockAckAgreement::SetStartingSequenceControl(uint16_t seq)
 {
-  NS_LOG_FUNCTION (this << seq);
-  NS_ASSERT (((seq >> 4) & 0x0fff) < 4096);
+  NS_LOG_FUNCTION(this << seq);
+  NS_ASSERT(((seq >> 4) & 0x0fff) < 4096);
   m_startingSeq = (seq >> 4) & 0x0fff;
 }
 
-void
-BlockAckAgreement::SetImmediateBlockAck (void)
+void BlockAckAgreement::SetImmediateBlockAck(void)
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
   m_blockAckPolicy = 1;
 }
 
-void
-BlockAckAgreement::SetDelayedBlockAck (void)
+void BlockAckAgreement::SetDelayedBlockAck(void)
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
   m_blockAckPolicy = 0;
 }
 
-void
-BlockAckAgreement::SetAmsduSupport (bool supported)
+void BlockAckAgreement::SetAmsduSupport(bool supported)
 {
-  NS_LOG_FUNCTION (this << supported);
+  NS_LOG_FUNCTION(this << supported);
   m_amsduSupported = supported;
 }
 
 uint8_t
-BlockAckAgreement::GetTid (void) const
+BlockAckAgreement::GetTid(void) const
 {
   return m_tid;
 }
 
 Mac48Address
-BlockAckAgreement::GetPeer (void) const
+BlockAckAgreement::GetPeer(void) const
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
   return m_peer;
 }
 
 uint16_t
-BlockAckAgreement::GetBufferSize (void) const
+BlockAckAgreement::GetBufferSize(void) const
 {
   return m_bufferSize;
 }
 
 uint16_t
-BlockAckAgreement::GetTimeout (void) const
+BlockAckAgreement::GetTimeout(void) const
 {
   return m_timeout;
 }
 
 uint16_t
-BlockAckAgreement::GetStartingSequence (void) const
+BlockAckAgreement::GetStartingSequence(void) const
 {
   return m_startingSeq;
 }
 
 uint16_t
-BlockAckAgreement::GetStartingSequenceControl (void) const
+BlockAckAgreement::GetStartingSequenceControl(void) const
 {
   uint16_t seqControl = (m_startingSeq << 4) & 0xfff0;
   return seqControl;
 }
 
-bool
-BlockAckAgreement::IsImmediateBlockAck (void) const
+bool BlockAckAgreement::IsImmediateBlockAck(void) const
 {
   return (m_blockAckPolicy == 1);
 }
 
-bool
-BlockAckAgreement::IsAmsduSupported (void) const
+bool BlockAckAgreement::IsAmsduSupported(void) const
 {
   return (m_amsduSupported == 1) ? true : false;
 }
 
 uint16_t
-BlockAckAgreement::GetWinEnd (void) const
+BlockAckAgreement::GetWinEnd(void) const
 {
   return m_winEnd;
 }
 
-void
-BlockAckAgreement::SetWinEnd (uint16_t seq)
+void BlockAckAgreement::SetWinEnd(uint16_t seq)
 {
   m_winEnd = seq;
 }
 
-void
-BlockAckAgreement::SetHtSupported (bool htSupported)
+void BlockAckAgreement::SetHtSupported(bool htSupported)
 {
-  NS_LOG_FUNCTION (this << htSupported);
+  NS_LOG_FUNCTION(this << htSupported);
   m_htSupported = htSupported;
 }
 
-bool
-BlockAckAgreement::IsHtSupported (void) const
+bool BlockAckAgreement::IsHtSupported(void) const
 {
   return (m_htSupported == 1) ? true : false;
 }

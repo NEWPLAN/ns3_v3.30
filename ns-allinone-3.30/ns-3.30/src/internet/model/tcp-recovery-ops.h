@@ -24,7 +24,8 @@
 
 #include "ns3/object.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class TcpSocketState;
 
@@ -63,30 +64,30 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
   /**
    * \brief Constructor
    */
-  TcpRecoveryOps ();
+  TcpRecoveryOps();
 
   /**
    * \brief Copy constructor.
    * \param other object to copy.
    */
-  TcpRecoveryOps (const TcpRecoveryOps &other);
+  TcpRecoveryOps(const TcpRecoveryOps &other);
 
   /**
    * \brief Deconstructor
    */
-  virtual ~TcpRecoveryOps ();
+  virtual ~TcpRecoveryOps();
 
   /**
    * \brief Get the name of the recovery algorithm
    *
    * \return A string identifying the name
    */
-  virtual std::string GetName () const = 0;
+  virtual std::string GetName() const = 0;
 
   /**
    * \brief Performs variable initialization at the start of recovery
@@ -98,8 +99,8 @@ public:
    * \param unAckDataCount total bytes of data unacknowledged
    * \param lastSackedBytes bytes acknowledged via SACK in the last ACK
    */
-  virtual void EnterRecovery (Ptr<TcpSocketState> tcb, uint32_t dupAckCount,
-                              uint32_t unAckDataCount, uint32_t lastSackedBytes) = 0;
+  virtual void EnterRecovery(Ptr<TcpSocketState> tcb, uint32_t dupAckCount,
+                             uint32_t unAckDataCount, uint32_t lastSackedBytes) = 0;
 
   /**
    * \brief Performs recovery based on the recovery algorithm
@@ -115,8 +116,8 @@ public:
    * \param lastAckedBytes bytes acknowledged in the last ACK
    * \param lastSackedBytes bytes acknowledged via SACK in the last ACK
    */
-  virtual void DoRecovery (Ptr<TcpSocketState> tcb, uint32_t lastAckedBytes,
-                           uint32_t lastSackedBytes) = 0;
+  virtual void DoRecovery(Ptr<TcpSocketState> tcb, uint32_t lastAckedBytes,
+                          uint32_t lastSackedBytes) = 0;
 
   /**
    * \brief Performs cwnd adjustments at the end of recovery
@@ -126,7 +127,7 @@ public:
    * \param tcb internal congestion state
    * \param isSackEnabled
    */
-  virtual void ExitRecovery (Ptr<TcpSocketState> tcb) = 0;
+  virtual void ExitRecovery(Ptr<TcpSocketState> tcb) = 0;
 
   /**
    * \brief Keeps track of bytes sent during recovery phase
@@ -136,9 +137,9 @@ public:
    *
    * \param bytesSent bytes sent
    */
-  virtual void UpdateBytesSent (uint32_t bytesSent)
+  virtual void UpdateBytesSent(uint32_t bytesSent)
   {
-    NS_UNUSED (bytesSent);
+    NS_UNUSED(bytesSent);
   }
 
   /**
@@ -146,7 +147,7 @@ public:
    *
    * \return a pointer of the copied object
    */
-  virtual Ptr<TcpRecoveryOps> Fork () = 0;
+  virtual Ptr<TcpRecoveryOps> Fork() = 0;
 };
 
 /**
@@ -170,35 +171,35 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
   /**
    * \brief Constructor
    */
-  TcpClassicRecovery ();
+  TcpClassicRecovery();
 
   /**
    * \brief Copy constructor.
    * \param recovery object to copy.
    */
-  TcpClassicRecovery (const TcpClassicRecovery& recovery);
+  TcpClassicRecovery(const TcpClassicRecovery &recovery);
 
   /**
    * \brief Constructor
    */
-  virtual ~TcpClassicRecovery () override;
+  virtual ~TcpClassicRecovery() override;
 
-  virtual std::string GetName () const override;
+  virtual std::string GetName() const override;
 
-  virtual void EnterRecovery (Ptr<TcpSocketState> tcb, uint32_t dupAckCount,
-                              uint32_t unAckDataCount, uint32_t lastSackedBytes) override;
+  virtual void EnterRecovery(Ptr<TcpSocketState> tcb, uint32_t dupAckCount,
+                             uint32_t unAckDataCount, uint32_t lastSackedBytes) override;
 
-  virtual void DoRecovery (Ptr<TcpSocketState> tcb, uint32_t lastAckedBytes,
-                           uint32_t lastSackedBytes) override;
+  virtual void DoRecovery(Ptr<TcpSocketState> tcb, uint32_t lastAckedBytes,
+                          uint32_t lastSackedBytes) override;
 
-  virtual void ExitRecovery (Ptr<TcpSocketState> tcb) override;
+  virtual void ExitRecovery(Ptr<TcpSocketState> tcb) override;
 
-  virtual Ptr<TcpRecoveryOps> Fork () override;
+  virtual Ptr<TcpRecoveryOps> Fork() override;
 };
 
 } // namespace ns3

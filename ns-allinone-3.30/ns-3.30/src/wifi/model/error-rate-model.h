@@ -23,7 +23,8 @@
 
 #include "ns3/object.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class WifiTxVector;
 class WifiMode;
@@ -40,7 +41,7 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
   /**
    * \param txVector a specific transmission vector including WifiMode
@@ -48,7 +49,7 @@ public:
    *
    * \return the snr which corresponds to the requested ber
    */
-  double CalculateSnr (WifiTxVector txVector, double ber) const;
+  double CalculateSnr(WifiTxVector txVector, double ber) const;
 
   /**
    * A pure virtual method that must be implemented in the subclass.
@@ -73,10 +74,9 @@ public:
    *
    * \return probability of successfully receiving the chunk
    */
-  virtual double GetChunkSuccessRate (WifiMode mode, WifiTxVector txVector, double snr, uint64_t nbits) const = 0;
+  virtual double GetChunkSuccessRate(WifiMode mode, WifiTxVector txVector, double snr, uint64_t nbits) const = 0;
 };
 
 } //namespace ns3
 
 #endif /* ERROR_RATE_MODEL_H */
-

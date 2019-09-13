@@ -34,7 +34,8 @@
 #include "ns3/simulator.h"
 #include "ns3/probe.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \brief Probe to translate from a TraceSource to two more easily parsed TraceSources.
@@ -55,9 +56,9 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId ();
-  ApplicationPacketProbe ();
-  virtual ~ApplicationPacketProbe ();
+  static TypeId GetTypeId();
+  ApplicationPacketProbe();
+  virtual ~ApplicationPacketProbe();
 
   /**
    * \brief Set a probe value
@@ -65,7 +66,7 @@ public:
    * \param packet set the traced packet equal to this
    * \param address set the socket address for the traced packet equal to this
    */
-  void SetValue (Ptr<const Packet> packet, const Address& address);
+  void SetValue(Ptr<const Packet> packet, const Address &address);
 
   /**
    * \brief Set a probe value by its name in the Config system
@@ -74,7 +75,7 @@ public:
    * \param packet set the traced packet equal to this
    * \param address set the socket address for the traced packet equal to this
    */
-  static void SetValueByPath (std::string path, Ptr<const Packet> packet, const Address& address);
+  static void SetValueByPath(std::string path, Ptr<const Packet> packet, const Address &address);
 
   /**
    * \brief connect to a trace source attribute provided by a given object
@@ -83,7 +84,7 @@ public:
    * \param obj ns3::Object to connect to
    * \return true if the trace source was successfully connected
    */
-  virtual bool ConnectByObject (std::string traceSource, Ptr<Object> obj);
+  virtual bool ConnectByObject(std::string traceSource, Ptr<Object> obj);
 
   /**
    * \brief connect to a trace source provided by a config path
@@ -93,7 +94,7 @@ public:
    * Note, if an invalid path is provided, the probe will not be connected
    * to anything.
    */
-  virtual void ConnectByPath (std::string path);
+  virtual void ConnectByPath(std::string path);
 
 private:
   /**
@@ -104,10 +105,10 @@ private:
    * \param address the socket address for the traced packet
    *
    */
-  void TraceSink (Ptr<const Packet> packet, const Address& address);
+  void TraceSink(Ptr<const Packet> packet, const Address &address);
 
   /// Output trace, packet and source address
-  TracedCallback<Ptr<const Packet>, const Address&> m_output;
+  TracedCallback<Ptr<const Packet>, const Address &> m_output;
   /// Output trace, previous packet size and current packet size
   TracedCallback<uint32_t, uint32_t> m_outputBytes;
 
@@ -120,7 +121,6 @@ private:
   /// The size of the traced packet.
   uint32_t m_packetSizeOld;
 };
-
 
 } // namespace ns3
 

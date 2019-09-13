@@ -24,7 +24,8 @@
 #include <vector>
 #include "ns3/node.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \brief keep track of a set of node pointers.
@@ -39,12 +40,12 @@ class NodeContainer
 {
 public:
   /// Node container iterator
-  typedef std::vector<Ptr<Node> >::const_iterator Iterator;
+  typedef std::vector<Ptr<Node>>::const_iterator Iterator;
 
   /**
    * Create an empty NodeContainer.
    */
-  NodeContainer ();
+  NodeContainer();
 
   /**
    * Create a NodeContainer with exactly one node which has been previously
@@ -52,7 +53,7 @@ public:
    *
    * \param node The Ptr<Node> to add to the container.
    */
-  NodeContainer (Ptr<Node> node);
+  NodeContainer(Ptr<Node> node);
 
   /**
    * Create a NodeContainer with exactly one node which has been previously 
@@ -61,7 +62,7 @@ public:
    *
    * \param nodeName The name of the Node Object to add to the container.
    */
-  NodeContainer (std::string nodeName);
+  NodeContainer(std::string nodeName);
 
   /**
    * Create a node container which is a concatenation of two input
@@ -78,7 +79,7 @@ public:
    * one may provide optionally provide arguments of Ptr<Node> to these 
    * constructors.
    */
-  NodeContainer (const NodeContainer &a, const NodeContainer &b);
+  NodeContainer(const NodeContainer &a, const NodeContainer &b);
 
   /**
    * Create a node container which is a concatenation of three input
@@ -96,7 +97,7 @@ public:
    * one may provide optionally provide arguments of Ptr<Node> to these 
    * constructors.
    */
-  NodeContainer (const NodeContainer &a, const NodeContainer &b, const NodeContainer &c);
+  NodeContainer(const NodeContainer &a, const NodeContainer &b, const NodeContainer &c);
 
   /**
    * Create a node container which is a concatenation of four input
@@ -115,7 +116,7 @@ public:
    * one may provide optionally provide arguments of Ptr<Node> to these 
    * constructors.
    */
-  NodeContainer (const NodeContainer &a, const NodeContainer &b, const NodeContainer &c, const NodeContainer &d);
+  NodeContainer(const NodeContainer &a, const NodeContainer &b, const NodeContainer &c, const NodeContainer &d);
 
   /**
    * Create a node container which is a concatenation of five input
@@ -135,8 +136,8 @@ public:
    * one may provide optionally provide arguments of Ptr<Node> to these 
    * constructors.
    */
-  NodeContainer (const NodeContainer &a, const NodeContainer &b, const NodeContainer &c, const NodeContainer &d,
-                 const NodeContainer &e);
+  NodeContainer(const NodeContainer &a, const NodeContainer &b, const NodeContainer &c, const NodeContainer &d,
+                const NodeContainer &e);
 
   /**
    * \brief Get an iterator which refers to the first Node in the 
@@ -157,7 +158,7 @@ public:
    *
    * \returns an iterator which refers to the first Node in the container.
    */
-  Iterator Begin (void) const;
+  Iterator Begin(void) const;
 
   /**
    * \brief Get an iterator which indicates past-the-last Node in the 
@@ -178,7 +179,7 @@ public:
    *
    * \returns an iterator which indicates an ending condition for a loop.
    */
-  Iterator End (void) const;
+  Iterator End(void) const;
 
   /**
    * \brief Get the number of Ptr<Node> stored in this container.
@@ -200,7 +201,7 @@ public:
    *
    * \returns the number of Ptr<Node> stored in this container.
    */
-  uint32_t GetN (void) const;
+  uint32_t GetN(void) const;
 
   /**
    * \brief Get the Ptr<Node> stored in this container at a given
@@ -223,7 +224,7 @@ public:
    * \param i the index of the requested node pointer.
    * \returns the requested node pointer.
    */
-  Ptr<Node> Get (uint32_t i) const;
+  Ptr<Node> Get(uint32_t i) const;
 
   /**
    * \brief Create n nodes and append pointers to them to the end of this 
@@ -235,7 +236,7 @@ public:
    *
    * \param n The number of Nodes to create
    */
-  void Create (uint32_t n);
+  void Create(uint32_t n);
 
   /**
    * \brief Create n nodes with specified systemId for distributed simulations 
@@ -249,7 +250,7 @@ public:
    * \param n The number of Nodes to create
    * \param systemId The system id or rank associated with this node
    */
-  void Create (uint32_t n, uint32_t systemId);
+  void Create(uint32_t n, uint32_t systemId);
 
   /**
    * \brief Append the contents of another NodeContainer to the end of
@@ -257,14 +258,14 @@ public:
    *
    * \param other The NodeContainer to append.
    */
-  void Add (NodeContainer other);
+  void Add(NodeContainer other);
 
   /**
    * \brief Append a single Ptr<Node> to this container.
    *
    * \param node The Ptr<Node> to append.
    */
-  void Add (Ptr<Node> node);
+  void Add(Ptr<Node> node);
 
   /**
    * \brief Append to this container the single Ptr<Node> referred to
@@ -272,7 +273,7 @@ public:
    *
    * \param nodeName The name of the Node Object to add to the container.
    */
-  void Add (std::string nodeName);
+  void Add(std::string nodeName);
 
   /**
    * \brief Create a NodeContainer that contains a list of _all_ nodes
@@ -286,7 +287,7 @@ public:
    *
    * \returns a NoceContainer which contains a list of all Nodes.
    */
-  static NodeContainer GetGlobal (void);
+  static NodeContainer GetGlobal(void);
 
   /**
    * \brief Return true if container contains a Node with index id
@@ -294,10 +295,10 @@ public:
    * \return whether the NodeContainer contains a node with index id
    * \param id Node Id
    */
-  bool Contains (uint32_t id) const;
+  bool Contains(uint32_t id) const;
 
 private:
-  std::vector<Ptr<Node> > m_nodes; //!< Nodes smart pointers
+  std::vector<Ptr<Node>> m_nodes; //!< Nodes smart pointers
 };
 
 } // namespace ns3

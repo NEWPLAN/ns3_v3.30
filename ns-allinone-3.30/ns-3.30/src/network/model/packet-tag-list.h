@@ -29,7 +29,8 @@
 #include <ostream>
 #include "ns3/type-id.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class Tag;
 
@@ -120,7 +121,7 @@ class Tag;
  *       shared. This portion is copied before the #Remove or #Replace is
  *       performed.
  */
-class PacketTagList 
+class PacketTagList
 {
 public:
   /**
@@ -140,17 +141,17 @@ public:
    */
   struct TagData
   {
-    struct TagData * next;      /**< Pointer to next in list */
-    uint32_t count;             /**< Number of incoming links */
-    TypeId tid;                 /**< Type of the tag serialized into #data */
-    uint32_t size;              /**< Size of the \c data buffer */
-    uint8_t data[1];            /**< Serialization buffer */
-  };  /* struct TagData */
+    struct TagData *next; /**< Pointer to next in list */
+    uint32_t count;       /**< Number of incoming links */
+    TypeId tid;           /**< Type of the tag serialized into #data */
+    uint32_t size;        /**< Size of the \c data buffer */
+    uint8_t data[1];      /**< Serialization buffer */
+  };                      /* struct TagData */
 
   /**
    * Create a new PacketTagList.
    */
-  inline PacketTagList ();
+  inline PacketTagList();
   /**
    * Copy constructor
    *
@@ -159,7 +160,7 @@ public:
    * This makes a light-weight copy by #RemoveAll, then
    * pointing to the same \ref TagData as \pname{o}.
    */
-  inline PacketTagList (PacketTagList const &o);
+  inline PacketTagList(PacketTagList const &o);
   /**
    * Assignment
    *
@@ -169,20 +170,20 @@ public:
    * This makes a light-weight copy by #RemoveAll, then
    * pointing to the same \ref TagData as \pname{o}.
    */
-  inline PacketTagList &operator = (PacketTagList const &o);
+  inline PacketTagList &operator=(PacketTagList const &o);
   /**
    * Destructor
    *
    * #RemoveAll's the tags up to the first merge.
    */
-  inline ~PacketTagList ();
+  inline ~PacketTagList();
 
   /**
    * Add a tag to the head of this branch.
    *
    * \param [in] tag The tag to add
    */
-  void Add (Tag const&tag) const;
+  void Add(Tag const &tag) const;
   /**
    * Remove (the first instance of) tag from the list.
    *
@@ -190,7 +191,7 @@ public:
    *          \pname{tag} is set to the value of the tag found.
    * \returns True if \pname{tag} is found, false otherwise.
    */
-  bool Remove (Tag &tag);
+  bool Remove(Tag &tag);
   /**
    * Replace the value of a tag.
    *
@@ -200,7 +201,7 @@ public:
    *        If \pname{tag} wasn't found, Add is performed instead (so
    *        the list is guaranteed to have the new tag value either way).
    */
-  bool Replace (Tag &tag);
+  bool Replace(Tag &tag);
   /**
    * Find a tag and return its value.
    *
@@ -208,15 +209,15 @@ public:
    *          \pname{tag} is set to the value of the tag found.
    * \returns True if \pname{tag} is found, false otherwise.
    */
-  bool Peek (Tag &tag) const;
+  bool Peek(Tag &tag) const;
   /**
    * Remove all tags from this list (up to the first merge).
    */
-  inline void RemoveAll (void);
+  inline void RemoveAll(void);
   /**
    * \returns pointer to head of tag list
    */
-  const struct PacketTagList::TagData *Head (void) const;
+  const struct PacketTagList::TagData *Head(void) const;
 
 private:
   /**
@@ -226,9 +227,8 @@ private:
    * \param [in] dataSize The serialized size of the Tag.
    * \returns The newly constructed TagData object.
    */
-  static
-  TagData * CreateTagData (size_t dataSize);
-  
+  static TagData *CreateTagData(size_t dataSize);
+
   /**
    * Typedef of method function pointer for copy-on-write operations
    *
@@ -240,9 +240,8 @@ private:
    *          pointing to \pname{cur}.
    * \returns True if operation successful, false otherwise
    */
-  typedef bool (PacketTagList::*COWWriter)
-    (Tag       & tag, bool         preMerge,
-    struct TagData * cur, struct TagData ** prevNext);
+  typedef bool (PacketTagList::*COWWriter)(Tag &tag, bool preMerge,
+                                           struct TagData *cur, struct TagData **prevNext);
   /**
    * Traverse the list implementing copy-on-write, using \pname{Writer}.
    *
@@ -250,7 +249,7 @@ private:
    * \param [in] Writer The copy-on-write function to use.
    * \returns True if \pname{tag} found, false otherwise.
    */
-  bool COWTraverse   (Tag & tag, PacketTagList::COWWriter Writer);
+  bool COWTraverse(Tag &tag, PacketTagList::COWWriter Writer);
   /**
    * Copy-on-write implementing Remove.
    *
@@ -262,8 +261,8 @@ private:
    *          pointing to \pname{cur}.
    * \returns True, since tag will definitely be removed.
    */
-  bool RemoveWriter  (Tag & tag, bool preMerge,
-                      struct TagData * cur, struct TagData ** prevNext);
+  bool RemoveWriter(Tag &tag, bool preMerge,
+                    struct TagData *cur, struct TagData **prevNext);
   /**
    * Copy-on-write implementing Replace
    *
@@ -275,8 +274,8 @@ private:
    *          pointing to \pname{cur}.
    * \returns True, since tag value will definitely be replaced.
    */
-  bool ReplaceWriter (Tag & tag, bool preMerge,
-                      struct TagData * cur, struct TagData ** prevNext);
+  bool ReplaceWriter(Tag &tag, bool preMerge,
+                     struct TagData *cur, struct TagData **prevNext);
 
   /**
    * Pointer to first \ref TagData on the list
@@ -290,67 +289,67 @@ private:
  *  Implementation of inline methods for performance
  ****************************************************/
 
-namespace ns3 {
+namespace ns3
+{
 
-PacketTagList::PacketTagList ()
-  : m_next ()
+PacketTagList::PacketTagList()
+    : m_next()
 {
 }
 
-PacketTagList::PacketTagList (PacketTagList const &o)
-  : m_next (o.m_next)
+PacketTagList::PacketTagList(PacketTagList const &o)
+    : m_next(o.m_next)
 {
   if (m_next != 0)
-    {
-      m_next->count++;
-    }
+  {
+    m_next->count++;
+  }
 }
 
 PacketTagList &
-PacketTagList::operator = (PacketTagList const &o)
+PacketTagList::operator=(PacketTagList const &o)
 {
   // self assignment
-  if (m_next == o.m_next) 
-    {
-      return *this;
-    }
-  RemoveAll ();
+  if (m_next == o.m_next)
+  {
+    return *this;
+  }
+  RemoveAll();
   m_next = o.m_next;
-  if (m_next != 0) 
-    {
-      m_next->count++;
-    }
+  if (m_next != 0)
+  {
+    m_next->count++;
+  }
   return *this;
 }
 
-PacketTagList::~PacketTagList ()
+PacketTagList::~PacketTagList()
 {
-  RemoveAll ();
+  RemoveAll();
 }
 
-void
-PacketTagList::RemoveAll (void)
+void PacketTagList::RemoveAll(void)
 {
   struct TagData *prev = 0;
   for (struct TagData *cur = m_next; cur != 0; cur = cur->next)
+  {
+    cur->count--;
+    if (cur->count > 0)
     {
-      cur->count--;
-      if (cur->count > 0) 
-        {
-          break;
-        }
-      if (prev != 0) 
-        {
-          prev->~TagData ();
-          std::free (prev);
-        }
-      prev = cur;
+      break;
     }
-  if (prev != 0) 
+    if (prev != 0)
     {
-      prev->~TagData ();
-      std::free (prev);
+      prev->~TagData();
+      std::free(prev);
     }
+    prev = cur;
+  }
+  if (prev != 0)
+  {
+    prev->~TagData();
+    std::free(prev);
+  }
   m_next = 0;
 }
 

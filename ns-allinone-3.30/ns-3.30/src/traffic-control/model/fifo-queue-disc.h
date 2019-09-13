@@ -23,7 +23,8 @@
 
 #include "ns3/queue-disc.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup traffic-control
@@ -31,31 +32,32 @@ namespace ns3 {
  * Simple queue disc implementing the FIFO (First-In First-Out) policy.
  *
  */
-class FifoQueueDisc : public QueueDisc {
+class FifoQueueDisc : public QueueDisc
+{
 public:
   /**
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
   /**
    * \brief FifoQueueDisc constructor
    *
    * Creates a queue with a depth of 1000 packets by default
    */
-  FifoQueueDisc ();
+  FifoQueueDisc();
 
   virtual ~FifoQueueDisc();
 
   // Reasons for dropping packets
-  static constexpr const char* LIMIT_EXCEEDED_DROP = "Queue disc limit exceeded";  //!< Packet dropped due to queue disc limit exceeded
+  static constexpr const char *LIMIT_EXCEEDED_DROP = "Queue disc limit exceeded"; //!< Packet dropped due to queue disc limit exceeded
 
 private:
-  virtual bool DoEnqueue (Ptr<QueueDiscItem> item);
-  virtual Ptr<QueueDiscItem> DoDequeue (void);
-  virtual Ptr<const QueueDiscItem> DoPeek (void);
-  virtual bool CheckConfig (void);
-  virtual void InitializeParams (void);
+  virtual bool DoEnqueue(Ptr<QueueDiscItem> item);
+  virtual Ptr<QueueDiscItem> DoDequeue(void);
+  virtual Ptr<const QueueDiscItem> DoPeek(void);
+  virtual bool CheckConfig(void);
+  virtual void InitializeParams(void);
 };
 
 } // namespace ns3

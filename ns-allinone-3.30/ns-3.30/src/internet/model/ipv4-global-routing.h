@@ -29,7 +29,8 @@
 #include "ns3/ipv4-routing-protocol.h"
 #include "ns3/random-variable-stream.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class Packet;
 class NetDevice;
@@ -39,7 +40,6 @@ class Ipv4Header;
 class Ipv4RoutingTableEntry;
 class Ipv4MulticastRoutingTableEntry;
 class Node;
-
 
 /**
  * \ingroup ipv4
@@ -75,7 +75,7 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
   /**
    * \brief Construct an empty Ipv4GlobalRouting routing protocol,
    *
@@ -84,21 +84,21 @@ public:
    *
    * \see Ipv4GlobalRouting
    */
-  Ipv4GlobalRouting ();
-  virtual ~Ipv4GlobalRouting ();
+  Ipv4GlobalRouting();
+  virtual ~Ipv4GlobalRouting();
 
   // These methods inherited from base class
-  virtual Ptr<Ipv4Route> RouteOutput (Ptr<Packet> p, const Ipv4Header &header, Ptr<NetDevice> oif, Socket::SocketErrno &sockerr);
+  virtual Ptr<Ipv4Route> RouteOutput(Ptr<Packet> p, const Ipv4Header &header, Ptr<NetDevice> oif, Socket::SocketErrno &sockerr);
 
-  virtual bool RouteInput  (Ptr<const Packet> p, const Ipv4Header &header, Ptr<const NetDevice> idev,
-                            UnicastForwardCallback ucb, MulticastForwardCallback mcb,
-                            LocalDeliverCallback lcb, ErrorCallback ecb);
-  virtual void NotifyInterfaceUp (uint32_t interface);
-  virtual void NotifyInterfaceDown (uint32_t interface);
-  virtual void NotifyAddAddress (uint32_t interface, Ipv4InterfaceAddress address);
-  virtual void NotifyRemoveAddress (uint32_t interface, Ipv4InterfaceAddress address);
-  virtual void SetIpv4 (Ptr<Ipv4> ipv4);
-  virtual void PrintRoutingTable (Ptr<OutputStreamWrapper> stream, Time::Unit unit = Time::S) const;
+  virtual bool RouteInput(Ptr<const Packet> p, const Ipv4Header &header, Ptr<const NetDevice> idev,
+                          UnicastForwardCallback ucb, MulticastForwardCallback mcb,
+                          LocalDeliverCallback lcb, ErrorCallback ecb);
+  virtual void NotifyInterfaceUp(uint32_t interface);
+  virtual void NotifyInterfaceDown(uint32_t interface);
+  virtual void NotifyAddAddress(uint32_t interface, Ipv4InterfaceAddress address);
+  virtual void NotifyRemoveAddress(uint32_t interface, Ipv4InterfaceAddress address);
+  virtual void SetIpv4(Ptr<Ipv4> ipv4);
+  virtual void PrintRoutingTable(Ptr<OutputStreamWrapper> stream, Time::Unit unit = Time::S) const;
 
   /**
    * \brief Add a host route to the global routing table.
@@ -110,9 +110,9 @@ public:
    *
    * \see Ipv4Address
    */
-  void AddHostRouteTo (Ipv4Address dest, 
-                       Ipv4Address nextHop, 
-                       uint32_t interface);
+  void AddHostRouteTo(Ipv4Address dest,
+                      Ipv4Address nextHop,
+                      uint32_t interface);
   /**
    * \brief Add a host route to the global routing table.
    *
@@ -122,8 +122,8 @@ public:
    *
    * \see Ipv4Address
    */
-  void AddHostRouteTo (Ipv4Address dest, 
-                       uint32_t interface);
+  void AddHostRouteTo(Ipv4Address dest,
+                      uint32_t interface);
 
   /**
    * \brief Add a network route to the global routing table.
@@ -136,10 +136,10 @@ public:
    *
    * \see Ipv4Address
    */
-  void AddNetworkRouteTo (Ipv4Address network, 
-                          Ipv4Mask networkMask, 
-                          Ipv4Address nextHop, 
-                          uint32_t interface);
+  void AddNetworkRouteTo(Ipv4Address network,
+                         Ipv4Mask networkMask,
+                         Ipv4Address nextHop,
+                         uint32_t interface);
 
   /**
    * \brief Add a network route to the global routing table.
@@ -151,9 +151,9 @@ public:
    *
    * \see Ipv4Address
    */
-  void AddNetworkRouteTo (Ipv4Address network, 
-                          Ipv4Mask networkMask, 
-                          uint32_t interface);
+  void AddNetworkRouteTo(Ipv4Address network,
+                         Ipv4Mask networkMask,
+                         uint32_t interface);
 
   /**
    * \brief Add an external route to the global routing table.
@@ -164,10 +164,10 @@ public:
    * \param interface The network interface index used to send packets to the
    * destination.
    */
-  void AddASExternalRouteTo (Ipv4Address network,
-                             Ipv4Mask networkMask,
-                             Ipv4Address nextHop,
-                             uint32_t interface);
+  void AddASExternalRouteTo(Ipv4Address network,
+                            Ipv4Mask networkMask,
+                            Ipv4Address nextHop,
+                            uint32_t interface);
 
   /**
    * \brief Get the number of individual unicast routes that have been added
@@ -176,7 +176,7 @@ public:
    * \warning The default route counts as one of the routes.
    * \returns the number of routes
    */
-  uint32_t GetNRoutes (void) const;
+  uint32_t GetNRoutes(void) const;
 
   /**
    * \brief Get a route from the global unicast routing table.
@@ -198,7 +198,7 @@ public:
    * \see Ipv4RoutingTableEntry
    * \see Ipv4GlobalRouting::RemoveRoute
    */
-  Ipv4RoutingTableEntry *GetRoute (uint32_t i) const;
+  Ipv4RoutingTableEntry *GetRoute(uint32_t i) const;
 
   /**
    * \brief Remove a route from the global unicast routing table.
@@ -216,7 +216,7 @@ public:
    * \see Ipv4GlobalRouting::GetRoute
    * \see Ipv4GlobalRouting::AddRoute
    */
-  void RemoveRoute (uint32_t i);
+  void RemoveRoute(uint32_t i);
 
   /**
    * Assign a fixed random variable stream number to the random variables
@@ -226,17 +226,17 @@ public:
    * \param stream first stream index to use
    * \return the number of stream indices assigned by this model
    */
-  int64_t AssignStreams (int64_t stream);
+  int64_t AssignStreams(int64_t stream);
 
 protected:
-  void DoDispose (void);
+  void DoDispose(void);
 
 private:
   /// Set to true if packets are randomly routed among ECMP; set to false for using only one route consistently
   bool m_randomEcmpRouting;
-  /// Set to true if this interface should respond to interface events by globallly recomputing routes 
+  /// Set to true if this interface should respond to interface events by globallly recomputing routes
   bool m_respondToInterfaceEvents;
-  /// A uniform random number generator for randomly routing packets among ECMP 
+  /// A uniform random number generator for randomly routing packets among ECMP
   Ptr<UniformRandomVariable> m_rand;
 
   /// container of Ipv4RoutingTableEntry (routes to hosts)
@@ -266,7 +266,7 @@ private:
    * \param oif output interface if any (put 0 otherwise)
    * \return Ipv4Route to route the packet to reach dest address
    */
-  Ptr<Ipv4Route> LookupGlobal (Ipv4Address dest, Ptr<NetDevice> oif = 0);
+  Ptr<Ipv4Route> LookupGlobal(Ipv4Address dest, Ptr<NetDevice> oif = 0);
 
   HostRoutes m_hostRoutes;             //!< Routes to hosts
   NetworkRoutes m_networkRoutes;       //!< Routes to networks

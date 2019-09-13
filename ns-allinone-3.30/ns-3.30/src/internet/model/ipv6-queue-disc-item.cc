@@ -21,103 +21,100 @@
 #include "ns3/tcp-header.h"
 #include "ns3/udp-header.h"
 
-namespace ns3 {
+namespace ns3
+{
 
-NS_LOG_COMPONENT_DEFINE ("Ipv6QueueDiscItem");
+NS_LOG_COMPONENT_DEFINE("Ipv6QueueDiscItem");
 
-Ipv6QueueDiscItem::Ipv6QueueDiscItem (Ptr<Packet> p, const Address& addr,
-                                      uint16_t protocol, const Ipv6Header & header)
-  : QueueDiscItem (p, addr, protocol),
-    m_header (header),
-    m_headerAdded (false)
+Ipv6QueueDiscItem::Ipv6QueueDiscItem(Ptr<Packet> p, const Address &addr,
+                                     uint16_t protocol, const Ipv6Header &header)
+    : QueueDiscItem(p, addr, protocol),
+      m_header(header),
+      m_headerAdded(false)
 {
 }
 
-Ipv6QueueDiscItem::~Ipv6QueueDiscItem ()
+Ipv6QueueDiscItem::~Ipv6QueueDiscItem()
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
 }
 
-uint32_t Ipv6QueueDiscItem::GetSize (void) const
+uint32_t Ipv6QueueDiscItem::GetSize(void) const
 {
-  NS_LOG_FUNCTION (this);
-  Ptr<Packet> p = GetPacket ();
-  NS_ASSERT (p != 0);
-  uint32_t ret = p->GetSize ();
+  NS_LOG_FUNCTION(this);
+  Ptr<Packet> p = GetPacket();
+  NS_ASSERT(p != 0);
+  uint32_t ret = p->GetSize();
   if (!m_headerAdded)
-    {
-      ret += m_header.GetSerializedSize ();
-    }
+  {
+    ret += m_header.GetSerializedSize();
+  }
   return ret;
 }
 
-const Ipv6Header&
-Ipv6QueueDiscItem::GetHeader (void) const
+const Ipv6Header &
+Ipv6QueueDiscItem::GetHeader(void) const
 {
   return m_header;
 }
 
-void Ipv6QueueDiscItem::AddHeader (void)
+void Ipv6QueueDiscItem::AddHeader(void)
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
 
-  NS_ASSERT_MSG (!m_headerAdded, "The header has been already added to the packet");
-  Ptr<Packet> p = GetPacket ();
-  NS_ASSERT (p != 0);
-  p->AddHeader (m_header);
+  NS_ASSERT_MSG(!m_headerAdded, "The header has been already added to the packet");
+  Ptr<Packet> p = GetPacket();
+  NS_ASSERT(p != 0);
+  p->AddHeader(m_header);
   m_headerAdded = true;
 }
 
-void
-Ipv6QueueDiscItem::Print (std::ostream& os) const
+void Ipv6QueueDiscItem::Print(std::ostream &os) const
 {
   if (!m_headerAdded)
-    {
-      os << m_header << " ";
-    }
-  os << GetPacket () << " "
-     << "Dst addr " << GetAddress () << " "
-     << "proto " << (uint16_t) GetProtocol () << " "
-     << "txq " << (uint8_t) GetTxQueueIndex ()
-  ;
+  {
+    os << m_header << " ";
+  }
+  os << GetPacket() << " "
+     << "Dst addr " << GetAddress() << " "
+     << "proto " << (uint16_t)GetProtocol() << " "
+     << "txq " << (uint8_t)GetTxQueueIndex();
 }
 
-bool
-Ipv6QueueDiscItem::Mark (void)
+bool Ipv6QueueDiscItem::Mark(void)
 {
-  NS_LOG_FUNCTION (this);
-  if (!m_headerAdded && m_header.GetEcn () != Ipv6Header::ECN_NotECT)
-    {
-      m_header.SetEcn (Ipv6Header::ECN_CE);
-      return true;
-    }
+  NS_LOG_FUNCTION(this);
+  if (!m_headerAdded && m_header.GetEcn() != Ipv6Header::ECN_NotECT)
+  {
+    m_header.SetEcn(Ipv6Header::ECN_CE);
+    return true;
+  }
   return false;
 }
 
-bool
-Ipv6QueueDiscItem::GetUint8Value (QueueItem::Uint8Values field, uint8_t& value) const
+bool Ipv6QueueDiscItem::GetUint8Value(QueueItem::Uint8Values field, uint8_t &value) const
 {
   bool ret = false;
 
   switch (field)
-    {
-    case IP_DSFIELD:
-      value = m_header.GetTrafficClass ();
-      ret = true;
-      break;
-    }
+  {
+  case IP_DSFIELD:
+    value = m_header.GetTrafficClass();
+    ret = true;
+    break;
+  }
 
   return ret;
 }
 
 uint32_t
-Ipv6QueueDiscItem::Hash (uint32_t perturbation) const
+Ipv6QueueDiscItem::Hash(uint32_t perturbation) const
 {
-  NS_LOG_FUNCTION (this << perturbation);
+  NS_LOG_FUNCTION(this << perturbation);
 
-  Ipv6Address src = m_header.GetSourceAddress ();
-  Ipv6Address dest = m_header.GetDestinationAddress ();
-  uint8_t prot = m_header.GetNextHeader ();
+  Ipv6Address src = m_header.GetSourceAddress();
+  Ipv6Address dest = m_header.GetDestinationAddress();
+  uint8_t prot = m_header.GetNextHeader();
 
   TcpHeader tcpHdr;
   UdpHeader udpHdr;
@@ -125,26 +122,26 @@ Ipv6QueueDiscItem::Hash (uint32_t perturbation) const
   uint16_t destPort = 0;
 
   if (prot == 6) // TCP
-    {
-      GetPacket ()->PeekHeader (tcpHdr);
-      srcPort = tcpHdr.GetSourcePort ();
-      destPort = tcpHdr.GetDestinationPort ();
-    }
+  {
+    GetPacket()->PeekHeader(tcpHdr);
+    srcPort = tcpHdr.GetSourcePort();
+    destPort = tcpHdr.GetDestinationPort();
+  }
   else if (prot == 17) // UDP
-    {
-      GetPacket ()->PeekHeader (udpHdr);
-      srcPort = udpHdr.GetSourcePort ();
-      destPort = udpHdr.GetDestinationPort ();
-    }
+  {
+    GetPacket()->PeekHeader(udpHdr);
+    srcPort = udpHdr.GetSourcePort();
+    destPort = udpHdr.GetDestinationPort();
+  }
   if (prot != 6 && prot != 17)
-    {
-      NS_LOG_WARN ("Unknown transport protocol, no port number included in hash computation");
-    }
+  {
+    NS_LOG_WARN("Unknown transport protocol, no port number included in hash computation");
+  }
 
   /* serialize the 5-tuple and the perturbation in buf */
   uint8_t buf[41];
-  src.Serialize (buf);
-  dest.Serialize (buf + 16);
+  src.Serialize(buf);
+  dest.Serialize(buf + 16);
   buf[32] = prot;
   buf[33] = (srcPort >> 8) & 0xff;
   buf[34] = srcPort & 0xff;
@@ -157,9 +154,9 @@ Ipv6QueueDiscItem::Hash (uint32_t perturbation) const
 
   // Linux calculates jhash2 (jenkins hash), we calculate murmur3 because it is
   // already available in ns-3
-  uint32_t hash = Hash32 ((char*) buf, 41);
+  uint32_t hash = Hash32((char *)buf, 41);
 
-  NS_LOG_DEBUG ("Found Ipv6 packet; hash of the five tuple " << hash);
+  NS_LOG_DEBUG("Found Ipv6 packet; hash of the five tuple " << hash);
 
   return hash;
 }

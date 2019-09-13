@@ -24,8 +24,8 @@
 
 #include "topology-reader.h"
 
-namespace ns3 {
-
+namespace ns3
+{
 
 // ------------------------------------------------------------
 // --------------------------------------------
@@ -50,10 +50,10 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId.
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
-  InetTopologyReader ();
-  virtual ~InetTopologyReader ();
+  InetTopologyReader();
+  virtual ~InetTopologyReader();
 
   /**
    * \brief Main topology reading function.
@@ -67,7 +67,7 @@ public:
    *
    * \return The container of the nodes created (or empty container if there was an error)
    */
-  virtual NodeContainer Read (void);
+  virtual NodeContainer Read(void);
 
 private:
   /**
@@ -75,20 +75,19 @@ private:
    *
    * Defined and unimplemented to avoid misuse.
    */
-  InetTopologyReader (const InetTopologyReader&);
+  InetTopologyReader(const InetTopologyReader &);
   /**
    * \brief Copy constructor
    *
    * Defined and unimplemented to avoid misuse.
    * \returns
    */
-  InetTopologyReader& operator= (const InetTopologyReader&);
+  InetTopologyReader &operator=(const InetTopologyReader &);
 
   // end class InetTopologyReader
 };
 
 // end namespace ns3
-};
-
+}; // namespace ns3
 
 #endif /* INET_TOPOLOGY_READER_H */

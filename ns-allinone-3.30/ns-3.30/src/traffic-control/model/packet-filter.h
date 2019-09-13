@@ -21,7 +21,8 @@
 
 #include "ns3/object.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class QueueDiscItem;
 
@@ -31,16 +32,17 @@ class QueueDiscItem;
  * PacketFilter is the abstract base class for filters used by queue discs
  * to classify packets.
  */
-class PacketFilter: public Object {
+class PacketFilter : public Object
+{
 public:
   /**
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
-  PacketFilter ();
-  virtual ~PacketFilter ();
+  PacketFilter();
+  virtual ~PacketFilter();
 
   /**
    * Standard value used by packet filters to indicate that no match was possible.
@@ -56,7 +58,7 @@ public:
    * as item or the item does not match the filter conditions, the configured return
    * value otherwise.
    */
-  int32_t Classify (Ptr<QueueDiscItem> item) const;
+  int32_t Classify(Ptr<QueueDiscItem> item) const;
 
 private:
   /**
@@ -65,7 +67,7 @@ private:
    * \param item an example item to check.
    * \return true if this filter is able to classify packets.
    */
-  virtual bool CheckProtocol (Ptr<QueueDiscItem> item) const = 0;
+  virtual bool CheckProtocol(Ptr<QueueDiscItem> item) const = 0;
 
   /**
    * \brief Classify a packet.
@@ -75,7 +77,7 @@ private:
    * \return -1 if the item does not match the filter conditions, or the configured
    * return value otherwise.
    */
-  virtual int32_t DoClassify (Ptr<QueueDiscItem> item) const = 0;
+  virtual int32_t DoClassify(Ptr<QueueDiscItem> item) const = 0;
 };
 
 } // namespace ns3

@@ -24,7 +24,8 @@
 #include "ns3/header.h"
 #include "ns3/mac48-address.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup wifi
@@ -32,50 +33,50 @@ namespace ns3 {
 class AmsduSubframeHeader : public Header
 {
 public:
-  AmsduSubframeHeader ();
-  virtual ~AmsduSubframeHeader ();
+  AmsduSubframeHeader();
+  virtual ~AmsduSubframeHeader();
 
   /**
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
-  TypeId GetInstanceTypeId (void) const;
-  void Print (std::ostream &os) const;
-  uint32_t GetSerializedSize (void) const;
-  void Serialize (Buffer::Iterator start) const;
-  uint32_t Deserialize (Buffer::Iterator start);
+  static TypeId GetTypeId(void);
+  TypeId GetInstanceTypeId(void) const;
+  void Print(std::ostream &os) const;
+  uint32_t GetSerializedSize(void) const;
+  void Serialize(Buffer::Iterator start) const;
+  uint32_t Deserialize(Buffer::Iterator start);
 
   /**
    * Set destination address function
    * \param to the destination MAC address
    */
-  void SetDestinationAddr (Mac48Address to);
+  void SetDestinationAddr(Mac48Address to);
   /**
    * Set source address function
    * \param to the source MAC address
    */
-  void SetSourceAddr (Mac48Address to);
+  void SetSourceAddr(Mac48Address to);
   /**
    * Set length function
    * \param length the length
    */
-  void SetLength (uint16_t length);
+  void SetLength(uint16_t length);
   /**
    * Get destination address function
    * \returns the destination MAC address
    */
-  Mac48Address GetDestinationAddr (void) const;
+  Mac48Address GetDestinationAddr(void) const;
   /**
    * Get source address function
    * \returns the source MAC address
    */
-  Mac48Address GetSourceAddr (void) const;
+  Mac48Address GetSourceAddr(void) const;
   /**
    * Get length function
    * \returns the length
    */
-  uint16_t GetLength (void) const;
+  uint16_t GetLength(void) const;
 
 private:
   Mac48Address m_da; ///< destination address

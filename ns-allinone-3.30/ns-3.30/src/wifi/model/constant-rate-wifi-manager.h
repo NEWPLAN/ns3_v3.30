@@ -23,7 +23,8 @@
 
 #include "wifi-remote-station-manager.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup wifi
@@ -39,27 +40,26 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
-  ConstantRateWifiManager ();
-  virtual ~ConstantRateWifiManager ();
-
+  static TypeId GetTypeId(void);
+  ConstantRateWifiManager();
+  virtual ~ConstantRateWifiManager();
 
 private:
   //overridden from base class
-  WifiRemoteStation* DoCreateStation (void) const;
-  void DoReportRxOk (WifiRemoteStation *station,
-                     double rxSnr, WifiMode txMode);
-  void DoReportRtsFailed (WifiRemoteStation *station);
-  void DoReportDataFailed (WifiRemoteStation *station);
-  void DoReportRtsOk (WifiRemoteStation *station,
-                      double ctsSnr, WifiMode ctsMode, double rtsSnr);
-  void DoReportDataOk (WifiRemoteStation *station,
-                       double ackSnr, WifiMode ackMode, double dataSnr);
-  void DoReportFinalRtsFailed (WifiRemoteStation *station);
-  void DoReportFinalDataFailed (WifiRemoteStation *station);
-  WifiTxVector DoGetDataTxVector (WifiRemoteStation *station);
-  WifiTxVector DoGetRtsTxVector (WifiRemoteStation *station);
-  bool IsLowLatency (void) const;
+  WifiRemoteStation *DoCreateStation(void) const;
+  void DoReportRxOk(WifiRemoteStation *station,
+                    double rxSnr, WifiMode txMode);
+  void DoReportRtsFailed(WifiRemoteStation *station);
+  void DoReportDataFailed(WifiRemoteStation *station);
+  void DoReportRtsOk(WifiRemoteStation *station,
+                     double ctsSnr, WifiMode ctsMode, double rtsSnr);
+  void DoReportDataOk(WifiRemoteStation *station,
+                      double ackSnr, WifiMode ackMode, double dataSnr);
+  void DoReportFinalRtsFailed(WifiRemoteStation *station);
+  void DoReportFinalDataFailed(WifiRemoteStation *station);
+  WifiTxVector DoGetDataTxVector(WifiRemoteStation *station);
+  WifiTxVector DoGetRtsTxVector(WifiRemoteStation *station);
+  bool IsLowLatency(void) const;
 
   WifiMode m_dataMode; //!< Wifi mode for unicast DATA frames
   WifiMode m_ctlMode;  //!< Wifi mode for RTS frames

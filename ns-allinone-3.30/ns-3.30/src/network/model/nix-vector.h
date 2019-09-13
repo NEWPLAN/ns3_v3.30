@@ -25,7 +25,8 @@
 #include "ns3/simple-ref-count.h"
 #include "ns3/buffer.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup packet
@@ -63,24 +64,24 @@ namespace ns3 {
 class NixVector : public SimpleRefCount<NixVector>
 {
 public:
-  NixVector ();
-  ~NixVector ();
+  NixVector();
+  ~NixVector();
   /**
    * \return a copy of this nix-vector
    */
-  Ptr<NixVector> Copy (void) const;
+  Ptr<NixVector> Copy(void) const;
   /**
    * \param o the NixVector to copy to a new NixVector
    *          using a constructor
    */
-  NixVector (const NixVector &o);
+  NixVector(const NixVector &o);
   /**
    * \return a reference to the assignee
    *
    * \param o the NixVector to copy to a new NixVector using the
    *          equals operator
    */
-  NixVector &operator = (const NixVector &o);
+  NixVector &operator=(const NixVector &o);
   /**
    * \param newBits the neighbor-index to be added to the vector
    * \param numberOfBits the number of bits that newBits contains
@@ -93,7 +94,7 @@ public:
    * entry of a nix-vector at a time.  This is reasonable, since 32
    * bits gives you 2^32 possible neighbors.
    */
-  void AddNeighborIndex (uint32_t newBits, uint32_t numberOfBits);
+  void AddNeighborIndex(uint32_t newBits, uint32_t numberOfBits);
   /**
    * \return the neighbor index
    *
@@ -107,16 +108,16 @@ public:
    * entry of a nix-vector at a time.  This is reasonable, since 32
    * bits gives you 2^32 possible neighbors.
    */
-  uint32_t ExtractNeighborIndex (uint32_t numberOfBits);
+  uint32_t ExtractNeighborIndex(uint32_t numberOfBits);
   /**
    * \return number of bits remaining in the
    *         nix-vector (ie m_total - m_used)
    */
-  uint32_t GetRemainingBits (void);
+  uint32_t GetRemainingBits(void);
   /**
    * \return the number of bytes required for serialization
    */
-  uint32_t GetSerializedSize (void) const;
+  uint32_t GetSerializedSize(void) const;
   /**
    * \return zero if buffer not large enough
    *
@@ -127,7 +128,7 @@ public:
    * This nix-vector is serialized into the raw character
    * buffer parameter.
    */
-  uint32_t Serialize (uint32_t* buffer, uint32_t maxSize) const;
+  uint32_t Serialize(uint32_t *buffer, uint32_t maxSize) const;
   /**
    * \return zero if a complete nix-vector is not deserialized
    *
@@ -138,7 +139,7 @@ public:
    * The raw character buffer containing all the nix-vector
    * information is deserialized into this nix-vector.
    */
-  uint32_t Deserialize (const uint32_t* buffer, uint32_t size);
+  uint32_t Deserialize(const uint32_t *buffer, uint32_t size);
   /**
    * \return number of bits of numberOfNeighbors
    *
@@ -148,8 +149,7 @@ public:
    * numberOfNeighbors so that this value can be passed in to
    * AddNeighborIndex or ExtractNeighborIndex.
    */
-  uint32_t BitCount (uint32_t numberOfNeighbors) const;
-
+  uint32_t BitCount(uint32_t numberOfNeighbors) const;
 
 private:
   /// Typedef: the NixVector bits storage.
@@ -161,7 +161,7 @@ private:
    * \param os the output stream
    */
   /* for printing of nix-vector */
-  void DumpNixVector (std::ostream &os) const;
+  void DumpNixVector(std::ostream &os) const;
 
   /**
    * \brief Stream insertion operator.
@@ -170,10 +170,10 @@ private:
    * \param nix the Nixvector
    * \returns a reference to the stream
    */
-  friend std::ostream & operator << ( std::ostream &os, const NixVector &nix);
+  friend std::ostream &operator<<(std::ostream &os, const NixVector &nix);
 
   NixBits_t m_nixVector; //!< the actual nix-vector
-  uint32_t m_used; //!< For tracking where we are in the nix-vector
+  uint32_t m_used;       //!< For tracking where we are in the nix-vector
 
   /**
    * For tracking how many bits we
@@ -195,7 +195,7 @@ private:
    * \param bitCount bit counter
    * \param os output stream
    */
-  void PrintDec2BinNixFill (uint32_t decimalNum, uint32_t bitCount, std::ostream &os) const;
+  void PrintDec2BinNixFill(uint32_t decimalNum, uint32_t bitCount, std::ostream &os) const;
 
   /**
    * Internal for pretty printing of nix-vector (no fill)
@@ -203,7 +203,7 @@ private:
    * \param bitCount bit counter
    * \param os output stream
    */
-  void PrintDec2BinNix (uint32_t decimalNum, uint32_t bitCount, std::ostream &os) const;
+  void PrintDec2BinNix(uint32_t decimalNum, uint32_t bitCount, std::ostream &os) const;
 };
 } // namespace ns3
 

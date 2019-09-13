@@ -26,7 +26,8 @@
 #include "ns3/ipv4-address.h"
 #include "ipv4-interface.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class Ipv4EndPoint;
 
@@ -42,7 +43,8 @@ class Ipv4EndPoint;
  * sits between ns3's layer four and the socket layer
  */
 
-class Ipv4EndPointDemux {
+class Ipv4EndPointDemux
+{
 public:
   /**
    * \brief Container of the IPv4 endpoints.
@@ -54,21 +56,21 @@ public:
    */
   typedef std::list<Ipv4EndPoint *>::iterator EndPointsI;
 
-  Ipv4EndPointDemux ();
-  ~Ipv4EndPointDemux ();
+  Ipv4EndPointDemux();
+  ~Ipv4EndPointDemux();
 
   /**
    * \brief Get the entire list of end points registered.
    * \return list of Ipv4EndPoint
    */
-  EndPoints GetAllEndPoints (void);
+  EndPoints GetAllEndPoints(void);
 
   /**
    * \brief Lookup for port local.
    * \param port port to test
    * \return true if a port local is in EndPoints, false otherwise
    */
-  bool LookupPortLocal (uint16_t port);
+  bool LookupPortLocal(uint16_t port);
 
   /**
    * \brief Lookup for address and port.
@@ -77,7 +79,7 @@ public:
    * \param port port to test
    * \return true if there is a match in EndPoints, false otherwise
    */
-  bool LookupLocal (Ptr<NetDevice> boundNetDevice, Ipv4Address addr, uint16_t port);
+  bool LookupLocal(Ptr<NetDevice> boundNetDevice, Ipv4Address addr, uint16_t port);
 
   /**
    * \brief lookup for a match with all the parameters.
@@ -97,11 +99,11 @@ public:
    * \param incomingInterface the incoming interface
    * \return list of IPv4EndPoints (could be 0 element)
    */
-  EndPoints Lookup (Ipv4Address daddr, 
-                    uint16_t dport, 
-                    Ipv4Address saddr, 
-                    uint16_t sport,
-                    Ptr<Ipv4Interface> incomingInterface);
+  EndPoints Lookup(Ipv4Address daddr,
+                   uint16_t dport,
+                   Ipv4Address saddr,
+                   uint16_t sport,
+                   Ptr<Ipv4Interface> incomingInterface);
 
   /**
    * \brief simple lookup for a match with all the parameters.
@@ -111,23 +113,23 @@ public:
    * \param sport source port to test
    * \return IPv4EndPoint (0 if not found)
    */
-  Ipv4EndPoint *SimpleLookup (Ipv4Address daddr, 
-                              uint16_t dport, 
-                              Ipv4Address saddr, 
-                              uint16_t sport);
+  Ipv4EndPoint *SimpleLookup(Ipv4Address daddr,
+                             uint16_t dport,
+                             Ipv4Address saddr,
+                             uint16_t sport);
 
   /**
    * \brief Allocate a Ipv4EndPoint.
    * \return an empty Ipv4EndPoint instance
    */
-  Ipv4EndPoint *Allocate (void);
+  Ipv4EndPoint *Allocate(void);
 
   /**
    * \brief Allocate a Ipv4EndPoint.
    * \param address IPv4 address
    * \return an Ipv4EndPoint instance
    */
-  Ipv4EndPoint *Allocate (Ipv4Address address);
+  Ipv4EndPoint *Allocate(Ipv4Address address);
 
   /**
    * \brief Allocate a Ipv4EndPoint.
@@ -135,7 +137,7 @@ public:
    * \param port local port
    * \return an Ipv4EndPoint instance
    */
-  Ipv4EndPoint *Allocate (Ptr<NetDevice> boundNetDevice, uint16_t port);
+  Ipv4EndPoint *Allocate(Ptr<NetDevice> boundNetDevice, uint16_t port);
 
   /**
    * \brief Allocate a Ipv4EndPoint.
@@ -144,7 +146,7 @@ public:
    * \param port local port
    * \return an Ipv4EndPoint instance
    */
-  Ipv4EndPoint *Allocate (Ptr<NetDevice> boundNetDevice, Ipv4Address address, uint16_t port);
+  Ipv4EndPoint *Allocate(Ptr<NetDevice> boundNetDevice, Ipv4Address address, uint16_t port);
 
   /**
    * \brief Allocate a Ipv4EndPoint.
@@ -155,23 +157,22 @@ public:
    * \param peerPort peer port
    * \return an Ipv4EndPoint instance
    */
-  Ipv4EndPoint *Allocate (Ptr<NetDevice> boundNetDevice,
-                          Ipv4Address localAddress, uint16_t localPort,
-                          Ipv4Address peerAddress, uint16_t peerPort);
+  Ipv4EndPoint *Allocate(Ptr<NetDevice> boundNetDevice,
+                         Ipv4Address localAddress, uint16_t localPort,
+                         Ipv4Address peerAddress, uint16_t peerPort);
 
   /**
    * \brief Remove a end point.
    * \param endPoint the end point to remove
    */
-  void DeAllocate (Ipv4EndPoint *endPoint);
+  void DeAllocate(Ipv4EndPoint *endPoint);
 
 private:
-
   /**
    * \brief Allocate an ephemeral port.
    * \returns the ephemeral port
    */
-  uint16_t AllocateEphemeralPort (void);
+  uint16_t AllocateEphemeralPort(void);
 
   /**
    * \brief The ephemeral port.

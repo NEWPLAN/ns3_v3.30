@@ -28,7 +28,8 @@
 #include "ns3/net-device-container.h"
 #include "ipv6-interface-container.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup ipv6Helpers
@@ -85,7 +86,7 @@ public:
   /**
    * \brief Constructor.
    */
-  Ipv6AddressHelper ();
+  Ipv6AddressHelper();
 
   /**
    * \brief Constructor.
@@ -93,8 +94,8 @@ public:
    * \param prefix The prefix
    * \param base The base interface ID
    */
-  Ipv6AddressHelper (Ipv6Address network, Ipv6Prefix prefix,  
-                     Ipv6Address base = Ipv6Address ("::1"));
+  Ipv6AddressHelper(Ipv6Address network, Ipv6Prefix prefix,
+                    Ipv6Address base = Ipv6Address("::1"));
 
   /**
    * \brief Set the base network number, network prefix, and base interface ID
@@ -103,8 +104,8 @@ public:
    * \param prefix The prefix
    * \param base The base interface ID
    */
-  void SetBase (Ipv6Address network, Ipv6Prefix prefix,
-                Ipv6Address base = Ipv6Address ("::1"));
+  void SetBase(Ipv6Address network, Ipv6Prefix prefix,
+               Ipv6Address base = Ipv6Address("::1"));
 
   /**
    * \brief Allocate a new network.
@@ -113,7 +114,7 @@ public:
    * network IDs, and resets the interface ID to the previously used
    * base.
    */
-  void NewNetwork (void);
+  void NewNetwork(void);
 
   /**
    * \brief Allocate a new Ipv6Address.
@@ -125,7 +126,7 @@ public:
    * \param addr address used to generate the interface ID of the IPv6 address
    * \return newly created Ipv6Address
    */
-  Ipv6Address NewAddress (Address addr);
+  Ipv6Address NewAddress(Address addr);
 
   /**
    * \brief Allocate a new Ipv6Address with interface ID equal to the
@@ -133,14 +134,14 @@ public:
    *
    * \return newly created Ipv6Address
    */
-  Ipv6Address NewAddress (void);
+  Ipv6Address NewAddress(void);
 
   /**
    * \brief Allocate an Ipv6InterfaceContainer with auto-assigned addresses.
    * \param c netdevice container
    * \return newly created Ipv6InterfaceContainer
    */
-  Ipv6InterfaceContainer Assign (const NetDeviceContainer &c);
+  Ipv6InterfaceContainer Assign(const NetDeviceContainer &c);
 
   /**
    * \brief Allocate an Ipv6InterfaceContainer, and control whether the 
@@ -152,7 +153,7 @@ public:
    *        false : no automatic address
    * \return newly created Ipv6InterfaceContainer
    */
-  Ipv6InterfaceContainer Assign (const NetDeviceContainer &c, std::vector<bool> withConfiguration);
+  Ipv6InterfaceContainer Assign(const NetDeviceContainer &c, std::vector<bool> withConfiguration);
 
   /**
    * \brief Allocate an Ipv6InterfaceContainer but do not assign any IPv6 addresses
@@ -165,7 +166,7 @@ public:
    * \param c netdevice container
    * \return newly created Ipv6InterfaceContainer
    */
-  Ipv6InterfaceContainer AssignWithoutAddress (const NetDeviceContainer &c);
+  Ipv6InterfaceContainer AssignWithoutAddress(const NetDeviceContainer &c);
 
 private:
   Ipv6Address m_network; //!< network address
@@ -177,4 +178,3 @@ private:
 } /* namespace ns3 */
 
 #endif /* IPV6_ADDRESS_STATIC_H */
-

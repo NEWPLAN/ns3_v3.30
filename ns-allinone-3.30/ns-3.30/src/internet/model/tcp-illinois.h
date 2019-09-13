@@ -31,7 +31,8 @@
 #include "ns3/tcp-congestion-ops.h"
 #include "ns3/tcp-recovery-ops.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup congestionOps
@@ -111,21 +112,21 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
   /**
    * Create an unbound tcp socket.
    */
-  TcpIllinois (void);
+  TcpIllinois(void);
 
   /**
    * \brief Copy constructor
    * \param sock the object to copy
    */
-  TcpIllinois (const TcpIllinois& sock);
-  virtual ~TcpIllinois (void);
+  TcpIllinois(const TcpIllinois &sock);
+  virtual ~TcpIllinois(void);
 
-  virtual std::string GetName () const;
+  virtual std::string GetName() const;
 
   /**
    * \brief Get slow start threshold after congestion event
@@ -135,10 +136,10 @@ public:
    *
    * \return the slow start threshold value
    */
-  virtual uint32_t GetSsThresh (Ptr<const TcpSocketState> tcb,
-                                uint32_t bytesInFlight);
+  virtual uint32_t GetSsThresh(Ptr<const TcpSocketState> tcb,
+                               uint32_t bytesInFlight);
 
-  virtual Ptr<TcpCongestionOps> Fork ();
+  virtual Ptr<TcpCongestionOps> Fork();
 
   /**
     * \brief Reset Illinois parameters to default values upon a loss
@@ -146,8 +147,8 @@ public:
     * \param tcb internal congestion state
     * \param newState new congestion state to which the TCP is going to switch
     */
-  virtual void CongestionStateSet (Ptr<TcpSocketState> tcb,
-                                   const TcpSocketState::TcpCongState_t newState);
+  virtual void CongestionStateSet(Ptr<TcpSocketState> tcb,
+                                  const TcpSocketState::TcpCongState_t newState);
 
   /**
    * \brief Adjust cwnd following Illinois congestion avoidance algorithm
@@ -155,7 +156,7 @@ public:
    * \param tcb internal congestion state
    * \param segmentsAcked count of segments ACKed
    */
-  virtual void IncreaseWindow (Ptr<TcpSocketState> tcb, uint32_t segmentsAcked);
+  virtual void IncreaseWindow(Ptr<TcpSocketState> tcb, uint32_t segmentsAcked);
 
   /**
    * \brief Measure RTT for each ACK
@@ -165,8 +166,8 @@ public:
    * \param segmentsAcked count of segments ACKed
    * \param rtt last RTT
    */
-  virtual void PktsAcked (Ptr<TcpSocketState> tcb, uint32_t segmentsAcked,
-                          const Time& rtt);
+  virtual void PktsAcked(Ptr<TcpSocketState> tcb, uint32_t segmentsAcked,
+                         const Time &rtt);
 
 protected:
 private:
@@ -175,7 +176,7 @@ private:
    *
    * \param cWnd current Cwnd (in bytes)
    */
-  void RecalcParam (uint32_t cWnd);
+  void RecalcParam(uint32_t cWnd);
 
   /**
    * \brief Calculate additive increase factor alpha
@@ -187,7 +188,7 @@ private:
    * \param dm maximum average queueing delay
    *
    */
-  void CalculateAlpha (double da, double dm);
+  void CalculateAlpha(double da, double dm);
 
   /**
    * \brief Calculate multiplicative decrease factor beta
@@ -202,28 +203,28 @@ private:
    * \param dm maximum average queueing delay
    *
    */
-  void CalculateBeta (double da, double dm);
+  void CalculateBeta(double da, double dm);
 
   /**
    * \brief Calculate average queueing delay
    *
    * \return average queueing delay da
    */
-  Time CalculateAvgDelay () const;
+  Time CalculateAvgDelay() const;
 
   /**
    * \brief Calculate maximum queueing delay
    *
    * \return maximum average queueing delay dm
    */
-  Time CalculateMaxDelay () const;
+  Time CalculateMaxDelay() const;
 
   /**
    * \brief Reset Illinois parameters
    *
    * \param nextTxSequence Next sequence to transmit
    */
-  void Reset (const SequenceNumber32 &nextTxSequence);
+  void Reset(const SequenceNumber32 &nextTxSequence);
 
 private:
   Time m_sumRtt;             //!< Sum of all RTT measurements during last RTT
@@ -244,7 +245,6 @@ private:
   uint32_t m_winThresh;      //!< Window threshold for adaptive sizing
   uint32_t m_theta;          //!< Number of RTTs required before setting alpha to its max
   uint32_t m_ackCnt;         //!< Number of received ACK
-
 };
 
 } // namespace ns3

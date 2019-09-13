@@ -51,157 +51,157 @@ public:
    * \param validLifeTime the valid life time
    * \param router if it the prefix that configure the default gateway
    */
-  Ipv6AutoconfiguredPrefix (Ptr<Node> node, uint32_t interface, Ipv6Address prefix, Ipv6Prefix mask, uint32_t preferredLifeTime, uint32_t validLifeTime, Ipv6Address router = Ipv6Address ("::"));
+  Ipv6AutoconfiguredPrefix(Ptr<Node> node, uint32_t interface, Ipv6Address prefix, Ipv6Prefix mask, uint32_t preferredLifeTime, uint32_t validLifeTime, Ipv6Address router = Ipv6Address("::"));
 
   /**
    * \brief Destructor.
    */
-  ~Ipv6AutoconfiguredPrefix ();
+  ~Ipv6AutoconfiguredPrefix();
 
   /**
    * \brief Set the default gateway router.
    * \param router IPv6 link-local address of the default router
    */
-  void SetDefaultGatewayRouter (Ipv6Address router);
+  void SetDefaultGatewayRouter(Ipv6Address router);
 
   /**
    * \brief Get the default gateway address.
    * \return IPv6 link-local address of the default router
    */
-  Ipv6Address GetDefaultGatewayRouter () const;
+  Ipv6Address GetDefaultGatewayRouter() const;
 
   /**
    * \brief Get the interface index.
    * \return interface index
    */
-  uint32_t GetInterface () const;
+  uint32_t GetInterface() const;
 
   /**
    * \brief Set the interface.
    * \param interface interface index to set
    */
-  void SetInterface (uint32_t interface);
+  void SetInterface(uint32_t interface);
 
   /**
    * \brief Get the prefix preferred life time.
    * \return preferred life time
    */
-  uint32_t GetPreferredLifeTime () const;
+  uint32_t GetPreferredLifeTime() const;
 
   /**
    * \brief Set the prefix preferred life time.
    * \param p the prefix preferred life time
    */
-  void SetPreferredLifeTime (uint32_t p);
+  void SetPreferredLifeTime(uint32_t p);
 
   /**
    * \brief Get the prefix valid life time.
    * \return valid life time
    */
-  uint32_t GetValidLifeTime (void) const;
+  uint32_t GetValidLifeTime(void) const;
 
   /**
    * \brief Set the prefix valid life time.
    * \param v the prefix valid life time
    */
-  void SetValidLifeTime (uint32_t v);
+  void SetValidLifeTime(uint32_t v);
 
   /**
    * \brief Test if the prefix is preferred.
    * \return true if prefix is in preferred state, false otherwise
    */
-  bool IsPreferred () const;
+  bool IsPreferred() const;
 
   /**
    * \brief Test if the prefix is valid.
    * \return true if prefix is in valid state, false otherwise
    */
-  bool IsValid () const;
+  bool IsValid() const;
 
   /**
    * \brief Set the prefix as preferred.
    */
-  void SetPreferred ();
+  void SetPreferred();
 
   /**
    * \brief Set the prefix as valid.
    */
-  void SetValid ();
+  void SetValid();
 
   /**
    * \brief Start the preferred timer.
    */
-  void StartPreferredTimer ();
+  void StartPreferredTimer();
 
   /**
    * \brief Start the valid timer.
    */
-  void StartValidTimer ();
+  void StartValidTimer();
 
   /**
    * \brief Stop the preferred timer.
    */
-  void StopPreferredTimer ();
+  void StopPreferredTimer();
 
   /**
    * \brief Stop the valid timer.
    */
-  void StopValidTimer ();
+  void StopValidTimer();
 
   /**
    * \brief Set the prefix as preferred.
    */
-  void MarkPreferredTime ();
+  void MarkPreferredTime();
 
   /**
    * \brief Set the prefix as valid.
    */
-  void MarkValidTime ();
+  void MarkValidTime();
 
   /**
    * \brief Signal that the preferred time expired and start the valid timer.
    */
-  void FunctionPreferredTimeout ();
+  void FunctionPreferredTimeout();
 
   /**
    * \brief Signal that the valid time expired.
    */
-  void FunctionValidTimeout ();
+  void FunctionValidTimeout();
 
   /**
    * \brief Remove this prefix from the prefix list.
    */
-  void RemoveMe ();
+  void RemoveMe();
 
   /**
    * \brief Get the prefix identifier.
    * \return id of the prefix.
    */
-  uint32_t GetId () const;
+  uint32_t GetId() const;
 
   /**
    * \brief Get the prefix address.
    * \return prefix address
    */
-  Ipv6Address GetPrefix () const;
+  Ipv6Address GetPrefix() const;
 
   /**
    * \brief Set the prefix address.
    * \param prefix prefix address to set
    */
-  void SetPrefix (Ipv6Address prefix);
+  void SetPrefix(Ipv6Address prefix);
 
   /**
    * \brief Get the bitmask prefix.
    * \return bitmask prefix
    */
-  Ipv6Prefix GetMask () const;
+  Ipv6Prefix GetMask() const;
 
   /**
    * \brief Set the bitmask prefix.
    * \param mask prefix
    */
-  void SetMask (Ipv6Prefix mask);
+  void SetMask(Ipv6Prefix mask);
 
 private:
   /**
@@ -278,4 +278,3 @@ private:
 } /* namespace ns3 */
 
 #endif /* IPV6_AUTOCONFIGURED_PREFIX_H */
-

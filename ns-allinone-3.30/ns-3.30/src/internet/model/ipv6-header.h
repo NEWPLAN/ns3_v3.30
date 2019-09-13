@@ -24,7 +24,8 @@
 #include "ns3/header.h"
 #include "ns3/ipv6-address.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup ipv6
@@ -43,37 +44,37 @@ public:
    * Default and Class Selector (CS) \RFC{2474}
    */
   enum DscpType
-    {
-      DscpDefault = 0x00,
+  {
+    DscpDefault = 0x00,
 
-      // Prefixed with "DSCP" to avoid name clash (bug 1723)
-      DSCP_CS1  = 0x08, // octal 010
-      DSCP_AF11 = 0x0A, // octal 012
-      DSCP_AF12 = 0x0C, // octal 014
-      DSCP_AF13 = 0x0E, // octal 016
+    // Prefixed with "DSCP" to avoid name clash (bug 1723)
+    DSCP_CS1 = 0x08,  // octal 010
+    DSCP_AF11 = 0x0A, // octal 012
+    DSCP_AF12 = 0x0C, // octal 014
+    DSCP_AF13 = 0x0E, // octal 016
 
-      DSCP_CS2  = 0x10, // octal 020
-      DSCP_AF21 = 0x12, // octal 022
-      DSCP_AF22 = 0x14, // octal 024
-      DSCP_AF23 = 0x16, // octal 026
+    DSCP_CS2 = 0x10,  // octal 020
+    DSCP_AF21 = 0x12, // octal 022
+    DSCP_AF22 = 0x14, // octal 024
+    DSCP_AF23 = 0x16, // octal 026
 
-      DSCP_CS3  = 0x18, // octal 030
-      DSCP_AF31 = 0x1A, // octal 032
-      DSCP_AF32 = 0x1C, // octal 034
-      DSCP_AF33 = 0x1E, // octal 036
+    DSCP_CS3 = 0x18,  // octal 030
+    DSCP_AF31 = 0x1A, // octal 032
+    DSCP_AF32 = 0x1C, // octal 034
+    DSCP_AF33 = 0x1E, // octal 036
 
-      DSCP_CS4  = 0x20, // octal 040
-      DSCP_AF41 = 0x22, // octal 042
-      DSCP_AF42 = 0x24, // octal 044
-      DSCP_AF43 = 0x26, // octal 046
+    DSCP_CS4 = 0x20,  // octal 040
+    DSCP_AF41 = 0x22, // octal 042
+    DSCP_AF42 = 0x24, // octal 044
+    DSCP_AF43 = 0x26, // octal 046
 
-      DSCP_CS5  = 0x28, // octal 050
-      DSCP_EF   = 0x2E, // octal 056
+    DSCP_CS5 = 0x28, // octal 050
+    DSCP_EF = 0x2E,  // octal 056
 
-      DSCP_CS6  = 0x30, // octal 060
-      DSCP_CS7  = 0x38  // octal 070
+    DSCP_CS6 = 0x30, // octal 060
+    DSCP_CS7 = 0x38  // octal 070
 
-    };
+  };
 
   /**
    * \enum NextHeader_e
@@ -102,175 +103,175 @@ public:
    * \brief Get the type identifier.
    * \return type identifier
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
   /**
    * \brief Return the instance type identifier.
    * \return instance type ID
    */
-  virtual TypeId GetInstanceTypeId (void) const;
+  virtual TypeId GetInstanceTypeId(void) const;
 
   /**
    * \brief Constructor.
    */
-  Ipv6Header (void);
+  Ipv6Header(void);
 
   /**
    * \brief Set the "Traffic class" field.
    * \param traffic the 8-bit value
    */
-  void SetTrafficClass (uint8_t traffic);
+  void SetTrafficClass(uint8_t traffic);
 
   /**
    * \brief Get the "Traffic class" field.
    * \return the traffic value
    */
-  uint8_t GetTrafficClass (void) const;
+  uint8_t GetTrafficClass(void) const;
 
   /**
    * \brief Set DSCP Field
    * \param dscp DSCP value
    */
-  void SetDscp (DscpType dscp);
+  void SetDscp(DscpType dscp);
 
   /**
    * \returns the DSCP field of this packet.
    */
-  DscpType GetDscp (void) const;
+  DscpType GetDscp(void) const;
 
   /**
    * \param dscp the dscp
    * \returns std::string of DSCPType
    */
-  std::string DscpTypeToString (DscpType dscp) const;
+  std::string DscpTypeToString(DscpType dscp) const;
 
   /**
    * \enum EcnType
    * \brief ECN field bits
    */
   enum EcnType
-   {
-     // Prefixed with "ECN" to avoid name clash
-     ECN_NotECT = 0x00,
-     ECN_ECT1 = 0x01,
-     ECN_ECT0 = 0x02,
-     ECN_CE = 0x03
-   };
+  {
+    // Prefixed with "ECN" to avoid name clash
+    ECN_NotECT = 0x00,
+    ECN_ECT1 = 0x01,
+    ECN_ECT0 = 0x02,
+    ECN_CE = 0x03
+  };
 
   /**
    * \brief Set ECN field bits
    * \param ecn ECN field bits
    */
-  void SetEcn (EcnType ecn);
+  void SetEcn(EcnType ecn);
 
   /**
    * \return the ECN field bits of this packet.
    */
-  EcnType GetEcn (void) const;
+  EcnType GetEcn(void) const;
 
   /**
    * \param ecn the ECNType
    * \return std::string of ECNType
    */
-  std::string EcnTypeToString (EcnType ecn) const;
+  std::string EcnTypeToString(EcnType ecn) const;
 
   /**
    * \brief Set the "Flow label" field.
    * \param flow the 20-bit value
    */
-  void SetFlowLabel (uint32_t flow);
+  void SetFlowLabel(uint32_t flow);
 
   /**
    * \brief Get the "Flow label" field.
    * \return the flow label value
    */
-  uint32_t GetFlowLabel (void) const;
+  uint32_t GetFlowLabel(void) const;
 
   /**
    * \brief Set the "Payload length" field.
    * \param len the length of the payload in bytes
    */
-  void SetPayloadLength (uint16_t len);
+  void SetPayloadLength(uint16_t len);
 
   /**
    * \brief Get the "Payload length" field.
    * \return the payload length
    */
-  uint16_t GetPayloadLength (void) const;
+  uint16_t GetPayloadLength(void) const;
 
   /**
    * \brief Set the "Next header" field.
    * \param next the next header number
    */
-  void SetNextHeader (uint8_t next);
+  void SetNextHeader(uint8_t next);
 
   /**
    * \brief Get the next header.
    * \return the next header number
    */
-  uint8_t GetNextHeader (void) const;
+  uint8_t GetNextHeader(void) const;
 
   /**
    * \brief Set the "Hop limit" field (TTL).
    * \param limit the 8-bit value
    */
-  void SetHopLimit (uint8_t limit);
+  void SetHopLimit(uint8_t limit);
 
   /**
    * \brief Get the "Hop limit" field (TTL).
    * \return the hop limit value
    */
-  uint8_t GetHopLimit (void) const;
+  uint8_t GetHopLimit(void) const;
 
   /**
    * \brief Set the "Source address" field.
    * \param src the source address
    */
-  void SetSourceAddress (Ipv6Address src);
+  void SetSourceAddress(Ipv6Address src);
 
   /**
    * \brief Get the "Source address" field.
    * \return the source address
    */
-  Ipv6Address GetSourceAddress (void) const;
+  Ipv6Address GetSourceAddress(void) const;
 
   /**
    * \brief Set the "Destination address" field.
    * \param dst the destination address
    */
-  void SetDestinationAddress (Ipv6Address dst);
+  void SetDestinationAddress(Ipv6Address dst);
 
   /**
    * \brief Get the "Destination address" field.
    * \return the destination address
    */
-  Ipv6Address GetDestinationAddress (void) const;
+  Ipv6Address GetDestinationAddress(void) const;
 
   /**
    * \brief Print some information about the packet.
    * \param os output stream
    * \return info about this packet
    */
-  virtual void Print (std::ostream& os) const;
+  virtual void Print(std::ostream &os) const;
 
   /**
    * \brief Get the serialized size of the packet.
    * \return size
    */
-  virtual uint32_t GetSerializedSize (void) const;
+  virtual uint32_t GetSerializedSize(void) const;
 
   /**
    * \brief Serialize the packet.
    * \param start Buffer iterator
    */
-  virtual void Serialize (Buffer::Iterator start) const;
+  virtual void Serialize(Buffer::Iterator start) const;
 
   /**
    * \brief Deserialize the packet.
    * \param start Buffer iterator
    * \return size of the packet
    */
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 
 private:
   /**
@@ -313,4 +314,3 @@ private:
 } /* namespace ns3 */
 
 #endif /* IPV6_HEADER_H */
-

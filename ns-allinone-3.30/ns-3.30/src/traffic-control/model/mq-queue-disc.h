@@ -24,7 +24,8 @@
 
 #include "ns3/queue-disc.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup traffic-control
@@ -33,32 +34,33 @@ namespace ns3 {
  * queue discs as the number of device transmission queues. Packets are
  * directly enqueued into and dequeued from child queue discs.
  */
-class MqQueueDisc : public QueueDisc {
+class MqQueueDisc : public QueueDisc
+{
 public:
   /**
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
   /**
    * \brief MqQueueDisc constructor
    */
-  MqQueueDisc ();
+  MqQueueDisc();
 
   virtual ~MqQueueDisc();
 
- /**
+  /**
    * \brief Return the wake mode adopted by this queue disc.
    * \return the wake mode adopted by this queue disc.
    */
-  WakeMode GetWakeMode (void) const;
+  WakeMode GetWakeMode(void) const;
 
 private:
-  virtual bool DoEnqueue (Ptr<QueueDiscItem> item);
-  virtual Ptr<QueueDiscItem> DoDequeue (void);
-  virtual Ptr<const QueueDiscItem> DoPeek (void);
-  virtual bool CheckConfig (void);
-  virtual void InitializeParams (void);
+  virtual bool DoEnqueue(Ptr<QueueDiscItem> item);
+  virtual Ptr<QueueDiscItem> DoDequeue(void);
+  virtual Ptr<const QueueDiscItem> DoPeek(void);
+  virtual bool CheckConfig(void);
+  virtual void InitializeParams(void);
 };
 
 } // namespace ns3

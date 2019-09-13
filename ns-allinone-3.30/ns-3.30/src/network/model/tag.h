@@ -24,7 +24,8 @@
 #include "tag-buffer.h"
 #include <stdint.h>
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup packet
@@ -40,7 +41,7 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
   /**
    * \returns the number of bytes required to serialize the data of the tag.
@@ -48,7 +49,7 @@ public:
    * This method is typically invoked by Packet::AddPacketTag or Packet::AddByteTag
    * just prior to calling Tag::Serialize.
    */
-  virtual uint32_t GetSerializedSize (void) const = 0;
+  virtual uint32_t GetSerializedSize(void) const = 0;
   /**
    * \param i the buffer to write data into.
    *
@@ -56,7 +57,7 @@ public:
    * DO NOT attempt to write more bytes than you requested
    * with Tag::GetSerializedSize.
    */
-  virtual void Serialize (TagBuffer i) const = 0;
+  virtual void Serialize(TagBuffer i) const = 0;
   /**
    * \param i the buffer to read data from.
    *
@@ -64,7 +65,7 @@ public:
    * DO NOT attempt to read more bytes than you wrote with
    * Tag::Serialize.
    */
-  virtual void Deserialize (TagBuffer i) = 0;
+  virtual void Deserialize(TagBuffer i) = 0;
 
   /**
    * \param os the stream to print to
@@ -72,7 +73,7 @@ public:
    * This method is typically invoked from the Packet::PrintByteTags
    * or Packet::PrintPacketTags methods.
    */
-  virtual void Print (std::ostream &os) const = 0;
+  virtual void Print(std::ostream &os) const = 0;
 };
 
 } // namespace ns3

@@ -21,7 +21,8 @@
 
 #include "ns3/tcp-socket-state.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup tcp
@@ -54,24 +55,24 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
-  TcpCongestionOps ();
+  TcpCongestionOps();
 
   /**
    * \brief Copy constructor.
    * \param other object to copy.
    */
-  TcpCongestionOps (const TcpCongestionOps &other);
+  TcpCongestionOps(const TcpCongestionOps &other);
 
-  virtual ~TcpCongestionOps ();
+  virtual ~TcpCongestionOps();
 
   /**
    * \brief Get the name of the congestion control algorithm
    *
    * \return A string identifying the name
    */
-  virtual std::string GetName () const = 0;
+  virtual std::string GetName() const = 0;
 
   /**
    * \brief Get the slow start threshold after a loss event
@@ -87,8 +88,8 @@ public:
    * \param bytesInFlight total bytes in flight
    * \return Slow start threshold
    */
-  virtual uint32_t GetSsThresh (Ptr<const TcpSocketState> tcb,
-                                uint32_t bytesInFlight) = 0;
+  virtual uint32_t GetSsThresh(Ptr<const TcpSocketState> tcb,
+                               uint32_t bytesInFlight) = 0;
 
   /**
    * \brief Congestion avoidance algorithm implementation
@@ -101,7 +102,7 @@ public:
    * \param tcb internal congestion state
    * \param segmentsAcked count of segments acked
    */
-  virtual void IncreaseWindow (Ptr<TcpSocketState> tcb, uint32_t segmentsAcked) = 0;
+  virtual void IncreaseWindow(Ptr<TcpSocketState> tcb, uint32_t segmentsAcked) = 0;
 
   /**
    * \brief Timing information on received ACK
@@ -115,12 +116,12 @@ public:
    * \param segmentsAcked count of segments acked
    * \param rtt last rtt
    */
-  virtual void PktsAcked (Ptr<TcpSocketState> tcb, uint32_t segmentsAcked,
-                          const Time& rtt)
+  virtual void PktsAcked(Ptr<TcpSocketState> tcb, uint32_t segmentsAcked,
+                         const Time &rtt)
   {
-    NS_UNUSED (tcb);
-    NS_UNUSED (segmentsAcked);
-    NS_UNUSED (rtt);
+    NS_UNUSED(tcb);
+    NS_UNUSED(segmentsAcked);
+    NS_UNUSED(rtt);
   }
 
   /**
@@ -132,11 +133,11 @@ public:
    * \param tcb internal congestion state
    * \param newState new congestion state to which the TCP is going to switch
    */
-  virtual void CongestionStateSet (Ptr<TcpSocketState> tcb,
-                                   const TcpSocketState::TcpCongState_t newState)
+  virtual void CongestionStateSet(Ptr<TcpSocketState> tcb,
+                                  const TcpSocketState::TcpCongState_t newState)
   {
-    NS_UNUSED (tcb);
-    NS_UNUSED (newState);
+    NS_UNUSED(tcb);
+    NS_UNUSED(newState);
   }
 
   /**
@@ -148,11 +149,11 @@ public:
    * \param tcb internal congestion state
    * \param event the event which triggered this function
    */
-  virtual void CwndEvent (Ptr<TcpSocketState> tcb,
-                          const TcpSocketState::TcpCAEvent_t event)
+  virtual void CwndEvent(Ptr<TcpSocketState> tcb,
+                         const TcpSocketState::TcpCAEvent_t event)
   {
-    NS_UNUSED (tcb);
-    NS_UNUSED (event);
+    NS_UNUSED(tcb);
+    NS_UNUSED(event);
   }
   // Present in Linux but not in ns-3 yet:
   /* call when ack arrives (optional) */
@@ -166,7 +167,7 @@ public:
    *
    * \return a pointer of the copied object
    */
-  virtual Ptr<TcpCongestionOps> Fork () = 0;
+  virtual Ptr<TcpCongestionOps> Fork() = 0;
 };
 
 /**
@@ -184,29 +185,29 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
-  TcpNewReno ();
+  TcpNewReno();
 
   /**
    * \brief Copy constructor.
    * \param sock object to copy.
    */
-  TcpNewReno (const TcpNewReno& sock);
+  TcpNewReno(const TcpNewReno &sock);
 
-  ~TcpNewReno ();
+  ~TcpNewReno();
 
-  std::string GetName () const;
+  std::string GetName() const;
 
-  virtual void IncreaseWindow (Ptr<TcpSocketState> tcb, uint32_t segmentsAcked);
-  virtual uint32_t GetSsThresh (Ptr<const TcpSocketState> tcb,
-                                uint32_t bytesInFlight);
+  virtual void IncreaseWindow(Ptr<TcpSocketState> tcb, uint32_t segmentsAcked);
+  virtual uint32_t GetSsThresh(Ptr<const TcpSocketState> tcb,
+                               uint32_t bytesInFlight);
 
-  virtual Ptr<TcpCongestionOps> Fork ();
+  virtual Ptr<TcpCongestionOps> Fork();
 
 protected:
-  virtual uint32_t SlowStart (Ptr<TcpSocketState> tcb, uint32_t segmentsAcked);
-  virtual void CongestionAvoidance (Ptr<TcpSocketState> tcb, uint32_t segmentsAcked);
+  virtual uint32_t SlowStart(Ptr<TcpSocketState> tcb, uint32_t segmentsAcked);
+  virtual void CongestionAvoidance(Ptr<TcpSocketState> tcb, uint32_t segmentsAcked);
 };
 
 } // namespace ns3

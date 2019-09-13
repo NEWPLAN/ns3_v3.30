@@ -26,7 +26,8 @@
 #include "ns3/application.h"
 #include "ns3/random-variable-stream.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \brief holds a vector of ns3::Application pointers.
@@ -45,7 +46,7 @@ public:
   /**
    * Create an empty ApplicationContainer.
    */
-  ApplicationContainer ();
+  ApplicationContainer();
 
   /**
    * Create an ApplicationContainer with exactly one application which has
@@ -54,7 +55,7 @@ public:
    *
    * \param application The Ptr<Application> to add to the container.
    */
-  ApplicationContainer (Ptr<Application> application);
+  ApplicationContainer(Ptr<Application> application);
 
   /**
    * Create an ApplicationContainer with exactly one application which has
@@ -63,10 +64,10 @@ public:
    *
    * \param name The name of the Application Object to add to the container.
    */
-  ApplicationContainer (std::string name);
+  ApplicationContainer(std::string name);
 
   /// Application container iterator
-  typedef std::vector<Ptr<Application> >::const_iterator Iterator;
+  typedef std::vector<Ptr<Application>>::const_iterator Iterator;
 
   /**
    * \brief Get an iterator which refers to the first Application in the 
@@ -87,7 +88,7 @@ public:
    *
    * \returns an iterator which refers to the first Application in the container.
    */
-  Iterator Begin (void) const;
+  Iterator Begin(void) const;
 
   /**
    * \brief Get an iterator which indicates past-the-last Application in the 
@@ -108,7 +109,7 @@ public:
    *
    * \returns an iterator which indicates an ending condition for a loop.
    */
-  Iterator End (void) const;
+  Iterator End(void) const;
 
   /**
    * \brief Get the number of Ptr<Application> stored in this container.
@@ -130,7 +131,7 @@ public:
    *
    * \returns the number of Ptr<Application> stored in this container.
    */
-  uint32_t GetN (void) const;
+  uint32_t GetN(void) const;
 
   /**
    * \brief Get the Ptr<Application> stored in this container at a given
@@ -153,7 +154,7 @@ public:
    * \param i the index of the requested application pointer.
    * \returns the requested application pointer.
    */
-  Ptr<Application> Get (uint32_t i) const;
+  Ptr<Application> Get(uint32_t i) const;
 
   /**
    * \brief Append the contents of another ApplicationContainer to the end of
@@ -161,14 +162,14 @@ public:
    *
    * \param other The ApplicationContainer to append.
    */
-  void Add (ApplicationContainer other);
+  void Add(ApplicationContainer other);
 
   /**
    * \brief Append a single Ptr<Application> to this container.
    *
    * \param application The Ptr<Application> to append.
    */
-  void Add (Ptr<Application> application);
+  void Add(Ptr<Application> application);
 
   /**
    * \brief Append to this container the single Ptr<Application> referred to
@@ -176,7 +177,7 @@ public:
    *
    * \param name The name of the Application Object to add to the container.
    */
-  void Add (std::string name);
+  void Add(std::string name);
 
   /**
    * \brief Arrange for all of the Applications in this container to Start()
@@ -192,7 +193,7 @@ public:
    *
    * \param start The Time at which each of the applications should start.
    */
-  void Start (Time start);
+  void Start(Time start);
 
   /**
    * \brief Start all of the Applications in this container at the start time 
@@ -205,7 +206,7 @@ public:
    * \param start The Time at which each of the applications should start.
    * \param rv The random variable that adds jitter (units of seconds)
    */
-  void StartWithJitter (Time start, Ptr<RandomVariableStream> rv);
+  void StartWithJitter(Time start, Ptr<RandomVariableStream> rv);
 
   /**
    * \brief Arrange for all of the Applications in this container to Stop()
@@ -221,10 +222,10 @@ public:
    *
    * \param stop The Time at which each of the applications should stop.
    */
-  void Stop (Time stop);
+  void Stop(Time stop);
 
 private:
-  std::vector<Ptr<Application> > m_applications; //!< Applications smart pointers
+  std::vector<Ptr<Application>> m_applications; //!< Applications smart pointers
 };
 
 } // namespace ns3

@@ -50,24 +50,24 @@ public:
    * \brief Get the type identificator.
    * \return type identificator
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * \brief Destructor.
    */
-  virtual ~Ipv6Option ();
+  virtual ~Ipv6Option();
 
   /**
    * \brief Set the node.
    * \param node the node to set
    */
-  void SetNode (Ptr<Node> node);
+  void SetNode(Ptr<Node> node);
 
   /**
    * \brief Get the option number.
    * \return option number
    */
-  virtual uint8_t GetOptionNumber () const = 0;
+  virtual uint8_t GetOptionNumber() const = 0;
 
   /**
    * \brief Process method
@@ -79,7 +79,7 @@ public:
    * \param isDropped if the packet must be dropped
    * \return the processed size
    */
-  virtual uint8_t Process (Ptr<Packet> packet, uint8_t offset, Ipv6Header const& ipv6Header, bool& isDropped) = 0;
+  virtual uint8_t Process(Ptr<Packet> packet, uint8_t offset, Ipv6Header const &ipv6Header, bool &isDropped) = 0;
 
 private:
   /**
@@ -105,23 +105,23 @@ public:
    * \brief Get the type identificator.
    * \return type identificator
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * \brief Constructor.
    */
-  Ipv6OptionPad1 ();
+  Ipv6OptionPad1();
 
   /**
    * \brief Destructor.
    */
-  ~Ipv6OptionPad1 ();
+  ~Ipv6OptionPad1();
 
   /**
    * \brief Get the option number.
    * \return option number
    */
-  virtual uint8_t GetOptionNumber () const;
+  virtual uint8_t GetOptionNumber() const;
 
   /**
    * \brief Process method
@@ -133,7 +133,7 @@ public:
    * \param isDropped if the packet must be dropped
    * \return the processed size
    */
-  virtual uint8_t Process (Ptr<Packet> packet, uint8_t offset, Ipv6Header const& ipv6Header, bool& isDropped);
+  virtual uint8_t Process(Ptr<Packet> packet, uint8_t offset, Ipv6Header const &ipv6Header, bool &isDropped);
 };
 
 /**
@@ -153,23 +153,23 @@ public:
    * \brief Get the type identificator.
    * \return type identificator
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * \brief Constructor.
    */
-  Ipv6OptionPadn ();
+  Ipv6OptionPadn();
 
   /**
    * \brief Destructor.
    */
-  ~Ipv6OptionPadn ();
+  ~Ipv6OptionPadn();
 
   /**
    * \brief Get the option number.
    * \return option number
    */
-  virtual uint8_t GetOptionNumber () const;
+  virtual uint8_t GetOptionNumber() const;
 
   /**
    * \brief Process method
@@ -181,7 +181,7 @@ public:
    * \param isDropped if the packet must be dropped
    * \return the processed size
    */
-  virtual uint8_t Process (Ptr<Packet> packet, uint8_t offset, Ipv6Header const& ipv6Header, bool& isDropped);
+  virtual uint8_t Process(Ptr<Packet> packet, uint8_t offset, Ipv6Header const &ipv6Header, bool &isDropped);
 };
 
 /**
@@ -201,23 +201,23 @@ public:
    * \brief Get the type identificator.
    * \return type identificator
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * \brief Constructor.
    */
-  Ipv6OptionJumbogram ();
+  Ipv6OptionJumbogram();
 
   /**
    * \brief Destructor.
    */
-  ~Ipv6OptionJumbogram ();
+  ~Ipv6OptionJumbogram();
 
   /**
    * \brief Get the option number.
    * \return option number
    */
-  virtual uint8_t GetOptionNumber () const;
+  virtual uint8_t GetOptionNumber() const;
 
   /**
    * \brief Process method
@@ -228,7 +228,7 @@ public:
    * \param isDropped if the packet must be dropped
    * \return the processed size
    */
-  virtual uint8_t Process (Ptr<Packet> packet, uint8_t offset, Ipv6Header const& ipv6Header, bool& isDropped);
+  virtual uint8_t Process(Ptr<Packet> packet, uint8_t offset, Ipv6Header const &ipv6Header, bool &isDropped);
 };
 
 /**
@@ -248,23 +248,23 @@ public:
    * \brief Get the type identificator.
    * \return type identificator
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * \brief Constructor.
    */
-  Ipv6OptionRouterAlert ();
+  Ipv6OptionRouterAlert();
 
   /**
    * \brief Destructor.
    */
-  ~Ipv6OptionRouterAlert ();
+  ~Ipv6OptionRouterAlert();
 
   /**
    * \brief Get the option number.
    * \return option number
    */
-  virtual uint8_t GetOptionNumber () const;
+  virtual uint8_t GetOptionNumber() const;
 
   /**
    * \brief Process method
@@ -276,10 +276,9 @@ public:
    * \param isDropped if the packet must be dropped
    * \return the processed size
    */
-  virtual uint8_t Process (Ptr<Packet> packet, uint8_t offset, Ipv6Header const& ipv6Header, bool& isDropped);
+  virtual uint8_t Process(Ptr<Packet> packet, uint8_t offset, Ipv6Header const &ipv6Header, bool &isDropped);
 };
 
 } /* namespace ns3 */
 
 #endif /* IPV6_OPTION_H */
-

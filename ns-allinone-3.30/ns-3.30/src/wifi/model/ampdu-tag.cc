@@ -21,83 +21,77 @@
 
 #include "ampdu-tag.h"
 
-namespace ns3 {
+namespace ns3
+{
 
-NS_OBJECT_ENSURE_REGISTERED (AmpduTag);
+NS_OBJECT_ENSURE_REGISTERED(AmpduTag);
 
 TypeId
-AmpduTag::GetTypeId (void)
+AmpduTag::GetTypeId(void)
 {
-  static TypeId tid = TypeId ("ns3::AmpduTag")
-    .SetParent<Tag> ()
-    .SetGroupName ("Wifi")
-    .AddConstructor<AmpduTag> ()
-  ;
+  static TypeId tid = TypeId("ns3::AmpduTag")
+                          .SetParent<Tag>()
+                          .SetGroupName("Wifi")
+                          .AddConstructor<AmpduTag>();
   return tid;
 }
 
 TypeId
-AmpduTag::GetInstanceTypeId (void) const
+AmpduTag::GetInstanceTypeId(void) const
 {
-  return GetTypeId ();
+  return GetTypeId();
 }
 
-AmpduTag::AmpduTag ()
-  : m_nbOfMpdus (0),
-    m_duration (Seconds(0))
+AmpduTag::AmpduTag()
+    : m_nbOfMpdus(0),
+      m_duration(Seconds(0))
 {
 }
 
-void
-AmpduTag::SetRemainingNbOfMpdus (uint8_t nbofmpdus)
+void AmpduTag::SetRemainingNbOfMpdus(uint8_t nbofmpdus)
 {
   m_nbOfMpdus = nbofmpdus;
 }
 
-void
-AmpduTag::SetRemainingAmpduDuration (Time duration)
+void AmpduTag::SetRemainingAmpduDuration(Time duration)
 {
-  NS_ASSERT (m_duration <= MilliSeconds(10));
+  NS_ASSERT(m_duration <= MilliSeconds(10));
   m_duration = duration;
 }
 
 uint32_t
-AmpduTag::GetSerializedSize (void) const
+AmpduTag::GetSerializedSize(void) const
 {
-  return (1 + sizeof (Time));
+  return (1 + sizeof(Time));
 }
 
-void
-AmpduTag::Serialize (TagBuffer i) const
+void AmpduTag::Serialize(TagBuffer i) const
 {
-  i.WriteU8 (m_nbOfMpdus);
-  int64_t duration = m_duration.GetTimeStep ();
-  i.Write ((const uint8_t *)&duration, sizeof(int64_t));
+  i.WriteU8(m_nbOfMpdus);
+  int64_t duration = m_duration.GetTimeStep();
+  i.Write((const uint8_t *)&duration, sizeof(int64_t));
 }
 
-void
-AmpduTag::Deserialize (TagBuffer i)
+void AmpduTag::Deserialize(TagBuffer i)
 {
-  m_nbOfMpdus = i.ReadU8 ();
+  m_nbOfMpdus = i.ReadU8();
   int64_t duration;
-  i.Read ((uint8_t *)&duration, sizeof(int64_t));
-  m_duration = Time (duration);
+  i.Read((uint8_t *)&duration, sizeof(int64_t));
+  m_duration = Time(duration);
 }
 
 uint8_t
-AmpduTag::GetRemainingNbOfMpdus () const
+AmpduTag::GetRemainingNbOfMpdus() const
 {
   return m_nbOfMpdus;
 }
 
-Time
-AmpduTag::GetRemainingAmpduDuration () const
+Time AmpduTag::GetRemainingAmpduDuration() const
 {
   return m_duration;
 }
 
-void
-AmpduTag::Print (std::ostream &os) const
+void AmpduTag::Print(std::ostream &os) const
 {
   os << "Remaining number of MPDUs=" << m_nbOfMpdus
      << " Remaining A-MPDU duration=" << m_duration;

@@ -30,7 +30,8 @@
 #include "ns3/net-device-container.h"
 #include "ns3/ipv6-routing-helper.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup ipv6Helpers
@@ -46,13 +47,13 @@ public:
   /**
    * \brief Constructor.
    */
-  Ipv6StaticRoutingHelper ();
+  Ipv6StaticRoutingHelper();
 
   /**
    * \brief Construct an Ipv6ListRoutingHelper from another previously 
    * initialized instance (Copy Constructor).
    */
-  Ipv6StaticRoutingHelper (const Ipv6StaticRoutingHelper &);
+  Ipv6StaticRoutingHelper(const Ipv6StaticRoutingHelper &);
 
   /**
    * \returns pointer to clone of this Ipv6StaticRoutingHelper
@@ -60,7 +61,7 @@ public:
    * This method is mainly for internal use by the other helpers;
    * clients are expected to free the dynamic memory allocated by this method
    */
-  Ipv6StaticRoutingHelper* Copy (void) const;
+  Ipv6StaticRoutingHelper *Copy(void) const;
 
   /**
    * \param node the node on which the routing protocol will run
@@ -68,14 +69,14 @@ public:
    *
    * This method will be called by ns3::InternetStackHelper::Install
    */
-  virtual Ptr<Ipv6RoutingProtocol> Create (Ptr<Node> node) const;
+  virtual Ptr<Ipv6RoutingProtocol> Create(Ptr<Node> node) const;
 
   /**
    * \brief Get Ipv6StaticRouting pointer from IPv6 stack.
    * \param ipv6 Ipv6 pointer
    * \return Ipv6StaticRouting pointer or 0 if not found
    */
-  Ptr<Ipv6StaticRouting> GetStaticRouting (Ptr<Ipv6> ipv6) const;
+  Ptr<Ipv6StaticRouting> GetStaticRouting(Ptr<Ipv6> ipv6) const;
 
   /**
    * \brief Add a multicast route to a node and net device using explicit 
@@ -87,8 +88,8 @@ public:
    * \param input Input NetDevice.
    * \param output Output NetDevices.
    */
-  void AddMulticastRoute (Ptr<Node> n, Ipv6Address source, Ipv6Address group,
-                          Ptr<NetDevice> input, NetDeviceContainer output);
+  void AddMulticastRoute(Ptr<Node> n, Ipv6Address source, Ipv6Address group,
+                         Ptr<NetDevice> input, NetDeviceContainer output);
 
   /**
    * \brief Add a multicast route to a node and device using a name string 
@@ -101,8 +102,8 @@ public:
    * \param input Input NetDevice.
    * \param output Output NetDevices.
    */
-  void AddMulticastRoute (std::string n, Ipv6Address source, Ipv6Address group,
-                          Ptr<NetDevice> input, NetDeviceContainer output);
+  void AddMulticastRoute(std::string n, Ipv6Address source, Ipv6Address group,
+                         Ptr<NetDevice> input, NetDeviceContainer output);
 
   /**
    * \brief Add a multicast route to a node and device using a Ptr<Node> and a 
@@ -114,8 +115,8 @@ public:
    * \param inputName Input NetDevice.
    * \param output Output NetDevices.
    */
-  void AddMulticastRoute (Ptr<Node> n, Ipv6Address source, Ipv6Address group,
-                          std::string inputName, NetDeviceContainer output);
+  void AddMulticastRoute(Ptr<Node> n, Ipv6Address source, Ipv6Address group,
+                         std::string inputName, NetDeviceContainer output);
 
   /**
    * \brief Add a multicast route to a node and device using name strings
@@ -128,8 +129,8 @@ public:
    * \param inputName Input NetDevice.
    * \param output Output NetDevices.
    */
-  void AddMulticastRoute (std::string nName, Ipv6Address source, Ipv6Address group,
-                          std::string inputName, NetDeviceContainer output);
+  void AddMulticastRoute(std::string nName, Ipv6Address source, Ipv6Address group,
+                         std::string inputName, NetDeviceContainer output);
 
 #if 0
   /**
@@ -148,10 +149,9 @@ private:
    * \param o object to copy from
    * \returns a reference to the new object
    */
-  Ipv6StaticRoutingHelper &operator = (const Ipv6StaticRoutingHelper &o);
+  Ipv6StaticRoutingHelper &operator=(const Ipv6StaticRoutingHelper &o);
 };
 
 } // namespace ns3
 
 #endif /* IPV6_STATIC_ROUTING_HELPER_H */
-

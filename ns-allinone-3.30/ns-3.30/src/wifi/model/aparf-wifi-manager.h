@@ -23,7 +23,8 @@
 
 #include "wifi-remote-station-manager.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 struct AparfWifiRemoteStation;
 
@@ -49,12 +50,12 @@ public:
    * Register this type.
    * \return The object TypeId.
    */
-  static TypeId GetTypeId (void);
-  AparfWifiManager ();
-  virtual ~AparfWifiManager ();
+  static TypeId GetTypeId(void);
+  AparfWifiManager();
+  virtual ~AparfWifiManager();
 
   // Inherited from WifiRemoteStationManager
-  void SetupPhy (const Ptr<WifiPhy> phy);
+  void SetupPhy(const Ptr<WifiPhy> phy);
 
   /**
    * Enumeration of the possible states of the channel.
@@ -66,30 +67,29 @@ public:
     Spread
   };
 
-
 private:
   // Overridden from base class.
-  void DoInitialize (void);
-  WifiRemoteStation * DoCreateStation (void) const;
-  void DoReportRxOk (WifiRemoteStation *station,
-                     double rxSnr, WifiMode txMode);
-  void DoReportRtsFailed (WifiRemoteStation *station);
-  void DoReportDataFailed (WifiRemoteStation *station);
-  void DoReportRtsOk (WifiRemoteStation *station,
-                      double ctsSnr, WifiMode ctsMode, double rtsSnr);
-  void DoReportDataOk (WifiRemoteStation *station,
-                       double ackSnr, WifiMode ackMode, double dataSnr);
-  void DoReportFinalRtsFailed (WifiRemoteStation *station);
-  void DoReportFinalDataFailed (WifiRemoteStation *station);
-  WifiTxVector DoGetDataTxVector (WifiRemoteStation *station);
-  WifiTxVector DoGetRtsTxVector (WifiRemoteStation *station);
-  bool IsLowLatency (void) const;
+  void DoInitialize(void);
+  WifiRemoteStation *DoCreateStation(void) const;
+  void DoReportRxOk(WifiRemoteStation *station,
+                    double rxSnr, WifiMode txMode);
+  void DoReportRtsFailed(WifiRemoteStation *station);
+  void DoReportDataFailed(WifiRemoteStation *station);
+  void DoReportRtsOk(WifiRemoteStation *station,
+                     double ctsSnr, WifiMode ctsMode, double rtsSnr);
+  void DoReportDataOk(WifiRemoteStation *station,
+                      double ackSnr, WifiMode ackMode, double dataSnr);
+  void DoReportFinalRtsFailed(WifiRemoteStation *station);
+  void DoReportFinalDataFailed(WifiRemoteStation *station);
+  WifiTxVector DoGetDataTxVector(WifiRemoteStation *station);
+  WifiTxVector DoGetRtsTxVector(WifiRemoteStation *station);
+  bool IsLowLatency(void) const;
 
   /** Check for initializations.
    *
    * \param station The remote station.
    */
-  void CheckInit (AparfWifiRemoteStation *station);
+  void CheckInit(AparfWifiRemoteStation *station);
 
   uint32_t m_succesMax1; //!< The minimum number of successful transmissions in \"High\" state to try a new power or rate.
   uint32_t m_succesMax2; //!< The minimum number of successful transmissions in \"Low\" state to try a new power or rate.
@@ -97,8 +97,8 @@ private:
   uint32_t m_powerMax;   //!< The maximum number of power changes.
   uint8_t m_powerInc;    //!< Step size for increment the power.
   uint8_t m_powerDec;    //!< Step size for decrement the power.
-  uint8_t m_rateInc;    //!< Step size for increment the rate.
-  uint8_t m_rateDec;    //!< Step size for decrement the rate.
+  uint8_t m_rateInc;     //!< Step size for increment the rate.
+  uint8_t m_rateDec;     //!< Step size for decrement the rate.
 
   /**
    * Minimal power level.

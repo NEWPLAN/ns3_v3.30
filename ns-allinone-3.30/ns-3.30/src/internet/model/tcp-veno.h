@@ -30,7 +30,8 @@
 #include "ns3/tcp-congestion-ops.h"
 #include "ns3/tcp-recovery-ops.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup congestionOps
@@ -74,21 +75,21 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
   /**
    * Create an unbound tcp socket.
    */
-  TcpVeno (void);
+  TcpVeno(void);
 
   /**
    * \brief Copy constructor
    * \param sock the object to copy
    */
-  TcpVeno (const TcpVeno& sock);
-  virtual ~TcpVeno (void);
+  TcpVeno(const TcpVeno &sock);
+  virtual ~TcpVeno(void);
 
-  virtual std::string GetName () const;
+  virtual std::string GetName() const;
 
   /**
    * \brief Perform RTT sampling needed to execute Veno algorithm
@@ -105,8 +106,8 @@ public:
    * \param rtt last RTT
    *
    */
-  virtual void PktsAcked (Ptr<TcpSocketState> tcb, uint32_t segmentsAcked,
-                          const Time& rtt);
+  virtual void PktsAcked(Ptr<TcpSocketState> tcb, uint32_t segmentsAcked,
+                         const Time &rtt);
 
   /**
    * \brief Enable/disable Veno depending on the congestion state
@@ -116,8 +117,8 @@ public:
    * \param tcb internal congestion state
    * \param newState new congestion state to which the TCP is going to switch
    */
-  virtual void CongestionStateSet (Ptr<TcpSocketState> tcb,
-                                   const TcpSocketState::TcpCongState_t newState);
+  virtual void CongestionStateSet(Ptr<TcpSocketState> tcb,
+                                  const TcpSocketState::TcpCongState_t newState);
 
   /**
    * \brief Adjust cwnd following Veno additive increase algorithm
@@ -125,7 +126,7 @@ public:
    * \param tcb internal congestion state
    * \param segmentsAcked count of segments ACKed
    */
-  virtual void IncreaseWindow (Ptr<TcpSocketState> tcb, uint32_t segmentsAcked);
+  virtual void IncreaseWindow(Ptr<TcpSocketState> tcb, uint32_t segmentsAcked);
 
   /**
    * \brief Get slow start threshold during Veno multiplicative-decrease phase
@@ -135,10 +136,10 @@ public:
    *
    * \return the slow start threshold value
    */
-  virtual uint32_t GetSsThresh (Ptr<const TcpSocketState> tcb,
-                                uint32_t bytesInFlight);
+  virtual uint32_t GetSsThresh(Ptr<const TcpSocketState> tcb,
+                               uint32_t bytesInFlight);
 
-  virtual Ptr<TcpCongestionOps> Fork ();
+  virtual Ptr<TcpCongestionOps> Fork();
 
 protected:
 private:
@@ -152,22 +153,22 @@ private:
    * 4. when an idle connection is restarted
    *
    */
-  void EnableVeno ();
+  void EnableVeno();
 
   /**
    * \brief Turn off Veno
    */
-  void DisableVeno ();
+  void DisableVeno();
 
 private:
-  Time m_baseRtt;                    //!< Minimum of all RTT measurements seen during connection
-  Time m_minRtt;                     //!< Minimum of RTTs measured within last RTT
-  uint32_t m_cntRtt;                 //!< Number of RTT measurements during last RTT
-  bool m_doingVenoNow;               //!< If true, do Veno for this RTT
-  uint32_t m_diff;                   //!< Difference between expected and actual throughput
-  bool m_inc;                        //!< If true, cwnd needs to be incremented
-  uint32_t m_ackCnt;                 //!< Number of received ACK
-  uint32_t m_beta;                   //!< Threshold for congestion detection
+  Time m_baseRtt;      //!< Minimum of all RTT measurements seen during connection
+  Time m_minRtt;       //!< Minimum of RTTs measured within last RTT
+  uint32_t m_cntRtt;   //!< Number of RTT measurements during last RTT
+  bool m_doingVenoNow; //!< If true, do Veno for this RTT
+  uint32_t m_diff;     //!< Difference between expected and actual throughput
+  bool m_inc;          //!< If true, cwnd needs to be incremented
+  uint32_t m_ackCnt;   //!< Number of received ACK
+  uint32_t m_beta;     //!< Threshold for congestion detection
 };
 
 } // namespace ns3

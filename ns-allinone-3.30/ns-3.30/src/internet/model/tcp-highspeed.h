@@ -23,7 +23,8 @@
 #include "ns3/tcp-congestion-ops.h"
 #include "ns3/tcp-recovery-ops.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup congestionOps
@@ -52,26 +53,26 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
   /**
    * Create an unbound tcp socket.
    */
-  TcpHighSpeed (void);
+  TcpHighSpeed(void);
 
   /**
    * \brief Copy constructor
    * \param sock the object to copy
    */
-  TcpHighSpeed (const TcpHighSpeed& sock);
-  virtual ~TcpHighSpeed (void);
+  TcpHighSpeed(const TcpHighSpeed &sock);
+  virtual ~TcpHighSpeed(void);
 
-  virtual std::string GetName () const;
+  virtual std::string GetName() const;
 
-  virtual uint32_t GetSsThresh (Ptr<const TcpSocketState> tcb,
-                                uint32_t bytesInFlight);
+  virtual uint32_t GetSsThresh(Ptr<const TcpSocketState> tcb,
+                               uint32_t bytesInFlight);
 
-  virtual Ptr<TcpCongestionOps> Fork ();
+  virtual Ptr<TcpCongestionOps> Fork();
 
   /**
    * \brief Lookup table for the coefficient a (from RFC 3649)
@@ -80,7 +81,7 @@ public:
    *
    * \return the coefficient a
    */
-  static uint32_t  TableLookupA (uint32_t w);
+  static uint32_t TableLookupA(uint32_t w);
 
   /**
    * \brief Lookup table for the coefficient b (from RFC 3649)
@@ -89,10 +90,10 @@ public:
    *
    * \return the coefficient b
    */
-  static double    TableLookupB (uint32_t w);
+  static double TableLookupB(uint32_t w);
 
 protected:
-  virtual void CongestionAvoidance (Ptr<TcpSocketState> tcb, uint32_t segmentsAcked);
+  virtual void CongestionAvoidance(Ptr<TcpSocketState> tcb, uint32_t segmentsAcked);
 
 private:
   uint32_t m_ackCnt; //!< Number of received ACK, corrected with the coefficient a

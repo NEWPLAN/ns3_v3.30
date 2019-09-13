@@ -26,7 +26,8 @@
 class TcpBicIncrementTest;
 class TcpBicDecrementTest;
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup congestionOps
@@ -85,26 +86,26 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
   /**
    * \brief Constructor
    */
-  TcpBic ();
+  TcpBic();
 
   /**
    * Copy constructor.
    * \param sock The socket to copy from.
    */
-  TcpBic (const TcpBic &sock);
+  TcpBic(const TcpBic &sock);
 
-  virtual std::string GetName () const;
-  virtual void IncreaseWindow (Ptr<TcpSocketState> tcb,
-                               uint32_t segmentsAcked);
-  virtual uint32_t GetSsThresh (Ptr<const TcpSocketState> tcb,
-                                uint32_t bytesInFlight);
+  virtual std::string GetName() const;
+  virtual void IncreaseWindow(Ptr<TcpSocketState> tcb,
+                              uint32_t segmentsAcked);
+  virtual uint32_t GetSsThresh(Ptr<const TcpSocketState> tcb,
+                               uint32_t bytesInFlight);
 
-  virtual Ptr<TcpCongestionOps> Fork ();
+  virtual Ptr<TcpCongestionOps> Fork();
 
 protected:
   /**
@@ -112,7 +113,7 @@ protected:
    * \param tcb the socket state.
    * \returns The number of segments acked since the last cwnd increment.
    */
-  virtual uint32_t Update (Ptr<TcpSocketState> tcb);
+  virtual uint32_t Update(Ptr<TcpSocketState> tcb);
 
 private:
   /**
@@ -127,18 +128,18 @@ private:
   friend class ::TcpBicDecrementTest;
 
   // User parameters
-  bool     m_fastConvergence;  //!< Enable or disable fast convergence algorithm
-  double   m_beta;             //!< Beta for cubic multiplicative increase
-  uint32_t m_maxIncr;          //!< Maximum window increment
-  uint32_t m_lowWnd;           //!< Lower bound on congestion window
-  uint32_t m_smoothPart;       //!< Number of RTT needed to reach Wmax from Wmax-B
+  bool m_fastConvergence; //!< Enable or disable fast convergence algorithm
+  double m_beta;          //!< Beta for cubic multiplicative increase
+  uint32_t m_maxIncr;     //!< Maximum window increment
+  uint32_t m_lowWnd;      //!< Lower bound on congestion window
+  uint32_t m_smoothPart;  //!< Number of RTT needed to reach Wmax from Wmax-B
 
   // Bic parameters
-  uint32_t     m_cWndCnt;         //!<  cWnd integer-to-float counter
-  uint32_t     m_lastMaxCwnd;     //!<  Last maximum cWnd
-  uint32_t     m_lastCwnd;        //!<  Last cWnd
-  Time         m_epochStart;      //!<  Beginning of an epoch
-  uint8_t      m_b;               //!< Binary search coefficient
+  uint32_t m_cWndCnt;     //!<  cWnd integer-to-float counter
+  uint32_t m_lastMaxCwnd; //!<  Last maximum cWnd
+  uint32_t m_lastCwnd;    //!<  Last cWnd
+  Time m_epochStart;      //!<  Beginning of an epoch
+  uint8_t m_b;            //!< Binary search coefficient
 };
 
 } // namespace ns3

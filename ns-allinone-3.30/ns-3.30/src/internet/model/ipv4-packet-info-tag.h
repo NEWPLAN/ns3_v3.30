@@ -24,8 +24,8 @@
 #include "ns3/tag.h"
 #include "ns3/ipv4-address.h"
 
-namespace ns3 {
-
+namespace ns3
+{
 
 class Node;
 class Packet;
@@ -44,21 +44,21 @@ class Packet;
 class Ipv4PacketInfoTag : public Tag
 {
 public:
-  Ipv4PacketInfoTag ();
+  Ipv4PacketInfoTag();
 
   /**
    * \brief Set the tag's address
    *
    * \param addr the address
    */
-  void SetAddress (Ipv4Address addr);
+  void SetAddress(Ipv4Address addr);
 
   /**
    * \brief Get the tag's address
    *
    * \returns the address
    */
-  Ipv4Address GetAddress (void) const;
+  Ipv4Address GetAddress(void) const;
   /**
    * \brief Set the tag's \a local address
    *
@@ -66,7 +66,7 @@ public:
    * Implemented, but not used in the stack yet
    * \param addr the address
    */
-  void SetLocalAddress (Ipv4Address addr);
+  void SetLocalAddress(Ipv4Address addr);
   /**
    * \brief Get the tag's \a local address
    *
@@ -74,48 +74,48 @@ public:
    * Implemented, but not used in the stack yet
    * \returns the address
    */
-  Ipv4Address GetLocalAddress (void) const;
+  Ipv4Address GetLocalAddress(void) const;
 
   /**
    * \brief Set the tag's receiving interface
    *
    * \param ifindex the interface index
    */
-  void SetRecvIf (uint32_t ifindex);
+  void SetRecvIf(uint32_t ifindex);
   /**
    * \brief Get the tag's receiving interface
    *
    * \returns the interface index
    */
-  uint32_t GetRecvIf (void) const;
+  uint32_t GetRecvIf(void) const;
 
   /**
    * \brief Set the tag's Time to Live
    * Implemented, but not used in the stack yet
    * \param ttl the TTL
    */
-  void SetTtl (uint8_t ttl);
+  void SetTtl(uint8_t ttl);
   /**
    * \brief Get the tag's Time to Live
    * Implemented, but not used in the stack yet
    * \returns the TTL
    */
-  uint8_t GetTtl (void) const;
+  uint8_t GetTtl(void) const;
 
   /**
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
-  virtual TypeId GetInstanceTypeId (void) const;
-  virtual uint32_t GetSerializedSize (void) const;
-  virtual void Serialize (TagBuffer i) const;
-  virtual void Deserialize (TagBuffer i);
-  virtual void Print (std::ostream &os) const;
+  static TypeId GetTypeId(void);
+  virtual TypeId GetInstanceTypeId(void) const;
+  virtual uint32_t GetSerializedSize(void) const;
+  virtual void Serialize(TagBuffer i) const;
+  virtual void Deserialize(TagBuffer i);
+  virtual void Print(std::ostream &os) const;
 
 private:
   // Linux IP_PKTINFO ip(7) implementation
-  // 
+  //
   // struct in_pktinfo {
   //   unsigned int   ipi_ifindex;  /* Interface index */
   //   struct in_addr ipi_spec_dst; /* Local address */

@@ -23,7 +23,7 @@
 
 #include "ns3/socket-factory.h"
 
-namespace ns3 
+namespace ns3
 {
 
 class Socket;
@@ -67,10 +67,9 @@ public:
    * \brief Get the type ID of this class.
    * \return type ID
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 };
 
 } // namespace ns3
 
 #endif /* IPV6_RAW_SOCKET_FACTORY_H */
-

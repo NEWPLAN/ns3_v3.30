@@ -32,7 +32,8 @@
 #include "ip-l4-protocol.h"
 #include "ndisc-cache.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class NetDevice;
 class Node;
@@ -56,7 +57,7 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * \brief ICMPv6 protocol number (58).
@@ -67,72 +68,72 @@ public:
    * \brief Neighbor Discovery node constants: max multicast solicitations.
    * \returns The max multicast solicitations number.
    */
-  uint8_t GetMaxMulticastSolicit () const;
+  uint8_t GetMaxMulticastSolicit() const;
 
   /**
    * \brief Neighbor Discovery node constants: max unicast solicitations.
    * \returns The max unicast solicitations number.
    */
-  uint8_t GetMaxUnicastSolicit () const;
+  uint8_t GetMaxUnicastSolicit() const;
 
   /**
    * \brief Neighbor Discovery node constants: reachable time.
    * \returns The Reachable time for an Neighbor cache entry.
    */
-  Time GetReachableTime () const;
+  Time GetReachableTime() const;
 
   /**
    * \brief Neighbor Discovery node constants: retransmission timer.
    * \returns The Retransmission time for an Neighbor cache entry probe.
    */
-  Time GetRetransmissionTime () const;
+  Time GetRetransmissionTime() const;
 
   /**
    * \brief Neighbor Discovery node constants : delay for the first probe.
    * \returns The time before a first probe for an Neighbor cache entry.
    */
-  Time GetDelayFirstProbe () const;
+  Time GetDelayFirstProbe() const;
 
   /**
    * \brief Get ICMPv6 protocol number.
    * \return protocol number
    */
-  static uint16_t GetStaticProtocolNumber ();
+  static uint16_t GetStaticProtocolNumber();
 
   /**
    * \brief Constructor.
    */
-  Icmpv6L4Protocol ();
+  Icmpv6L4Protocol();
 
   /**
    * \brief Destructor.
    */
-  virtual ~Icmpv6L4Protocol ();
+  virtual ~Icmpv6L4Protocol();
 
   /**
    * \brief Set the node.
    * \param node the node to set
    */
-  void SetNode (Ptr<Node> node);
+  void SetNode(Ptr<Node> node);
 
   /**
    * \brief This method is called by AggregateObject and completes the aggregation
    * by setting the node in the ICMPv6 stack and adding ICMPv6 factory to
    * IPv6 stack connected to the node.
    */
-  void NotifyNewAggregate ();
+  void NotifyNewAggregate();
 
   /**
    * \brief Get the protocol number.
    * \return protocol number
    */
-  virtual int GetProtocolNumber () const;
+  virtual int GetProtocolNumber() const;
 
   /**
    * \brief Get the version of the protocol.
    * \return version
    */
-  virtual int GetVersion () const;
+  virtual int GetVersion() const;
 
   /**
    * \brief Send a packet via ICMPv6, note that packet already contains ICMPv6 header.
@@ -141,7 +142,7 @@ public:
    * \param dst destination address
    * \param ttl next hop limit
    */
-  void SendMessage (Ptr<Packet> packet, Ipv6Address src, Ipv6Address dst, uint8_t ttl);
+  void SendMessage(Ptr<Packet> packet, Ipv6Address src, Ipv6Address dst, uint8_t ttl);
 
   /**
    * \brief Helper function used during delayed solicitation. Calls SendMessage internally
@@ -150,7 +151,7 @@ public:
    * \param dst destination address
    * \param ttl next hop limit
    */
-  void DelayedSendMessage (Ptr<Packet> packet, Ipv6Address src, Ipv6Address dst, uint8_t ttl);
+  void DelayedSendMessage(Ptr<Packet> packet, Ipv6Address src, Ipv6Address dst, uint8_t ttl);
 
   /**
    * \brief Send a packet via ICMPv6.
@@ -160,7 +161,7 @@ public:
    * after source address is determined by routing stuff
    * \param ttl next hop limit
    */
-  void SendMessage (Ptr<Packet> packet, Ipv6Address dst, Icmpv6Header& icmpv6Hdr, uint8_t ttl);
+  void SendMessage(Ptr<Packet> packet, Ipv6Address dst, Icmpv6Header &icmpv6Hdr, uint8_t ttl);
 
   /**
    * \brief Do the Duplication Address Detection (DAD).
@@ -171,7 +172,7 @@ public:
    * \param target target address
    * \param interface interface
    */
-  void DoDAD (Ipv6Address target, Ptr<Ipv6Interface> interface);
+  void DoDAD(Ipv6Address target, Ptr<Ipv6Interface> interface);
 
   /**
    * \brief Send a Neighbor Adverstisement.
@@ -180,7 +181,7 @@ public:
    * \param hardwareAddress our MAC address
    * \param flags to set (4 = flag R, 2 = flag S, 3 = flag O)
    */
-  void SendNA (Ipv6Address src, Ipv6Address dst, Address* hardwareAddress, uint8_t flags);
+  void SendNA(Ipv6Address src, Ipv6Address dst, Address *hardwareAddress, uint8_t flags);
 
   /**
    * \brief Send a Echo Reply.
@@ -190,7 +191,7 @@ public:
    * \param seq sequence number
    * \param data auxiliary data
    */
-  void SendEchoReply (Ipv6Address src, Ipv6Address dst, uint16_t id, uint16_t seq, Ptr<Packet> data);
+  void SendEchoReply(Ipv6Address src, Ipv6Address dst, uint16_t id, uint16_t seq, Ptr<Packet> data);
 
   /**
    * \brief Send a Neighbor Solicitation.
@@ -199,7 +200,7 @@ public:
    * \param target target IPv6 address
    * \param hardwareAddress our mac address
    */
-  void SendNS (Ipv6Address src, Ipv6Address dst, Ipv6Address target, Address hardwareAddress);
+  void SendNS(Ipv6Address src, Ipv6Address dst, Ipv6Address target, Address hardwareAddress);
 
   /**
    * \brief Send an error Destination Unreachable.
@@ -207,7 +208,7 @@ public:
    * \param dst destination IPv6 address
    * \param code code of the error
    */
-  void SendErrorDestinationUnreachable (Ptr<Packet> malformedPacket, Ipv6Address dst, uint8_t code);
+  void SendErrorDestinationUnreachable(Ptr<Packet> malformedPacket, Ipv6Address dst, uint8_t code);
 
   /**
    * \brief Send an error Too Big.
@@ -215,7 +216,7 @@ public:
    * \param dst destination IPv6 address
    * \param mtu the mtu
    */
-  void SendErrorTooBig (Ptr<Packet> malformedPacket, Ipv6Address dst, uint32_t mtu);
+  void SendErrorTooBig(Ptr<Packet> malformedPacket, Ipv6Address dst, uint32_t mtu);
 
   /**
    * \brief Send an error Time Exceeded.
@@ -223,7 +224,7 @@ public:
    * \param dst destination IPv6 address
    * \param code code of the error
    */
-  void SendErrorTimeExceeded (Ptr<Packet> malformedPacket, Ipv6Address dst, uint8_t code);
+  void SendErrorTimeExceeded(Ptr<Packet> malformedPacket, Ipv6Address dst, uint8_t code);
 
   /**
    * \brief Send an error Parameter Error.
@@ -232,7 +233,7 @@ public:
    * \param code code of the error
    * \param ptr byte of p where the error is located
    */
-  void SendErrorParameterError (Ptr<Packet> malformedPacket, Ipv6Address dst, uint8_t code, uint32_t ptr);
+  void SendErrorParameterError(Ptr<Packet> malformedPacket, Ipv6Address dst, uint8_t code, uint32_t ptr);
 
   /**
    * \brief Send an ICMPv6 Redirection.
@@ -243,7 +244,7 @@ public:
    * \param redirDestination IPv6 destination address for Icmpv6Redirection
    * \param redirHardwareTarget L2 target address for Icmpv6OptionRdirected
    */
-  void SendRedirection (Ptr<Packet> redirectedPacket, Ipv6Address src, Ipv6Address dst, Ipv6Address redirTarget, Ipv6Address redirDestination, Address redirHardwareTarget);
+  void SendRedirection(Ptr<Packet> redirectedPacket, Ipv6Address src, Ipv6Address dst, Ipv6Address redirTarget, Ipv6Address redirDestination, Address redirHardwareTarget);
 
   /**
    * \brief Forge a Neighbor Solicitation.
@@ -253,7 +254,7 @@ public:
    * \param hardwareAddress our mac address
    * \return NS packet (with IPv6 header)
    */
-  NdiscCache::Ipv6PayloadHeaderPair ForgeNS (Ipv6Address src, Ipv6Address dst, Ipv6Address target, Address hardwareAddress);
+  NdiscCache::Ipv6PayloadHeaderPair ForgeNS(Ipv6Address src, Ipv6Address dst, Ipv6Address target, Address hardwareAddress);
 
   /**
    * \brief Forge a Neighbor Advertisement.
@@ -263,7 +264,7 @@ public:
    * \param flags flags (bitfield => R (4), S (2), O (1))
    * \return NA packet (with IPv6 header)
    */
-  NdiscCache::Ipv6PayloadHeaderPair ForgeNA (Ipv6Address src, Ipv6Address dst, Address* hardwareAddress, uint8_t flags);
+  NdiscCache::Ipv6PayloadHeaderPair ForgeNA(Ipv6Address src, Ipv6Address dst, Address *hardwareAddress, uint8_t flags);
 
   /**
    * \brief Forge a Router Solicitation.
@@ -272,7 +273,7 @@ public:
    * \param hardwareAddress our mac address
    * \return RS packet (with IPv6 header)
    */
-  NdiscCache::Ipv6PayloadHeaderPair ForgeRS (Ipv6Address src, Ipv6Address dst, Address hardwareAddress);
+  NdiscCache::Ipv6PayloadHeaderPair ForgeRS(Ipv6Address src, Ipv6Address dst, Address hardwareAddress);
 
   /**
    * \brief Forge an Echo Request.
@@ -283,7 +284,7 @@ public:
    * \param data the data
    * \return Echo Request packet (with IPv6 header)
    */
-  NdiscCache::Ipv6PayloadHeaderPair ForgeEchoRequest (Ipv6Address src, Ipv6Address dst, uint16_t id, uint16_t seq, Ptr<Packet> data);
+  NdiscCache::Ipv6PayloadHeaderPair ForgeEchoRequest(Ipv6Address src, Ipv6Address dst, uint16_t id, uint16_t seq, Ptr<Packet> data);
 
   /**
    * \brief Receive method.
@@ -292,9 +293,9 @@ public:
    * \param interface the interface from which the packet is coming
    * \returns the receive status
    */
-  virtual enum IpL4Protocol::RxStatus Receive (Ptr<Packet> p,
-                                               Ipv4Header const &header,
-                                               Ptr<Ipv4Interface> interface);
+  virtual enum IpL4Protocol::RxStatus Receive(Ptr<Packet> p,
+                                              Ipv4Header const &header,
+                                              Ptr<Ipv4Interface> interface);
 
   /**
    * \brief Receive method.
@@ -303,9 +304,9 @@ public:
    * \param interface the interface from which the packet is coming
    * \returns the receive status
    */
-  virtual enum IpL4Protocol::RxStatus Receive (Ptr<Packet> p,
-                                               Ipv6Header const &header,
-                                               Ptr<Ipv6Interface> interface);
+  virtual enum IpL4Protocol::RxStatus Receive(Ptr<Packet> p,
+                                              Ipv6Header const &header,
+                                              Ptr<Ipv6Interface> interface);
 
   /**
    * \brief Function called when DAD timeout.
@@ -313,7 +314,7 @@ public:
    * \param interface the interface
    * \param addr the IPv6 address
    */
-  static void FunctionDadTimeout (Ptr<Icmpv6L4Protocol> icmpv6, Ipv6Interface* interface, Ipv6Address addr);
+  static void FunctionDadTimeout(Ptr<Icmpv6L4Protocol> icmpv6, Ipv6Interface *interface, Ipv6Address addr);
 
   /**
    * \brief Lookup in the ND cache for the IPv6 address
@@ -326,7 +327,7 @@ public:
    * \param hardwareDestination hardware address
    * \return true if the address is in the ND cache, the hardwareDestination is updated.
    */
-  bool Lookup (Ipv6Address dst, Ptr<NetDevice> device, Ptr<NdiscCache> cache, Address* hardwareDestination);
+  bool Lookup(Ipv6Address dst, Ptr<NetDevice> device, Ptr<NdiscCache> cache, Address *hardwareDestination);
 
   /**
    * \brief Lookup in the ND cache for the IPv6 address (similar as ARP protocol).
@@ -340,7 +341,7 @@ public:
    * \param hardwareDestination hardware address
    * \return true if the address is in the ND cache, the hardwareDestination is updated.
    */
-  bool Lookup (Ptr<Packet> p, const Ipv6Header & ipHeader, Ipv6Address dst, Ptr<NetDevice> device, Ptr<NdiscCache> cache, Address* hardwareDestination);
+  bool Lookup(Ptr<Packet> p, const Ipv6Header &ipHeader, Ipv6Address dst, Ptr<NetDevice> device, Ptr<NdiscCache> cache, Address *hardwareDestination);
 
   /**
    * \brief Send a Router Solicitation.
@@ -348,7 +349,7 @@ public:
    * \param dst destination address (usealy ff02::2 i.e all-routers)
    * \param hardwareAddress link-layer address (SHOULD be included if src is not ::)
    */
-  void SendRS (Ipv6Address src, Ipv6Address dst,  Address hardwareAddress);
+  void SendRS(Ipv6Address src, Ipv6Address dst, Address hardwareAddress);
 
   /**
    * \brief Create a neighbor cache.
@@ -356,13 +357,13 @@ public:
    * \param interface the IPv6 interface
    * \return a smart pointer of NdCache or 0 if problem
    */
-  Ptr<NdiscCache> CreateCache (Ptr<NetDevice> device, Ptr<Ipv6Interface> interface);
+  Ptr<NdiscCache> CreateCache(Ptr<NetDevice> device, Ptr<Ipv6Interface> interface);
 
   /**
    * \brief Is the node must do DAD.
    * \return true if node has to do DAD.
    */
-  bool IsAlwaysDad () const;
+  bool IsAlwaysDad() const;
 
   /**
    * Assign a fixed random variable stream number to the random variables
@@ -372,17 +373,16 @@ public:
    * \param stream first stream index to use
    * \return the number of stream indices assigned by this model
    */
-  int64_t AssignStreams (int64_t stream);
+  int64_t AssignStreams(int64_t stream);
 
 protected:
   /**
    * \brief Dispose this object.
    */
-  virtual void DoDispose ();
+  virtual void DoDispose();
 
 private:
-  typedef std::list<Ptr<NdiscCache> > CacheList; //!< container of NdiscCaches
-
+  typedef std::list<Ptr<NdiscCache>> CacheList; //!< container of NdiscCaches
 
   /**
    * \brief Neighbor Discovery node constants: max multicast solicitations.
@@ -437,9 +437,9 @@ private:
    * \param ipHeader the IP header carried by the ICMP
    * \param payload the data carried by the ICMP
    */
-  void Forward (Ipv6Address source, Icmpv6Header icmp,
-                uint32_t info, Ipv6Header ipHeader,
-                const uint8_t payload[8]);
+  void Forward(Ipv6Address source, Icmpv6Header icmp,
+               uint32_t info, Ipv6Header ipHeader,
+               const uint8_t payload[8]);
 
   /**
    * \brief Receive Neighbor Solicitation method.
@@ -448,7 +448,7 @@ private:
    * \param dst destination address
    * \param interface the interface from which the packet is coming
    */
-  void HandleNS (Ptr<Packet> p, Ipv6Address const &src, Ipv6Address const &dst, Ptr<Ipv6Interface> interface);
+  void HandleNS(Ptr<Packet> p, Ipv6Address const &src, Ipv6Address const &dst, Ptr<Ipv6Interface> interface);
 
   /**
    * \brief Receive Router Solicitation method.
@@ -457,7 +457,7 @@ private:
    * \param dst destination address
    * \param interface the interface from which the packet is coming
    */
-  void HandleRS (Ptr<Packet> p, Ipv6Address const &src, Ipv6Address const &dst, Ptr<Ipv6Interface> interface);
+  void HandleRS(Ptr<Packet> p, Ipv6Address const &src, Ipv6Address const &dst, Ptr<Ipv6Interface> interface);
 
   /**
    * \brief Receive Router Advertisement method.
@@ -466,7 +466,7 @@ private:
    * \param dst destination address
    * \param interface the interface from which the packet is coming
    */
-  void HandleRA (Ptr<Packet> p, Ipv6Address const &src, Ipv6Address const &dst, Ptr<Ipv6Interface> interface);
+  void HandleRA(Ptr<Packet> p, Ipv6Address const &src, Ipv6Address const &dst, Ptr<Ipv6Interface> interface);
 
   /**
    * \brief Receive Echo Request method.
@@ -475,7 +475,7 @@ private:
    * \param dst destination address
    * \param interface the interface from which the packet is coming
    */
-  void HandleEchoRequest (Ptr<Packet> p, Ipv6Address const &src, Ipv6Address const &dst, Ptr<Ipv6Interface> interface);
+  void HandleEchoRequest(Ptr<Packet> p, Ipv6Address const &src, Ipv6Address const &dst, Ptr<Ipv6Interface> interface);
 
   /**
    * \brief Receive Neighbor Advertisement method.
@@ -484,7 +484,7 @@ private:
    * \param dst destination address
    * \param interface the interface from which the packet is coming
    */
-  void HandleNA (Ptr<Packet> p, Ipv6Address const &src, Ipv6Address const &dst, Ptr<Ipv6Interface> interface);
+  void HandleNA(Ptr<Packet> p, Ipv6Address const &src, Ipv6Address const &dst, Ptr<Ipv6Interface> interface);
 
   /**
    * \brief Receive Redirection method.
@@ -493,7 +493,7 @@ private:
    * \param dst destination address
    * \param interface the interface from which the packet is coming
    */
-  void HandleRedirection (Ptr<Packet> p, Ipv6Address const &src, Ipv6Address const &dst, Ptr<Ipv6Interface> interface);
+  void HandleRedirection(Ptr<Packet> p, Ipv6Address const &src, Ipv6Address const &dst, Ptr<Ipv6Interface> interface);
 
   /**
    * \brief Receive Destination Unreachable method.
@@ -502,7 +502,7 @@ private:
    * \param dst destination address
    * \param interface the interface from which the packet is coming
    */
-  void HandleDestinationUnreachable (Ptr<Packet> p, Ipv6Address const &src, Ipv6Address const &dst, Ptr<Ipv6Interface> interface);
+  void HandleDestinationUnreachable(Ptr<Packet> p, Ipv6Address const &src, Ipv6Address const &dst, Ptr<Ipv6Interface> interface);
 
   /**
    * \brief Receive Time Exceeded method.
@@ -511,7 +511,7 @@ private:
    * \param dst destination address
    * \param interface the interface from which the packet is coming
    */
-  void HandleTimeExceeded (Ptr<Packet> p, Ipv6Address const &src, Ipv6Address const &dst, Ptr<Ipv6Interface> interface);
+  void HandleTimeExceeded(Ptr<Packet> p, Ipv6Address const &src, Ipv6Address const &dst, Ptr<Ipv6Interface> interface);
 
   /**
    * \brief Receive Packet Too Big method.
@@ -520,7 +520,7 @@ private:
    * \param dst destination address
    * \param interface the interface from which the packet is coming
    */
-  void HandlePacketTooBig (Ptr<Packet> p, Ipv6Address const &src, Ipv6Address const &dst, Ptr<Ipv6Interface> interface);
+  void HandlePacketTooBig(Ptr<Packet> p, Ipv6Address const &src, Ipv6Address const &dst, Ptr<Ipv6Interface> interface);
 
   /**
    * \brief Receive Parameter Error method.
@@ -529,7 +529,7 @@ private:
    * \param dst destination address
    * \param interface the interface from which the packet is coming
    */
-  void HandleParameterError (Ptr<Packet> p, Ipv6Address const &src, Ipv6Address const &dst, Ptr<Ipv6Interface> interface);
+  void HandleParameterError(Ptr<Packet> p, Ipv6Address const &src, Ipv6Address const &dst, Ptr<Ipv6Interface> interface);
 
   /**
    * \brief Link layer address option processing.
@@ -538,27 +538,25 @@ private:
    * \param dst destination address
    * \param interface the interface from which the packet is coming
    */
-  void ReceiveLLA (Icmpv6OptionLinkLayerAddress lla, Ipv6Address const &src, Ipv6Address const &dst, Ptr<Ipv6Interface> interface);
+  void ReceiveLLA(Icmpv6OptionLinkLayerAddress lla, Ipv6Address const &src, Ipv6Address const &dst, Ptr<Ipv6Interface> interface);
 
   /**
    * \brief Get the cache corresponding to the device.
    * \param device the device
    * \returns the NdiscCache associated with the device
    */
-  Ptr<NdiscCache> FindCache (Ptr<NetDevice> device);
+  Ptr<NdiscCache> FindCache(Ptr<NetDevice> device);
 
   // From IpL4Protocol
-  virtual void SetDownTarget (IpL4Protocol::DownTargetCallback cb);
-  virtual void SetDownTarget6 (IpL4Protocol::DownTargetCallback6 cb);
+  virtual void SetDownTarget(IpL4Protocol::DownTargetCallback cb);
+  virtual void SetDownTarget6(IpL4Protocol::DownTargetCallback6 cb);
   // From IpL4Protocol
-  virtual IpL4Protocol::DownTargetCallback GetDownTarget (void) const;
-  virtual IpL4Protocol::DownTargetCallback6 GetDownTarget6 (void) const;
+  virtual IpL4Protocol::DownTargetCallback GetDownTarget(void) const;
+  virtual IpL4Protocol::DownTargetCallback6 GetDownTarget6(void) const;
 
   IpL4Protocol::DownTargetCallback6 m_downTarget; //!< callback to Ipv6::Send
-
 };
 
 } /* namespace ns3 */
 
 #endif /* ICMPV6_L4_PROTOCOL_H */
-

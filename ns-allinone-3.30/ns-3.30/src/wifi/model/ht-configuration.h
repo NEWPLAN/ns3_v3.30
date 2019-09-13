@@ -23,7 +23,8 @@
 
 #include "ns3/object.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \brief HT configuration
@@ -36,10 +37,10 @@ namespace ns3 {
 class HtConfiguration : public Object
 {
 public:
-  HtConfiguration ();
-  virtual ~HtConfiguration ();
+  HtConfiguration();
+  virtual ~HtConfiguration();
 
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
   /**
    * Enable or disable SGI support.
@@ -47,43 +48,42 @@ public:
    * \param enable true if SGI is to be supported,
    *               false otherwise
    */
-  void SetShortGuardIntervalSupported (bool enable);
+  void SetShortGuardIntervalSupported(bool enable);
   /**
    * \return whether the device supports SGI.
    *
    * \return true if SGI is supported,
    *         false otherwise.
    */
-  bool GetShortGuardIntervalSupported (void) const;
+  bool GetShortGuardIntervalSupported(void) const;
   /**
    * Enable or disable Greenfield support.
    *
    * \param enable true if Greenfield is to be supported,
    *               false otherwise
    */
-  void SetGreenfieldSupported (bool enable);
+  void SetGreenfieldSupported(bool enable);
   /**
    * \return whether the device supports Greenfield.
    *
    * \return true if Greenfield is supported,
    *         false otherwise.
    */
-  bool GetGreenfieldSupported (void) const;
+  bool GetGreenfieldSupported(void) const;
   /**
    * Enable or disable RIFS support.
    *
    * \param enable true if RIFS is to be supported,
    *               false otherwise
    */
-  void SetRifsSupported (bool enable);
+  void SetRifsSupported(bool enable);
   /**
    * \return whether the device supports RIFS capability.
    *
    * \return true if short RIFS is supported,
    *         false otherwise.
    */
-  bool GetRifsSupported (void) const;
-
+  bool GetRifsSupported(void) const;
 
 private:
   bool m_sgiSupported;        ///< flag whether short guard interval is supported

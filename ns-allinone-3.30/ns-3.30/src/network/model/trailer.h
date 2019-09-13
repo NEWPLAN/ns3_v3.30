@@ -25,8 +25,8 @@
 #include "buffer.h"
 #include <stdint.h>
 
-
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup packet
@@ -44,8 +44,8 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
-  virtual ~Trailer ();
+  static TypeId GetTypeId(void);
+  virtual ~Trailer();
   /**
    * \returns the expected size of the trailer.
    *
@@ -54,7 +54,7 @@ public:
    * should return the number of bytes which are needed to store
    * the full trailer data by Serialize.
    */
-  virtual uint32_t GetSerializedSize (void) const = 0;
+  virtual uint32_t GetSerializedSize(void) const = 0;
   /**
    * \param start an iterator which points to where the trailer
    *        should be written.
@@ -67,7 +67,7 @@ public:
    * data shall be written. This method is thus expected to call
    * Buffer::Iterator::Prev prior to actually writing any data.
    */
-  virtual void Serialize (Buffer::Iterator start) const = 0;
+  virtual void Serialize(Buffer::Iterator start) const = 0;
   /**
    * \param end an iterator which points to the end of the buffer
    *        where the trailer should be read from.
@@ -81,7 +81,7 @@ public:
    * data shall be written. This method is thus expected to call
    * Buffer::Iterator::Prev prior to actually reading any data.
    */
-  virtual uint32_t Deserialize (Buffer::Iterator end) = 0;
+  virtual uint32_t Deserialize(Buffer::Iterator end) = 0;
   /**
    * \param start an iterator which points to the start of the buffer
    *        where the trailer should be read from.
@@ -99,7 +99,7 @@ public:
    * This variant should be provided by any variable-sized trailer subclass
    * (i.e. if GetSerializedSize () does not return a constant). 
    */
-  virtual uint32_t Deserialize (Buffer::Iterator start, Buffer::Iterator end);
+  virtual uint32_t Deserialize(Buffer::Iterator start, Buffer::Iterator end);
   /**
    * \param os output stream
    * This method is used by Packet::Print to print the 
@@ -112,7 +112,7 @@ public:
    * separated by whitespace.
    * i.e.: (field1 val1 field2 val2 field3 val3) field4 val4 field5 val5
    */
-  virtual void Print (std::ostream &os) const = 0;
+  virtual void Print(std::ostream &os) const = 0;
 };
 
 /**
@@ -122,7 +122,7 @@ public:
  * \param trailer the trailer
  * \returns a reference to the stream
  */
-std::ostream & operator << (std::ostream &os, const Trailer &trailer);
+std::ostream &operator<<(std::ostream &os, const Trailer &trailer);
 
 } // namespace ns3
 

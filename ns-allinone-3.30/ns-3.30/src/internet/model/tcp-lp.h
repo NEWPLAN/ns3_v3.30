@@ -28,7 +28,8 @@
 #include "ns3/tcp-recovery-ops.h"
 #include "ns3/traced-value.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class TcpLp : public TcpNewReno
 {
@@ -38,22 +39,22 @@ public:
    *
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
   /**
    * \brief Creates an unbound tcp socket.
    *
    */
-  TcpLp (void);
+  TcpLp(void);
 
   /**
    * \brief Copy constructor
    *
    * \param sock the object to copy
    */
-  TcpLp (const TcpLp& sock);
+  TcpLp(const TcpLp &sock);
 
-  virtual ~TcpLp (void);
+  virtual ~TcpLp(void);
 
   /**
    * \brief Timing information on received ACK
@@ -65,12 +66,12 @@ public:
    * \param segmentsAcked count of segments acked
    * \param rtt last rtt
    */
-  virtual void PktsAcked (Ptr<TcpSocketState> tcb, uint32_t segmentsAcked,
-                          const Time& rtt);
+  virtual void PktsAcked(Ptr<TcpSocketState> tcb, uint32_t segmentsAcked,
+                         const Time &rtt);
 
-  virtual std::string GetName () const;
+  virtual std::string GetName() const;
 
-  virtual Ptr<TcpCongestionOps> Fork ();
+  virtual Ptr<TcpCongestionOps> Fork();
 
 protected:
   /**
@@ -79,7 +80,7 @@ protected:
    * \param tcb internal congestion state
    * \param segmentsAcked count of segments acked
    */
-  virtual void CongestionAvoidance (Ptr<TcpSocketState> tcb, uint32_t segmentsAcked);
+  virtual void CongestionAvoidance(Ptr<TcpSocketState> tcb, uint32_t segmentsAcked);
 
 private:
   /**
@@ -88,18 +89,18 @@ private:
    */
   enum State
   {
-    LP_VALID_OWD = (1 << 1),    /**< Calculated One-Way Delay is valid */
-    LP_WITHIN_THR = (1 << 3),   /**< TcpLp is within Threshold */
-    LP_WITHIN_INF = (1 << 4),   /**< TcpLp is within Inference */
+    LP_VALID_OWD = (1 << 1),  /**< Calculated One-Way Delay is valid */
+    LP_WITHIN_THR = (1 << 3), /**< TcpLp is within Threshold */
+    LP_WITHIN_INF = (1 << 4), /**< TcpLp is within Inference */
   };
 
-  uint32_t            m_flag;       //!<TcpLp state flag
-  uint32_t            m_sOwd;       //!<Smoothed One-Way Delay
-  uint32_t            m_owdMin;     //!<Minimum One-Way Delay
-  uint32_t            m_owdMax;     //!<Maximum One-Way Delay
-  uint32_t            m_owdMaxRsv;  //!<Reserved Maximum One-Way Delay
-  Time                m_lastDrop;   //!<Last time when cwnd was reduced
-  Time                m_inference;  //!<Current inference period
+  uint32_t m_flag;      //!<TcpLp state flag
+  uint32_t m_sOwd;      //!<Smoothed One-Way Delay
+  uint32_t m_owdMin;    //!<Minimum One-Way Delay
+  uint32_t m_owdMax;    //!<Maximum One-Way Delay
+  uint32_t m_owdMaxRsv; //!<Reserved Maximum One-Way Delay
+  Time m_lastDrop;      //!<Last time when cwnd was reduced
+  Time m_inference;     //!<Current inference period
 
 private:
   /**
@@ -108,14 +109,14 @@ private:
    * \param tcb internal congestion state
    * \return One-Way Delay
    */
-  uint32_t OwdCalculator (Ptr<TcpSocketState> tcb);
+  uint32_t OwdCalculator(Ptr<TcpSocketState> tcb);
 
   /**
    * \brief Estimates minimum and maximum One-Way Delays and calculates the smoothed One-Way Delay.
    *
    * \param tcb internal congestion state
    */
-  void RttSample (Ptr<TcpSocketState> tcb);
+  void RttSample(Ptr<TcpSocketState> tcb);
 };
 
 } // namespace ns3

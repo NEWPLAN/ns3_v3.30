@@ -24,8 +24,8 @@
 #include "ns3/tag.h"
 #include "ns3/ipv6-address.h"
 
-namespace ns3 {
-
+namespace ns3
+{
 
 class Node;
 class Packet;
@@ -46,76 +46,76 @@ class Packet;
 class Ipv6PacketInfoTag : public Tag
 {
 public:
-  Ipv6PacketInfoTag ();
+  Ipv6PacketInfoTag();
 
   /**
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
   /**
    * \brief Set the tag's address
    *
    * \param addr the address
    */
-  void SetAddress (Ipv6Address addr);
+  void SetAddress(Ipv6Address addr);
 
   /**
    * \brief Get the tag's address
    *
    * \returns the address
    */
-  Ipv6Address GetAddress (void) const;
+  Ipv6Address GetAddress(void) const;
 
   /**
    * \brief Set the tag's receiving interface
    *
    * \param ifindex the interface index
    */
-  void SetRecvIf (uint32_t ifindex);
+  void SetRecvIf(uint32_t ifindex);
 
   /**
    * \brief Get the tag's receiving interface
    *
    * \returns the interface index
    */
-  uint32_t GetRecvIf (void) const;
+  uint32_t GetRecvIf(void) const;
 
   /**
    * \brief Set the tag's Hop Limit
    *
    * \param ttl the hop limit
    */
-  void SetHoplimit (uint8_t ttl);
+  void SetHoplimit(uint8_t ttl);
 
   /**
    * \brief Get the tag's Hop Limit
    *
    * \returns the Hop Limit
    */
-  uint8_t GetHoplimit (void) const;
+  uint8_t GetHoplimit(void) const;
 
   /**
    * \brief Set the tag's Traffic Class
    *
    * \param tclass the Traffic Class
    */
-  void SetTrafficClass (uint8_t tclass);
+  void SetTrafficClass(uint8_t tclass);
 
   /**
    * \brief Get the tag's Traffic Class
    *
    * \returns the Traffic Class
    */
-  uint8_t GetTrafficClass (void) const;
+  uint8_t GetTrafficClass(void) const;
 
   // inherited functions, no doc necessary
-  virtual TypeId GetInstanceTypeId (void) const;
-  virtual uint32_t GetSerializedSize (void) const;
-  virtual void Serialize (TagBuffer i) const;
-  virtual void Deserialize (TagBuffer i);
-  virtual void Print (std::ostream &os) const;
+  virtual TypeId GetInstanceTypeId(void) const;
+  virtual uint32_t GetSerializedSize(void) const;
+  virtual void Serialize(TagBuffer i) const;
+  virtual void Deserialize(TagBuffer i);
+  virtual void Print(std::ostream &os) const;
 
 private:
   /* 
@@ -133,12 +133,11 @@ private:
    *  3.  the arriving hop limit, and
    *  4.  the arriving traffic class value.
   */
-  Ipv6Address m_addr;  //!< the packet address (src or dst)
-  uint8_t m_ifindex;   //!< the Interface index
-  uint8_t m_hoplimit;  //!< the Hop Limit
-  uint8_t m_tclass;    //!< the Traffic Class
+  Ipv6Address m_addr; //!< the packet address (src or dst)
+  uint8_t m_ifindex;  //!< the Interface index
+  uint8_t m_hoplimit; //!< the Hop Limit
+  uint8_t m_tclass;   //!< the Traffic Class
 };
 } // namespace ns3
 
 #endif /* IPV6_PACKET_INFO_TAG_H */
-

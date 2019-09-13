@@ -24,9 +24,10 @@
 #include "ns3/simulation-singleton.h"
 #include "ipv6-address-generator.h"
 
-namespace ns3 {
+namespace ns3
+{
 
-NS_LOG_COMPONENT_DEFINE ("Ipv6AddressGenerator");
+NS_LOG_COMPONENT_DEFINE("Ipv6AddressGenerator");
 
 /**
  * \ingroup address
@@ -40,8 +41,8 @@ NS_LOG_COMPONENT_DEFINE ("Ipv6AddressGenerator");
 class Ipv6AddressGeneratorImpl
 {
 public:
-  Ipv6AddressGeneratorImpl ();
-  virtual ~Ipv6AddressGeneratorImpl ();
+  Ipv6AddressGeneratorImpl();
+  virtual ~Ipv6AddressGeneratorImpl();
 
   /**
    * \brief Initialise the base network and interfaceId for the generator
@@ -53,8 +54,8 @@ public:
    * \param prefix The prefix of the base Ipv6Address
    * \param interfaceId The base interface ID used for initialization
    */
-  void Init (const Ipv6Address net, const Ipv6Prefix prefix,
-             const Ipv6Address interfaceId);
+  void Init(const Ipv6Address net, const Ipv6Prefix prefix,
+            const Ipv6Address interfaceId);
 
   /**
    * \brief Get the next network according to the given Ipv6Prefix
@@ -68,7 +69,7 @@ public:
    * \param prefix The Ipv6Prefix used to set the next network
    * \returns the IPv6 address of the next network
    */
-  Ipv6Address NextNetwork (const Ipv6Prefix prefix);
+  Ipv6Address NextNetwork(const Ipv6Prefix prefix);
 
   /**
    * \brief Get the current network of the given Ipv6Prefix
@@ -79,7 +80,7 @@ public:
    * \param prefix The Ipv6Prefix for the current network
    * \returns the IPv6 address of the current network
    */
-  Ipv6Address GetNetwork (const Ipv6Prefix prefix) const;
+  Ipv6Address GetNetwork(const Ipv6Prefix prefix) const;
 
   /**
    * \brief Set the interfaceId for the given Ipv6Prefix
@@ -87,7 +88,7 @@ public:
    * \param interfaceId The interfaceId to set for the current Ipv6Prefix
    * \param prefix The Ipv6Prefix whose address is to be set
    */
-  void InitAddress (const Ipv6Address interfaceId, const Ipv6Prefix prefix);
+  void InitAddress(const Ipv6Address interfaceId, const Ipv6Prefix prefix);
 
   /**
    * \brief Get the Ipv6Address that will be allocated upon NextAddress ()
@@ -98,7 +99,7 @@ public:
    * \param prefix The Ipv6Prefix for the current network
    * \returns the IPv6 address
    */
-  Ipv6Address GetAddress (const Ipv6Prefix prefix) const;
+  Ipv6Address GetAddress(const Ipv6Prefix prefix) const;
 
   /**
    * \brief Allocate the next Ipv6Address for the configured network and prefix
@@ -109,12 +110,12 @@ public:
    * \param prefix The Ipv6Prefix for the current network
    * \returns the IPv6 address
    */
-  Ipv6Address NextAddress (const Ipv6Prefix prefix);
+  Ipv6Address NextAddress(const Ipv6Prefix prefix);
 
   /**
    * \brief Reset the networks and Ipv6Address to zero
    */
-  void Reset (void);
+  void Reset(void);
 
   /**
    * \brief Add the Ipv6Address to the list of IPv6 entries
@@ -126,7 +127,7 @@ public:
    * \param addr The Ipv6Address to be added to the list of Ipv6 entries
    * \returns true on success
    */
-  bool AddAllocated (const Ipv6Address addr);
+  bool AddAllocated(const Ipv6Address addr);
 
   /**
    * \brief Check the Ipv6Address allocation in the list of IPv6 entries
@@ -134,7 +135,7 @@ public:
    * \param addr The Ipv6Address to be checked in the list of Ipv4 entries
    * \returns true if the network is already allocated
    */
-  bool IsAddressAllocated (const Ipv6Address addr);
+  bool IsAddressAllocated(const Ipv6Address addr);
 
   /**
    * \brief Check if a network has already allocated addresses
@@ -143,15 +144,15 @@ public:
    * \param prefix The Ipv6 network prefix
    * \returns true if the network is already allocated
    */
-  bool IsNetworkAllocated (const Ipv6Address addr, const Ipv6Prefix prefix);
+  bool IsNetworkAllocated(const Ipv6Address addr, const Ipv6Prefix prefix);
 
   /**
    * \brief Used to turn off fatal errors and assertions, for testing
    */
-  void TestMode (void);
+  void TestMode(void);
 
 private:
-  static const uint32_t N_BITS = 128; //!< the number of bits in the address
+  static const uint32_t N_BITS = 128;                //!< the number of bits in the address
   static const uint32_t MOST_SIGNIFICANT_BIT = 0x80; //!< MSB set to 1
 
   /**
@@ -159,14 +160,14 @@ private:
    * \param prefix the prefix to index
    * \returns an index
    */
-  uint32_t PrefixToIndex (Ipv6Prefix prefix) const;
+  uint32_t PrefixToIndex(Ipv6Prefix prefix) const;
 
   /**
    * \brief This class holds the state for a given network
    */
   class NetworkState
   {
-public:
+  public:
     uint8_t prefix[16];  //!< the network prefix
     uint32_t shift;      //!< a shift
     uint8_t network[16]; //!< the network
@@ -181,77 +182,75 @@ public:
    */
   class Entry
   {
-public:
+  public:
     uint8_t addrLow[16];  //!< the lowest allocated address
     uint8_t addrHigh[16]; //!< the highest allocated address
   };
 
   std::list<Entry> m_entries; //!< contained of allocated addresses
-  Ipv6Address m_base; //!< base address
-  bool m_test; //!< test mode (if true)
+  Ipv6Address m_base;         //!< base address
+  bool m_test;                //!< test mode (if true)
 };
 
-Ipv6AddressGeneratorImpl::Ipv6AddressGeneratorImpl ()
-  : m_entries (),
-    m_base ("::1"),
-    m_test (false)
+Ipv6AddressGeneratorImpl::Ipv6AddressGeneratorImpl()
+    : m_entries(),
+      m_base("::1"),
+      m_test(false)
 {
-  NS_LOG_FUNCTION (this);
-  Reset ();
+  NS_LOG_FUNCTION(this);
+  Reset();
 }
 
-void
-Ipv6AddressGeneratorImpl::Reset (void)
+void Ipv6AddressGeneratorImpl::Reset(void)
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
 
-  uint8_t prefix[16] = { 0};
+  uint8_t prefix[16] = {0};
 
   for (uint32_t i = 0; i < N_BITS; ++i)
+  {
+    for (uint32_t j = 0; j < 16; ++j)
     {
-      for (uint32_t j = 0; j < 16; ++j)
-        {
-          m_netTable[i].prefix[j] = prefix[j];
-        }
-      for (uint32_t j = 0; j < 15; ++j)
-        {
-          prefix[15 - j] >>= 1;
-          prefix[15 - j] |= (prefix[15 - j - 1] & 1);
-        }
-      prefix[0] |= MOST_SIGNIFICANT_BIT;
-      for (uint32_t j = 0; j < 15; ++j)
-        {
-          m_netTable[i].network[j] = 0;
-        }
-      m_netTable[i].network[15] = 1;
-      for (uint32_t j = 0; j < 15; ++j)
-        {
-          m_netTable[i].addr[j] = 0;
-        }
-      m_netTable[i].addr[15] = 1;
-      for (uint32_t j = 0; j < 16; ++j)
-        {
-          m_netTable[i].addrMax[j] = ~prefix[j];
-        }
-      m_netTable[i].shift = N_BITS - i;
+      m_netTable[i].prefix[j] = prefix[j];
     }
-  m_entries.clear ();
-  m_base = Ipv6Address ("::1");
+    for (uint32_t j = 0; j < 15; ++j)
+    {
+      prefix[15 - j] >>= 1;
+      prefix[15 - j] |= (prefix[15 - j - 1] & 1);
+    }
+    prefix[0] |= MOST_SIGNIFICANT_BIT;
+    for (uint32_t j = 0; j < 15; ++j)
+    {
+      m_netTable[i].network[j] = 0;
+    }
+    m_netTable[i].network[15] = 1;
+    for (uint32_t j = 0; j < 15; ++j)
+    {
+      m_netTable[i].addr[j] = 0;
+    }
+    m_netTable[i].addr[15] = 1;
+    for (uint32_t j = 0; j < 16; ++j)
+    {
+      m_netTable[i].addrMax[j] = ~prefix[j];
+    }
+    m_netTable[i].shift = N_BITS - i;
+  }
+  m_entries.clear();
+  m_base = Ipv6Address("::1");
   m_test = false;
 }
 
-Ipv6AddressGeneratorImpl::~Ipv6AddressGeneratorImpl ()
+Ipv6AddressGeneratorImpl::~Ipv6AddressGeneratorImpl()
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
 }
 
-void
-Ipv6AddressGeneratorImpl::Init (
-  const Ipv6Address net,
-  const Ipv6Prefix prefix,
-  const Ipv6Address interfaceId)
+void Ipv6AddressGeneratorImpl::Init(
+    const Ipv6Address net,
+    const Ipv6Prefix prefix,
+    const Ipv6Address interfaceId)
 {
-  NS_LOG_FUNCTION (this << net << prefix << interfaceId);
+  NS_LOG_FUNCTION(this << net << prefix << interfaceId);
 
   m_base = interfaceId;
   //
@@ -259,11 +258,11 @@ Ipv6AddressGeneratorImpl::Init (
   // pull them out into ints.
   //
   uint8_t prefixBits[16];
-  prefix.GetBytes (prefixBits);
+  prefix.GetBytes(prefixBits);
   uint8_t netBits[16];
-  net.GetBytes (netBits);
+  net.GetBytes(netBits);
   uint8_t interfaceIdBits[16];
-  interfaceId.GetBytes (interfaceIdBits);
+  interfaceId.GetBytes(interfaceIdBits);
   //
   // Some quick reasonableness testing.
   //
@@ -272,373 +271,359 @@ Ipv6AddressGeneratorImpl::Init (
   // needs to be shifted right into the normalized position (lowest bit of the
   // network number at bit zero of the int that holds it).
   //
-  uint32_t index = PrefixToIndex (prefix);
-  NS_LOG_DEBUG ("Index " << index);
+  uint32_t index = PrefixToIndex(prefix);
+  NS_LOG_DEBUG("Index " << index);
   uint32_t a = m_netTable[index].shift / 8;
   uint32_t b = m_netTable[index].shift % 8;
   for (int32_t j = 15 - a; j >= 0; j--)
-    {
-      m_netTable[index].network[j + a] = netBits[j];
-    }
+  {
+    m_netTable[index].network[j + a] = netBits[j];
+  }
   for (uint32_t j = 0; j < a; j++)
-    {
-      m_netTable[index].network[j] = 0;
-    }
+  {
+    m_netTable[index].network[j] = 0;
+  }
   for (uint32_t j = 15; j >= a; j--)
-    {
-      m_netTable[index].network[j] = m_netTable[index].network[j] >> b;
-      m_netTable[index].network[j] |= m_netTable[index].network[j - 1] << (8 - b);
-    }
+  {
+    m_netTable[index].network[j] = m_netTable[index].network[j] >> b;
+    m_netTable[index].network[j] |= m_netTable[index].network[j - 1] << (8 - b);
+  }
   for (int32_t j = 0; j < 16; j++)
-    {
-      m_netTable[index].addr[j] = interfaceIdBits[j];
-    }
+  {
+    m_netTable[index].addr[j] = interfaceIdBits[j];
+  }
   return;
 }
 
 Ipv6Address
-Ipv6AddressGeneratorImpl::GetNetwork (
-  const Ipv6Prefix prefix) const
+Ipv6AddressGeneratorImpl::GetNetwork(
+    const Ipv6Prefix prefix) const
 {
-  NS_LOG_FUNCTION (this);
-  uint8_t nw[16] = { 0 };
-  uint32_t index = PrefixToIndex (prefix);
+  NS_LOG_FUNCTION(this);
+  uint8_t nw[16] = {0};
+  uint32_t index = PrefixToIndex(prefix);
   uint32_t a = m_netTable[index].shift / 8;
   uint32_t b = m_netTable[index].shift % 8;
   for (uint32_t j = 0; j < 16 - a; ++j)
-    {
-      nw[j] = m_netTable[index].network[j + a];
-    }
+  {
+    nw[j] = m_netTable[index].network[j + a];
+  }
   for (uint32_t j = 0; j < 15; j++)
-    {
-      nw[j] = nw[j] << b;
-      nw[j] |= nw[j + 1] >> (8 - b);
-    }
+  {
+    nw[j] = nw[j] << b;
+    nw[j] |= nw[j + 1] >> (8 - b);
+  }
   nw[15] = nw[15] << b;
 
-  return Ipv6Address (nw);
+  return Ipv6Address(nw);
 }
 
 Ipv6Address
-Ipv6AddressGeneratorImpl::NextNetwork (
-  const Ipv6Prefix prefix)
+Ipv6AddressGeneratorImpl::NextNetwork(
+    const Ipv6Prefix prefix)
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
 
-  uint32_t index = PrefixToIndex (prefix);
+  uint32_t index = PrefixToIndex(prefix);
   // Reset the base to what was initialized
   uint8_t interfaceIdBits[16];
-  m_base.GetBytes (interfaceIdBits);
+  m_base.GetBytes(interfaceIdBits);
   for (int32_t j = 0; j < 16; j++)
-    {
-      m_netTable[index].addr[j] = interfaceIdBits[j];
-    }
+  {
+    m_netTable[index].addr[j] = interfaceIdBits[j];
+  }
 
   for (int32_t j = 15; j >= 0; j--)
+  {
+    if (m_netTable[index].network[j] < 0xff)
     {
-      if (m_netTable[index].network[j] < 0xff)
-        {
-          ++m_netTable[index].network[j];
-          break;
-        }
-      else
-        {
-          ++m_netTable[index].network[j];
-        }
+      ++m_netTable[index].network[j];
+      break;
     }
+    else
+    {
+      ++m_netTable[index].network[j];
+    }
+  }
 
   uint8_t nw[16];
   uint32_t a = m_netTable[index].shift / 8;
   uint32_t b = m_netTable[index].shift % 8;
   for (uint32_t j = 0; j < 16 - a; ++j)
-    {
-      nw[j] = m_netTable[index].network[j + a];
-    }
+  {
+    nw[j] = m_netTable[index].network[j + a];
+  }
   for (uint32_t j = 16 - a; j < 16; ++j)
-    {
-      nw[j] = 0;
-    }
+  {
+    nw[j] = 0;
+  }
   for (uint32_t j = 0; j < 15; j++)
-    {
-      nw[j] = nw[j] << b;
-      nw[j] |= nw[j + 1] >> (8 - b);
-    }
+  {
+    nw[j] = nw[j] << b;
+    nw[j] |= nw[j + 1] >> (8 - b);
+  }
   nw[15] = nw[15] << b;
 
-  return Ipv6Address (nw);
-
+  return Ipv6Address(nw);
 }
 
-void
-Ipv6AddressGeneratorImpl::InitAddress (
-  const Ipv6Address interfaceId,
-  const Ipv6Prefix prefix)
+void Ipv6AddressGeneratorImpl::InitAddress(
+    const Ipv6Address interfaceId,
+    const Ipv6Prefix prefix)
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
 
-  uint32_t index = PrefixToIndex (prefix);
+  uint32_t index = PrefixToIndex(prefix);
   uint8_t interfaceIdBits[16];
-  interfaceId.GetBytes (interfaceIdBits);
+  interfaceId.GetBytes(interfaceIdBits);
 
   for (uint32_t j = 0; j < 16; ++j)
-    {
-      m_netTable[index].addr[j] = interfaceIdBits[j];
-    }
+  {
+    m_netTable[index].addr[j] = interfaceIdBits[j];
+  }
 }
 
 Ipv6Address
-Ipv6AddressGeneratorImpl::GetAddress (const Ipv6Prefix prefix) const
+Ipv6AddressGeneratorImpl::GetAddress(const Ipv6Prefix prefix) const
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
 
-  uint32_t index = PrefixToIndex (prefix);
+  uint32_t index = PrefixToIndex(prefix);
 
-  uint8_t nw[16] = { 0 };
+  uint8_t nw[16] = {0};
   uint32_t a = m_netTable[index].shift / 8;
   uint32_t b = m_netTable[index].shift % 8;
   for (uint32_t j = 0; j < 16 - a; ++j)
-    {
-      nw[j] = m_netTable[index].network[j + a];
-    }
+  {
+    nw[j] = m_netTable[index].network[j + a];
+  }
   for (uint32_t j = 0; j < 15; j++)
-    {
-      nw[j] = nw[j] << b;
-      nw[j] |= nw[j + 1] >> (8 - b);
-    }
+  {
+    nw[j] = nw[j] << b;
+    nw[j] |= nw[j + 1] >> (8 - b);
+  }
   nw[15] = nw[15] << b;
   for (uint32_t j = 0; j < 16; j++)
-    {
-      nw[j] |= m_netTable[index].addr[j];
-    }
+  {
+    nw[j] |= m_netTable[index].addr[j];
+  }
 
-  return Ipv6Address (nw);
+  return Ipv6Address(nw);
 }
 
 Ipv6Address
-Ipv6AddressGeneratorImpl::NextAddress (const Ipv6Prefix prefix)
+Ipv6AddressGeneratorImpl::NextAddress(const Ipv6Prefix prefix)
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
 
-  uint32_t index = PrefixToIndex (prefix);
+  uint32_t index = PrefixToIndex(prefix);
 
-  uint8_t ad[16] = { 0 };
+  uint8_t ad[16] = {0};
   uint32_t a = m_netTable[index].shift / 8;
   uint32_t b = m_netTable[index].shift % 8;
   for (uint32_t j = 0; j < 16 - a; ++j)
-    {
-      ad[j] = m_netTable[index].network[j + a];
-    }
+  {
+    ad[j] = m_netTable[index].network[j + a];
+  }
   for (uint32_t j = 0; j < 15; j++)
-    {
-      ad[j] = ad[j] << b;
-      ad[j] |= ad[j + 1] >> (8 - b);
-    }
+  {
+    ad[j] = ad[j] << b;
+    ad[j] |= ad[j + 1] >> (8 - b);
+  }
   ad[15] = ad[15] << b;
   for (uint32_t j = 0; j < 16; j++)
-    {
-      ad[j] |= m_netTable[index].addr[j];
-    }
-  Ipv6Address addr = Ipv6Address (ad);
+  {
+    ad[j] |= m_netTable[index].addr[j];
+  }
+  Ipv6Address addr = Ipv6Address(ad);
 
   for (int32_t j = 15; j >= 0; j--)
+  {
+    if (m_netTable[index].addr[j] < 0xff)
     {
-      if (m_netTable[index].addr[j] < 0xff)
-        {
-          ++m_netTable[index].addr[j];
-          break;
-        }
-      else
-        {
-          ++m_netTable[index].addr[j];
-        }
+      ++m_netTable[index].addr[j];
+      break;
     }
+    else
+    {
+      ++m_netTable[index].addr[j];
+    }
+  }
 
   //
   // Make a note that we've allocated this address -- used for address collision
   // detection.
   //
-  AddAllocated (addr);
+  AddAllocated(addr);
   return addr;
 }
 
-bool
-Ipv6AddressGeneratorImpl::AddAllocated (const Ipv6Address address)
+bool Ipv6AddressGeneratorImpl::AddAllocated(const Ipv6Address address)
 {
-  NS_LOG_FUNCTION (this << address);
+  NS_LOG_FUNCTION(this << address);
 
   uint8_t addr[16];
-  address.GetBytes (addr);
+  address.GetBytes(addr);
 
   std::list<Entry>::iterator i;
 
-  for (i = m_entries.begin (); i != m_entries.end (); ++i)
+  for (i = m_entries.begin(); i != m_entries.end(); ++i)
+  {
+    NS_LOG_LOGIC("examine entry: " << Ipv6Address((*i).addrLow) << " to " << Ipv6Address((*i).addrHigh));
+    //
+    // First things first.  Is there an address collision -- that is, does the
+    // new address fall in a previously allocated block of addresses.
+    //
+    if (!(Ipv6Address(addr) < Ipv6Address((*i).addrLow)) && ((Ipv6Address(addr) < Ipv6Address((*i).addrHigh)) || (Ipv6Address(addr) == Ipv6Address((*i).addrHigh))))
     {
-      NS_LOG_LOGIC ("examine entry: " << Ipv6Address ((*i).addrLow) <<
-                    " to " << Ipv6Address ((*i).addrHigh));
-      //
-      // First things first.  Is there an address collision -- that is, does the
-      // new address fall in a previously allocated block of addresses.
-      //
-      if (!(Ipv6Address (addr) < Ipv6Address ((*i).addrLow))
-          && ((Ipv6Address (addr) < Ipv6Address ((*i).addrHigh))
-              || (Ipv6Address (addr) == Ipv6Address ((*i).addrHigh))))
+      NS_LOG_LOGIC("Ipv6AddressGeneratorImpl::Add(): Address Collision: " << Ipv6Address(addr));
+      if (!m_test)
+      {
+        NS_FATAL_ERROR("Ipv6AddressGeneratorImpl::Add(): Address Collision: " << Ipv6Address(addr));
+      }
+      return false;
+    }
+    //
+    // If the new address is less than the lowest address in the current
+    // block and can't be merged into to the current block, then insert it
+    // as a new block before the current block.
+    //
+    uint8_t taddr[16];
+    for (uint32_t j = 0; j < 16; j++)
+    {
+      taddr[j] = (*i).addrLow[j];
+    }
+    taddr[15] -= 1;
+    if (Ipv6Address(addr) < Ipv6Address(taddr))
+    {
+      break;
+    }
+    //
+    // If the new address fits at the end of the block, look ahead to the next
+    // block and make sure it's not a collision there.  If we won't overlap,
+    // then just extend the current block by one address.  We expect that
+    // completely filled network ranges will be a fairly rare occurrence,
+    // so we don't worry about collapsing address range blocks.
+    //
+    for (uint32_t j = 0; j < 16; j++)
+    {
+      taddr[j] = (*i).addrLow[j];
+    }
+    taddr[15] += 1;
+    if (Ipv6Address(addr) == Ipv6Address(taddr))
+    {
+      std::list<Entry>::iterator j = i;
+      ++j;
+
+      if (j != m_entries.end())
+      {
+        if (Ipv6Address(addr) == Ipv6Address((*j).addrLow))
         {
-          NS_LOG_LOGIC ("Ipv6AddressGeneratorImpl::Add(): Address Collision: " << Ipv6Address (addr));
+          NS_LOG_LOGIC("Ipv6AddressGeneratorImpl::Add(): "
+                       "Address Collision: "
+                       << Ipv6Address(addr));
           if (!m_test)
-            {
-              NS_FATAL_ERROR ("Ipv6AddressGeneratorImpl::Add(): Address Collision: " << Ipv6Address (addr));
-            }
+          {
+            NS_FATAL_ERROR("Ipv6AddressGeneratorImpl::Add(): Address Collision: " << Ipv6Address(addr));
+          }
           return false;
         }
-      //
-      // If the new address is less than the lowest address in the current
-      // block and can't be merged into to the current block, then insert it
-      // as a new block before the current block.
-      //
-      uint8_t taddr[16];
-      for (uint32_t j = 0; j < 16; j++)
-        {
-          taddr[j] = (*i).addrLow[j];
-        }
-      taddr[15] -= 1;
-      if (Ipv6Address (addr) < Ipv6Address (taddr))
-        {
-          break;
-        }
-      //
-      // If the new address fits at the end of the block, look ahead to the next
-      // block and make sure it's not a collision there.  If we won't overlap,
-      // then just extend the current block by one address.  We expect that
-      // completely filled network ranges will be a fairly rare occurrence,
-      // so we don't worry about collapsing address range blocks.
-      //
-      for (uint32_t j = 0; j < 16; j++)
-        {
-          taddr[j] = (*i).addrLow[j];
-        }
-      taddr[15] += 1;
-      if (Ipv6Address (addr) == Ipv6Address (taddr))
-        {
-          std::list<Entry>::iterator j = i;
-          ++j;
+      }
 
-          if (j != m_entries.end ())
-            {
-              if (Ipv6Address (addr) == Ipv6Address ((*j).addrLow))
-                {
-                  NS_LOG_LOGIC ("Ipv6AddressGeneratorImpl::Add(): "
-                                "Address Collision: " << Ipv6Address (addr));
-                  if (!m_test)
-                    {
-                      NS_FATAL_ERROR ("Ipv6AddressGeneratorImpl::Add(): Address Collision: " << Ipv6Address (addr));
-                    }
-                  return false;
-                }
-            }
-
-          NS_LOG_LOGIC ("New addrHigh = " << Ipv6Address (addr));
-          for (uint32_t j = 0; j < 16; j++)
-            {
-              (*i).addrHigh[j] = addr[j];
-            }
-          return true;
-        }
-      //
-      // If we get here, we know that the next lower block of addresses
-      // couldn't have been extended to include this new address since the
-      // code immediately above would have been executed and that next lower
-      // block extended upward.  So we know it's safe to extend the current
-      // block down to include the new address.
-      //
+      NS_LOG_LOGIC("New addrHigh = " << Ipv6Address(addr));
       for (uint32_t j = 0; j < 16; j++)
-        {
-          taddr[j] = (*i).addrLow[j];
-        }
-      taddr[15] -= 1;
-      if ((Ipv6Address (addr) == Ipv6Address (taddr)))
-        {
-          NS_LOG_LOGIC ("New addrLow = " << Ipv6Address (addr));
-          for (uint32_t j = 0; j < 16; j++)
-            {
-              (*i).addrLow[j] = addr[j];
-            }
-          return true;
-        }
+      {
+        (*i).addrHigh[j] = addr[j];
+      }
+      return true;
     }
+    //
+    // If we get here, we know that the next lower block of addresses
+    // couldn't have been extended to include this new address since the
+    // code immediately above would have been executed and that next lower
+    // block extended upward.  So we know it's safe to extend the current
+    // block down to include the new address.
+    //
+    for (uint32_t j = 0; j < 16; j++)
+    {
+      taddr[j] = (*i).addrLow[j];
+    }
+    taddr[15] -= 1;
+    if ((Ipv6Address(addr) == Ipv6Address(taddr)))
+    {
+      NS_LOG_LOGIC("New addrLow = " << Ipv6Address(addr));
+      for (uint32_t j = 0; j < 16; j++)
+      {
+        (*i).addrLow[j] = addr[j];
+      }
+      return true;
+    }
+  }
 
   Entry entry;
   for (uint32_t j = 0; j < 16; j++)
-    {
-      entry.addrLow[j] = entry.addrHigh[j] = addr[j];
-    }
-  m_entries.insert (i, entry);
+  {
+    entry.addrLow[j] = entry.addrHigh[j] = addr[j];
+  }
+  m_entries.insert(i, entry);
   return true;
 }
 
-bool
-Ipv6AddressGeneratorImpl::IsAddressAllocated (const Ipv6Address address)
+bool Ipv6AddressGeneratorImpl::IsAddressAllocated(const Ipv6Address address)
 {
-  NS_LOG_FUNCTION (this << address);
+  NS_LOG_FUNCTION(this << address);
 
   uint8_t addr[16];
-  address.GetBytes (addr);
+  address.GetBytes(addr);
 
   std::list<Entry>::iterator i;
 
-  for (i = m_entries.begin (); i != m_entries.end (); ++i)
-    {
-      NS_LOG_LOGIC ("examine entry: " << Ipv6Address ((*i).addrLow) <<
-                    " to " << Ipv6Address ((*i).addrHigh));
+  for (i = m_entries.begin(); i != m_entries.end(); ++i)
+  {
+    NS_LOG_LOGIC("examine entry: " << Ipv6Address((*i).addrLow) << " to " << Ipv6Address((*i).addrHigh));
 
-      if (!(Ipv6Address (addr) < Ipv6Address ((*i).addrLow))
-          && ((Ipv6Address (addr) < Ipv6Address ((*i).addrHigh))
-              || (Ipv6Address (addr) == Ipv6Address ((*i).addrHigh))))
-        {
-          NS_LOG_LOGIC ("Ipv6AddressGeneratorImpl::IsAddressAllocated(): Address Collision: " << Ipv6Address (addr));
-          return false;
-        }
+    if (!(Ipv6Address(addr) < Ipv6Address((*i).addrLow)) && ((Ipv6Address(addr) < Ipv6Address((*i).addrHigh)) || (Ipv6Address(addr) == Ipv6Address((*i).addrHigh))))
+    {
+      NS_LOG_LOGIC("Ipv6AddressGeneratorImpl::IsAddressAllocated(): Address Collision: " << Ipv6Address(addr));
+      return false;
     }
+  }
   return true;
 }
 
-bool
-Ipv6AddressGeneratorImpl::IsNetworkAllocated (const Ipv6Address address, const Ipv6Prefix prefix)
+bool Ipv6AddressGeneratorImpl::IsNetworkAllocated(const Ipv6Address address, const Ipv6Prefix prefix)
 {
-  NS_LOG_FUNCTION (this << address << prefix);
+  NS_LOG_FUNCTION(this << address << prefix);
 
   Ipv6Address addr = address;
-  NS_ABORT_MSG_UNLESS (address == addr.CombinePrefix (prefix),
-                       "Ipv6AddressGeneratorImpl::IsNetworkAllocated(): network address and mask don't match " << address << " " << prefix);
+  NS_ABORT_MSG_UNLESS(address == addr.CombinePrefix(prefix),
+                      "Ipv6AddressGeneratorImpl::IsNetworkAllocated(): network address and mask don't match " << address << " " << prefix);
 
   std::list<Entry>::iterator i;
 
-  for (i = m_entries.begin (); i != m_entries.end (); ++i)
+  for (i = m_entries.begin(); i != m_entries.end(); ++i)
+  {
+    NS_LOG_LOGIC("examine entry: " << Ipv6Address((*i).addrLow) << " to " << Ipv6Address((*i).addrHigh));
+    Ipv6Address low = Ipv6Address((*i).addrLow);
+    Ipv6Address high = Ipv6Address((*i).addrHigh);
+
+    if (address == low.CombinePrefix(prefix) || address == high.CombinePrefix(prefix))
     {
-      NS_LOG_LOGIC ("examine entry: " << Ipv6Address ((*i).addrLow) << " to " << Ipv6Address ((*i).addrHigh));
-      Ipv6Address low = Ipv6Address ((*i).addrLow);
-      Ipv6Address high = Ipv6Address ((*i).addrHigh);
-
-      if (address == low.CombinePrefix (prefix) || address == high.CombinePrefix (prefix))
-        {
-          NS_LOG_LOGIC ("Ipv6AddressGeneratorImpl::IsNetworkAllocated(): Network already allocated: " <<
-                        address << " " << low << "-" << high);
-          return false;
-        }
-
+      NS_LOG_LOGIC("Ipv6AddressGeneratorImpl::IsNetworkAllocated(): Network already allocated: " << address << " " << low << "-" << high);
+      return false;
     }
+  }
   return true;
 }
 
-
-void
-Ipv6AddressGeneratorImpl::TestMode (void)
+void Ipv6AddressGeneratorImpl::TestMode(void)
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
   m_test = true;
 }
 
 uint32_t
-Ipv6AddressGeneratorImpl::PrefixToIndex (Ipv6Prefix prefix) const
+Ipv6AddressGeneratorImpl::PrefixToIndex(Ipv6Prefix prefix) const
 {
   //
   // We've been given a prefix that has a higher order bit set for each bit of
@@ -652,128 +637,120 @@ Ipv6AddressGeneratorImpl::PrefixToIndex (Ipv6Prefix prefix) const
   // network number and as the index into the network number state table.
   //
   uint8_t prefixBits[16];
-  prefix.GetBytes (prefixBits);
+  prefix.GetBytes(prefixBits);
 
   for (int32_t i = 15; i >= 0; --i)
+  {
+    for (uint32_t j = 0; j < 8; ++j)
     {
-      for (uint32_t j = 0; j < 8; ++j)
-        {
-          if (prefixBits[i] & 1)
-            {
-              uint32_t index = N_BITS - (15 - i) * 8 - j;
-              NS_ABORT_MSG_UNLESS (index > 0 && index < N_BITS, "Ip64AddressGenerator::PrefixToIndex(): Illegal Prefix");
-              return index;
-            }
-          prefixBits[i] >>= 1;
-        }
+      if (prefixBits[i] & 1)
+      {
+        uint32_t index = N_BITS - (15 - i) * 8 - j;
+        NS_ABORT_MSG_UNLESS(index > 0 && index < N_BITS, "Ip64AddressGenerator::PrefixToIndex(): Illegal Prefix");
+        return index;
+      }
+      prefixBits[i] >>= 1;
     }
-  NS_ASSERT_MSG (false, "Ipv6AddressGenerator::PrefixToIndex(): Impossible");
+  }
+  NS_ASSERT_MSG(false, "Ipv6AddressGenerator::PrefixToIndex(): Impossible");
   return 0;
 }
 
-void
-Ipv6AddressGenerator::Init (
-  const Ipv6Address net,
-  const Ipv6Prefix prefix,
-  const Ipv6Address interfaceId)
+void Ipv6AddressGenerator::Init(
+    const Ipv6Address net,
+    const Ipv6Prefix prefix,
+    const Ipv6Address interfaceId)
 {
-  NS_LOG_FUNCTION_NOARGS ();
+  NS_LOG_FUNCTION_NOARGS();
 
-  SimulationSingleton<Ipv6AddressGeneratorImpl>::Get ()
-  ->Init (net, prefix, interfaceId);
+  SimulationSingleton<Ipv6AddressGeneratorImpl>::Get()
+      ->Init(net, prefix, interfaceId);
 }
 
 Ipv6Address
-Ipv6AddressGenerator::NextNetwork (const Ipv6Prefix prefix)
+Ipv6AddressGenerator::NextNetwork(const Ipv6Prefix prefix)
 {
-  NS_LOG_FUNCTION_NOARGS ();
+  NS_LOG_FUNCTION_NOARGS();
 
-  return SimulationSingleton<Ipv6AddressGeneratorImpl>::Get ()
-         ->NextNetwork (prefix);
+  return SimulationSingleton<Ipv6AddressGeneratorImpl>::Get()
+      ->NextNetwork(prefix);
 }
 
 Ipv6Address
-Ipv6AddressGenerator::GetNetwork (const Ipv6Prefix prefix)
+Ipv6AddressGenerator::GetNetwork(const Ipv6Prefix prefix)
 {
-  NS_LOG_FUNCTION_NOARGS ();
+  NS_LOG_FUNCTION_NOARGS();
 
-  return SimulationSingleton<Ipv6AddressGeneratorImpl>::Get ()
-         ->GetNetwork (prefix);
+  return SimulationSingleton<Ipv6AddressGeneratorImpl>::Get()
+      ->GetNetwork(prefix);
 }
 
-void
-Ipv6AddressGenerator::InitAddress (
-  const Ipv6Address interfaceId,
-  const Ipv6Prefix prefix)
+void Ipv6AddressGenerator::InitAddress(
+    const Ipv6Address interfaceId,
+    const Ipv6Prefix prefix)
 {
-  NS_LOG_FUNCTION_NOARGS ();
+  NS_LOG_FUNCTION_NOARGS();
 
-  SimulationSingleton<Ipv6AddressGeneratorImpl>::Get ()
-  ->InitAddress (interfaceId, prefix);
-}
-
-Ipv6Address
-Ipv6AddressGenerator::GetAddress (const Ipv6Prefix prefix)
-{
-  NS_LOG_FUNCTION_NOARGS ();
-
-  return SimulationSingleton<Ipv6AddressGeneratorImpl>::Get ()
-         ->GetAddress (prefix);
+  SimulationSingleton<Ipv6AddressGeneratorImpl>::Get()
+      ->InitAddress(interfaceId, prefix);
 }
 
 Ipv6Address
-Ipv6AddressGenerator::NextAddress (const Ipv6Prefix prefix)
+Ipv6AddressGenerator::GetAddress(const Ipv6Prefix prefix)
 {
-  NS_LOG_FUNCTION_NOARGS ();
+  NS_LOG_FUNCTION_NOARGS();
 
-  return SimulationSingleton<Ipv6AddressGeneratorImpl>::Get ()
-         ->NextAddress (prefix);
+  return SimulationSingleton<Ipv6AddressGeneratorImpl>::Get()
+      ->GetAddress(prefix);
 }
 
-void
-Ipv6AddressGenerator::Reset (void)
+Ipv6Address
+Ipv6AddressGenerator::NextAddress(const Ipv6Prefix prefix)
 {
-  NS_LOG_FUNCTION_NOARGS ();
+  NS_LOG_FUNCTION_NOARGS();
 
-  return SimulationSingleton<Ipv6AddressGeneratorImpl>::Get ()
-         ->Reset ();
+  return SimulationSingleton<Ipv6AddressGeneratorImpl>::Get()
+      ->NextAddress(prefix);
 }
 
-bool
-Ipv6AddressGenerator::AddAllocated (const Ipv6Address addr)
+void Ipv6AddressGenerator::Reset(void)
 {
-  NS_LOG_FUNCTION_NOARGS ();
+  NS_LOG_FUNCTION_NOARGS();
 
-  return SimulationSingleton<Ipv6AddressGeneratorImpl>::Get ()
-         ->AddAllocated (addr);
+  return SimulationSingleton<Ipv6AddressGeneratorImpl>::Get()
+      ->Reset();
 }
 
-bool
-Ipv6AddressGenerator::IsAddressAllocated (const Ipv6Address addr)
+bool Ipv6AddressGenerator::AddAllocated(const Ipv6Address addr)
 {
-  NS_LOG_FUNCTION_NOARGS ();
+  NS_LOG_FUNCTION_NOARGS();
 
-  return SimulationSingleton<Ipv6AddressGeneratorImpl>::Get ()
-         ->IsAddressAllocated (addr);
+  return SimulationSingleton<Ipv6AddressGeneratorImpl>::Get()
+      ->AddAllocated(addr);
 }
 
-bool
-Ipv6AddressGenerator::IsNetworkAllocated (const Ipv6Address addr, const Ipv6Prefix prefix)
+bool Ipv6AddressGenerator::IsAddressAllocated(const Ipv6Address addr)
 {
-  NS_LOG_FUNCTION_NOARGS ();
+  NS_LOG_FUNCTION_NOARGS();
 
-  return SimulationSingleton<Ipv6AddressGeneratorImpl>::Get ()
-         ->IsNetworkAllocated (addr, prefix);
+  return SimulationSingleton<Ipv6AddressGeneratorImpl>::Get()
+      ->IsAddressAllocated(addr);
 }
 
-void
-Ipv6AddressGenerator::TestMode (void)
+bool Ipv6AddressGenerator::IsNetworkAllocated(const Ipv6Address addr, const Ipv6Prefix prefix)
 {
-  NS_LOG_FUNCTION_NOARGS ();
+  NS_LOG_FUNCTION_NOARGS();
 
-  SimulationSingleton<Ipv6AddressGeneratorImpl>::Get ()
-  ->TestMode ();
+  return SimulationSingleton<Ipv6AddressGeneratorImpl>::Get()
+      ->IsNetworkAllocated(addr, prefix);
+}
+
+void Ipv6AddressGenerator::TestMode(void)
+{
+  NS_LOG_FUNCTION_NOARGS();
+
+  SimulationSingleton<Ipv6AddressGeneratorImpl>::Get()
+      ->TestMode();
 }
 
 } // namespace ns3
-

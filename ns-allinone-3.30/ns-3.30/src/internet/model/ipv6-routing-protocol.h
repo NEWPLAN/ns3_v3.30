@@ -32,7 +32,8 @@
 #include "ns3/output-stream-wrapper.h"
 #include "ns3/nstime.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class Ipv6MulticastRoute;
 class Ipv6Route;
@@ -63,7 +64,7 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
   /// Callback for unicast packets to be forwarded
   typedef Callback<void, Ptr<const NetDevice>, Ptr<Ipv6Route>, Ptr<const Packet>, const Ipv6Header &> UnicastForwardCallback;
@@ -72,10 +73,10 @@ public:
   typedef Callback<void, Ptr<const NetDevice>, Ptr<Ipv6MulticastRoute>, Ptr<const Packet>, const Ipv6Header &> MulticastForwardCallback;
 
   /// Callback for packets to be locally delivered
-  typedef Callback<void, Ptr<const Packet>, const Ipv6Header &, uint32_t > LocalDeliverCallback;
+  typedef Callback<void, Ptr<const Packet>, const Ipv6Header &, uint32_t> LocalDeliverCallback;
 
   /// Callback for routing errors (e.g., no route found)
-  typedef Callback<void, Ptr<const Packet>, const Ipv6Header &, Socket::SocketErrno > ErrorCallback;
+  typedef Callback<void, Ptr<const Packet>, const Ipv6Header &, Socket::SocketErrno> ErrorCallback;
 
   /**
    * \brief Query routing cache for an existing route, for an outbound packet
@@ -93,7 +94,7 @@ public:
    *
    * \returns a code that indicates what happened in the lookup
    */
-  virtual Ptr<Ipv6Route> RouteOutput (Ptr<Packet> p, const Ipv6Header &header, Ptr<NetDevice> oif, Socket::SocketErrno &sockerr) = 0;
+  virtual Ptr<Ipv6Route> RouteOutput(Ptr<Packet> p, const Ipv6Header &header, Ptr<NetDevice> oif, Socket::SocketErrno &sockerr) = 0;
 
   /**
    * \brief Route an input packet (to be forwarded or locally delivered)
@@ -115,10 +116,10 @@ public:
    * \param ecb Callback to call if there is an error in forwarding
    * \returns true if the Ipv6RoutingProtocol takes responsibility for 
    *          forwarding or delivering the packet, false otherwise
-   */ 
-  virtual bool RouteInput  (Ptr<const Packet> p, const Ipv6Header &header, Ptr<const NetDevice> idev, 
-                            UnicastForwardCallback ucb, MulticastForwardCallback mcb, 
-                            LocalDeliverCallback lcb, ErrorCallback ecb) = 0;
+   */
+  virtual bool RouteInput(Ptr<const Packet> p, const Ipv6Header &header, Ptr<const NetDevice> idev,
+                          UnicastForwardCallback ucb, MulticastForwardCallback mcb,
+                          LocalDeliverCallback lcb, ErrorCallback ecb) = 0;
 
   /**
    * \brief Notify when specified interface goes UP.
@@ -127,7 +128,7 @@ public:
    * an interface in a node.
    * \param interface the index of the interface we are being notified about
    */
-  virtual void NotifyInterfaceUp (uint32_t interface) = 0;
+  virtual void NotifyInterfaceUp(uint32_t interface) = 0;
 
   /**
    * \brief Notify when specified interface goes DOWN.
@@ -136,7 +137,7 @@ public:
    * an interface in a node.
    * \param interface the index of the interface we are being notified about
    */
-  virtual void NotifyInterfaceDown (uint32_t interface) = 0;
+  virtual void NotifyInterfaceDown(uint32_t interface) = 0;
 
   /**
    * \brief Notify when specified interface add an address.
@@ -147,7 +148,7 @@ public:
    * \param interface the index of the interface we are being notified about
    * \param address a new address being added to an interface
    */
-  virtual void NotifyAddAddress (uint32_t interface, Ipv6InterfaceAddress address) = 0;
+  virtual void NotifyAddAddress(uint32_t interface, Ipv6InterfaceAddress address) = 0;
 
   /**
    * \brief Notify when specified interface add an address.
@@ -158,7 +159,7 @@ public:
    * \param interface the index of the interface we are being notified about
    * \param address a new address being added to an interface
    */
-  virtual void NotifyRemoveAddress (uint32_t interface, Ipv6InterfaceAddress address) = 0;
+  virtual void NotifyRemoveAddress(uint32_t interface, Ipv6InterfaceAddress address) = 0;
 
   /**
    * \brief Notify a new route.
@@ -171,7 +172,7 @@ public:
    * \param interface output interface
    * \param prefixToUse prefix to use as source with this route
    */
-  virtual void NotifyAddRoute (Ipv6Address dst, Ipv6Prefix mask, Ipv6Address nextHop, uint32_t interface, Ipv6Address prefixToUse = Ipv6Address::GetZero ()) = 0;
+  virtual void NotifyAddRoute(Ipv6Address dst, Ipv6Prefix mask, Ipv6Address nextHop, uint32_t interface, Ipv6Address prefixToUse = Ipv6Address::GetZero()) = 0;
 
   /**
    * \brief Notify route removing.
@@ -181,13 +182,13 @@ public:
    * \param interface output interface
    * \param prefixToUse prefix to use as source with this route
    */
-  virtual void NotifyRemoveRoute (Ipv6Address dst, Ipv6Prefix mask, Ipv6Address nextHop, uint32_t interface, Ipv6Address prefixToUse = Ipv6Address::GetZero ()) = 0;
+  virtual void NotifyRemoveRoute(Ipv6Address dst, Ipv6Prefix mask, Ipv6Address nextHop, uint32_t interface, Ipv6Address prefixToUse = Ipv6Address::GetZero()) = 0;
 
   /**
    * \brief Typically, invoked directly or indirectly from ns3::Ipv6::SetRoutingProtocol
    * \param ipv6 the ipv6 object this routing protocol is being associated with
    */
-  virtual void SetIpv6 (Ptr<Ipv6> ipv6) = 0;
+  virtual void SetIpv6(Ptr<Ipv6> ipv6) = 0;
 
   /**
    * \brief Print the Routing Table entries
@@ -195,11 +196,9 @@ public:
    * \param stream The ostream the Routing table is printed to
    * \param unit The time unit to be used in the report
    */
-  virtual void PrintRoutingTable (Ptr<OutputStreamWrapper> stream, Time::Unit unit = Time::S) const = 0;
-
+  virtual void PrintRoutingTable(Ptr<OutputStreamWrapper> stream, Time::Unit unit = Time::S) const = 0;
 };
 
 } // namespace ns3
 
 #endif /* IPV6_ROUTING_PROTOCOL_H */
-

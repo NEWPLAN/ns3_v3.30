@@ -23,7 +23,8 @@
 
 #include "ns3/buffer.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup wifi
@@ -33,18 +34,18 @@ namespace ns3 {
 class CapabilityInformation
 {
 public:
-  CapabilityInformation ();
+  CapabilityInformation();
 
   /**
    * Set the Extended Service Set (ESS) bit
    * in the capability information field.
    */
-  void SetEss (void);
+  void SetEss(void);
   /**
    * Set the Independent BSS (IBSS) bit
    * in the capability information field.
    */
-  void SetIbss (void);
+  void SetIbss(void);
   /**
    * Set the short preamble bit
    * in the capability information field.
@@ -52,7 +53,7 @@ public:
    * \param shortPreamble the short preamble bit
    *
    */
-  void SetShortPreamble (bool shortPreamble);
+  void SetShortPreamble(bool shortPreamble);
   /**
    * Set the short slot time bit
    * in the capability information field.
@@ -60,12 +61,12 @@ public:
    * \param shortSlotTime the short preamble bit
    *
    */
-  void SetShortSlotTime (bool shortSlotTime);
+  void SetShortSlotTime(bool shortSlotTime);
   /**
    * Set the CF-Pollable bit
    * in the capability information field.
    */
-  void SetCfPollable (void);
+  void SetCfPollable(void);
 
   /**
    * Check if the Extended Service Set (ESS) bit
@@ -74,7 +75,7 @@ public:
    * \return ESS bit in the capability information
    *         field is set to 1
    */
-  bool IsEss (void) const;
+  bool IsEss(void) const;
   /**
    * Check if the Independent BSS (IBSS) bit
    * in the capability information field is set to 1.
@@ -82,7 +83,7 @@ public:
    * \return IBSS bit in the capability information
    *         field is set to 1
    */
-  bool IsIbss (void) const;
+  bool IsIbss(void) const;
   /**
    * Check if the short preamble bit
    * in the capability information field is set to 1.
@@ -90,7 +91,7 @@ public:
    * \return short preamble bit in the capability information
    *         field is set to 1
    */
-  bool IsShortPreamble (void) const;
+  bool IsShortPreamble(void) const;
   /**
    * Check if the short slot time
    * in the capability information field is set to 1.
@@ -98,7 +99,7 @@ public:
    * \return short slot time bit in the capability information
    *         field is set to 1
    */
-  bool IsShortSlotTime (void) const;
+  bool IsShortSlotTime(void) const;
   /**
    * Check if the CF-Pollable bit
    * in the capability information field is set to 1.
@@ -106,7 +107,7 @@ public:
    * \return CF-Pollable bit in the capability information
    *         field is set to 1
    */
-  bool IsCfPollable (void) const;
+  bool IsCfPollable(void) const;
 
   /**
    * Return the serialized size of capability
@@ -114,7 +115,7 @@ public:
    *
    * \return the serialized size
    */
-  uint32_t GetSerializedSize (void) const;
+  uint32_t GetSerializedSize(void) const;
   /**
    * Serialize capability information to the given buffer.
    *
@@ -122,7 +123,7 @@ public:
    * \return an iterator to a buffer after capability information
    *         was serialized
    */
-  Buffer::Iterator Serialize (Buffer::Iterator start) const;
+  Buffer::Iterator Serialize(Buffer::Iterator start) const;
   /**
    * Deserialize capability information from the given buffer.
    *
@@ -130,8 +131,7 @@ public:
    * \return an iterator to a buffer after capability information
    *         was deserialized
    */
-  Buffer::Iterator Deserialize (Buffer::Iterator start);
-
+  Buffer::Iterator Deserialize(Buffer::Iterator start);
 
 private:
   /**
@@ -142,19 +142,19 @@ private:
    * \return true if bit n is set to 1,
    *         false otherwise
    */
-  bool Is (uint8_t n) const;
+  bool Is(uint8_t n) const;
   /**
    * Set bit n to 1.
    *
    * \param n the bit position
    */
-  void Set (uint8_t n);
+  void Set(uint8_t n);
   /**
    * Set bit n to 0.
    *
    * \param n the bit position
    */
-  void Clear (uint8_t n);
+  void Clear(uint8_t n);
 
   uint16_t m_capability; ///< capability
 };

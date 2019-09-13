@@ -37,7 +37,8 @@
 
 class Ipv4L3ProtocolTestCase;
 
-namespace ns3 {
+namespace ns3
+{
 
 class Packet;
 class NetDevice;
@@ -84,23 +85,23 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
   static const uint16_t PROT_NUMBER; //!< Protocol number (0x0800)
 
   Ipv4L3Protocol();
-  virtual ~Ipv4L3Protocol ();
+  virtual ~Ipv4L3Protocol();
 
   /**
    * \enum DropReason
    * \brief Reason why a packet has been dropped.
    */
-  enum DropReason 
+  enum DropReason
   {
-    DROP_TTL_EXPIRED = 1,   /**< Packet TTL has expired */
-    DROP_NO_ROUTE,   /**< No route to host */
-    DROP_BAD_CHECKSUM,   /**< Bad checksum */
-    DROP_INTERFACE_DOWN,   /**< Interface is down so can not send packet */
-    DROP_ROUTE_ERROR,   /**< Route error */
+    DROP_TTL_EXPIRED = 1, /**< Packet TTL has expired */
+    DROP_NO_ROUTE,        /**< No route to host */
+    DROP_BAD_CHECKSUM,    /**< Bad checksum */
+    DROP_INTERFACE_DOWN,  /**< Interface is down so can not send packet */
+    DROP_ROUTE_ERROR,     /**< Route error */
     DROP_FRAGMENT_TIMEOUT /**< Fragment timeout exceeded */
   };
 
@@ -108,26 +109,26 @@ public:
    * \brief Set node associated with this stack.
    * \param node node to set
    */
-  void SetNode (Ptr<Node> node);
+  void SetNode(Ptr<Node> node);
 
   // functions defined in base class Ipv4
 
-  void SetRoutingProtocol (Ptr<Ipv4RoutingProtocol> routingProtocol);
-  Ptr<Ipv4RoutingProtocol> GetRoutingProtocol (void) const;
+  void SetRoutingProtocol(Ptr<Ipv4RoutingProtocol> routingProtocol);
+  Ptr<Ipv4RoutingProtocol> GetRoutingProtocol(void) const;
 
-  Ptr<Socket> CreateRawSocket (void);
-  void DeleteRawSocket (Ptr<Socket> socket);
+  Ptr<Socket> CreateRawSocket(void);
+  void DeleteRawSocket(Ptr<Socket> socket);
 
-  virtual void Insert (Ptr<IpL4Protocol> protocol);
-  virtual void Insert (Ptr<IpL4Protocol> protocol, uint32_t interfaceIndex);
+  virtual void Insert(Ptr<IpL4Protocol> protocol);
+  virtual void Insert(Ptr<IpL4Protocol> protocol, uint32_t interfaceIndex);
 
-  virtual void Remove (Ptr<IpL4Protocol> protocol);
-  virtual void Remove (Ptr<IpL4Protocol> protocol, uint32_t interfaceIndex);
+  virtual void Remove(Ptr<IpL4Protocol> protocol);
+  virtual void Remove(Ptr<IpL4Protocol> protocol, uint32_t interfaceIndex);
 
-  virtual Ptr<IpL4Protocol> GetProtocol (int protocolNumber) const;
-  virtual Ptr<IpL4Protocol> GetProtocol (int protocolNumber, int32_t interfaceIndex) const;
+  virtual Ptr<IpL4Protocol> GetProtocol(int protocolNumber) const;
+  virtual Ptr<IpL4Protocol> GetProtocol(int protocolNumber, int32_t interfaceIndex) const;
 
-  virtual Ipv4Address SourceAddressSelection (uint32_t interface, Ipv4Address dest);
+  virtual Ipv4Address SourceAddressSelection(uint32_t interface, Ipv4Address dest);
 
   /**
    * \param ttl default ttl to use
@@ -135,7 +136,7 @@ public:
    * When we need to send an ipv4 packet, we use this default
    * ttl value.
    */
-  void SetDefaultTtl (uint8_t ttl);
+  void SetDefaultTtl(uint8_t ttl);
 
   /**
    * Lower layer calls this method after calling L3Demux::Lookup
@@ -150,8 +151,8 @@ public:
    * \param to address of the destination
    * \param packetType type of the packet
    */
-  void Receive ( Ptr<NetDevice> device, Ptr<const Packet> p, uint16_t protocol, const Address &from,
-                 const Address &to, NetDevice::PacketType packetType);
+  void Receive(Ptr<NetDevice> device, Ptr<const Packet> p, uint16_t protocol, const Address &from,
+               const Address &to, NetDevice::PacketType packetType);
 
   /**
    * \param packet packet to send
@@ -163,8 +164,8 @@ public:
    * Higher-level layers call this method to send a packet
    * down the stack to the MAC and PHY layers.
    */
-  void Send (Ptr<Packet> packet, Ipv4Address source, 
-             Ipv4Address destination, uint8_t protocol, Ptr<Ipv4Route> route);
+  void Send(Ptr<Packet> packet, Ipv4Address source,
+            Ipv4Address destination, uint8_t protocol, Ptr<Ipv4Route> route);
   /**
    * \param packet packet to send
    * \param ipHeader IP Header
@@ -173,41 +174,40 @@ public:
    * Higher-level layers call this method to send a packet with IPv4 Header
    * (Intend to be used with IpHeaderInclude attribute.)
    */
-  void SendWithHeader (Ptr<Packet> packet, Ipv4Header ipHeader, Ptr<Ipv4Route> route);
+  void SendWithHeader(Ptr<Packet> packet, Ipv4Header ipHeader, Ptr<Ipv4Route> route);
 
-  uint32_t AddInterface (Ptr<NetDevice> device);
+  uint32_t AddInterface(Ptr<NetDevice> device);
   /**
    * \brief Get an interface.
    * \param i interface index
    * \return IPv4 interface pointer
    */
-  Ptr<Ipv4Interface> GetInterface (uint32_t i) const;
-  uint32_t GetNInterfaces (void) const;
+  Ptr<Ipv4Interface> GetInterface(uint32_t i) const;
+  uint32_t GetNInterfaces(void) const;
 
-  int32_t GetInterfaceForAddress (Ipv4Address addr) const;
-  int32_t GetInterfaceForPrefix (Ipv4Address addr, Ipv4Mask mask) const;
-  int32_t GetInterfaceForDevice (Ptr<const NetDevice> device) const;
-  bool IsDestinationAddress (Ipv4Address address, uint32_t iif) const;
+  int32_t GetInterfaceForAddress(Ipv4Address addr) const;
+  int32_t GetInterfaceForPrefix(Ipv4Address addr, Ipv4Mask mask) const;
+  int32_t GetInterfaceForDevice(Ptr<const NetDevice> device) const;
+  bool IsDestinationAddress(Ipv4Address address, uint32_t iif) const;
 
-  bool AddAddress (uint32_t i, Ipv4InterfaceAddress address);
-  Ipv4InterfaceAddress GetAddress (uint32_t interfaceIndex, uint32_t addressIndex) const;
-  uint32_t GetNAddresses (uint32_t interface) const;
-  bool RemoveAddress (uint32_t interfaceIndex, uint32_t addressIndex);
-  bool RemoveAddress (uint32_t interface, Ipv4Address address);
-  Ipv4Address SelectSourceAddress (Ptr<const NetDevice> device,
-                                   Ipv4Address dst, Ipv4InterfaceAddress::InterfaceAddressScope_e scope);
+  bool AddAddress(uint32_t i, Ipv4InterfaceAddress address);
+  Ipv4InterfaceAddress GetAddress(uint32_t interfaceIndex, uint32_t addressIndex) const;
+  uint32_t GetNAddresses(uint32_t interface) const;
+  bool RemoveAddress(uint32_t interfaceIndex, uint32_t addressIndex);
+  bool RemoveAddress(uint32_t interface, Ipv4Address address);
+  Ipv4Address SelectSourceAddress(Ptr<const NetDevice> device,
+                                  Ipv4Address dst, Ipv4InterfaceAddress::InterfaceAddressScope_e scope);
 
+  void SetMetric(uint32_t i, uint16_t metric);
+  uint16_t GetMetric(uint32_t i) const;
+  uint16_t GetMtu(uint32_t i) const;
+  bool IsUp(uint32_t i) const;
+  void SetUp(uint32_t i);
+  void SetDown(uint32_t i);
+  bool IsForwarding(uint32_t i) const;
+  void SetForwarding(uint32_t i, bool val);
 
-  void SetMetric (uint32_t i, uint16_t metric);
-  uint16_t GetMetric (uint32_t i) const;
-  uint16_t GetMtu (uint32_t i) const;
-  bool IsUp (uint32_t i) const;
-  void SetUp (uint32_t i);
-  void SetDown (uint32_t i);
-  bool IsForwarding (uint32_t i) const;
-  void SetForwarding (uint32_t i, bool val);
-
-  Ptr<NetDevice> GetNetDevice (uint32_t i);
+  Ptr<NetDevice> GetNetDevice(uint32_t i);
 
   /**
    * \brief Check if an IPv4 address is unicast according to the node.
@@ -219,7 +219,7 @@ public:
    *
    * \return true if the address is unicast
    */
-  bool IsUnicast (Ipv4Address ad) const;
+  bool IsUnicast(Ipv4Address ad) const;
 
   /**
    * TracedCallback signature for packet send, forward, or local deliver events.
@@ -228,9 +228,8 @@ public:
    * \param [in] packet The packet.
    * \param [in] interface
    */
-  typedef void (* SentTracedCallback)
-    (const Ipv4Header & header, Ptr<const Packet> packet, uint32_t interface);
-   
+  typedef void (*SentTracedCallback)(const Ipv4Header &header, Ptr<const Packet> packet, uint32_t interface);
+
   /**
    * TracedCallback signature for packet transmission or reception events.
    *
@@ -241,8 +240,7 @@ public:
    * \deprecated The non-const \c Ptr<Ipv4> argument is deprecated
    * and will be changed to \c Ptr<const Ipv4> in a future release.
    */
-  typedef void (* TxRxTracedCallback)
-    (Ptr<const Packet> packet, Ptr<Ipv4> ipv4, uint32_t interface);
+  typedef void (*TxRxTracedCallback)(Ptr<const Packet> packet, Ptr<Ipv4> ipv4, uint32_t interface);
 
   /**
    * TracedCallback signature for packet drop events.
@@ -255,19 +253,18 @@ public:
    * \deprecated The non-const \c Ptr<Ipv4> argument is deprecated
    * and will be changed to \c Ptr<const Ipv4> in a future release.
    */
-  typedef void (* DropTracedCallback)
-    (const Ipv4Header & header, Ptr<const Packet> packet,
-     DropReason reason, Ptr<Ipv4> ipv4,
-     uint32_t interface);
-   
-protected:
+  typedef void (*DropTracedCallback)(const Ipv4Header &header, Ptr<const Packet> packet,
+                                     DropReason reason, Ptr<Ipv4> ipv4,
+                                     uint32_t interface);
 
-  virtual void DoDispose (void);
+protected:
+  virtual void DoDispose(void);
   /**
    * This function will notify other components connected to the node that a new stack member is now connected
    * This will be used to notify Layer 3 protocol of layer 4 protocol stack to connect them together.
    */
-  virtual void NotifyNewAggregate ();
+  virtual void NotifyNewAggregate();
+
 private:
   /**
    * \brief Ipv4L3ProtocolTestCase test case.
@@ -288,13 +285,13 @@ private:
    * Defined but not implemented to avoid misuse
    * \returns the copied object
    */
-  Ipv4L3Protocol &operator = (const Ipv4L3Protocol &);
+  Ipv4L3Protocol &operator=(const Ipv4L3Protocol &);
 
   // class Ipv4 attributes
-  virtual void SetIpForward (bool forward);
-  virtual bool GetIpForward (void) const;
-  virtual void SetWeakEsModel (bool model);
-  virtual bool GetWeakEsModel (void) const;
+  virtual void SetIpForward(bool forward);
+  virtual bool GetIpForward(void) const;
+  virtual void SetWeakEsModel(bool model);
+  virtual bool GetWeakEsModel(void) const;
 
   /**
    * \brief Construct an IPv4 header.
@@ -307,14 +304,14 @@ private:
    * \param mayFragment true if the packet can be fragmented
    * \return newly created IPv4 header
    */
-  Ipv4Header BuildHeader (
-    Ipv4Address source,
-    Ipv4Address destination,
-    uint8_t protocol,
-    uint16_t payloadSize,
-    uint8_t ttl,
-    uint8_t tos,
-    bool mayFragment);
+  Ipv4Header BuildHeader(
+      Ipv4Address source,
+      Ipv4Address destination,
+      uint8_t protocol,
+      uint16_t payloadSize,
+      uint8_t ttl,
+      uint8_t tos,
+      bool mayFragment);
 
   /**
    * \brief Send packet with route.
@@ -323,9 +320,9 @@ private:
    * \param ipHeader IPv4 header to add to the packet
    */
   void
-  SendRealOut (Ptr<Ipv4Route> route,
-               Ptr<Packet> packet,
-               Ipv4Header const &ipHeader);
+  SendRealOut(Ptr<Ipv4Route> route,
+              Ptr<Packet> packet,
+              Ipv4Header const &ipHeader);
 
   /**
    * \brief Forward a packet.
@@ -333,10 +330,10 @@ private:
    * \param p packet to forward
    * \param header IPv4 header to add to the packet
    */
-  void 
-  IpForward (Ptr<Ipv4Route> rtentry, 
-             Ptr<const Packet> p, 
-             const Ipv4Header &header);
+  void
+  IpForward(Ptr<Ipv4Route> rtentry,
+            Ptr<const Packet> p,
+            const Ipv4Header &header);
 
   /**
    * \brief Forward a multicast packet.
@@ -345,9 +342,9 @@ private:
    * \param header IPv4 header to add to the packet
    */
   void
-  IpMulticastForward (Ptr<Ipv4MulticastRoute> mrtentry, 
-                      Ptr<const Packet> p, 
-                      const Ipv4Header &header);
+  IpMulticastForward(Ptr<Ipv4MulticastRoute> mrtentry,
+                     Ptr<const Packet> p,
+                     const Ipv4Header &header);
 
   /**
    * \brief Deliver a packet.
@@ -355,7 +352,7 @@ private:
    * \param ip IPv4 header
    * \param iif input interface packet was received
    */
-  void LocalDeliver (Ptr<const Packet> p, Ipv4Header const&ip, uint32_t iif);
+  void LocalDeliver(Ptr<const Packet> p, Ipv4Header const &ip, uint32_t iif);
 
   /**
    * \brief Fallback when no route is found.
@@ -363,25 +360,25 @@ private:
    * \param ipHeader IPv4 header
    * \param sockErrno error number
    */
-  void RouteInputError (Ptr<const Packet> p, const Ipv4Header & ipHeader, Socket::SocketErrno sockErrno);
+  void RouteInputError(Ptr<const Packet> p, const Ipv4Header &ipHeader, Socket::SocketErrno sockErrno);
 
   /**
    * \brief Add an IPv4 interface to the stack.
    * \param interface interface to add
    * \return index of newly added interface
    */
-  uint32_t AddIpv4Interface (Ptr<Ipv4Interface> interface);
+  uint32_t AddIpv4Interface(Ptr<Ipv4Interface> interface);
 
   /**
    * \brief Setup loopback interface.
    */
-  void SetupLoopback (void);
+  void SetupLoopback(void);
 
   /**
    * \brief Get ICMPv4 protocol.
    * \return Icmpv4L4Protocol pointer
    */
-  Ptr<Icmpv4L4Protocol> GetIcmp (void) const;
+  Ptr<Icmpv4L4Protocol> GetIcmp(void) const;
 
   /**
    * \brief Check if an IPv4 address is unicast.
@@ -389,7 +386,7 @@ private:
    * \param interfaceMask the network mask
    * \return true if the address is unicast
    */
-  bool IsUnicast (Ipv4Address ad, Ipv4Mask interfaceMask) const;
+  bool IsUnicast(Ipv4Address ad, Ipv4Mask interfaceMask) const;
 
   /**
    * \brief Pair of a packet and an Ipv4 header.
@@ -403,7 +400,7 @@ private:
    * \param outIfaceMtu the MTU of the interface
    * \param listFragments the list of fragments
    */
-  void DoFragmentation (Ptr<Packet> packet, const Ipv4Header& ipv4Header, uint32_t outIfaceMtu, std::list<Ipv4PayloadHeaderPair>& listFragments);
+  void DoFragmentation(Ptr<Packet> packet, const Ipv4Header &ipv4Header, uint32_t outIfaceMtu, std::list<Ipv4PayloadHeaderPair> &listFragments);
 
   /**
    * \brief Process a packet fragment
@@ -412,7 +409,7 @@ private:
    * \param iif Input Interface
    * \return true is the fragment completed the packet
    */
-  bool ProcessFragment (Ptr<Packet>& packet, Ipv4Header & ipHeader, uint32_t iif);
+  bool ProcessFragment(Ptr<Packet> &packet, Ipv4Header &ipHeader, uint32_t iif);
 
   /**
    * \brief Process the timeout for packet fragments
@@ -420,7 +417,7 @@ private:
    * \param ipHeader the IP header of the original packet
    * \param iif Input Interface
    */
-  void HandleFragmentsTimeout ( std::pair<uint64_t, uint32_t> key, Ipv4Header & ipHeader, uint32_t iif);
+  void HandleFragmentsTimeout(std::pair<uint64_t, uint32_t> key, Ipv4Header &ipHeader, uint32_t iif);
 
   /**
    * \brief Make a copy of the packet, add the header and invoke the TX trace callback
@@ -432,20 +429,20 @@ private:
    * Note: If the TracedCallback API ever is extended, we could consider
    * to check for connected functions before adding the header
    */
-  void CallTxTrace (const Ipv4Header & ipHeader, Ptr<Packet> packet, Ptr<Ipv4> ipv4, uint32_t interface);
+  void CallTxTrace(const Ipv4Header &ipHeader, Ptr<Packet> packet, Ptr<Ipv4> ipv4, uint32_t interface);
 
   /**
    * \brief Container of the IPv4 Interfaces.
    */
-  typedef std::vector<Ptr<Ipv4Interface> > Ipv4InterfaceList;
+  typedef std::vector<Ptr<Ipv4Interface>> Ipv4InterfaceList;
   /**
    * \brief Container of NetDevices registered to IPv4 and their interface indexes.
    */
-  typedef std::map<Ptr<const NetDevice>, uint32_t > Ipv4InterfaceReverseContainer;
+  typedef std::map<Ptr<const NetDevice>, uint32_t> Ipv4InterfaceReverseContainer;
   /**
    * \brief Container of the IPv4 Raw Sockets.
    */
-  typedef std::list<Ptr<Ipv4RawSocketImpl> > SocketList;
+  typedef std::list<Ptr<Ipv4RawSocketImpl>> SocketList;
 
   /**
    * \brief Container of the IPv4 L4 keys: protocol number, interface index
@@ -455,16 +452,16 @@ private:
   /**
    * \brief Container of the IPv4 L4 instances.
    */
-  typedef std::map<L4ListKey_t, Ptr<IpL4Protocol> > L4List_t;
+  typedef std::map<L4ListKey_t, Ptr<IpL4Protocol>> L4List_t;
 
-  bool m_ipForward;      //!< Forwarding packets (i.e. router mode) state.
-  bool m_weakEsModel;    //!< Weak ES model state
-  L4List_t m_protocols;  //!< List of transport protocol.
-  Ipv4InterfaceList m_interfaces; //!< List of IPv4 interfaces.
-  Ipv4InterfaceReverseContainer m_reverseInterfacesContainer; //!< Container of NetDevice / Interface index associations.
-  uint8_t m_defaultTtl;  //!< Default TTL
+  bool m_ipForward;                                                  //!< Forwarding packets (i.e. router mode) state.
+  bool m_weakEsModel;                                                //!< Weak ES model state
+  L4List_t m_protocols;                                              //!< List of transport protocol.
+  Ipv4InterfaceList m_interfaces;                                    //!< List of IPv4 interfaces.
+  Ipv4InterfaceReverseContainer m_reverseInterfacesContainer;        //!< Container of NetDevice / Interface index associations.
+  uint8_t m_defaultTtl;                                              //!< Default TTL
   std::map<std::pair<uint64_t, uint8_t>, uint16_t> m_identification; //!< Identification (for each {src, dst, proto} tuple)
-  Ptr<Node> m_node; //!< Node attached to stack.
+  Ptr<Node> m_node;                                                  //!< Node attached to stack.
 
   /// Trace of sent packets
   TracedCallback<const Ipv4Header &, Ptr<const Packet>, uint32_t> m_sendOutgoingTrace;
@@ -477,7 +474,7 @@ private:
   /// Trace of transmitted packets
   /// \deprecated The non-const \c Ptr<Ipv4> argument is deprecated
   /// and will be changed to \c Ptr<const Ipv4> in a future release.
-  TracedCallback<Ptr<const Packet>, Ptr<Ipv4>,  uint32_t> m_txTrace;
+  TracedCallback<Ptr<const Packet>, Ptr<Ipv4>, uint32_t> m_txTrace;
   /// Trace of received packets
   /// \deprecated The non-const \c Ptr<Ipv4> argument is deprecated
   /// and will be changed to \c Ptr<const Ipv4> in a future release.
@@ -497,16 +494,16 @@ private:
    */
   class Fragments : public SimpleRefCount<Fragments>
   {
-public:
+  public:
     /**
      * \brief Constructor.
      */
-    Fragments ();
+    Fragments();
 
     /**
      * \brief Destructor.
      */
-    ~Fragments ();
+    ~Fragments();
 
     /**
      * \brief Add a fragment.
@@ -514,27 +511,27 @@ public:
      * \param fragmentOffset the offset of the fragment
      * \param moreFragment the bit "More Fragment"
      */
-    void AddFragment (Ptr<Packet> fragment, uint16_t fragmentOffset, bool moreFragment);
+    void AddFragment(Ptr<Packet> fragment, uint16_t fragmentOffset, bool moreFragment);
 
     /**
      * \brief If all fragments have been added.
      * \returns true if the packet is entire
      */
-    bool IsEntire () const;
+    bool IsEntire() const;
 
     /**
      * \brief Get the entire packet.
      * \return the entire packet
      */
-    Ptr<Packet> GetPacket () const;
+    Ptr<Packet> GetPacket() const;
 
     /**
      * \brief Get the complete part of the packet.
      * \return the part we have comeplete
      */
-    Ptr<Packet> GetPartialPacket () const;
+    Ptr<Packet> GetPartialPacket() const;
 
-private:
+  private:
     /**
      * \brief True if other fragments will be sent.
      */
@@ -543,19 +540,17 @@ private:
     /**
      * \brief The current fragments.
      */
-    std::list<std::pair<Ptr<Packet>, uint16_t> > m_fragments;
-
+    std::list<std::pair<Ptr<Packet>, uint16_t>> m_fragments;
   };
 
   /// Container of fragments, stored as pairs(src+dst addr, src+dst port) / fragment
-  typedef std::map< std::pair<uint64_t, uint32_t>, Ptr<Fragments> > MapFragments_t;
+  typedef std::map<std::pair<uint64_t, uint32_t>, Ptr<Fragments>> MapFragments_t;
   /// Container of fragment timeout event, stored as pairs(src+dst addr, src+dst port) / EventId
-  typedef std::map< std::pair<uint64_t, uint32_t>, EventId > MapFragmentsTimers_t;
+  typedef std::map<std::pair<uint64_t, uint32_t>, EventId> MapFragmentsTimers_t;
 
-  MapFragments_t       m_fragments; //!< Fragmented packets.
-  Time                 m_fragmentExpirationTimeout; //!< Expiration timeout
+  MapFragments_t m_fragments;             //!< Fragmented packets.
+  Time m_fragmentExpirationTimeout;       //!< Expiration timeout
   MapFragmentsTimers_t m_fragmentsTimers; //!< Expiration events.
-
 };
 
 } // Namespace ns3

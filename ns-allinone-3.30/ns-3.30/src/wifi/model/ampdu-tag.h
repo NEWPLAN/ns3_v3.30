@@ -25,7 +25,8 @@
 #include "ns3/nstime.h"
 #include "ns3/tag.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup wifi
@@ -40,44 +41,43 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
-  TypeId GetInstanceTypeId (void) const;
+  static TypeId GetTypeId(void);
+  TypeId GetInstanceTypeId(void) const;
 
   /**
    * Create a AmpduTag with the default =0 no Ampdu
    */
-  AmpduTag ();
+  AmpduTag();
   /**
    * \param nbofmpdus the remaining number of MPDUs
    *
    * Set the remaining number of MPDUs in the A-MPDU.
    */
-  void SetRemainingNbOfMpdus (uint8_t nbofmpdus);
+  void SetRemainingNbOfMpdus(uint8_t nbofmpdus);
   /**
    * \param duration the remaining duration of the A-MPDU
    *
    * Set the remaining duration of the A-MPDU.
    */
-  void SetRemainingAmpduDuration (Time duration);
+  void SetRemainingAmpduDuration(Time duration);
 
-  void Serialize (TagBuffer i) const;
-  void Deserialize (TagBuffer i);
-  uint32_t GetSerializedSize () const;
-  void Print (std::ostream &os) const;
+  void Serialize(TagBuffer i) const;
+  void Deserialize(TagBuffer i);
+  uint32_t GetSerializedSize() const;
+  void Print(std::ostream &os) const;
 
   /**
    * \return the remaining number of MPDUs in an A-MPDU
    *
    * Returns the remaining number of MPDUs in an A-MPDU
    */
-  uint8_t GetRemainingNbOfMpdus (void) const;
+  uint8_t GetRemainingNbOfMpdus(void) const;
   /**
    * \return the remaining duration of an A-MPDU
    *
    * Returns the remaining duration of an A-MPDU
    */
-  Time GetRemainingAmpduDuration (void) const;
-
+  Time GetRemainingAmpduDuration(void) const;
 
 private:
   uint8_t m_nbOfMpdus; //!< Remaining number of MPDUs in the A-MPDU

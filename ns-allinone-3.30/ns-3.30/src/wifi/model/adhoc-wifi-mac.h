@@ -25,7 +25,8 @@
 
 #include "regular-wifi-mac.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup wifi
@@ -39,20 +40,20 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
-  AdhocWifiMac ();
-  virtual ~AdhocWifiMac ();
+  AdhocWifiMac();
+  virtual ~AdhocWifiMac();
 
   /**
    * \param address the current address of this MAC layer.
    */
-  void SetAddress (Mac48Address address);
+  void SetAddress(Mac48Address address);
 
   /**
    * \param linkUp the callback to invoke when the link becomes up.
    */
-  void SetLinkUpCallback (Callback<void> linkUp);
+  void SetLinkUpCallback(Callback<void> linkUp);
 
   /**
    * \param packet the packet to send.
@@ -62,11 +63,10 @@ public:
    * dequeued as soon as the channel access function determines that
    * access is granted to this MAC.
    */
-  void Enqueue (Ptr<const Packet> packet, Mac48Address to);
-
+  void Enqueue(Ptr<const Packet> packet, Mac48Address to);
 
 private:
-  void Receive (Ptr<Packet> packet, const WifiMacHeader *hdr);
+  void Receive(Ptr<Packet> packet, const WifiMacHeader *hdr);
 };
 
 } //namespace ns3

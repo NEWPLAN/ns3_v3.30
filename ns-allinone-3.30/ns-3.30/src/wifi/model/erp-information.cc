@@ -20,104 +20,100 @@
 
 #include "erp-information.h"
 
-namespace ns3 {
+namespace ns3
+{
 
-ErpInformation::ErpInformation ()
-  : m_erpInformation (0),
-    m_erpSupported (0)
+ErpInformation::ErpInformation()
+    : m_erpInformation(0),
+      m_erpSupported(0)
 {
 }
 
 WifiInformationElementId
-ErpInformation::ElementId () const
+ErpInformation::ElementId() const
 {
   return IE_ERP_INFORMATION;
 }
 
-void
-ErpInformation::SetErpSupported (uint8_t erpSupported)
+void ErpInformation::SetErpSupported(uint8_t erpSupported)
 {
   m_erpSupported = erpSupported;
 }
 
-void
-ErpInformation::SetBarkerPreambleMode (uint8_t barkerPreambleMode)
+void ErpInformation::SetBarkerPreambleMode(uint8_t barkerPreambleMode)
 {
   m_erpInformation |= (barkerPreambleMode & 0x01) << 2;
 }
 
-void
-ErpInformation::SetUseProtection (uint8_t useProtection)
+void ErpInformation::SetUseProtection(uint8_t useProtection)
 {
   m_erpInformation |= (useProtection & 0x01) << 1;
 }
 
-void
-ErpInformation::SetNonErpPresent (uint8_t nonErpPresent)
+void ErpInformation::SetNonErpPresent(uint8_t nonErpPresent)
 {
   m_erpInformation |= nonErpPresent & 0x01;
 }
 
 uint8_t
-ErpInformation::GetBarkerPreambleMode (void) const
+ErpInformation::GetBarkerPreambleMode(void) const
 {
   return ((m_erpInformation >> 2) & 0x01);
 }
 
 uint8_t
-ErpInformation::GetUseProtection (void) const
+ErpInformation::GetUseProtection(void) const
 {
   return ((m_erpInformation >> 1) & 0x01);
 }
 
 uint8_t
-ErpInformation::GetNonErpPresent (void) const
+ErpInformation::GetNonErpPresent(void) const
 {
   return (m_erpInformation & 0x01);
 }
 
 uint8_t
-ErpInformation::GetInformationFieldSize () const
+ErpInformation::GetInformationFieldSize() const
 {
-  NS_ASSERT (m_erpSupported);
+  NS_ASSERT(m_erpSupported);
   return 1;
 }
 
 Buffer::Iterator
-ErpInformation::Serialize (Buffer::Iterator i) const
+ErpInformation::Serialize(Buffer::Iterator i) const
 {
   if (!m_erpSupported)
-    {
-      return i;
-    }
-  return WifiInformationElement::Serialize (i);
+  {
+    return i;
+  }
+  return WifiInformationElement::Serialize(i);
 }
 
 uint16_t
-ErpInformation::GetSerializedSize () const
+ErpInformation::GetSerializedSize() const
 {
   if (!m_erpSupported)
-    {
-      return 0;
-    }
-  return WifiInformationElement::GetSerializedSize ();
+  {
+    return 0;
+  }
+  return WifiInformationElement::GetSerializedSize();
 }
 
-void
-ErpInformation::SerializeInformationField (Buffer::Iterator start) const
+void ErpInformation::SerializeInformationField(Buffer::Iterator start) const
 {
   if (m_erpSupported)
-    {
-      start.WriteU8 (m_erpInformation);
-    }
+  {
+    start.WriteU8(m_erpInformation);
+  }
 }
 
 uint8_t
-ErpInformation::DeserializeInformationField (Buffer::Iterator start,
-                                             uint8_t length)
+ErpInformation::DeserializeInformationField(Buffer::Iterator start,
+                                            uint8_t length)
 {
   Buffer::Iterator i = start;
-  m_erpInformation = i.ReadU8 ();
+  m_erpInformation = i.ReadU8();
   return length;
 }
 
@@ -130,11 +126,11 @@ ErpInformation::DeserializeInformationField (Buffer::Iterator start,
  * \returns output stream
  */
 std::ostream &
-operator << (std::ostream &os, const ErpInformation &erpinformation)
+operator<<(std::ostream &os, const ErpInformation &erpinformation)
 {
-  os <<  bool (erpinformation.GetBarkerPreambleMode ())
-     << "|" << bool (erpinformation.GetUseProtection ())
-     << "|" << bool (erpinformation.GetNonErpPresent ());
+  os << bool(erpinformation.GetBarkerPreambleMode())
+     << "|" << bool(erpinformation.GetUseProtection())
+     << "|" << bool(erpinformation.GetNonErpPresent());
 
   return os;
 }

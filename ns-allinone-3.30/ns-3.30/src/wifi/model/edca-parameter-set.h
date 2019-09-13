@@ -23,7 +23,8 @@
 
 #include "wifi-information-element.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \brief The EDCA Parameter Set
@@ -34,270 +35,270 @@ namespace ns3 {
 class EdcaParameterSet : public WifiInformationElement
 {
 public:
-  EdcaParameterSet ();
+  EdcaParameterSet();
   /**
    * Set QOS supported function
    * \param qosSupported the QOS supported indicator
    */
-  void SetQosSupported (uint8_t qosSupported);
+  void SetQosSupported(uint8_t qosSupported);
   /**
    * Is QOS supported function
    * \returns the is QOS supported indicator
    */
-  uint8_t IsQosSupported (void) const;
+  uint8_t IsQosSupported(void) const;
 
   /**
    * Set the QoS Info field in the EdcaParameterSet information element.
    *
    * \param qosInfo the QoS Info field in the EdcaParameterSet information element
    */
-  void SetQosInfo (uint8_t qosInfo);
+  void SetQosInfo(uint8_t qosInfo);
   /**
    * Set the AC_BE AIFSN field in the EdcaParameterSet information element.
    *
    * \param aifsn the AC_BE AIFSN field in the EdcaParameterSet information element
    */
-  void SetBeAifsn (uint8_t aifsn);
+  void SetBeAifsn(uint8_t aifsn);
   /**
    * Set the AC_BE ACI field in the EdcaParameterSet information element.
    *
    * \param aci the AC_BE ACI field in the EdcaParameterSet information element
    */
-  void SetBeAci (uint8_t aci);
+  void SetBeAci(uint8_t aci);
   /**
    * Set the AC_BE CWmin field in the EdcaParameterSet information element.
    *
    * \param cwMin the AC_BE CWmin field in the EdcaParameterSet information element
    */
-  void SetBeCWmin (uint32_t cwMin);
+  void SetBeCWmin(uint32_t cwMin);
   /**
    * Set the AC_BE CWmax field in the EdcaParameterSet information element.
    *
    * \param cwMax the AC_BE CWmax field in the EdcaParameterSet information element
    */
-  void SetBeCWmax (uint32_t cwMax);
+  void SetBeCWmax(uint32_t cwMax);
   /**
    * Set the AC_BE TXOP Limit field in the EdcaParameterSet information element.
    *
    * \param txop the AC_BE TXOP Limit field in the EdcaParameterSet information element
    */
-  void SetBeTxopLimit (uint16_t txop);
+  void SetBeTxopLimit(uint16_t txop);
   /**
    * Set the AC_BK AIFSN field in the EdcaParameterSet information element.
    *
    * \param aifsn the AC_BB AIFSN field in the EdcaParameterSet information element
    */
-  void SetBkAifsn (uint8_t aifsn);
+  void SetBkAifsn(uint8_t aifsn);
   /**
    * Set the AC_BK ACI field in the EdcaParameterSet information element.
    *
    * \param aci the AC_BK ACI field in the EdcaParameterSet information element
    */
-  void SetBkAci (uint8_t aci);
+  void SetBkAci(uint8_t aci);
   /**
    * Set the AC_BK CWmin field in the EdcaParameterSet information element.
    *
    * \param cwMin the AC_BK CWmin field in the EdcaParameterSet information element
    */
-  void SetBkCWmin (uint32_t cwMin);
+  void SetBkCWmin(uint32_t cwMin);
   /**
    * Set the AC_BK CWmax field in the EdcaParameterSet information element.
    *
    * \param cwMax the AC_BK CWmax field in the EdcaParameterSet information element
    */
-  void SetBkCWmax (uint32_t cwMax);
+  void SetBkCWmax(uint32_t cwMax);
   /**
    * Set the AC_BK TXOP Limit field in the EdcaParameterSet information element.
    *
    * \param txop the AC_BK TXOP Limit field in the EdcaParameterSet information element
    */
-  void SetBkTxopLimit (uint16_t txop);
+  void SetBkTxopLimit(uint16_t txop);
   /**
    * Set the AC_VI AIFSN field in the EdcaParameterSet information element.
    *
    * \param aifsn the AC_VI AIFSN field in the EdcaParameterSet information element
    */
-  void SetViAifsn (uint8_t aifsn);
+  void SetViAifsn(uint8_t aifsn);
   /**
    * Set the AC_VI ACI field in the EdcaParameterSet information element.
    *
    * \param aci the AC_VI ACI field in the EdcaParameterSet information element
    */
-  void SetViAci (uint8_t aci);
+  void SetViAci(uint8_t aci);
   /**
    * Set the AC_VI CWmin field in the EdcaParameterSet information element.
    *
    * \param cwMin the AC_VI CWmin field in the EdcaParameterSet information element
    */
-  void SetViCWmin (uint32_t cwMin);
+  void SetViCWmin(uint32_t cwMin);
   /**
    * Set the AC_VI CWmax field in the EdcaParameterSet information element.
    *
    * \param cwMax the AC_VI CWmax field in the EdcaParameterSet information element
    */
-  void SetViCWmax (uint32_t cwMax);
+  void SetViCWmax(uint32_t cwMax);
   /**
    * Set the AC_VI TXOP Limit field in the EdcaParameterSet information element.
    *
    * \param txop the AC_VI TXOP Limit field in the EdcaParameterSet information element
    */
-  void SetViTxopLimit (uint16_t txop);
+  void SetViTxopLimit(uint16_t txop);
   /**
    * Set the AC_VO AIFSN field in the EdcaParameterSet information element.
    *
    * \param aifsn the AC_VO AIFSN field in the EdcaParameterSet information element
    */
-  void SetVoAifsn (uint8_t aifsn);
+  void SetVoAifsn(uint8_t aifsn);
   /**
    * Set the AC_VO ACI field in the EdcaParameterSet information element.
    *
    * \param aci the AC_VO ACI field in the EdcaParameterSet information element
    */
-  void SetVoAci (uint8_t aci);
+  void SetVoAci(uint8_t aci);
   /**
    * Set the AC_VO CWmin field in the EdcaParameterSet information element.
    *
    * \param cwMin the AC_VO CWmin field in the EdcaParameterSet information element
    */
-  void SetVoCWmin (uint32_t cwMin);
+  void SetVoCWmin(uint32_t cwMin);
   /**
    * Set the AC_VO CWmax field in the EdcaParameterSet information element.
    *
    * \param cwMax the AC_VO CWmax field in the EdcaParameterSet information element
    */
-  void SetVoCWmax (uint32_t cwMax);
+  void SetVoCWmax(uint32_t cwMax);
   /**
    * Set the AC_VO TXOP Limit field in the EdcaParameterSet information element.
    *
    * \param txop the AC_VO TXOP Limit field in the EdcaParameterSet information element
    */
-  void SetVoTxopLimit (uint16_t txop);
+  void SetVoTxopLimit(uint16_t txop);
 
   /**
    * Return the QoS Info field in the EdcaParameterSet information element.
    *
    * \return the QoS Info field in the EdcaParameterSet information element
    */
-  uint8_t GetQosInfo (void) const;
+  uint8_t GetQosInfo(void) const;
   /**
    * Return the AC_BE AIFSN field in the EdcaParameterSet information element.
    *
    * \return the AC_BE AIFSN field in the EdcaParameterSet information element
    */
-  uint8_t GetBeAifsn (void) const;
+  uint8_t GetBeAifsn(void) const;
   /**
    * Return the AC_BE CWmin field in the EdcaParameterSet information element.
    *
    * \return the AC_BE CWmin field in the EdcaParameterSet information element
    */
-  uint32_t GetBeCWmin (void) const;
+  uint32_t GetBeCWmin(void) const;
   /**
    * Return the AC_BE CWmax field in the EdcaParameterSet information element.
    *
    * \return the AC_BE CWmax field in the EdcaParameterSet information element
    */
-  uint32_t GetBeCWmax (void) const;
+  uint32_t GetBeCWmax(void) const;
   /**
    * Return the AC_BE TXOP Limit field in the EdcaParameterSet information element.
    *
    * \return the AC_BE TXOP Limit field in the EdcaParameterSet information element
    */
-  uint16_t GetBeTxopLimit (void) const;
+  uint16_t GetBeTxopLimit(void) const;
   /**
    * Return the AC_BK AIFSN field in the EdcaParameterSet information element.
    *
    * \return the AC_BK AIFSN field in the EdcaParameterSet information element
    */
-  uint8_t GetBkAifsn (void) const;
+  uint8_t GetBkAifsn(void) const;
   /**
    * Return the AC_BK CWmin field in the EdcaParameterSet information element.
    *
    * \return the AC_BK CWmin field in the EdcaParameterSet information element
    */
-  uint32_t GetBkCWmin (void) const;
+  uint32_t GetBkCWmin(void) const;
   /**
    * Return the AC_BK CWmax field in the EdcaParameterSet information element.
    *
    * \return the AC_BK CWmax field in the EdcaParameterSet information element
    */
-  uint32_t GetBkCWmax (void) const;
+  uint32_t GetBkCWmax(void) const;
   /**
    * Return the AC_BK TXOP Limit field in the EdcaParameterSet information element.
    *
    * \return the AC_BK TXOP Limit field in the EdcaParameterSet information element
    */
-  uint16_t GetBkTxopLimit (void) const;
+  uint16_t GetBkTxopLimit(void) const;
   /**
    * Return the AC_VI AIFSN field in the EdcaParameterSet information element.
    *
    * \return the AC_VI AIFSN field in the EdcaParameterSet information element
    */
-  uint8_t GetViAifsn (void) const;
+  uint8_t GetViAifsn(void) const;
   /**
    * Return the AC_VI CWmin field in the EdcaParameterSet information element.
    *
    * \return the AC_VI CWmin field in the EdcaParameterSet information element
    */
-  uint32_t GetViCWmin (void) const;
+  uint32_t GetViCWmin(void) const;
   /**
    * Return the AC_VI CWmax field in the EdcaParameterSet information element.
    *
    * \return the AC_VI CWmax field in the EdcaParameterSet information element
    */
-  uint32_t GetViCWmax (void) const;
+  uint32_t GetViCWmax(void) const;
   /**
    * Return the AC_VI TXOP Limit field in the EdcaParameterSet information element.
    *
    * \return the AC_VI TXOP Limit field in the EdcaParameterSet information element
    */
-  uint16_t GetViTxopLimit (void) const;
+  uint16_t GetViTxopLimit(void) const;
   /**
    * Return the AC_VO AIFSN field in the EdcaParameterSet information element.
    *
    * \return the AC_VO AIFSN field in the EdcaParameterSet information element
    */
-  uint8_t GetVoAifsn (void) const;
+  uint8_t GetVoAifsn(void) const;
   /**
    * Return the AC_VO CWmin field in the EdcaParameterSet information element.
    *
    * \return the AC_VO CWmin field in the EdcaParameterSet information element
    */
-  uint32_t GetVoCWmin (void) const;
+  uint32_t GetVoCWmin(void) const;
   /**
    * Return the AC_VO CWmax field in the EdcaParameterSet information element.
    *
    * \return the AC_VO CWmax field in the EdcaParameterSet information element
    */
-  uint32_t GetVoCWmax (void) const;
+  uint32_t GetVoCWmax(void) const;
   /**
    * Return the AC_VO TXOP Limit field in the EdcaParameterSet information element.
    *
    * \return the AC_VO TXOP Limit field in the EdcaParameterSet information element
    */
-  uint16_t GetVoTxopLimit (void) const;
+  uint16_t GetVoTxopLimit(void) const;
 
   /**
    * Element ID function
    * \returns the wifi information element ID
    */
-  WifiInformationElementId ElementId () const;
+  WifiInformationElementId ElementId() const;
   /**
    * Get information field size function
    * \returns the information field size
    */
-  uint8_t GetInformationFieldSize () const;
+  uint8_t GetInformationFieldSize() const;
   /**
    * Serialize information field function
    * \param start the iterator
    */
-  void SerializeInformationField (Buffer::Iterator start) const;
+  void SerializeInformationField(Buffer::Iterator start) const;
   /**
    * Deserialize information field function
    * \param start the iterator
    * \param length the length
    * \returns the size
    */
-  uint8_t DeserializeInformationField (Buffer::Iterator start, uint8_t length);
+  uint8_t DeserializeInformationField(Buffer::Iterator start, uint8_t length);
 
   /**
    * This information element is a bit special in that it is only
@@ -309,14 +310,13 @@ public:
    *
    * \return an iterator
    */
-  Buffer::Iterator Serialize (Buffer::Iterator start) const;
+  Buffer::Iterator Serialize(Buffer::Iterator start) const;
   /**
    * Return the serialized size of this EDCA Parameter Set.
    *
    * \return the serialized size of this EDCA Parameter Set
    */
-  uint16_t GetSerializedSize () const;
-
+  uint16_t GetSerializedSize() const;
 
 private:
   uint8_t m_qosInfo;  ///< QOS info

@@ -27,7 +27,8 @@
 #include "ns3/nstime.h"
 #include <vector>
 
-namespace ns3 {
+namespace ns3
+{
 
 class AmpduSubframeHeader;
 class WifiTxVector;
@@ -44,25 +45,24 @@ public:
   /**
    * A list of deaggregated packets and their A-MPDU subframe headers.
    */
-  typedef std::list<std::pair<Ptr<Packet>, AmpduSubframeHeader> > DeaggregatedMpdus;
+  typedef std::list<std::pair<Ptr<Packet>, AmpduSubframeHeader>> DeaggregatedMpdus;
   /**
    * A constant iterator for a list of deaggregated packets and their A-MPDU subframe headers.
    */
-  typedef std::list<std::pair<Ptr<Packet>, AmpduSubframeHeader> >::const_iterator DeaggregatedMpdusCI;
+  typedef std::list<std::pair<Ptr<Packet>, AmpduSubframeHeader>>::const_iterator DeaggregatedMpdusCI;
   /**
    * EDCA queues typedef
    */
-  typedef std::map<AcIndex, Ptr<QosTxop> > EdcaQueues;
-
+  typedef std::map<AcIndex, Ptr<QosTxop>> EdcaQueues;
 
   /**
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
-  MpduAggregator ();
-  virtual ~MpduAggregator ();
+  MpduAggregator();
+  virtual ~MpduAggregator();
 
   /**
    * Aggregate an MPDU to an A-MPDU.
@@ -71,7 +71,7 @@ public:
    * \param ampdu the A-MPDU.
    * \param isSingle whether it is a single MPDU.
    */
-  static void Aggregate (Ptr<const WifiMacQueueItem> mpdu, Ptr<Packet> ampdu, bool isSingle);
+  static void Aggregate(Ptr<const WifiMacQueueItem> mpdu, Ptr<Packet> ampdu, bool isSingle);
 
   /**
    * \param mpdu the MPDU we want to insert into an A-MPDU subframe.
@@ -80,7 +80,7 @@ public:
    *
    * Adds A-MPDU subframe header and padding to each MPDU that is part of an A-MPDU before it is sent.
    */
-  static void AddHeaderAndPad (Ptr<Packet> mpdu, bool last, bool isSingleMpdu);
+  static void AddHeaderAndPad(Ptr<Packet> mpdu, bool last, bool isSingleMpdu);
 
   /**
    * Compute the size of the A-MPDU resulting from the aggregation of an MPDU of
@@ -90,7 +90,7 @@ public:
    * \param ampduSize the A-MPDU size.
    * \return the size of the resulting A-MPDU.
    */
-  static uint32_t GetSizeIfAggregated (uint32_t mpduSize, uint32_t ampduSize);
+  static uint32_t GetSizeIfAggregated(uint32_t mpduSize, uint32_t ampduSize);
 
   /**
    * Determine the maximum size for an A-MPDU of the given TID that can be sent
@@ -101,8 +101,8 @@ public:
    * \param modulation the modulation class.
    * \return the maximum A-MPDU size.
    */
-  uint32_t GetMaxAmpduSize (Mac48Address recipient, uint8_t tid,
-                            WifiModulationClass modulation) const;
+  uint32_t GetMaxAmpduSize(Mac48Address recipient, uint8_t tid,
+                           WifiModulationClass modulation) const;
 
   /**
    * Attempt to aggregate other MPDUs to the given MPDU, while meeting the
@@ -131,9 +131,9 @@ public:
    * \param ppduDurationLimit the limit on the PPDU duration
    * \return the resulting A-MPDU, if aggregation is possible.
    */
-  std::vector<Ptr<WifiMacQueueItem>> GetNextAmpdu (Ptr<const WifiMacQueueItem> mpdu,
-                                                   WifiTxVector txVector,
-                                                   Time ppduDurationLimit = Seconds (0)) const;
+  std::vector<Ptr<WifiMacQueueItem>> GetNextAmpdu(Ptr<const WifiMacQueueItem> mpdu,
+                                                  WifiTxVector txVector,
+                                                  Time ppduDurationLimit = Seconds(0)) const;
 
   /**
    * Deaggregates an A-MPDU by removing the A-MPDU subframe header and padding.
@@ -141,7 +141,7 @@ public:
    * \param aggregatedPacket the aggregated packet
    * \return list of deaggragted packets and their A-MPDU subframe headers
    */
-  static DeaggregatedMpdus Deaggregate (Ptr<Packet> aggregatedPacket);
+  static DeaggregatedMpdus Deaggregate(Ptr<Packet> aggregatedPacket);
 
   /**
    * Peeks the A-MPDU subframes of the provided A-MPDU.
@@ -149,7 +149,7 @@ public:
    * \param aggregatedPacket the aggregated packet
    * \return list of A-MPDU subframes (i.e. A-MPDU subframe header + MPDU + eventual padding)
    */
-  static std::list<Ptr<const Packet>> PeekAmpduSubframes (Ptr<const Packet> aggregatedPacket);
+  static std::list<Ptr<const Packet>> PeekAmpduSubframes(Ptr<const Packet> aggregatedPacket);
 
   /**
    * Peeks the MPDUs of the provided A-MPDU.
@@ -157,7 +157,7 @@ public:
    * \param aggregatedPacket the aggregated packet
    * \return list of MPDUs
    */
-  static std::list<Ptr<const Packet>> PeekMpdus (Ptr<const Packet> aggregatedPacket);
+  static std::list<Ptr<const Packet>> PeekMpdus(Ptr<const Packet> aggregatedPacket);
 
   /**
    * Peeks the MPDU contained in the A-MPDU subframe.
@@ -165,14 +165,14 @@ public:
    * \param ampduSubframe the A-MPDU subframe
    * \return the MPDU contained in the A-MPDU subframe
    */
-  static Ptr<const Packet> PeekMpduInAmpduSubframe (Ptr<const Packet> ampduSubframe);
+  static Ptr<const Packet> PeekMpduInAmpduSubframe(Ptr<const Packet> ampduSubframe);
 
   /**
    * Set the map of EDCA queues.
    *
    * \param edcaQueues the map of EDCA queues.
    */
-  void SetEdcaQueues (EdcaQueues edcaQueues);
+  void SetEdcaQueues(EdcaQueues edcaQueues);
 
 private:
   /**
@@ -183,11 +183,11 @@ private:
    * (once another MPDU is aggregated).
    * Each A-MPDU subframe is padded so that its length is multiple of 4 octets.
    */
-  static uint8_t CalculatePadding (uint32_t ampduSize);
+  static uint8_t CalculatePadding(uint32_t ampduSize);
 
-  EdcaQueues m_edca;   //!< the map of EDCA queues
+  EdcaQueues m_edca; //!< the map of EDCA queues
 };
 
-}  //namespace ns3
+} //namespace ns3
 
 #endif /* MPDU_AGGREGATOR_H */

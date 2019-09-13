@@ -29,7 +29,8 @@
 #include "ns3/tcp-header.h"
 #include "ns3/tcp-option-sack.h"
 
-namespace ns3 {
+namespace ns3
+{
 class Packet;
 
 /**
@@ -77,64 +78,64 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
   /**
    * \brief Constructor
    * \param n initial Sequence number to be received
    */
-  TcpRxBuffer (uint32_t n = 0);
-  virtual ~TcpRxBuffer ();
+  TcpRxBuffer(uint32_t n = 0);
+  virtual ~TcpRxBuffer();
 
   // Accessors
   /**
    * \brief Get Next Rx Sequence number
    * \returns Next Rx Sequence number
    */
-  SequenceNumber32 NextRxSequence (void) const;
+  SequenceNumber32 NextRxSequence(void) const;
   /**
    * \brief Get the lowest sequence number that this TcpRxBuffer cannot accept
    * \returns the lowest sequence number that this TcpRxBuffer cannot accept
    */
-  SequenceNumber32 MaxRxSequence (void) const;
+  SequenceNumber32 MaxRxSequence(void) const;
   /**
    * \brief Increment the Next Sequence number
    */
-  void IncNextRxSequence (void);
+  void IncNextRxSequence(void);
   /**
    * \brief Set the Next Sequence number
    * \param s the Sequence number
    */
-  void SetNextRxSequence (const SequenceNumber32& s);
+  void SetNextRxSequence(const SequenceNumber32 &s);
   /**
    * \brief Set the FIN Sequence number (i.e., the one closing the connection)
    * \param s the Sequence number
    */
-  void SetFinSequence (const SequenceNumber32& s);
+  void SetFinSequence(const SequenceNumber32 &s);
   /**
    * \brief Get the Maximum buffer size
    * \returns the Maximum buffer size
    */
-  uint32_t MaxBufferSize (void) const;
+  uint32_t MaxBufferSize(void) const;
   /**
    * \brief Set the Maximum buffer size
    * \param s the Maximum buffer size
    */
-  void SetMaxBufferSize (uint32_t s);
+  void SetMaxBufferSize(uint32_t s);
   /**
    * \brief Get the actual buffer occupancy
    * \returns buffer occupancy (in bytes)
    */
-  uint32_t Size (void) const;
+  uint32_t Size(void) const;
   /**
    * \brief Get the actual number of bytes available to be read
    * \returns size of available data (in bytes)
    */
-  uint32_t Available () const;
+  uint32_t Available() const;
   /**
    * \brief Check if the buffer did receive all the data (and the connection is closed)
    * \returns true if all data have been received
    */
-  bool Finished (void);
+  bool Finished(void);
 
   /**
    * Insert a packet into the buffer and update the availBytes counter to
@@ -147,7 +148,7 @@ public:
    * \param tcph packet's TCP header
    * \return True when success, false otherwise.
    */
-  bool Add (Ptr<Packet> p, TcpHeader const& tcph);
+  bool Add(Ptr<Packet> p, TcpHeader const &tcph);
 
   /**
    * Extract data from the head of the buffer as indicated by nextRxSeq.
@@ -156,7 +157,7 @@ public:
    * \param maxSize maximum number of bytes to extract
    * \returns a packet
    */
-  Ptr<Packet> Extract (uint32_t maxSize);
+  Ptr<Packet> Extract(uint32_t maxSize);
 
   /**
    * \brief Get the sack list
@@ -166,20 +167,20 @@ public:
    *
    * \return a list of isolated blocks
    */
-  TcpOptionSack::SackList GetSackList () const;
+  TcpOptionSack::SackList GetSackList() const;
 
   /**
    * \brief Get the size of Sack list
    *
    * \return the size of the sack block list; can be empty
    */
-  uint32_t GetSackListSize () const;
+  uint32_t GetSackListSize() const;
 
   /**
    * \brief Says if a FIN bit has been received
    * \return true if we received a FIN bit
    */
-  bool GotFin () const { return m_gotFin; }
+  bool GotFin() const { return m_gotFin; }
 
 private:
   /**
@@ -200,7 +201,7 @@ private:
    * \param head sequence number of the block at the beginning
    * \param tail sequence number of the block at the end
    */
-  void UpdateSackList (const SequenceNumber32 &head, const SequenceNumber32 &tail);
+  void UpdateSackList(const SequenceNumber32 &head, const SequenceNumber32 &tail);
 
   /**
    * \brief Remove old blocks from the sack list
@@ -213,19 +214,19 @@ private:
    *
    * \param seq Last sequence to remove
    */
-  void ClearSackList (const SequenceNumber32 &seq);
+  void ClearSackList(const SequenceNumber32 &seq);
 
   TcpOptionSack::SackList m_sackList; //!< Sack list (updated constantly)
 
   /// container for data stored in the buffer
-  typedef std::map<SequenceNumber32, Ptr<Packet> >::iterator BufIterator;
-  TracedValue<SequenceNumber32> m_nextRxSeq; //!< Seqnum of the first missing byte in data (RCV.NXT)
-  SequenceNumber32 m_finSeq;                 //!< Seqnum of the FIN packet
-  bool m_gotFin;                             //!< Did I received FIN packet?
-  uint32_t m_size;                           //!< Number of total data bytes in the buffer, not necessarily contiguous
-  uint32_t m_maxBuffer;                      //!< Upper bound of the number of data bytes in buffer (RCV.WND)
-  uint32_t m_availBytes;                     //!< Number of bytes available to read, i.e. contiguous block at head
-  std::map<SequenceNumber32, Ptr<Packet> > m_data; //!< Corresponding data (may be null)
+  typedef std::map<SequenceNumber32, Ptr<Packet>>::iterator BufIterator;
+  TracedValue<SequenceNumber32> m_nextRxSeq;      //!< Seqnum of the first missing byte in data (RCV.NXT)
+  SequenceNumber32 m_finSeq;                      //!< Seqnum of the FIN packet
+  bool m_gotFin;                                  //!< Did I received FIN packet?
+  uint32_t m_size;                                //!< Number of total data bytes in the buffer, not necessarily contiguous
+  uint32_t m_maxBuffer;                           //!< Upper bound of the number of data bytes in buffer (RCV.WND)
+  uint32_t m_availBytes;                          //!< Number of bytes available to read, i.e. contiguous block at head
+  std::map<SequenceNumber32, Ptr<Packet>> m_data; //!< Corresponding data (may be null)
 };
 
 } //namespace ns3

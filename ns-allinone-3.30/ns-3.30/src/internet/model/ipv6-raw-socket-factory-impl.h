@@ -39,10 +39,9 @@ public:
    * \brief Create a raw IPv6 socket.
    * \returns A new RAW IPv6 socket.
    */
-  virtual Ptr<Socket> CreateSocket ();
+  virtual Ptr<Socket> CreateSocket();
 };
 
 } /* namespace ns3 */
 
 #endif /* IPV6_RAW_SOCKET_FACTORY_IMPL_H */
-

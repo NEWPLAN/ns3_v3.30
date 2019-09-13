@@ -32,7 +32,8 @@
 #include "ns3/ipv6-address.h"
 #include "ipv6-interface-address.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class Node;
 class NetDevice;
@@ -85,17 +86,17 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
   /**
    * \brief Constructor.
    */
-  Ipv6 ();
+  Ipv6();
 
   /**
    * \brief Destructor.
    */
-  virtual ~Ipv6 ();
+  virtual ~Ipv6();
 
   /**
    * \brief Register a new routing protocol to be used by this IPv6 stack
@@ -106,14 +107,14 @@ public:
    * 
    * \param routingProtocol smart pointer to Ipv6RoutingProtocol object
    */
-  virtual void SetRoutingProtocol (Ptr<Ipv6RoutingProtocol> routingProtocol) = 0;
+  virtual void SetRoutingProtocol(Ptr<Ipv6RoutingProtocol> routingProtocol) = 0;
 
   /**
    * \brief Get the routing protocol to be used by this IPv6 stack
    * 
    * \returns smart pointer to Ipv6RoutingProtocol object, or null pointer if none
    */
-  virtual Ptr<Ipv6RoutingProtocol> GetRoutingProtocol (void) const = 0;
+  virtual Ptr<Ipv6RoutingProtocol> GetRoutingProtocol(void) const = 0;
 
   /**
    * \brief Add a NetDevice interface.
@@ -125,13 +126,13 @@ public:
    *        which can be used as output interfaces during packet forwarding.
    * \returns the index of the IPv6 interface added.
    */
-  virtual uint32_t AddInterface (Ptr<NetDevice> device) = 0;
+  virtual uint32_t AddInterface(Ptr<NetDevice> device) = 0;
 
   /**
    * \brief Get number of interfaces.
    * \returns the number of interfaces added by the user.
    */
-  virtual uint32_t GetNInterfaces (void) const = 0;
+  virtual uint32_t GetNInterfaces(void) const = 0;
 
   /**
    * \brief Return the interface number of the interface that has been
@@ -147,7 +148,7 @@ public:
    * returns the interface number of the first interface that has been assigned
    * that address, or -1 if not found.  There must be an exact match.
    */
-  virtual int32_t GetInterfaceForAddress (Ipv6Address address) const = 0;
+  virtual int32_t GetInterfaceForAddress(Ipv6Address address) const = 0;
 
   /**
    * \brief Return the interface number of first interface found that 
@@ -165,22 +166,22 @@ public:
    * formed by the input address and mask parameters.  The value -1 is
    * returned if no match is found.
    */
-  virtual int32_t GetInterfaceForPrefix (Ipv6Address address,
-                                         Ipv6Prefix mask) const = 0;
+  virtual int32_t GetInterfaceForPrefix(Ipv6Address address,
+                                        Ipv6Prefix mask) const = 0;
 
   /**
    * \brief Get the NetDevice of the specified interface number.
    * \param interface The interface number of an IPv6 interface.
    * \returns The NetDevice associated with the IPv6 interface number.
    */
-  virtual Ptr<NetDevice> GetNetDevice (uint32_t interface) = 0;
+  virtual Ptr<NetDevice> GetNetDevice(uint32_t interface) = 0;
 
   /**
    * \brief Get the interface index of the specified NetDevice.
    * \param device The NetDevice for an Ipv6Interface
    * \returns The interface number of an IPv6 interface or -1 if not found.
    */
-  virtual int32_t GetInterfaceForDevice (Ptr<const NetDevice> device) const = 0;
+  virtual int32_t GetInterfaceForDevice(Ptr<const NetDevice> device) const = 0;
 
   /**
    * \brief Add an address on the specified IPv6 interface.
@@ -188,14 +189,14 @@ public:
    * \param address Ipv6InterfaceAddress address to associate with the underlying IPv6 interface
    * \returns true if the operation succeeded
    */
-  virtual bool AddAddress (uint32_t interface, Ipv6InterfaceAddress address) = 0;
+  virtual bool AddAddress(uint32_t interface, Ipv6InterfaceAddress address) = 0;
 
   /**
    * \brief Get number of addresses on specified IPv6 interface.
    * \param interface Interface number of an IPv6 interface
    * \returns the number of Ipv6InterfaceAddress entries for the interface.
    */
-  virtual uint32_t GetNAddresses (uint32_t interface) const = 0;
+  virtual uint32_t GetNAddresses(uint32_t interface) const = 0;
 
   /**
    * \brief Get IPv6 address on specified IPv6 interface.
@@ -207,7 +208,7 @@ public:
    * \param addressIndex index of Ipv6InterfaceAddress 
    * \returns the Ipv6InterfaceAddress associated to the interface and addressIndex
    */
-  virtual Ipv6InterfaceAddress GetAddress (uint32_t interface, uint32_t addressIndex) const = 0;
+  virtual Ipv6InterfaceAddress GetAddress(uint32_t interface, uint32_t addressIndex) const = 0;
 
   /**
    * \brief Remove an address on specified IPv6 interface.
@@ -221,7 +222,7 @@ public:
    * \param addressIndex index of Ipv6InterfaceAddress to remove 
    * \returns true if the operation succeeded
    */
-  virtual bool RemoveAddress (uint32_t interface, uint32_t addressIndex) = 0;
+  virtual bool RemoveAddress(uint32_t interface, uint32_t addressIndex) = 0;
 
   /**
    * \brief Remove the given address on named Ipv6 interface
@@ -230,7 +231,7 @@ public:
    * \param address the address to remove
    * \returns true if the operation succeeded
    */
-  virtual bool RemoveAddress (uint32_t interface, Ipv6Address address) = 0;
+  virtual bool RemoveAddress(uint32_t interface, Ipv6Address address) = 0;
 
   /**
    * \brief Set metric on specified Ipv6 interface.
@@ -239,7 +240,7 @@ public:
    * \param metric routing metric (cost) associated to the underlying 
    *          IPv6 interface
    */
-  virtual void SetMetric (uint32_t interface, uint16_t metric) = 0;
+  virtual void SetMetric(uint32_t interface, uint16_t metric) = 0;
 
   /**
    * \brief Get metric for the specified IPv6 interface.
@@ -248,7 +249,7 @@ public:
    * \returns routing metric (cost) associated to the underlying 
    *          IPv6 interface
    */
-  virtual uint16_t GetMetric (uint32_t interface) const = 0;
+  virtual uint16_t GetMetric(uint32_t interface) const = 0;
 
   /**
    * \brief Get MTU for the specified IPv6 interface.
@@ -256,14 +257,14 @@ public:
    * \returns the Maximum Transmission Unit (in bytes) associated
    *          to the underlying IPv6 interface
    */
-  virtual uint16_t GetMtu (uint32_t interface) const = 0;
+  virtual uint16_t GetMtu(uint32_t interface) const = 0;
 
   /**
    * \brief Set the Path MTU for the specified IPv6 destination address.
    * \param dst Ipv6 destination address
    * \param pmtu the Path MTU
    */
-  virtual void SetPmtu (Ipv6Address dst, uint32_t pmtu) = 0;
+  virtual void SetPmtu(Ipv6Address dst, uint32_t pmtu) = 0;
 
   /**
    * \brief If the specified interface index is in "up" state.
@@ -271,7 +272,7 @@ public:
    * \returns true if the underlying interface is in the "up" state,
    *          false otherwise.
    */
-  virtual bool IsUp (uint32_t interface) const = 0;
+  virtual bool IsUp(uint32_t interface) const = 0;
 
   /**
    * \brief Set the interface into the "up" state. 
@@ -279,7 +280,7 @@ public:
    * In this state, it is considered valid during IPv6 forwarding.
    * \param interface Interface number of IPv6 interface
    */
-  virtual void SetUp (uint32_t interface) = 0;
+  virtual void SetUp(uint32_t interface) = 0;
 
   /**
    * \brief Set the interface into the "down" state.
@@ -287,14 +288,14 @@ public:
    * In this state, it is ignored during IPv6 forwarding.
    * \param interface Interface number of IPv6 interface
    */
-  virtual void SetDown (uint32_t interface) = 0;
+  virtual void SetDown(uint32_t interface) = 0;
 
   /**
    * \brief If the specified IPv6 interface has forwarding enabled.
    * \param interface Interface number of IPv6 interface
    * \returns true if IPv6 forwarding enabled for input datagrams on this device
    */
-  virtual bool IsForwarding (uint32_t interface) const = 0;
+  virtual bool IsForwarding(uint32_t interface) const = 0;
 
   /**
    * \brief Set forwarding on specified IPv6 interface.
@@ -303,7 +304,7 @@ public:
    * 
    * If set to true, IPv6 forwarding is enabled for input datagrams on this device
    */
-  virtual void SetForwarding (uint32_t interface, bool val) = 0;
+  virtual void SetForwarding(uint32_t interface, bool val) = 0;
 
   /**
    * \brief Choose the source address to use with destination address.
@@ -311,13 +312,13 @@ public:
    * \param dest IPv6 destination address
    * \return IPv6 source address to use
    */
-  virtual Ipv6Address SourceAddressSelection (uint32_t interface, Ipv6Address dest) = 0;
+  virtual Ipv6Address SourceAddressSelection(uint32_t interface, Ipv6Address dest) = 0;
 
   /**
    * \brief Add a L4 protocol.
    * \param protocol L4 protocol
    */
-  virtual void Insert (Ptr<IpL4Protocol> protocol) = 0;
+  virtual void Insert(Ptr<IpL4Protocol> protocol) = 0;
 
   /**
    * \brief Add a L4 protocol to a specific interface.
@@ -332,27 +333,27 @@ public:
    * \param protocol L4 protocol.
    * \param interfaceIndex interface index.
    */
-  virtual void Insert (Ptr<IpL4Protocol> protocol, uint32_t interfaceIndex) = 0;
+  virtual void Insert(Ptr<IpL4Protocol> protocol, uint32_t interfaceIndex) = 0;
 
   /**
    * \brief Remove a L4 protocol.
    * \param protocol L4 protocol to remove.
    */
-  virtual void Remove (Ptr<IpL4Protocol> protocol) = 0;
+  virtual void Remove(Ptr<IpL4Protocol> protocol) = 0;
 
   /**
    * \brief Remove a L4 protocol from a specific interface.
    * \param protocol L4 protocol to remove.
    * \param interfaceIndex interface index.
    */
-  virtual void Remove (Ptr<IpL4Protocol> protocol, uint32_t interfaceIndex) = 0;
+  virtual void Remove(Ptr<IpL4Protocol> protocol, uint32_t interfaceIndex) = 0;
 
   /**
    * \brief Get L4 protocol by protocol number.
    * \param protocolNumber protocol number
    * \return corresponding IpL4Protocol or 0 if not found
    */
-  virtual Ptr<IpL4Protocol> GetProtocol (int protocolNumber) const = 0;
+  virtual Ptr<IpL4Protocol> GetProtocol(int protocolNumber) const = 0;
 
   /**
    * \brief Get L4 protocol by protocol number for the specified interface.
@@ -360,7 +361,7 @@ public:
    * \param interfaceIndex interface index, -1 means "any" interface.
    * \return corresponding IpL4Protocol or 0 if not found
    */
-  virtual Ptr<IpL4Protocol> GetProtocol (int protocolNumber, int32_t interfaceIndex) const = 0;
+  virtual Ptr<IpL4Protocol> GetProtocol(int protocolNumber, int32_t interfaceIndex) const = 0;
 
   /**
    * \brief Higher-level layers call this method to send a packet
@@ -372,17 +373,17 @@ public:
    * \param protocol number of packet
    * \param route route to take
    */
-  virtual void Send (Ptr<Packet> packet, Ipv6Address source, Ipv6Address destination, uint8_t protocol, Ptr<Ipv6Route> route) = 0;
+  virtual void Send(Ptr<Packet> packet, Ipv6Address source, Ipv6Address destination, uint8_t protocol, Ptr<Ipv6Route> route) = 0;
 
   /**
    * \brief Register the IPv6 Extensions.
    */
-  virtual void RegisterExtensions () = 0;
+  virtual void RegisterExtensions() = 0;
 
   /**
    * \brief Register the IPv6 Options.
    */
-  virtual void RegisterOptions () = 0;
+  virtual void RegisterOptions() = 0;
 
   /**
    * \brief Any interface magic number.
@@ -395,28 +396,27 @@ private:
    * \brief Set IPv6 forwarding state.
    * \param forward IPv6 forwarding enabled or not
    */
-  virtual void SetIpForward (bool forward) = 0;
+  virtual void SetIpForward(bool forward) = 0;
 
   /**
    * \brief Get IPv6 forwarding state.
    * \return forwarding state (enabled or not)
    */
-  virtual bool GetIpForward (void) const = 0;
+  virtual bool GetIpForward(void) const = 0;
 
   /**
    * \brief Set IPv6 MTU discover state.
    * \param mtuDiscover IPv6 MTU discover enabled or not
    */
-  virtual void SetMtuDiscover (bool mtuDiscover) = 0;
+  virtual void SetMtuDiscover(bool mtuDiscover) = 0;
 
   /**
    * \brief Get IPv6 MTU discover state.
    * \return MTU discover state (enabled or not)
    */
-  virtual bool GetMtuDiscover (void) const = 0;
+  virtual bool GetMtuDiscover(void) const = 0;
 };
 
-} // namespace ns3 
+} // namespace ns3
 
 #endif /* IPV6_H */
-

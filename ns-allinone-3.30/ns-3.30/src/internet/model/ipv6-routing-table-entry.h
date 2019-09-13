@@ -35,96 +35,96 @@ namespace ns3
  *
  * \brief A record of an IPv6 route.
  */
-class Ipv6RoutingTableEntry 
+class Ipv6RoutingTableEntry
 {
 public:
   /**
    * \brief Constructor.
    */
-  Ipv6RoutingTableEntry ();
+  Ipv6RoutingTableEntry();
 
   /**
    * \brief Copy constructor.
    * \param route the route to copy
    */
-  Ipv6RoutingTableEntry (Ipv6RoutingTableEntry const & route);
+  Ipv6RoutingTableEntry(Ipv6RoutingTableEntry const &route);
 
   /**
    * \brief Copy constructor.
    * \param route the route to copy
    */
-  Ipv6RoutingTableEntry (Ipv6RoutingTableEntry const* route);
+  Ipv6RoutingTableEntry(Ipv6RoutingTableEntry const *route);
 
   /**
    * \brief Destructor
    */
-  virtual ~Ipv6RoutingTableEntry ();
+  virtual ~Ipv6RoutingTableEntry();
 
   /**
    * \brief Is the route entry correspond to a host ?
    * \return true if the route is a host, false otherwise
    */
-  bool IsHost () const;
+  bool IsHost() const;
 
   /**
    * \brief Get the destination.
    * \return the IPv6 address of the destination of this route
    */
-  Ipv6Address GetDest () const;
+  Ipv6Address GetDest() const;
 
   /**
    * \brief Get the prefix to use (for multihomed link).
    * \return prefix address to use
    */
-  Ipv6Address GetPrefixToUse () const;
+  Ipv6Address GetPrefixToUse() const;
 
   /**
    * \brief Set the prefix to use.
    * \param prefix prefix to use
    */
-  void SetPrefixToUse (Ipv6Address prefix);
+  void SetPrefixToUse(Ipv6Address prefix);
 
   /**
    * \brief Is the route entry correspond to a network ? 
    * \return true if the route is a network, false otherwise
    */
-  bool IsNetwork () const;
+  bool IsNetwork() const;
 
   /**
    * \brief Get the destination network.
    * \return the destination network
    */
-  Ipv6Address GetDestNetwork () const;
+  Ipv6Address GetDestNetwork() const;
 
   /**
    * \brief Get the destination prefix.
    * \return the destination prefix
    */
-  Ipv6Prefix GetDestNetworkPrefix () const;
+  Ipv6Prefix GetDestNetworkPrefix() const;
 
   /**
    * \brief Is it the default route ?
    * \return true if this route is a default route, false otherwise
    */
-  bool IsDefault () const;
+  bool IsDefault() const;
 
   /**
    * \brief Is it the gateway ? 
    * \return true if this route is a gateway, false otherwise
    */
-  bool IsGateway () const;
+  bool IsGateway() const;
 
   /**
    * \brief Get the gateway.
    * \return the IPv6 address of the gateway
    */
-  Ipv6Address GetGateway () const;
+  Ipv6Address GetGateway() const;
 
   /**
    * \brief Get the interface index.
    * \return the index of the interface
    */
-  uint32_t GetInterface () const;
+  uint32_t GetInterface() const;
 
   /**
    * \brief Create a route to a host.
@@ -134,7 +134,7 @@ public:
    * \param prefixToUse prefix that should be used for source address for this destination
    * \return IPv6Route object
    */
-  static Ipv6RoutingTableEntry CreateHostRouteTo (Ipv6Address dest, Ipv6Address nextHop, uint32_t interface, Ipv6Address prefixToUse=Ipv6Address ());
+  static Ipv6RoutingTableEntry CreateHostRouteTo(Ipv6Address dest, Ipv6Address nextHop, uint32_t interface, Ipv6Address prefixToUse = Ipv6Address());
 
   /**
    * \brief Create a route to a host.
@@ -142,7 +142,7 @@ public:
    * \param interface interface index
    * \return IPv6Route object
    */
-  static Ipv6RoutingTableEntry CreateHostRouteTo (Ipv6Address dest, uint32_t interface);
+  static Ipv6RoutingTableEntry CreateHostRouteTo(Ipv6Address dest, uint32_t interface);
 
   /**
    * \brief Create a route to a network.
@@ -152,7 +152,7 @@ public:
    * \param interface interface index
    * \return IPv6Route object
    */
-  static Ipv6RoutingTableEntry CreateNetworkRouteTo (Ipv6Address network, Ipv6Prefix networkPrefix, Ipv6Address nextHop, uint32_t interface);
+  static Ipv6RoutingTableEntry CreateNetworkRouteTo(Ipv6Address network, Ipv6Prefix networkPrefix, Ipv6Address nextHop, uint32_t interface);
 
   /**
    * \brief Create a route to a network.
@@ -163,7 +163,7 @@ public:
    * \param prefixToUse prefix that should be used for source address for this destination
    * \return IPv6Route object
    */
-  static Ipv6RoutingTableEntry CreateNetworkRouteTo (Ipv6Address network, Ipv6Prefix networkPrefix, Ipv6Address nextHop, uint32_t interface, Ipv6Address prefixToUse);
+  static Ipv6RoutingTableEntry CreateNetworkRouteTo(Ipv6Address network, Ipv6Prefix networkPrefix, Ipv6Address nextHop, uint32_t interface, Ipv6Address prefixToUse);
 
   /**
    * \brief Create a route to a network.
@@ -172,7 +172,7 @@ public:
    * \param interface interface index
    * \return IPv6Route object
    */
-  static Ipv6RoutingTableEntry CreateNetworkRouteTo (Ipv6Address network, Ipv6Prefix networkPrefix, uint32_t interface);
+  static Ipv6RoutingTableEntry CreateNetworkRouteTo(Ipv6Address network, Ipv6Prefix networkPrefix, uint32_t interface);
 
   /**
    * \brief Create a default route.
@@ -180,7 +180,7 @@ public:
    * \param interface interface index
    * \return IPv6Route object
    */
-  static Ipv6RoutingTableEntry CreateDefaultRoute (Ipv6Address nextHop, uint32_t interface);
+  static Ipv6RoutingTableEntry CreateDefaultRoute(Ipv6Address nextHop, uint32_t interface);
 
 private:
   /**
@@ -190,7 +190,7 @@ private:
    * \param gateway the gateway
    * \param interface the interface index
    */
-  Ipv6RoutingTableEntry (Ipv6Address network, Ipv6Prefix prefix, Ipv6Address gateway, uint32_t interface);
+  Ipv6RoutingTableEntry(Ipv6Address network, Ipv6Prefix prefix, Ipv6Address gateway, uint32_t interface);
 
   /**
    * \brief Constructor.
@@ -199,7 +199,7 @@ private:
    * \param interface the interface index
    * \param prefixToUse prefix to use
    */
-  Ipv6RoutingTableEntry (Ipv6Address network, Ipv6Prefix prefix, uint32_t interface, Ipv6Address prefixToUse);
+  Ipv6RoutingTableEntry(Ipv6Address network, Ipv6Prefix prefix, uint32_t interface, Ipv6Address prefixToUse);
 
   /**
    * \brief Constructor.
@@ -209,7 +209,7 @@ private:
    * \param interface the interface index
    * \param prefixToUse prefix to use
    */
-  Ipv6RoutingTableEntry (Ipv6Address network, Ipv6Prefix prefix, Ipv6Address gateway, uint32_t interface, Ipv6Address prefixToUse);
+  Ipv6RoutingTableEntry(Ipv6Address network, Ipv6Prefix prefix, Ipv6Address gateway, uint32_t interface, Ipv6Address prefixToUse);
 
   /**
    * \brief Constructor.
@@ -217,7 +217,7 @@ private:
    * \param prefix destination prefix
    * \param interface interface index
    */
-  Ipv6RoutingTableEntry (Ipv6Address dest, Ipv6Prefix prefix, uint32_t interface);
+  Ipv6RoutingTableEntry(Ipv6Address dest, Ipv6Prefix prefix, uint32_t interface);
 
   /**
    * \brief Constructor.
@@ -225,14 +225,14 @@ private:
    * \param gateway the gateway
    * \param interface interface index
    */
-  Ipv6RoutingTableEntry (Ipv6Address dest, Ipv6Address gateway, uint32_t interface);
+  Ipv6RoutingTableEntry(Ipv6Address dest, Ipv6Address gateway, uint32_t interface);
 
   /**
    * \brief Constructor.
    * \param dest destination address
    * \param interface interface index
    */
-  Ipv6RoutingTableEntry (Ipv6Address dest, uint32_t interface);
+  Ipv6RoutingTableEntry(Ipv6Address dest, uint32_t interface);
 
   /**
    * \brief IPv6 address of the destination.
@@ -258,7 +258,6 @@ private:
    * \brief Prefix to use.
    */
   Ipv6Address m_prefixToUse;
-
 };
 
 /**
@@ -268,7 +267,7 @@ private:
  * \param route the Ipv6 routing table entry
  * \returns the reference to the output stream
  */
-std::ostream& operator<< (std::ostream& os, Ipv6RoutingTableEntry const& route);
+std::ostream &operator<<(std::ostream &os, Ipv6RoutingTableEntry const &route);
 
 /**
  * \ingroup ipv6Routing
@@ -281,56 +280,56 @@ public:
   /**
    * \brief Constructor.
    */
-  Ipv6MulticastRoutingTableEntry ();
+  Ipv6MulticastRoutingTableEntry();
 
   /**
    * \brief Copy constructor.
    * \param route the route to copy
    */
-  Ipv6MulticastRoutingTableEntry (Ipv6MulticastRoutingTableEntry const & route);
+  Ipv6MulticastRoutingTableEntry(Ipv6MulticastRoutingTableEntry const &route);
 
   /**
    * \brief Copy constructor.
    * \param route the route to copy
    */
-  Ipv6MulticastRoutingTableEntry (Ipv6MulticastRoutingTableEntry const* route);
+  Ipv6MulticastRoutingTableEntry(Ipv6MulticastRoutingTableEntry const *route);
 
   /**
    * \brief Get the source of this route
    * \return IPv6 address of the source of this route
    */
-  Ipv6Address GetOrigin () const;
+  Ipv6Address GetOrigin() const;
 
   /**
    * \brief Get the group.
    * \return IPv6 address of the multicast group of this route
    */
-  Ipv6Address GetGroup () const;
+  Ipv6Address GetGroup() const;
 
   /**
    * \brief Get the input interface address.
    * \return input interface index
    */
-  uint32_t GetInputInterface () const;
+  uint32_t GetInputInterface() const;
 
   /**
    * \brief Get the number of output interfaces of this route.
    * \return number of output interfaces of this route.
    */
-  uint32_t GetNOutputInterfaces () const;
+  uint32_t GetNOutputInterfaces() const;
 
   /**
    * \brief Get a specified output interface.
    * \param n index
    * \return a specified output interface
    */
-  uint32_t GetOutputInterface (uint32_t n) const;
+  uint32_t GetOutputInterface(uint32_t n) const;
 
   /**
    * \brief Get all of the output interfaces of this route.
    * \return a vector of all output interfaces of this route
    */
-  std::vector<uint32_t> GetOutputInterfaces () const;
+  std::vector<uint32_t> GetOutputInterfaces() const;
 
   /**
    * \brief Create a multicast route.
@@ -340,7 +339,7 @@ public:
    * \param outputInterfaces list of output interface number
    * \return a multicast route
    */
-  static Ipv6MulticastRoutingTableEntry CreateMulticastRoute (Ipv6Address origin, Ipv6Address group, uint32_t inputInterface, std::vector<uint32_t> outputInterfaces);
+  static Ipv6MulticastRoutingTableEntry CreateMulticastRoute(Ipv6Address origin, Ipv6Address group, uint32_t inputInterface, std::vector<uint32_t> outputInterfaces);
 
 private:
   /**
@@ -350,7 +349,7 @@ private:
    * \param inputInterface interface number
    * \param outputInterfaces list of output interface number
    */
-  Ipv6MulticastRoutingTableEntry (Ipv6Address origin, Ipv6Address group, uint32_t inputInterface, std::vector<uint32_t> outputInterfaces);
+  Ipv6MulticastRoutingTableEntry(Ipv6Address origin, Ipv6Address group, uint32_t inputInterface, std::vector<uint32_t> outputInterfaces);
 
   /**
    * \brief The IPv6 address of the source.
@@ -380,9 +379,8 @@ private:
  * \param route the Ipv6 multicast routing table entry
  * \returns the reference to the output stream
  */
-std::ostream& operator<< (std::ostream& os, Ipv6MulticastRoutingTableEntry const& route);
+std::ostream &operator<<(std::ostream &os, Ipv6MulticastRoutingTableEntry const &route);
 
 } /* namespace ns3 */
 
 #endif /* IPV6_ROUTING_TABLE_ENTRY_H */
-

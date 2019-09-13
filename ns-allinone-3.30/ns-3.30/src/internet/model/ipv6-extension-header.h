@@ -37,80 +37,80 @@ namespace ns3
  *
  * \brief Header for IPv6 Extension.
  */
-class Ipv6ExtensionHeader : public Header 
+class Ipv6ExtensionHeader : public Header
 {
 public:
   /**
    * \brief Get the type identificator.
    * \return type identificator
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * \brief Get the instance type ID.
    * \return instance type ID
    */
-  virtual TypeId GetInstanceTypeId () const;
+  virtual TypeId GetInstanceTypeId() const;
 
   /**
    * \brief Constructor.
    */
-  Ipv6ExtensionHeader ();
+  Ipv6ExtensionHeader();
 
   /**
    * \brief Destructor.
    */
-  virtual ~Ipv6ExtensionHeader ();
+  virtual ~Ipv6ExtensionHeader();
 
   /**
    * \brief Set the "Next header" field.
    * \param nextHeader the next header number
    */
-  void SetNextHeader (uint8_t nextHeader);
+  void SetNextHeader(uint8_t nextHeader);
 
   /**
    * \brief Get the next header.
    * \return the next header number
    */
-  uint8_t GetNextHeader () const;
+  uint8_t GetNextHeader() const;
 
   /**
    * brief Set the length of the extension.
    * \param length the length of the extension in bytes
    */
-  void SetLength (uint16_t length);
+  void SetLength(uint16_t length);
 
   /**
    * \brief Get the length of the extension.
    * \return the length of the extension
    */
-  uint16_t GetLength () const;
+  uint16_t GetLength() const;
 
   /**
    * \brief Print some information about the packet.
    * \param os output stream
    * \return info about this packet
    */
-  virtual void Print (std::ostream &os) const;
+  virtual void Print(std::ostream &os) const;
 
   /**
    * \brief Get the serialized size of the packet.
    * \return size
    */
-  virtual uint32_t GetSerializedSize () const;
+  virtual uint32_t GetSerializedSize() const;
 
   /**
    * \brief Serialize the packet.
    * \param start Buffer iterator
    */
-  virtual void Serialize (Buffer::Iterator start) const;
+  virtual void Serialize(Buffer::Iterator start) const;
 
   /**
    * \brief Deserialize the packet.
    * \param start Buffer iterator
    * \return size of the packet
    */
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 
 protected:
   /**
@@ -149,24 +149,24 @@ public:
    * \brief Constructor.
    * \param optionsOffset option offset
    */
-  OptionField (uint32_t optionsOffset);
+  OptionField(uint32_t optionsOffset);
 
   /**
    * \brief Destructor.
    */
-  ~OptionField ();
+  ~OptionField();
 
   /**
    * \brief Get the serialized size of the packet.
    * \return size
    */
-  uint32_t GetSerializedSize () const;
+  uint32_t GetSerializedSize() const;
 
   /**
    * \brief Serialize all added options.
    * \param start Buffer iterator
    */
-  void Serialize (Buffer::Iterator start) const;
+  void Serialize(Buffer::Iterator start) const;
 
   /**
    * \brief Deserialize the packet.
@@ -174,35 +174,34 @@ public:
    * \param length length
    * \return size of the packet
    */
-  uint32_t Deserialize (Buffer::Iterator start, uint32_t length);
+  uint32_t Deserialize(Buffer::Iterator start, uint32_t length);
 
   /**
    * \brief Serialize the option, prepending pad1 or padn option as necessary
    * \param option the option header to serialize
    */
-  void AddOption (Ipv6OptionHeader const& option);
+  void AddOption(Ipv6OptionHeader const &option);
 
   /**
    * \brief Get the offset where the options begin, measured from the start of
    * the extension header.
    * \return the offset from the start of the extension header
    */
-  uint32_t GetOptionsOffset ();
+  uint32_t GetOptionsOffset();
 
   /**
    * \brief Get the buffer.
    * \return buffer
    */
-  Buffer GetOptionBuffer ();
+  Buffer GetOptionBuffer();
 
 private:
-
   /**
    * \brief Calculate padding.
    * \param alignment alignment
    * \return the number of pad bytes
    */
-  uint32_t CalculatePad (Ipv6OptionHeader::Alignment alignment) const;
+  uint32_t CalculatePad(Ipv6OptionHeader::Alignment alignment) const;
 
   /**
    * \brief Data payload.
@@ -227,49 +226,49 @@ public:
    * \brief Get the type identificator.
    * \return type identificator
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * \brief Get the instance type ID.
    * \return instance type ID
    */
-  virtual TypeId GetInstanceTypeId () const;
+  virtual TypeId GetInstanceTypeId() const;
 
   /**
    * \brief Constructor.
    */
-  Ipv6ExtensionHopByHopHeader ();
+  Ipv6ExtensionHopByHopHeader();
 
   /**
    * \brief Destructor.
    */
-  virtual ~Ipv6ExtensionHopByHopHeader ();
+  virtual ~Ipv6ExtensionHopByHopHeader();
 
   /**
    * \brief Print some information about the packet.
    * \param os output stream
    * \return info about this packet
    */
-  virtual void Print (std::ostream &os) const;
+  virtual void Print(std::ostream &os) const;
 
   /**
    * \brief Get the serialized size of the packet.
    * \return size
    */
-  virtual uint32_t GetSerializedSize () const;
+  virtual uint32_t GetSerializedSize() const;
 
   /**
    * \brief Serialize the packet.
    * \param start Buffer iterator
    */
-  virtual void Serialize (Buffer::Iterator start) const;
+  virtual void Serialize(Buffer::Iterator start) const;
 
   /**
    * \brief Deserialize the packet.
    * \param start Buffer iterator
    * \return size of the packet
    */
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 };
 
 /**
@@ -284,49 +283,49 @@ public:
    * \brief Get the type identificator.
    * \return type identificator
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * \brief Get the instance type ID.
    * \return instance type ID
    */
-  virtual TypeId GetInstanceTypeId () const;
+  virtual TypeId GetInstanceTypeId() const;
 
   /**
    * \brief Constructor.
    */
-  Ipv6ExtensionDestinationHeader ();
+  Ipv6ExtensionDestinationHeader();
 
   /**
    * \brief Destructor.
    */
-  virtual ~Ipv6ExtensionDestinationHeader ();
+  virtual ~Ipv6ExtensionDestinationHeader();
 
   /**
    * \brief Print some information about the packet.
    * \param os output stream
    * \return info about this packet
    */
-  virtual void Print (std::ostream &os) const;
+  virtual void Print(std::ostream &os) const;
 
   /**
    * \brief Get the serialized size of the packet.
    * \return size
    */
-  virtual uint32_t GetSerializedSize () const;
+  virtual uint32_t GetSerializedSize() const;
 
   /**
    * \brief Serialize the packet.
    * \param start Buffer iterator
    */
-  virtual void Serialize (Buffer::Iterator start) const;
+  virtual void Serialize(Buffer::Iterator start) const;
 
   /**
    * \brief Deserialize the packet.
    * \param start Buffer iterator
    * \return size of the packet
    */
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 };
 
 /**
@@ -341,85 +340,85 @@ public:
    * \brief Get the type identificator.
    * \return type identificator
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * \brief Get the instance type ID.
    * \return instance type ID
    */
-  virtual TypeId GetInstanceTypeId () const;
+  virtual TypeId GetInstanceTypeId() const;
 
   /**
    * \brief Constructor.
    */
-  Ipv6ExtensionFragmentHeader ();
+  Ipv6ExtensionFragmentHeader();
 
   /**
    * \brief Destructor.
    */
-  virtual ~Ipv6ExtensionFragmentHeader ();
+  virtual ~Ipv6ExtensionFragmentHeader();
 
   /**
    * \brief Set the "Offset" field.
    * \param offset the offset of the fragment
    */
-  void SetOffset (uint16_t offset);
+  void SetOffset(uint16_t offset);
 
   /**
    * \brief Get the field "Offset".
    * \return the offset of the fragment
    */
-  uint16_t GetOffset () const;
+  uint16_t GetOffset() const;
 
   /**
    * \brief Set the status of "More Fragment" bit.
    * \param moreFragment the bit "More Fragment"
    */
-  void SetMoreFragment (bool moreFragment);
+  void SetMoreFragment(bool moreFragment);
 
   /**
    * \brief Get the status of "More Fragment" bit.
    * \return the status of "More Fragment" bit.
    */
-  bool GetMoreFragment () const;
+  bool GetMoreFragment() const;
 
   /**
    * \brief Set the "Identification" field.
    * \param identification the identifier of the fragment
    */
-  void SetIdentification (uint32_t identification);
+  void SetIdentification(uint32_t identification);
 
   /**
    * \brief Get the field "Identification".
    * \return the identifier of the fragment
    */
-  uint32_t GetIdentification () const;
+  uint32_t GetIdentification() const;
 
   /**
    * \brief Print some information about the packet.
    * \param os output stream
    * \return info about this packet
    */
-  virtual void Print (std::ostream &os) const;
+  virtual void Print(std::ostream &os) const;
 
   /**
    * \brief Get the serialized size of the packet.
    * \return size
    */
-  virtual uint32_t GetSerializedSize () const;
+  virtual uint32_t GetSerializedSize() const;
 
   /**
    * \brief Serialize the packet.
    * \param start Buffer iterator
    */
-  virtual void Serialize (Buffer::Iterator start) const;
+  virtual void Serialize(Buffer::Iterator start) const;
 
   /**
    * \brief Deserialize the packet.
    * \param start Buffer iterator
    * \return size of the packet
    */
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 
 private:
   /**
@@ -445,73 +444,73 @@ public:
    * \brief Get the type identificator.
    * \return type identificator
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * \brief Get the instance type ID.
    * \return instance type ID
    */
-  virtual TypeId GetInstanceTypeId () const;
+  virtual TypeId GetInstanceTypeId() const;
 
   /**
    * \brief Constructor.
    */
-  Ipv6ExtensionRoutingHeader ();
+  Ipv6ExtensionRoutingHeader();
 
   /**
    * \brief Destructor.
    */
-  virtual ~Ipv6ExtensionRoutingHeader ();
+  virtual ~Ipv6ExtensionRoutingHeader();
 
   /**
    * \brief Set the "Type of Routing" field.
    * \param typeRouting the type of routing
    */
-  void SetTypeRouting (uint8_t typeRouting);
+  void SetTypeRouting(uint8_t typeRouting);
 
   /**
    * \brief Get the field "Type of Routing".
    * \return the type of routing
    */
-  uint8_t GetTypeRouting () const;
+  uint8_t GetTypeRouting() const;
 
   /**
    * \brief Set the "Segments left" field.
    * \param segmentsLeft the number of segments left
    */
-  void SetSegmentsLeft (uint8_t segmentsLeft);
+  void SetSegmentsLeft(uint8_t segmentsLeft);
 
   /**
    * \brief Get the field "Segments left".
    * \return the number of segments left
    */
-  uint8_t GetSegmentsLeft () const;
+  uint8_t GetSegmentsLeft() const;
 
   /**
    * \brief Print some information about the packet.
    * \param os output stream
    * \return info about this packet
    */
-  virtual void Print (std::ostream &os) const;
+  virtual void Print(std::ostream &os) const;
 
   /**
    * \brief Get the serialized size of the packet.
    * \return size
    */
-  virtual uint32_t GetSerializedSize () const;
+  virtual uint32_t GetSerializedSize() const;
 
   /**
    * \brief Serialize the packet.
    * \param start Buffer iterator
    */
-  virtual void Serialize (Buffer::Iterator start) const;
+  virtual void Serialize(Buffer::Iterator start) const;
 
   /**
    * \brief Deserialize the packet.
    * \param start Buffer iterator
    * \return size of the packet
    */
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 
 private:
   /**
@@ -537,81 +536,81 @@ public:
    * \brief Get the type identificator.
    * \return type identificator
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * \brief Get the instance type ID.
    * \return instance type ID
    */
-  virtual TypeId GetInstanceTypeId () const;
+  virtual TypeId GetInstanceTypeId() const;
 
   /**
    * \brief Constructor.
    */
-  Ipv6ExtensionLooseRoutingHeader ();
+  Ipv6ExtensionLooseRoutingHeader();
 
   /**
    * \brief Destructor.
    */
-  virtual ~Ipv6ExtensionLooseRoutingHeader ();
+  virtual ~Ipv6ExtensionLooseRoutingHeader();
 
   /**
    * \brief Set the number of routers' address.
    * \param n the number of routers' address
    */
-  void SetNumberAddress (uint8_t n);
+  void SetNumberAddress(uint8_t n);
 
   /**
    * \brief Set the vector of routers' address
    * \param routersAddress the vector of routers's address
    */
-  void SetRoutersAddress (std::vector<Ipv6Address> routersAddress);
+  void SetRoutersAddress(std::vector<Ipv6Address> routersAddress);
 
   /**
    * \brief Get the vector of routers' address
    * \return the vector of routers' address
    */
-  std::vector<Ipv6Address> GetRoutersAddress () const;
+  std::vector<Ipv6Address> GetRoutersAddress() const;
 
   /**
    * \brief Set a Router IPv6 Address.
    * \param index the index of the IPv6 Address
    * \param addr the new IPv6 Address
    */
-  void SetRouterAddress (uint8_t index, Ipv6Address addr);
+  void SetRouterAddress(uint8_t index, Ipv6Address addr);
 
   /**
    * \brief Get a Router IPv6 Address.
    * \param index the index of the IPv6 Address
    * \return the router IPv6 Address 
    */
-  Ipv6Address GetRouterAddress (uint8_t index) const;
+  Ipv6Address GetRouterAddress(uint8_t index) const;
 
   /**
    * \brief Print some information about the packet.
    * \param os output stream
    * \return info about this packet
    */
-  virtual void Print (std::ostream &os) const;
+  virtual void Print(std::ostream &os) const;
 
   /**
    * \brief Get the serialized size of the packet.
    * \return size
    */
-  virtual uint32_t GetSerializedSize () const;
+  virtual uint32_t GetSerializedSize() const;
 
   /**
    * \brief Serialize the packet.
    * \param start Buffer iterator
    */
-  virtual void Serialize (Buffer::Iterator start) const;
+  virtual void Serialize(Buffer::Iterator start) const;
 
   /**
    * \brief Deserialize the packet.
    * \param start Buffer iterator
    * \return size of the packet
    */
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 
 private:
   /**
@@ -637,49 +636,49 @@ public:
    * \brief Get the type identificator.
    * \return type identificator
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * \brief Get the instance type ID.
    * \return instance type ID
    */
-  virtual TypeId GetInstanceTypeId () const;
+  virtual TypeId GetInstanceTypeId() const;
 
   /**
    * \brief Constructor.
    */
-  Ipv6ExtensionESPHeader ();
+  Ipv6ExtensionESPHeader();
 
   /**
    * \brief Destructor.
    */
-  virtual ~Ipv6ExtensionESPHeader ();
+  virtual ~Ipv6ExtensionESPHeader();
 
   /**
    * \brief Print some information about the packet.
    * \param os output stream
    * \return info about this packet
    */
-  virtual void Print (std::ostream &os) const;
+  virtual void Print(std::ostream &os) const;
 
   /**
    * \brief Get the serialized size of the packet.
    * \return size
    */
-  virtual uint32_t GetSerializedSize () const;
+  virtual uint32_t GetSerializedSize() const;
 
   /**
    * \brief Serialize the packet.
    * \param start Buffer iterator
    */
-  virtual void Serialize (Buffer::Iterator start) const;
+  virtual void Serialize(Buffer::Iterator start) const;
 
   /**
    * \brief Deserialize the packet.
    * \param start Buffer iterator
    * \return size of the packet
    */
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 };
 
 /**
@@ -694,52 +693,51 @@ public:
    * \brief Get the type identificator.
    * \return type identificator
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * \brief Get the instance type ID.
    * \return instance type ID
    */
-  virtual TypeId GetInstanceTypeId () const;
+  virtual TypeId GetInstanceTypeId() const;
 
   /**
    * \brief Constructor.
    */
-  Ipv6ExtensionAHHeader ();
+  Ipv6ExtensionAHHeader();
 
   /**
    * \brief Destructor.
    */
-  virtual ~Ipv6ExtensionAHHeader ();
+  virtual ~Ipv6ExtensionAHHeader();
 
   /**
    * \brief Print some information about the packet.
    * \param os output stream
    * \return info about this packet
    */
-  virtual void Print (std::ostream &os) const;
+  virtual void Print(std::ostream &os) const;
 
   /**
    * \brief Get the serialized size of the packet.
    * \return size
    */
-  virtual uint32_t GetSerializedSize () const;
+  virtual uint32_t GetSerializedSize() const;
 
   /**
    * \brief Serialize the packet.
    * \param start Buffer iterator
    */
-  virtual void Serialize (Buffer::Iterator start) const;
+  virtual void Serialize(Buffer::Iterator start) const;
 
   /**
    * \brief Deserialize the packet.
    * \param start Buffer iterator
    * \return size of the packet
    */
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 };
 
 } // namespace ns3
 
 #endif /* IPV6_EXTENSION_HEADER_H */
-

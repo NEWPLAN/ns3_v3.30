@@ -24,83 +24,79 @@
 #include "ns3/simulator.h"
 #include "seq-ts-header.h"
 
-namespace ns3 {
-
-NS_LOG_COMPONENT_DEFINE ("SeqTsHeader");
-
-NS_OBJECT_ENSURE_REGISTERED (SeqTsHeader);
-
-SeqTsHeader::SeqTsHeader ()
-  : m_seq (0),
-    m_ts (Simulator::Now ().GetTimeStep ())
+namespace ns3
 {
-  NS_LOG_FUNCTION (this);
+
+NS_LOG_COMPONENT_DEFINE("SeqTsHeader");
+
+NS_OBJECT_ENSURE_REGISTERED(SeqTsHeader);
+
+SeqTsHeader::SeqTsHeader()
+    : m_seq(0),
+      m_ts(Simulator::Now().GetTimeStep())
+{
+  NS_LOG_FUNCTION(this);
 }
 
-void
-SeqTsHeader::SetSeq (uint32_t seq)
+void SeqTsHeader::SetSeq(uint32_t seq)
 {
-  NS_LOG_FUNCTION (this << seq);
+  NS_LOG_FUNCTION(this << seq);
   m_seq = seq;
 }
 uint32_t
-SeqTsHeader::GetSeq (void) const
+SeqTsHeader::GetSeq(void) const
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
   return m_seq;
 }
 
-Time
-SeqTsHeader::GetTs (void) const
+Time SeqTsHeader::GetTs(void) const
 {
-  NS_LOG_FUNCTION (this);
-  return TimeStep (m_ts);
+  NS_LOG_FUNCTION(this);
+  return TimeStep(m_ts);
 }
 
 TypeId
-SeqTsHeader::GetTypeId (void)
+SeqTsHeader::GetTypeId(void)
 {
-  static TypeId tid = TypeId ("ns3::SeqTsHeader")
-    .SetParent<Header> ()
-    .SetGroupName("Applications")
-    .AddConstructor<SeqTsHeader> ()
-  ;
+  static TypeId tid = TypeId("ns3::SeqTsHeader")
+                          .SetParent<Header>()
+                          .SetGroupName("Applications")
+                          .AddConstructor<SeqTsHeader>();
   return tid;
 }
 TypeId
-SeqTsHeader::GetInstanceTypeId (void) const
+SeqTsHeader::GetInstanceTypeId(void) const
 {
-  return GetTypeId ();
+  return GetTypeId();
 }
-void
-SeqTsHeader::Print (std::ostream &os) const
+void SeqTsHeader::Print(std::ostream &os) const
 {
-  NS_LOG_FUNCTION (this << &os);
-  os << "(seq=" << m_seq << " time=" << TimeStep (m_ts).GetSeconds () << ")";
+  NS_LOG_FUNCTION(this << &os);
+  os << "(seq=" << m_seq << " time=" << TimeStep(m_ts).GetSeconds() << ")";
 }
 uint32_t
-SeqTsHeader::GetSerializedSize (void) const
+SeqTsHeader::GetSerializedSize(void) const
 {
-  NS_LOG_FUNCTION (this);
-  return 4+8;
+  NS_LOG_FUNCTION(this);
+  return 4 + 8;
 }
 
-void
-SeqTsHeader::Serialize (Buffer::Iterator start) const
+void SeqTsHeader::Serialize(Buffer::Iterator start) const
 {
-  NS_LOG_FUNCTION (this << &start);
+  NS_LOG_FUNCTION(this << &start);
   Buffer::Iterator i = start;
-  i.WriteHtonU32 (m_seq);
-  i.WriteHtonU64 (m_ts);
+  i.WriteHtonU32(m_seq);
+  i.WriteHtonU64(m_ts);
 }
 uint32_t
-SeqTsHeader::Deserialize (Buffer::Iterator start)
+SeqTsHeader::Deserialize(Buffer::Iterator start)
 {
-  NS_LOG_FUNCTION (this << &start);
+  NS_LOG_FUNCTION(this << &start);
   Buffer::Iterator i = start;
-  m_seq = i.ReadNtohU32 ();
-  m_ts = i.ReadNtohU64 ();
-  return GetSerializedSize ();
+  m_seq = i.ReadNtohU32();
+  m_ts = i.ReadNtohU64();
+  return GetSerializedSize();
 }
 
 } // namespace ns3

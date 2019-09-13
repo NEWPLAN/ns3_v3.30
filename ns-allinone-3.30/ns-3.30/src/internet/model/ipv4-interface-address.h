@@ -24,7 +24,8 @@
 #include <ostream>
 #include "ns3/ipv4-address.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup address
@@ -40,75 +41,76 @@ namespace ns3 {
  * classified as being primary and secondary.  See the iproute2 
  * documentation for this distinction.
  */
-class Ipv4InterfaceAddress 
+class Ipv4InterfaceAddress
 {
 public:
   /**
    * \enum InterfaceAddressScope_e
    * \brief Address scope.
    */
-  enum InterfaceAddressScope_e {
+  enum InterfaceAddressScope_e
+  {
     HOST,
     LINK,
     GLOBAL
   };
 
-  Ipv4InterfaceAddress ();
+  Ipv4InterfaceAddress();
 
   /**
    * \brief Configure local address, mask and broadcast address
    * \param local the local address
    * \param mask the network mask
    */
-  Ipv4InterfaceAddress (Ipv4Address local, Ipv4Mask mask);
+  Ipv4InterfaceAddress(Ipv4Address local, Ipv4Mask mask);
   /**
    * Copy constructor
    * \param o the object to copy
    */
-  Ipv4InterfaceAddress (const Ipv4InterfaceAddress &o);
+  Ipv4InterfaceAddress(const Ipv4InterfaceAddress &o);
 
   /**
    * \brief Set local address
    * \param local the address
    */
-  void SetLocal (Ipv4Address local);
+  void SetLocal(Ipv4Address local);
   /**
    * \brief Get the local address
    * \returns the local address
    */
-  Ipv4Address GetLocal (void) const;
+  Ipv4Address GetLocal(void) const;
   /**
    * \brief Set the network mask
    * \param mask the network mask
    */
-  void SetMask (Ipv4Mask mask);
+  void SetMask(Ipv4Mask mask);
   /**
    * \brief Get the network mask
    * \returns the network mask
    */
-  Ipv4Mask GetMask (void) const;
+  Ipv4Mask GetMask(void) const;
   /**
    * \brief Set the broadcast address
    * \param broadcast the broadcast address
    */
-  void SetBroadcast (Ipv4Address broadcast);
+  void SetBroadcast(Ipv4Address broadcast);
   /**
    * \brief Get the broadcast address
    * \returns the broadcast address
    */
-  Ipv4Address GetBroadcast (void) const;
- 
+  Ipv4Address GetBroadcast(void) const;
+
   /**
    * \brief Set the scope.
    * \param scope the scope of address
    */
-  void SetScope (Ipv4InterfaceAddress::InterfaceAddressScope_e scope);
+  void SetScope(Ipv4InterfaceAddress::InterfaceAddressScope_e scope);
 
   /**
    * \brief Get address scope.
    * \return scope
    */
-  Ipv4InterfaceAddress::InterfaceAddressScope_e GetScope (void) const;
+  Ipv4InterfaceAddress::InterfaceAddressScope_e GetScope(void) const;
 
   /**
    * \brief Check if the address is a secondary address
@@ -116,27 +118,26 @@ public:
    * Secondary address is used for multihoming
    * \returns true if the address is secondary
    */
-  bool IsSecondary (void) const;
+  bool IsSecondary(void) const;
 
   /**
    * \brief Make the address secondary (used for multihoming)
    */
-  void SetSecondary (void);
+  void SetSecondary(void);
   /**
    * \brief Make the address primary
    */
-  void SetPrimary (void);
+  void SetPrimary(void);
 
 private:
-
-  Ipv4Address m_local;     //!< Interface address
+  Ipv4Address m_local; //!< Interface address
   // Note:  m_peer may be added in future when necessary
   // Ipv4Address m_peer;   // Peer destination address (in Linux:  m_address)
   Ipv4Mask m_mask;         //!< Network mask
   Ipv4Address m_broadcast; //!< Broadcast address
 
   InterfaceAddressScope_e m_scope; //!< Address scope
-  bool m_secondary;        //!< For use in multihoming
+  bool m_secondary;                //!< For use in multihoming
 
   /**
    * \brief Equal to operator.
@@ -145,7 +146,7 @@ private:
    * \param b the first operand
    * \returns true if the operands are equal
    */
-  friend bool operator == (Ipv4InterfaceAddress const &a, Ipv4InterfaceAddress const &b);
+  friend bool operator==(Ipv4InterfaceAddress const &a, Ipv4InterfaceAddress const &b);
 
   /**
    * \brief Not equal to operator.
@@ -154,7 +155,7 @@ private:
    * \param b the first operand
    * \returns true if the operands are not equal
    */
-  friend bool operator != (Ipv4InterfaceAddress const &a, Ipv4InterfaceAddress const &b);
+  friend bool operator!=(Ipv4InterfaceAddress const &a, Ipv4InterfaceAddress const &b);
 };
 
 /**
@@ -164,19 +165,18 @@ private:
  * \param addr the Ipv4InterfaceAddress
  * \returns the reference to the output stream
  */
-std::ostream& operator<< (std::ostream& os, const Ipv4InterfaceAddress &addr);
+std::ostream &operator<<(std::ostream &os, const Ipv4InterfaceAddress &addr);
 
-inline bool operator == (const Ipv4InterfaceAddress &a, const Ipv4InterfaceAddress &b)
+inline bool operator==(const Ipv4InterfaceAddress &a, const Ipv4InterfaceAddress &b)
 {
   return (a.m_local == b.m_local && a.m_mask == b.m_mask &&
           a.m_broadcast == b.m_broadcast && a.m_scope == b.m_scope && a.m_secondary == b.m_secondary);
 }
-inline bool operator != (const Ipv4InterfaceAddress &a, const Ipv4InterfaceAddress &b)
+inline bool operator!=(const Ipv4InterfaceAddress &a, const Ipv4InterfaceAddress &b)
 {
   return (a.m_local != b.m_local || a.m_mask != b.m_mask ||
           a.m_broadcast != b.m_broadcast || a.m_scope != b.m_scope || a.m_secondary != b.m_secondary);
 }
-
 
 } // namespace ns3
 

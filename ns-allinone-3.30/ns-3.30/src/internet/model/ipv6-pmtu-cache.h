@@ -29,7 +29,8 @@
 #include "ns3/event-id.h"
 #include "ns3/ipv6-address.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup ipv6
@@ -53,56 +54,56 @@ public:
    * \brief Get the type ID
    * \return type ID
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * \brief Constructor.
    */
-  Ipv6PmtuCache ();
+  Ipv6PmtuCache();
 
   /**
    * \brief Destructor.
    */
-  ~Ipv6PmtuCache ();
+  ~Ipv6PmtuCache();
 
   /**
    * \brief Dispose object.
    */
-  virtual void DoDispose ();
+  virtual void DoDispose();
 
   /**
    * \brief Gets the known Path MTU for the specific destination
    * \param dst the destination
    * \return the Path MTU (zero if unknown)
    */
-  uint32_t GetPmtu (Ipv6Address dst);
+  uint32_t GetPmtu(Ipv6Address dst);
 
   /**
    * \brief Sets the Path MTU for the specific destination
    * \param dst the destination
    * \param pmtu the Path MTU
    */
-  void SetPmtu (Ipv6Address dst, uint32_t pmtu);
+  void SetPmtu(Ipv6Address dst, uint32_t pmtu);
 
   /**
    * \brief Gets the Path MTU validity time
    * \return the Path MTU validity time
    */
-  Time GetPmtuValidityTime () const;
+  Time GetPmtuValidityTime() const;
 
   /**
    * \brief Sets the Path MTU validity time (minimum is 5 minutes)
    * \param validity the Path MTU validity time
    * \return true if the change was successful
    */
-  bool SetPmtuValidityTime (Time validity);
+  bool SetPmtuValidityTime(Time validity);
 
 private:
   /**
    * \brief Clears the Path MTU for the specific destination
    * \param dst the destination
    */
-  void ClearPmtu (Ipv6Address dst);
+  void ClearPmtu(Ipv6Address dst);
 
   /**
    * \brief Path MTU table
@@ -125,6 +126,6 @@ private:
   Time m_validityTime;
 };
 
-}
+} // namespace ns3
 
 #endif /* IPV6_PMTU_CACHE_H */

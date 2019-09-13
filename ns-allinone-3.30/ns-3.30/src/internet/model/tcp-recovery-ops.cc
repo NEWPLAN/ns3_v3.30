@@ -24,113 +24,107 @@
 #include "tcp-socket-state.h"
 #include "ns3/log.h"
 
-namespace ns3 {
+namespace ns3
+{
 
-NS_LOG_COMPONENT_DEFINE ("TcpRecoveryOps");
+NS_LOG_COMPONENT_DEFINE("TcpRecoveryOps");
 
-NS_OBJECT_ENSURE_REGISTERED (TcpRecoveryOps);
+NS_OBJECT_ENSURE_REGISTERED(TcpRecoveryOps);
 
 TypeId
-TcpRecoveryOps::GetTypeId (void)
+TcpRecoveryOps::GetTypeId(void)
 {
-  static TypeId tid = TypeId ("ns3::TcpRecoveryOps")
-    .SetParent<Object> ()
-    .SetGroupName ("Internet")
-  ;
+  static TypeId tid = TypeId("ns3::TcpRecoveryOps")
+                          .SetParent<Object>()
+                          .SetGroupName("Internet");
   return tid;
 }
 
-TcpRecoveryOps::TcpRecoveryOps () : Object ()
+TcpRecoveryOps::TcpRecoveryOps() : Object()
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
 }
 
-TcpRecoveryOps::TcpRecoveryOps (const TcpRecoveryOps &other) : Object (other)
+TcpRecoveryOps::TcpRecoveryOps(const TcpRecoveryOps &other) : Object(other)
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
 }
 
-TcpRecoveryOps::~TcpRecoveryOps ()
+TcpRecoveryOps::~TcpRecoveryOps()
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
 }
-
 
 // Classic recovery
 
-NS_OBJECT_ENSURE_REGISTERED (TcpClassicRecovery);
+NS_OBJECT_ENSURE_REGISTERED(TcpClassicRecovery);
 
 TypeId
-TcpClassicRecovery::GetTypeId (void)
+TcpClassicRecovery::GetTypeId(void)
 {
-  static TypeId tid = TypeId ("ns3::TcpClassicRecovery")
-    .SetParent<TcpRecoveryOps> ()
-    .SetGroupName ("Internet")
-    .AddConstructor<TcpClassicRecovery> ()
-  ;
+  static TypeId tid = TypeId("ns3::TcpClassicRecovery")
+                          .SetParent<TcpRecoveryOps>()
+                          .SetGroupName("Internet")
+                          .AddConstructor<TcpClassicRecovery>();
   return tid;
 }
 
-TcpClassicRecovery::TcpClassicRecovery (void) : TcpRecoveryOps ()
+TcpClassicRecovery::TcpClassicRecovery(void) : TcpRecoveryOps()
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
 }
 
-TcpClassicRecovery::TcpClassicRecovery (const TcpClassicRecovery& sock)
-  : TcpRecoveryOps (sock)
+TcpClassicRecovery::TcpClassicRecovery(const TcpClassicRecovery &sock)
+    : TcpRecoveryOps(sock)
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
 }
 
-TcpClassicRecovery::~TcpClassicRecovery (void)
+TcpClassicRecovery::~TcpClassicRecovery(void)
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
 }
 
-void
-TcpClassicRecovery::EnterRecovery (Ptr<TcpSocketState> tcb, uint32_t dupAckCount,
-                                uint32_t unAckDataCount, uint32_t lastSackedBytes)
+void TcpClassicRecovery::EnterRecovery(Ptr<TcpSocketState> tcb, uint32_t dupAckCount,
+                                       uint32_t unAckDataCount, uint32_t lastSackedBytes)
 {
-  NS_LOG_FUNCTION (this << tcb << dupAckCount << unAckDataCount << lastSackedBytes);
-  NS_UNUSED (unAckDataCount);
-  NS_UNUSED (lastSackedBytes);
+  NS_LOG_FUNCTION(this << tcb << dupAckCount << unAckDataCount << lastSackedBytes);
+  NS_UNUSED(unAckDataCount);
+  NS_UNUSED(lastSackedBytes);
   tcb->m_cWnd = tcb->m_ssThresh;
   tcb->m_cWndInfl = tcb->m_ssThresh + (dupAckCount * tcb->m_segmentSize);
 }
 
-void
-TcpClassicRecovery::DoRecovery (Ptr<TcpSocketState> tcb, uint32_t lastAckedBytes,
-                             uint32_t lastSackedBytes)
+void TcpClassicRecovery::DoRecovery(Ptr<TcpSocketState> tcb, uint32_t lastAckedBytes,
+                                    uint32_t lastSackedBytes)
 {
-  NS_LOG_FUNCTION (this << tcb << lastAckedBytes << lastSackedBytes);
-  NS_UNUSED (lastAckedBytes);
-  NS_UNUSED (lastSackedBytes);
+  NS_LOG_FUNCTION(this << tcb << lastAckedBytes << lastSackedBytes);
+  NS_UNUSED(lastAckedBytes);
+  NS_UNUSED(lastSackedBytes);
   tcb->m_cWndInfl += tcb->m_segmentSize;
 }
 
-void
-TcpClassicRecovery::ExitRecovery (Ptr<TcpSocketState> tcb)
+void TcpClassicRecovery::ExitRecovery(Ptr<TcpSocketState> tcb)
 {
-  NS_LOG_FUNCTION (this << tcb);
+  NS_LOG_FUNCTION(this << tcb);
   // Follow NewReno procedures to exit FR if SACK is disabled
   // (RFC2582 sec.3 bullet #5 paragraph 2, option 2)
   // For SACK connections, we maintain the cwnd = ssthresh. In fact,
   // this ACK was received in RECOVERY phase, not in OPEN. So we
   // are not allowed to increase the window
-  tcb->m_cWndInfl = tcb->m_ssThresh.Get ();
+  tcb->m_cWndInfl = tcb->m_ssThresh.Get();
 }
 
 std::string
-TcpClassicRecovery::GetName () const
+TcpClassicRecovery::GetName() const
 {
   return "TcpClassicRecovery";
 }
 
 Ptr<TcpRecoveryOps>
-TcpClassicRecovery::Fork ()
+TcpClassicRecovery::Fork()
 {
-  return CopyObject<TcpClassicRecovery> (this);
+  return CopyObject<TcpClassicRecovery>(this);
 }
 
 } // namespace ns3
-

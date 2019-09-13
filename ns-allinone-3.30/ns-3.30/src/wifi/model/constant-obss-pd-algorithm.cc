@@ -30,79 +30,77 @@
 #include "wifi-net-device.h"
 #include "he-configuration.h"
 
-namespace ns3 {
-
-NS_LOG_COMPONENT_DEFINE ("ConstantObssPdAlgorithm");
-NS_OBJECT_ENSURE_REGISTERED (ConstantObssPdAlgorithm);
-
-ConstantObssPdAlgorithm::ConstantObssPdAlgorithm ()
-  : ObssPdAlgorithm ()
+namespace ns3
 {
-  NS_LOG_FUNCTION (this);
+
+NS_LOG_COMPONENT_DEFINE("ConstantObssPdAlgorithm");
+NS_OBJECT_ENSURE_REGISTERED(ConstantObssPdAlgorithm);
+
+ConstantObssPdAlgorithm::ConstantObssPdAlgorithm()
+    : ObssPdAlgorithm()
+{
+  NS_LOG_FUNCTION(this);
 }
 
 TypeId
-ConstantObssPdAlgorithm::GetTypeId (void)
+ConstantObssPdAlgorithm::GetTypeId(void)
 {
-  static ns3::TypeId tid = ns3::TypeId ("ns3::ConstantObssPdAlgorithm")
-    .SetParent<ObssPdAlgorithm> ()
-    .SetGroupName ("Wifi")
-    .AddConstructor<ConstantObssPdAlgorithm> ()
-  ;
+  static ns3::TypeId tid = ns3::TypeId("ns3::ConstantObssPdAlgorithm")
+                               .SetParent<ObssPdAlgorithm>()
+                               .SetGroupName("Wifi")
+                               .AddConstructor<ConstantObssPdAlgorithm>();
   return tid;
 }
 
-void
-ConstantObssPdAlgorithm::ConnectWifiNetDevice (const Ptr<WifiNetDevice> device)
+void ConstantObssPdAlgorithm::ConnectWifiNetDevice(const Ptr<WifiNetDevice> device)
 {
-  Ptr<WifiPhy> phy = device->GetPhy ();
-  phy->TraceConnectWithoutContext ("EndOfHePreamble", MakeCallback (&ConstantObssPdAlgorithm::ReceiveHeSig, this));
-  ObssPdAlgorithm::ConnectWifiNetDevice (device);
+  Ptr<WifiPhy> phy = device->GetPhy();
+  phy->TraceConnectWithoutContext("EndOfHePreamble", MakeCallback(&ConstantObssPdAlgorithm::ReceiveHeSig, this));
+  ObssPdAlgorithm::ConnectWifiNetDevice(device);
 }
 
-void
-ConstantObssPdAlgorithm::ReceiveHeSig (HePreambleParameters params)
+void ConstantObssPdAlgorithm::ReceiveHeSig(HePreambleParameters params)
 {
-  NS_LOG_FUNCTION (this << +params.bssColor << WToDbm (params.rssiW));
+  NS_LOG_FUNCTION(this << +params.bssColor << WToDbm(params.rssiW));
 
-  Ptr<StaWifiMac> mac = m_device->GetMac ()->GetObject<StaWifiMac>();
-  if (mac && !mac->IsAssociated ())
-    {
-      NS_LOG_DEBUG ("This is not an associated STA: skip OBSS PD algorithm");
-      return;
-    }
+  Ptr<StaWifiMac> mac = m_device->GetMac()->GetObject<StaWifiMac>();
+  if (mac && !mac->IsAssociated())
+  {
+    NS_LOG_DEBUG("This is not an associated STA: skip OBSS PD algorithm");
+    return;
+  }
 
-  Ptr<HeConfiguration> heConfiguration = m_device->GetHeConfiguration ();
-  NS_ASSERT (heConfiguration);
+  Ptr<HeConfiguration> heConfiguration = m_device->GetHeConfiguration();
+  NS_ASSERT(heConfiguration);
   UintegerValue bssColorAttribute;
-  heConfiguration->GetAttribute ("BssColor", bssColorAttribute);
-  uint8_t bssColor = bssColorAttribute.Get ();
+  heConfiguration->GetAttribute("BssColor", bssColorAttribute);
+  uint8_t bssColor = bssColorAttribute.Get();
 
   if (bssColor == 0)
-    {
-      NS_LOG_DEBUG ("BSS color is 0");
-      return;
-    }
+  {
+    NS_LOG_DEBUG("BSS color is 0");
+    return;
+  }
   if (params.bssColor == 0)
-    {
-      NS_LOG_DEBUG ("Received BSS color is 0");
-      return;
-    }
+  {
+    NS_LOG_DEBUG("Received BSS color is 0");
+    return;
+  }
   //TODO: SRP_AND_NON-SRG_OBSS-PD_PROHIBITED=1 => OBSS_PD SR is not allowed
 
   bool isObss = (bssColor != params.bssColor);
   if (isObss)
+  {
+    if (WToDbm(params.rssiW) < m_obssPdLevel)
     {
-      if (WToDbm (params.rssiW) < m_obssPdLevel)
-        {
-          NS_LOG_DEBUG ("Frame is OBSS and RSSI " << WToDbm(params.rssiW) << " is below OBSS-PD level of " << m_obssPdLevel << "; reset PHY to IDLE");
-          ResetPhy (params);
-        }
-      else
-        {
-          NS_LOG_DEBUG ("Frame is OBSS and RSSI is above OBSS-PD level");
-        }
+      NS_LOG_DEBUG("Frame is OBSS and RSSI " << WToDbm(params.rssiW) << " is below OBSS-PD level of " << m_obssPdLevel << "; reset PHY to IDLE");
+      ResetPhy(params);
     }
+    else
+    {
+      NS_LOG_DEBUG("Frame is OBSS and RSSI is above OBSS-PD level");
+    }
+  }
 }
 
 } //namespace ns3

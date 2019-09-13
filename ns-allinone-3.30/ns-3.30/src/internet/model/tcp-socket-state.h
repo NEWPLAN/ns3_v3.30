@@ -22,7 +22,8 @@
 #include "ns3/traced-value.h"
 #include "ns3/sequence-number.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \brief Data structure that records the congestion state of a connection
@@ -44,18 +45,18 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
   /**
    * \brief TcpSocketState Constructor
    */
-  TcpSocketState () : Object () { }
+  TcpSocketState() : Object() {}
 
   /**
    * \brief Copy constructor.
    * \param other object to copy.
    */
-  TcpSocketState (const TcpSocketState &other);
+  TcpSocketState(const TcpSocketState &other);
 
   /**
    * \brief Definition of the Congestion state machine
@@ -88,17 +89,17 @@ public:
   // Note: "not triggered" events are currently not triggered by the code.
   typedef enum
   {
-    CA_EVENT_TX_START,     /**< first transmit when no packets in flight */
-    CA_EVENT_CWND_RESTART, /**< congestion window restart. Not triggered */
-    CA_EVENT_COMPLETE_CWR, /**< end of congestion recovery */
-    CA_EVENT_LOSS,         /**< loss timeout */
-    CA_EVENT_ECN_NO_CE,    /**< ECT set, but not CE marked. Not triggered */
-    CA_EVENT_ECN_IS_CE,    /**< received CE marked IP packet. Not triggered */
-    CA_EVENT_DELAYED_ACK,  /**< Delayed ack is sent */
+    CA_EVENT_TX_START,        /**< first transmit when no packets in flight */
+    CA_EVENT_CWND_RESTART,    /**< congestion window restart. Not triggered */
+    CA_EVENT_COMPLETE_CWR,    /**< end of congestion recovery */
+    CA_EVENT_LOSS,            /**< loss timeout */
+    CA_EVENT_ECN_NO_CE,       /**< ECT set, but not CE marked. Not triggered */
+    CA_EVENT_ECN_IS_CE,       /**< received CE marked IP packet. Not triggered */
+    CA_EVENT_DELAYED_ACK,     /**< Delayed ack is sent */
     CA_EVENT_NON_DELAYED_ACK, /**< Non-delayed ack is sent */
   } TcpCAEvent_t;
 
-   /**
+  /**
    * \brief Definition of the Ecn state machine
    *
    */
@@ -116,50 +117,50 @@ public:
   /**
    * \brief Literal names of TCP states for use in log messages
    */
-  static const char* const TcpCongStateName[TcpSocketState::CA_LAST_STATE];
+  static const char *const TcpCongStateName[TcpSocketState::CA_LAST_STATE];
 
   /**
    * \brief Literal names of ECN states for use in log messages
    */
-  static const char* const EcnStateName[TcpSocketState::ECN_CWR_SENT + 1];
+  static const char *const EcnStateName[TcpSocketState::ECN_CWR_SENT + 1];
 
   // Congestion control
-  TracedValue<uint32_t>  m_cWnd             {0}; //!< Congestion window
-  TracedValue<uint32_t>  m_cWndInfl         {0}; //!< Inflated congestion window trace (used only for backward compatibility purpose)
-  TracedValue<uint32_t>  m_ssThresh         {0}; //!< Slow start threshold
-  uint32_t               m_initialCWnd      {0}; //!< Initial cWnd value
-  uint32_t               m_initialSsThresh  {0}; //!< Initial Slow Start Threshold value
+  TracedValue<uint32_t> m_cWnd{0};     //!< Congestion window
+  TracedValue<uint32_t> m_cWndInfl{0}; //!< Inflated congestion window trace (used only for backward compatibility purpose)
+  TracedValue<uint32_t> m_ssThresh{0}; //!< Slow start threshold
+  uint32_t m_initialCWnd{0};           //!< Initial cWnd value
+  uint32_t m_initialSsThresh{0};       //!< Initial Slow Start Threshold value
 
   // Segment
-  uint32_t               m_segmentSize   {0}; //!< Segment size
-  SequenceNumber32       m_lastAckedSeq  {0}; //!< Last sequence ACKed
+  uint32_t m_segmentSize{0};          //!< Segment size
+  SequenceNumber32 m_lastAckedSeq{0}; //!< Last sequence ACKed
 
-  TracedValue<TcpCongState_t> m_congState {CA_OPEN}; //!< State in the Congestion state machine
+  TracedValue<TcpCongState_t> m_congState{CA_OPEN}; //!< State in the Congestion state machine
 
-  TracedValue<EcnState_t> m_ecnState {ECN_DISABLED}; //!< Current ECN State, represented as combination of EcnState values
+  TracedValue<EcnState_t> m_ecnState{ECN_DISABLED}; //!< Current ECN State, represented as combination of EcnState values
 
-  TracedValue<SequenceNumber32> m_highTxMark     {0}; //!< Highest seqno ever sent, regardless of ReTx
-  TracedValue<SequenceNumber32> m_nextTxSequence {0}; //!< Next seqnum to be sent (SND.NXT), ReTx pushes it back
+  TracedValue<SequenceNumber32> m_highTxMark{0};     //!< Highest seqno ever sent, regardless of ReTx
+  TracedValue<SequenceNumber32> m_nextTxSequence{0}; //!< Next seqnum to be sent (SND.NXT), ReTx pushes it back
 
-  uint32_t               m_rcvTimestampValue     {0}; //!< Receiver Timestamp value
-  uint32_t               m_rcvTimestampEchoReply {0}; //!< Sender Timestamp echoed by the receiver
+  uint32_t m_rcvTimestampValue{0};     //!< Receiver Timestamp value
+  uint32_t m_rcvTimestampEchoReply{0}; //!< Sender Timestamp echoed by the receiver
 
   // Pacing related variables
-  bool                   m_pacing            {false}; //!< Pacing status
-  DataRate               m_maxPacingRate     {0};    //!< Max Pacing rate
-  DataRate               m_currentPacingRate {0};    //!< Current Pacing rate
+  bool m_pacing{false};            //!< Pacing status
+  DataRate m_maxPacingRate{0};     //!< Max Pacing rate
+  DataRate m_currentPacingRate{0}; //!< Current Pacing rate
 
-  Time                   m_minRtt  {Time::Max ()};   //!< Minimum RTT observed throughout the connection
+  Time m_minRtt{Time::Max()}; //!< Minimum RTT observed throughout the connection
 
-  TracedValue<uint32_t>  m_bytesInFlight {0};        //!< Bytes in flight
-  TracedValue<Time>      m_lastRtt {Seconds (0.0)};  //!< Last RTT sample collected
+  TracedValue<uint32_t> m_bytesInFlight{0};  //!< Bytes in flight
+  TracedValue<Time> m_lastRtt{Seconds(0.0)}; //!< Last RTT sample collected
 
   /**
    * \brief Get cwnd in segments rather than bytes
    *
    * \return Congestion window in segments
    */
-  uint32_t GetCwndInSegments () const
+  uint32_t GetCwndInSegments() const
   {
     return m_cWnd / m_segmentSize;
   }
@@ -169,34 +170,35 @@ public:
    *
    * \return Slow start threshold in segments
    */
-  uint32_t GetSsThreshInSegments () const
+  uint32_t GetSsThreshInSegments() const
   {
     return m_ssThresh / m_segmentSize;
   }
 };
 
-namespace TracedValueCallback {
+namespace TracedValueCallback
+{
 
-  /**
+/**
    * \ingroup tcp
    * TracedValue Callback signature for TcpCongState_t
    *
    * \param [in] oldValue original value of the traced variable
    * \param [in] newValue new value of the traced variable
    */
-  typedef void (* TcpCongState)(const TcpSocketState::TcpCongState_t oldValue,
-                                const TcpSocketState::TcpCongState_t newValue);
+typedef void (*TcpCongState)(const TcpSocketState::TcpCongState_t oldValue,
+                             const TcpSocketState::TcpCongState_t newValue);
 
-   /**
+/**
    * \ingroup tcp
    * TracedValue Callback signature for EcnState_t
    *
    * \param [in] oldValue original value of the traced variable
    * \param [in] newValue new value of the traced variable
    */
-  typedef void (* EcnState)(const TcpSocketState::EcnState_t oldValue,
-                            const TcpSocketState::EcnState_t newValue);
+typedef void (*EcnState)(const TcpSocketState::EcnState_t oldValue,
+                         const TcpSocketState::EcnState_t newValue);
 
-}  // namespace TracedValueCallback
+} // namespace TracedValueCallback
 
 } //namespace ns3

@@ -26,7 +26,8 @@
 #include "ns3/event-id.h"
 #include "ns3/nstime.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class WifiPhy;
 class PhyListener;
@@ -51,27 +52,27 @@ class MacLow;
 class ChannelAccessManager : public Object
 {
 public:
-  ChannelAccessManager ();
-  virtual ~ChannelAccessManager ();
+  ChannelAccessManager();
+  virtual ~ChannelAccessManager();
 
   /**
    * Set up listener for Phy events.
    *
    * \param phy
    */
-  void SetupPhyListener (Ptr<WifiPhy> phy);
+  void SetupPhyListener(Ptr<WifiPhy> phy);
   /**
    * Remove current registered listener for Phy events.
    *
    * \param phy
    */
-  void RemovePhyListener (Ptr<WifiPhy> phy);
+  void RemovePhyListener(Ptr<WifiPhy> phy);
   /**
    * Set up listener for MacLow events.
    *
    * \param low
    */
-  void SetupLow (Ptr<MacLow> low);
+  void SetupLow(Ptr<MacLow> low);
 
   /**
    * \param slotTime the duration of a slot.
@@ -79,26 +80,26 @@ public:
    * It is a bad idea to call this method after RequestAccess or
    * one of the Notify methods has been invoked.
    */
-  void SetSlot (Time slotTime);
+  void SetSlot(Time slotTime);
   /**
    * \param sifs the duration of a SIFS.
    *
    * It is a bad idea to call this method after RequestAccess or
    * one of the Notify methods has been invoked.
    */
-  void SetSifs (Time sifs);
+  void SetSifs(Time sifs);
   /**
    * \param eifsNoDifs the duration of a EIFS minus the duration of DIFS.
    *
    * It is a bad idea to call this method after RequestAccess or
    * one of the Notify methods has been invoked.
    */
-  void SetEifsNoDifs (Time eifsNoDifs);
+  void SetEifsNoDifs(Time eifsNoDifs);
 
   /**
    * \return value set previously using SetEifsNoDifs.
    */
-  Time GetEifsNoDifs (void) const;
+  Time GetEifsNoDifs(void) const;
 
   /**
    * \param dcf a new Txop.
@@ -110,7 +111,7 @@ public:
    * has the highest priority, the second Txop added, has the second
    * highest priority, etc.
    */
-  void Add (Ptr<Txop> dcf);
+  void Add(Ptr<Txop> dcf);
 
   /**
    * \param state a Txop
@@ -121,7 +122,7 @@ public:
    * timer and, invoking Txop::DoNotifyAccessGranted when the access
    * is granted if it ever gets granted.
    */
-  void RequestAccess (Ptr<Txop> state, bool isCfPeriod = false);
+  void RequestAccess(Ptr<Txop> state, bool isCfPeriod = false);
 
   /**
    * \param duration expected duration of reception
@@ -129,17 +130,17 @@ public:
    * Notify the DCF that a packet reception started
    * for the expected duration.
    */
-  void NotifyRxStartNow (Time duration);
+  void NotifyRxStartNow(Time duration);
   /**
    * Notify the DCF that a packet reception was just
    * completed successfully.
    */
-  void NotifyRxEndOkNow (void);
+  void NotifyRxEndOkNow(void);
   /**
    * Notify the DCF that a packet reception was just
    * completed unsuccessfully.
    */
-  void NotifyRxEndErrorNow (void);
+  void NotifyRxEndErrorNow(void);
   /**
    * \param duration expected duration of transmission
    *
@@ -147,13 +148,13 @@ public:
    * just started and is expected to last for the specified
    * duration.
    */
-  void NotifyTxStartNow (Time duration);
+  void NotifyTxStartNow(Time duration);
   /**
    * \param duration expected duration of cca busy period
    *
    * Notify the DCF that a CCA busy period has just started.
    */
-  void NotifyMaybeCcaBusyStartNow (Time duration);
+  void NotifyMaybeCcaBusyStartNow(Time duration);
   /**
    * \param duration expected duration of channel switching period
    *
@@ -161,55 +162,55 @@ public:
    * During switching state, new packets can be enqueued in Txop/QosTxop
    * but they won't access to the medium until the end of the channel switching.
    */
-  void NotifySwitchingStartNow (Time duration);
+  void NotifySwitchingStartNow(Time duration);
   /**
    * Notify the DCF that the device has been put in sleep mode.
    */
-  void NotifySleepNow (void);
+  void NotifySleepNow(void);
   /**
    * Notify the DCF that the device has been put in off mode.
    */
-  void NotifyOffNow (void);
+  void NotifyOffNow(void);
   /**
    * Notify the DCF that the device has been resumed from sleep mode.
    */
-  void NotifyWakeupNow (void);
+  void NotifyWakeupNow(void);
   /**
    * Notify the DCF that the device has been resumed from off mode.
    */
-  void NotifyOnNow (void);
+  void NotifyOnNow(void);
   /**
    * \param duration the value of the received NAV.
    *
    * Called at end of rx
    */
-  void NotifyNavResetNow (Time duration);
+  void NotifyNavResetNow(Time duration);
   /**
    * \param duration the value of the received NAV.
    *
    * Called at end of rx
    */
-  void NotifyNavStartNow (Time duration);
+  void NotifyNavStartNow(Time duration);
   /**
    * Notify that ACK timer has started for the given duration.
    *
    * \param duration
    */
-  void NotifyAckTimeoutStartNow (Time duration);
+  void NotifyAckTimeoutStartNow(Time duration);
   /**
    * Notify that ACK timer has reset.
    */
-  void NotifyAckTimeoutResetNow (void);
+  void NotifyAckTimeoutResetNow(void);
   /**
    * Notify that CTS timer has started for the given duration.
    *
    * \param duration
    */
-  void NotifyCtsTimeoutStartNow (Time duration);
+  void NotifyCtsTimeoutStartNow(Time duration);
   /**
    * Notify that CTS timer has reset.
    */
-  void NotifyCtsTimeoutResetNow (void);
+  void NotifyCtsTimeoutResetNow(void);
 
   /**
    * Check if the device is busy sending or receiving,
@@ -218,19 +219,17 @@ public:
    * \return true if the device is busy,
    *         false otherwise
    */
-  bool IsBusy (void) const;
-
+  bool IsBusy(void) const;
 
 protected:
   // Inherited from ns3::Object
-  void DoDispose (void);
-
+  void DoDispose(void);
 
 private:
   /**
    * Update backoff slots for all Txops.
    */
-  void UpdateBackoff (void);
+  void UpdateBackoff(void);
   /**
    * Return the most recent time.
    *
@@ -238,7 +237,7 @@ private:
    *
    * \return the most recent time
    */
-  Time MostRecent (std::initializer_list<Time> list) const;
+  Time MostRecent(std::initializer_list<Time> list) const;
   /**
    * Access will never be granted to the medium _before_
    * the time returned by this method.
@@ -247,7 +246,7 @@ private:
    *
    * \returns the absolute time at which access could start to be granted
    */
-  Time GetAccessGrantStart (bool ignoreNav = false) const;
+  Time GetAccessGrantStart(bool ignoreNav = false) const;
   /**
    * Return the time when the backoff procedure
    * started for the given Txop.
@@ -256,7 +255,7 @@ private:
    *
    * \return the time when the backoff procedure started
    */
-  Time GetBackoffStartFor (Ptr<Txop> state);
+  Time GetBackoffStartFor(Ptr<Txop> state);
   /**
    * Return the time when the backoff procedure
    * ended (or will ended) for the given Txop.
@@ -265,19 +264,19 @@ private:
    *
    * \return the time when the backoff procedure ended (or will ended)
    */
-  Time GetBackoffEndFor (Ptr<Txop> state);
+  Time GetBackoffEndFor(Ptr<Txop> state);
 
-  void DoRestartAccessTimeoutIfNeeded (void);
+  void DoRestartAccessTimeoutIfNeeded(void);
 
   /**
    * Called when access timeout should occur
    * (e.g. backoff procedure expired).
    */
-  void AccessTimeout (void);
+  void AccessTimeout(void);
   /**
    * Grant access to DCF
    */
-  void DoGrantDcfAccess (void);
+  void DoGrantDcfAccess(void);
   /**
    * Check if the device is between frames (in DIFS or AIFS interval)
    *
@@ -285,16 +284,16 @@ private:
    * \return true if the device is within AIFS,
    *         false otherwise
    */
-  bool IsWithinAifs (Ptr<Txop> state) const;
+  bool IsWithinAifs(Ptr<Txop> state) const;
   /**
    * Grant access to PCF
    */
-  void DoGrantPcfAccess (Ptr<Txop> state);
+  void DoGrantPcfAccess(Ptr<Txop> state);
 
   /**
    * typedef for a vector of Txops
    */
-  typedef std::vector<Ptr<Txop> > States;
+  typedef std::vector<Ptr<Txop>> States;
 
   States m_states;              //!< the DCF states
   Time m_lastAckTimeoutEnd;     //!< the last ACK timeout end time
@@ -317,7 +316,7 @@ private:
   EventId m_accessTimeout;      //!< the access timeout ID
   Time m_slot;                  //!< the slot time
   Time m_sifs;                  //!< the SIFS time
-  PhyListener* m_phyListener;   //!< the phy listener
+  PhyListener *m_phyListener;   //!< the phy listener
   Ptr<WifiPhy> m_phy;           //!< Ptr to the PHY
 };
 

@@ -19,76 +19,72 @@
 #include "ns3/log.h"
 #include "bridge-channel.h"
 
-namespace ns3 {
-
-NS_LOG_COMPONENT_DEFINE ("BridgeChannel");
-
-NS_OBJECT_ENSURE_REGISTERED (BridgeChannel);
-
-TypeId 
-BridgeChannel::GetTypeId (void)
+namespace ns3
 {
-  static TypeId tid = TypeId ("ns3::BridgeChannel")
-    .SetParent<Channel> ()
-    .SetGroupName("Bridge")
-    .AddConstructor<BridgeChannel> ()
-  ;
+
+NS_LOG_COMPONENT_DEFINE("BridgeChannel");
+
+NS_OBJECT_ENSURE_REGISTERED(BridgeChannel);
+
+TypeId
+BridgeChannel::GetTypeId(void)
+{
+  static TypeId tid = TypeId("ns3::BridgeChannel")
+                          .SetParent<Channel>()
+                          .SetGroupName("Bridge")
+                          .AddConstructor<BridgeChannel>();
   return tid;
 }
 
-BridgeChannel::BridgeChannel ()
-  : Channel ()
+BridgeChannel::BridgeChannel()
+    : Channel()
 {
-  NS_LOG_FUNCTION_NOARGS ();
+  NS_LOG_FUNCTION_NOARGS();
 }
 
-BridgeChannel::~BridgeChannel ()
+BridgeChannel::~BridgeChannel()
 {
-  NS_LOG_FUNCTION_NOARGS ();
+  NS_LOG_FUNCTION_NOARGS();
 
-  for (std::vector< Ptr<Channel> >::iterator iter = m_bridgedChannels.begin ();
-       iter != m_bridgedChannels.end (); iter++)
-    {
-      *iter = 0;
-    }
-  m_bridgedChannels.clear ();
+  for (std::vector<Ptr<Channel>>::iterator iter = m_bridgedChannels.begin();
+       iter != m_bridgedChannels.end(); iter++)
+  {
+    *iter = 0;
+  }
+  m_bridgedChannels.clear();
 }
 
-
-void
-BridgeChannel::AddChannel (Ptr<Channel> bridgedChannel)
+void BridgeChannel::AddChannel(Ptr<Channel> bridgedChannel)
 {
-  m_bridgedChannels.push_back (bridgedChannel);
+  m_bridgedChannels.push_back(bridgedChannel);
 }
 
 std::size_t
-BridgeChannel::GetNDevices (void) const
+BridgeChannel::GetNDevices(void) const
 {
   uint32_t ndevices = 0;
-  for (std::vector< Ptr<Channel> >::const_iterator iter = m_bridgedChannels.begin ();
-       iter != m_bridgedChannels.end (); iter++)
-    {
-      ndevices += (*iter)->GetNDevices ();
-    }
+  for (std::vector<Ptr<Channel>>::const_iterator iter = m_bridgedChannels.begin();
+       iter != m_bridgedChannels.end(); iter++)
+  {
+    ndevices += (*iter)->GetNDevices();
+  }
   return ndevices;
 }
 
-
 Ptr<NetDevice>
-BridgeChannel::GetDevice (std::size_t i) const
+BridgeChannel::GetDevice(std::size_t i) const
 {
   std::size_t ndevices = 0;
-  for (std::vector< Ptr<Channel> >::const_iterator iter = m_bridgedChannels.begin ();
-       iter != m_bridgedChannels.end (); iter++)
+  for (std::vector<Ptr<Channel>>::const_iterator iter = m_bridgedChannels.begin();
+       iter != m_bridgedChannels.end(); iter++)
+  {
+    if ((i - ndevices) < (*iter)->GetNDevices())
     {
-      if ((i - ndevices) < (*iter)->GetNDevices ())
-        {
-          return (*iter)->GetDevice (i - ndevices);
-        }
-      ndevices += (*iter)->GetNDevices ();
+      return (*iter)->GetDevice(i - ndevices);
     }
+    ndevices += (*iter)->GetNDevices();
+  }
   return NULL;
 }
-
 
 } // namespace ns3

@@ -24,7 +24,8 @@
 #include <stdint.h>
 #include <list>
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup ipv4Helpers
@@ -41,18 +42,18 @@ public:
    * Construct an Ipv4ListRoutingHelper used to make installing routing
    * protocols easier.
    */
-  Ipv4ListRoutingHelper ();
+  Ipv4ListRoutingHelper();
 
   /*
    * Destroy an Ipv4ListRoutingHelper.
    */
-  virtual ~Ipv4ListRoutingHelper ();
+  virtual ~Ipv4ListRoutingHelper();
 
   /**
    * \brief Construct an Ipv4ListRoutingHelper from another previously 
    * initialized instance (Copy Constructor).
    */
-  Ipv4ListRoutingHelper (const Ipv4ListRoutingHelper &);
+  Ipv4ListRoutingHelper(const Ipv4ListRoutingHelper &);
 
   /**
    * \returns pointer to clone of this Ipv4ListRoutingHelper 
@@ -60,7 +61,7 @@ public:
    * This method is mainly for internal use by the other helpers;
    * clients are expected to free the dynamic memory allocated by this method
    */
-  Ipv4ListRoutingHelper* Copy (void) const;
+  Ipv4ListRoutingHelper *Copy(void) const;
 
   /**
    * \param routing a routing helper
@@ -72,26 +73,27 @@ public:
    * an ns3::Ipv4ListRouting object and add in it routing protocols
    * created with the helpers.
    */
-  void Add (const Ipv4RoutingHelper &routing, int16_t priority);
+  void Add(const Ipv4RoutingHelper &routing, int16_t priority);
   /**
    * \param node the node on which the routing protocol will run
    * \returns a newly-created routing protocol
    *
    * This method will be called by ns3::InternetStackHelper::Install
    */
-  virtual Ptr<Ipv4RoutingProtocol> Create (Ptr<Node> node) const;
+  virtual Ptr<Ipv4RoutingProtocol> Create(Ptr<Node> node) const;
+
 private:
   /**
    * \brief Assignment operator declared private and not implemented to disallow
    * assignment and prevent the compiler from happily inserting its own.
    * \return
    */
-  Ipv4ListRoutingHelper &operator = (const Ipv4ListRoutingHelper &);
+  Ipv4ListRoutingHelper &operator=(const Ipv4ListRoutingHelper &);
 
   /**
    * \brief Container for pairs of Ipv4RoutingHelper pointer / priority.
    */
-  std::list<std::pair<const Ipv4RoutingHelper *,int16_t> > m_list;
+  std::list<std::pair<const Ipv4RoutingHelper *, int16_t>> m_list;
 };
 
 } // namespace ns3

@@ -20,73 +20,71 @@
 
 #include "dsss-parameter-set.h"
 
-namespace ns3 {
+namespace ns3
+{
 
-DsssParameterSet::DsssParameterSet ()
-  : m_currentChannel (0),
-    m_dsssSupported (0)
+DsssParameterSet::DsssParameterSet()
+    : m_currentChannel(0),
+      m_dsssSupported(0)
 {
 }
 
 WifiInformationElementId
-DsssParameterSet::ElementId () const
+DsssParameterSet::ElementId() const
 {
   return IE_DSSS_PARAMETER_SET;
 }
 
-void
-DsssParameterSet::SetDsssSupported (uint8_t dsssSupported)
+void DsssParameterSet::SetDsssSupported(uint8_t dsssSupported)
 {
   m_dsssSupported = dsssSupported;
 }
 
-void
-DsssParameterSet::SetCurrentChannel (uint8_t currentChannel)
+void DsssParameterSet::SetCurrentChannel(uint8_t currentChannel)
 {
   m_currentChannel = currentChannel;
 }
 
 uint8_t
-DsssParameterSet::GetInformationFieldSize () const
+DsssParameterSet::GetInformationFieldSize() const
 {
-  NS_ASSERT (m_dsssSupported);
+  NS_ASSERT(m_dsssSupported);
   return 1;
 }
 
 Buffer::Iterator
-DsssParameterSet::Serialize (Buffer::Iterator i) const
+DsssParameterSet::Serialize(Buffer::Iterator i) const
 {
   if (!m_dsssSupported)
-    {
-      return i;
-    }
-  return WifiInformationElement::Serialize (i);
+  {
+    return i;
+  }
+  return WifiInformationElement::Serialize(i);
 }
 
 uint16_t
-DsssParameterSet::GetSerializedSize () const
+DsssParameterSet::GetSerializedSize() const
 {
   if (!m_dsssSupported)
-    {
-      return 0;
-    }
-  return WifiInformationElement::GetSerializedSize ();
+  {
+    return 0;
+  }
+  return WifiInformationElement::GetSerializedSize();
 }
 
-void
-DsssParameterSet::SerializeInformationField (Buffer::Iterator start) const
+void DsssParameterSet::SerializeInformationField(Buffer::Iterator start) const
 {
   if (m_dsssSupported)
-    {
-      start.WriteU8 (m_currentChannel);
-    }
+  {
+    start.WriteU8(m_currentChannel);
+  }
 }
 
 uint8_t
-DsssParameterSet::DeserializeInformationField (Buffer::Iterator start, uint8_t length)
+DsssParameterSet::DeserializeInformationField(Buffer::Iterator start, uint8_t length)
 {
   Buffer::Iterator i = start;
-  m_currentChannel = i.ReadU8 ();
+  m_currentChannel = i.ReadU8();
   return length;
 }
 

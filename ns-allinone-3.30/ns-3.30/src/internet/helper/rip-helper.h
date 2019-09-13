@@ -26,7 +26,8 @@
 #include "ns3/node-container.h"
 #include "ns3/node.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup ipv4Helpers
@@ -44,16 +45,16 @@ public:
    * Construct an RipHelper to make life easier while adding RIP
    * routing to nodes.
    */
-  RipHelper ();
+  RipHelper();
 
   /**
    * \brief Construct an RipHelper from another previously
    * initialized instance (Copy Constructor).
    * \param o The object to copy from.
    */
-  RipHelper (const RipHelper &o);
+  RipHelper(const RipHelper &o);
 
-  virtual ~RipHelper ();
+  virtual ~RipHelper();
 
   /**
    * \returns pointer to clone of this RipHelper
@@ -61,7 +62,7 @@ public:
    * This method is mainly for internal use by the other helpers;
    * clients are expected to free the dynamic memory allocated by this method
    */
-  RipHelper* Copy (void) const;
+  RipHelper *Copy(void) const;
 
   /**
    * \param node the node on which the routing protocol will run
@@ -69,7 +70,7 @@ public:
    *
    * This method will be called by ns3::InternetStackHelper::Install
    */
-  virtual Ptr<Ipv4RoutingProtocol> Create (Ptr<Node> node) const;
+  virtual Ptr<Ipv4RoutingProtocol> Create(Ptr<Node> node) const;
 
   /**
    * \param name the name of the attribute to set
@@ -77,7 +78,7 @@ public:
    *
    * This method controls the attributes of ns3::Ripng
    */
-  void Set (std::string name, const AttributeValue &value);
+  void Set(std::string name, const AttributeValue &value);
 
   /**
    * Assign a fixed random variable stream number to the random variables
@@ -90,7 +91,7 @@ public:
    * \param stream first stream index to use
    * \return the number of stream indices assigned by this helper
    */
-  int64_t AssignStreams (NodeContainer c, int64_t stream);
+  int64_t AssignStreams(NodeContainer c, int64_t stream);
 
   /**
    * \brief Install a default route in the node.
@@ -102,7 +103,7 @@ public:
    * \param nextHop the next hop
    * \param interface the network interface
    */
-  void SetDefaultRouter (Ptr<Node> node, Ipv4Address nextHop, uint32_t interface);
+  void SetDefaultRouter(Ptr<Node> node, Ipv4Address nextHop, uint32_t interface);
 
   /**
    * \brief Exclude an interface from RIP protocol.
@@ -115,7 +116,7 @@ public:
    * \param node the node
    * \param interface the network interface to be excluded
    */
-  void ExcludeInterface (Ptr<Node> node, uint32_t interface);
+  void ExcludeInterface(Ptr<Node> node, uint32_t interface);
 
   /**
    * \brief Set a metric for an interface.
@@ -129,7 +130,7 @@ public:
    * \param interface the network interface
    * \param metric the interface metric
    */
-  void SetInterfaceMetric (Ptr<Node> node, uint32_t interface, uint8_t metric);
+  void SetInterfaceMetric(Ptr<Node> node, uint32_t interface, uint8_t metric);
 
 private:
   /**
@@ -139,16 +140,14 @@ private:
    * \param o The object to copy from.
    * \returns pointer to clone of this RipNgHelper
    */
-  RipHelper &operator = (const RipHelper &o);
+  RipHelper &operator=(const RipHelper &o);
 
   ObjectFactory m_factory; //!< Object Factory
 
-  std::map< Ptr<Node>, std::set<uint32_t> > m_interfaceExclusions; //!< Interface Exclusion set
-  std::map< Ptr<Node>, std::map<uint32_t, uint8_t> > m_interfaceMetrics; //!< Interface Metric set
+  std::map<Ptr<Node>, std::set<uint32_t>> m_interfaceExclusions;       //!< Interface Exclusion set
+  std::map<Ptr<Node>, std::map<uint32_t, uint8_t>> m_interfaceMetrics; //!< Interface Metric set
 };
 
 } // namespace ns3
 
-
 #endif /* RIP_HELPER_H */
-

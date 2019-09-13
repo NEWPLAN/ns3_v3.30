@@ -36,154 +36,146 @@
 #include <cstdio>
 #include <fstream>
 
-namespace ns3 {
+namespace ns3
+{
 
-NS_LOG_COMPONENT_DEFINE ("UdpTraceClient");
+NS_LOG_COMPONENT_DEFINE("UdpTraceClient");
 
-NS_OBJECT_ENSURE_REGISTERED (UdpTraceClient);
+NS_OBJECT_ENSURE_REGISTERED(UdpTraceClient);
 
 /**
  * \brief Default trace to send
  */
 struct UdpTraceClient::TraceEntry UdpTraceClient::g_defaultEntries[] = {
-  { 0, 534, 'I'},
-  { 40, 1542, 'P'},
-  { 120, 134, 'B'},
-  { 80, 390, 'B'},
-  { 240, 765, 'P'},
-  { 160, 407, 'B'},
-  { 200, 504, 'B'},
-  { 360, 903, 'P'},
-  { 280, 421, 'B'},
-  { 320, 587, 'B'}
-};
+    {0, 534, 'I'},
+    {40, 1542, 'P'},
+    {120, 134, 'B'},
+    {80, 390, 'B'},
+    {240, 765, 'P'},
+    {160, 407, 'B'},
+    {200, 504, 'B'},
+    {360, 903, 'P'},
+    {280, 421, 'B'},
+    {320, 587, 'B'}};
 
 TypeId
-UdpTraceClient::GetTypeId (void)
+UdpTraceClient::GetTypeId(void)
 {
-  static TypeId tid = TypeId ("ns3::UdpTraceClient")
-    .SetParent<Application> ()
-    .SetGroupName("Applications")
-    .AddConstructor<UdpTraceClient> ()
-    .AddAttribute ("RemoteAddress",
-                   "The destination Address of the outbound packets",
-                   AddressValue (),
-                   MakeAddressAccessor (&UdpTraceClient::m_peerAddress),
-                   MakeAddressChecker ())
-    .AddAttribute ("RemotePort",
-                   "The destination port of the outbound packets",
-                   UintegerValue (100),
-                   MakeUintegerAccessor (&UdpTraceClient::m_peerPort),
-                   MakeUintegerChecker<uint16_t> ())
-    .AddAttribute ("MaxPacketSize",
-                   "The maximum size of a packet (including the SeqTsHeader, 12 bytes).",
-                   UintegerValue (1024),
-                   MakeUintegerAccessor (&UdpTraceClient::m_maxPacketSize),
-                   MakeUintegerChecker<uint32_t> ())
-    .AddAttribute ("TraceFilename",
-                   "Name of file to load a trace from. By default, uses a hardcoded trace.",
-                   StringValue (""),
-                   MakeStringAccessor (&UdpTraceClient::SetTraceFile),
-                   MakeStringChecker ())
-    .AddAttribute ("TraceLoop",
-                   "Loops through the trace file, starting again once it is over.",
-                   BooleanValue (true),
-                   MakeBooleanAccessor (&UdpTraceClient::SetTraceLoop),
-                   MakeBooleanChecker ())
+  static TypeId tid = TypeId("ns3::UdpTraceClient")
+                          .SetParent<Application>()
+                          .SetGroupName("Applications")
+                          .AddConstructor<UdpTraceClient>()
+                          .AddAttribute("RemoteAddress",
+                                        "The destination Address of the outbound packets",
+                                        AddressValue(),
+                                        MakeAddressAccessor(&UdpTraceClient::m_peerAddress),
+                                        MakeAddressChecker())
+                          .AddAttribute("RemotePort",
+                                        "The destination port of the outbound packets",
+                                        UintegerValue(100),
+                                        MakeUintegerAccessor(&UdpTraceClient::m_peerPort),
+                                        MakeUintegerChecker<uint16_t>())
+                          .AddAttribute("MaxPacketSize",
+                                        "The maximum size of a packet (including the SeqTsHeader, 12 bytes).",
+                                        UintegerValue(1024),
+                                        MakeUintegerAccessor(&UdpTraceClient::m_maxPacketSize),
+                                        MakeUintegerChecker<uint32_t>())
+                          .AddAttribute("TraceFilename",
+                                        "Name of file to load a trace from. By default, uses a hardcoded trace.",
+                                        StringValue(""),
+                                        MakeStringAccessor(&UdpTraceClient::SetTraceFile),
+                                        MakeStringChecker())
+                          .AddAttribute("TraceLoop",
+                                        "Loops through the trace file, starting again once it is over.",
+                                        BooleanValue(true),
+                                        MakeBooleanAccessor(&UdpTraceClient::SetTraceLoop),
+                                        MakeBooleanChecker())
 
-  ;
+      ;
   return tid;
 }
 
-UdpTraceClient::UdpTraceClient ()
+UdpTraceClient::UdpTraceClient()
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
   m_sent = 0;
   m_socket = 0;
-  m_sendEvent = EventId ();
+  m_sendEvent = EventId();
   m_maxPacketSize = 1400;
 }
 
-UdpTraceClient::UdpTraceClient (Ipv4Address ip, uint16_t port,
-                                char *traceFile)
+UdpTraceClient::UdpTraceClient(Ipv4Address ip, uint16_t port,
+                               char *traceFile)
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
   m_sent = 0;
   m_socket = 0;
-  m_sendEvent = EventId ();
+  m_sendEvent = EventId();
   m_peerAddress = ip;
   m_peerPort = port;
   m_currentEntry = 0;
   m_maxPacketSize = 1400;
   if (traceFile != NULL)
-    {
-      SetTraceFile (traceFile);
-    }
+  {
+    SetTraceFile(traceFile);
+  }
 }
 
-UdpTraceClient::~UdpTraceClient ()
+UdpTraceClient::~UdpTraceClient()
 {
-  NS_LOG_FUNCTION (this);
-  m_entries.clear ();
+  NS_LOG_FUNCTION(this);
+  m_entries.clear();
 }
 
-void
-UdpTraceClient::SetRemote (Address ip, uint16_t port)
+void UdpTraceClient::SetRemote(Address ip, uint16_t port)
 {
-  NS_LOG_FUNCTION (this << ip << port);
-  m_entries.clear ();
+  NS_LOG_FUNCTION(this << ip << port);
+  m_entries.clear();
   m_peerAddress = ip;
   m_peerPort = port;
 }
 
-void
-UdpTraceClient::SetRemote (Address addr)
+void UdpTraceClient::SetRemote(Address addr)
 {
-  NS_LOG_FUNCTION (this << addr);
-  m_entries.clear ();
+  NS_LOG_FUNCTION(this << addr);
+  m_entries.clear();
   m_peerAddress = addr;
 }
 
-void
-UdpTraceClient::SetTraceFile (std::string traceFile)
+void UdpTraceClient::SetTraceFile(std::string traceFile)
 {
-  NS_LOG_FUNCTION (this << traceFile);
+  NS_LOG_FUNCTION(this << traceFile);
   if (traceFile == "")
-    {
-      LoadDefaultTrace ();
-    }
+  {
+    LoadDefaultTrace();
+  }
   else
-    {
-      LoadTrace (traceFile);
-    }
+  {
+    LoadTrace(traceFile);
+  }
 }
 
-void
-UdpTraceClient::SetMaxPacketSize (uint16_t maxPacketSize)
+void UdpTraceClient::SetMaxPacketSize(uint16_t maxPacketSize)
 {
-  NS_LOG_FUNCTION (this << maxPacketSize);
+  NS_LOG_FUNCTION(this << maxPacketSize);
   m_maxPacketSize = maxPacketSize;
 }
 
-
-uint16_t UdpTraceClient::GetMaxPacketSize (void)
+uint16_t UdpTraceClient::GetMaxPacketSize(void)
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
   return m_maxPacketSize;
 }
 
-
-void
-UdpTraceClient::DoDispose (void)
+void UdpTraceClient::DoDispose(void)
 {
-  NS_LOG_FUNCTION (this);
-  Application::DoDispose ();
+  NS_LOG_FUNCTION(this);
+  Application::DoDispose();
 }
 
-void
-UdpTraceClient::LoadTrace (std::string filename)
+void UdpTraceClient::LoadTrace(std::string filename)
 {
-  NS_LOG_FUNCTION (this << filename);
+  NS_LOG_FUNCTION(this << filename);
   uint32_t time = 0;
   uint32_t index = 0;
   uint32_t oldIndex = 0;
@@ -192,203 +184,196 @@ UdpTraceClient::LoadTrace (std::string filename)
   char frameType;
   TraceEntry entry;
   std::ifstream ifTraceFile;
-  ifTraceFile.open (filename.c_str (), std::ifstream::in);
-  m_entries.clear ();
-  if (!ifTraceFile.good ())
+  ifTraceFile.open(filename.c_str(), std::ifstream::in);
+  m_entries.clear();
+  if (!ifTraceFile.good())
+  {
+    LoadDefaultTrace();
+  }
+  while (ifTraceFile.good())
+  {
+    ifTraceFile >> index >> frameType >> time >> size;
+    if (index == oldIndex)
     {
-      LoadDefaultTrace ();
+      continue;
     }
-  while (ifTraceFile.good ())
+    if (frameType == 'B')
     {
-      ifTraceFile >> index >> frameType >> time >> size;
-      if (index == oldIndex)
-        {
-          continue;
-        }
-      if (frameType == 'B')
-        {
-          entry.timeToSend = 0;
-        }
-      else
-        {
-          entry.timeToSend = time - prevTime;
-          prevTime = time;
-        }
-      entry.packetSize = size;
-      entry.frameType = frameType;
-      m_entries.push_back (entry);
-      oldIndex = index;
+      entry.timeToSend = 0;
     }
-  ifTraceFile.close ();
-  NS_ASSERT_MSG (prevTime != 0, "A trace file can not contain B frames only.");
+    else
+    {
+      entry.timeToSend = time - prevTime;
+      prevTime = time;
+    }
+    entry.packetSize = size;
+    entry.frameType = frameType;
+    m_entries.push_back(entry);
+    oldIndex = index;
+  }
+  ifTraceFile.close();
+  NS_ASSERT_MSG(prevTime != 0, "A trace file can not contain B frames only.");
   m_currentEntry = 0;
 }
 
-void
-UdpTraceClient::LoadDefaultTrace (void)
+void UdpTraceClient::LoadDefaultTrace(void)
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
   uint32_t prevTime = 0;
-  for (uint32_t i = 0; i < (sizeof (g_defaultEntries) / sizeof (struct TraceEntry)); i++)
+  for (uint32_t i = 0; i < (sizeof(g_defaultEntries) / sizeof(struct TraceEntry)); i++)
+  {
+    struct TraceEntry entry = g_defaultEntries[i];
+    if (entry.frameType == 'B')
     {
-      struct TraceEntry entry = g_defaultEntries[i];
-      if (entry.frameType == 'B')
-        {
-          entry.timeToSend = 0;
-        }
-      else
-        {
-          uint32_t tmp = entry.timeToSend;
-          entry.timeToSend -= prevTime;
-          prevTime = tmp;
-        }
-      m_entries.push_back (entry);
+      entry.timeToSend = 0;
     }
+    else
+    {
+      uint32_t tmp = entry.timeToSend;
+      entry.timeToSend -= prevTime;
+      prevTime = tmp;
+    }
+    m_entries.push_back(entry);
+  }
   m_currentEntry = 0;
 }
 
-void
-UdpTraceClient::StartApplication (void)
+void UdpTraceClient::StartApplication(void)
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
 
   if (m_socket == 0)
+  {
+    TypeId tid = TypeId::LookupByName("ns3::UdpSocketFactory");
+    m_socket = Socket::CreateSocket(GetNode(), tid);
+    if (Ipv4Address::IsMatchingType(m_peerAddress) == true)
     {
-      TypeId tid = TypeId::LookupByName ("ns3::UdpSocketFactory");
-      m_socket = Socket::CreateSocket (GetNode (), tid);
-      if (Ipv4Address::IsMatchingType(m_peerAddress) == true)
-        {
-          if (m_socket->Bind () == -1)
-            {
-              NS_FATAL_ERROR ("Failed to bind socket");
-            }
-          m_socket->Connect (InetSocketAddress (Ipv4Address::ConvertFrom (m_peerAddress), m_peerPort));
-        }
-      else if (Ipv6Address::IsMatchingType(m_peerAddress) == true)
-        {
-          if (m_socket->Bind6 () == -1)
-            {
-              NS_FATAL_ERROR ("Failed to bind socket");
-            }
-          m_socket->Connect (Inet6SocketAddress (Ipv6Address::ConvertFrom (m_peerAddress), m_peerPort));
-        }
-      else if (InetSocketAddress::IsMatchingType (m_peerAddress) == true)
-        {
-          if (m_socket->Bind () == -1)
-            {
-              NS_FATAL_ERROR ("Failed to bind socket");
-            }
-          m_socket->Connect (m_peerAddress);
-        }
-      else if (Inet6SocketAddress::IsMatchingType (m_peerAddress) == true)
-        {
-          if (m_socket->Bind6 () == -1)
-            {
-              NS_FATAL_ERROR ("Failed to bind socket");
-            }
-          m_socket->Connect (m_peerAddress);
-        }
-      else
-        {
-          NS_ASSERT_MSG (false, "Incompatible address type: " << m_peerAddress);
-        }
+      if (m_socket->Bind() == -1)
+      {
+        NS_FATAL_ERROR("Failed to bind socket");
+      }
+      m_socket->Connect(InetSocketAddress(Ipv4Address::ConvertFrom(m_peerAddress), m_peerPort));
     }
-  m_socket->SetRecvCallback (MakeNullCallback<void, Ptr<Socket> > ());
-  m_socket->SetAllowBroadcast (true);
-  m_sendEvent = Simulator::Schedule (Seconds (0.0), &UdpTraceClient::Send, this);
+    else if (Ipv6Address::IsMatchingType(m_peerAddress) == true)
+    {
+      if (m_socket->Bind6() == -1)
+      {
+        NS_FATAL_ERROR("Failed to bind socket");
+      }
+      m_socket->Connect(Inet6SocketAddress(Ipv6Address::ConvertFrom(m_peerAddress), m_peerPort));
+    }
+    else if (InetSocketAddress::IsMatchingType(m_peerAddress) == true)
+    {
+      if (m_socket->Bind() == -1)
+      {
+        NS_FATAL_ERROR("Failed to bind socket");
+      }
+      m_socket->Connect(m_peerAddress);
+    }
+    else if (Inet6SocketAddress::IsMatchingType(m_peerAddress) == true)
+    {
+      if (m_socket->Bind6() == -1)
+      {
+        NS_FATAL_ERROR("Failed to bind socket");
+      }
+      m_socket->Connect(m_peerAddress);
+    }
+    else
+    {
+      NS_ASSERT_MSG(false, "Incompatible address type: " << m_peerAddress);
+    }
+  }
+  m_socket->SetRecvCallback(MakeNullCallback<void, Ptr<Socket>>());
+  m_socket->SetAllowBroadcast(true);
+  m_sendEvent = Simulator::Schedule(Seconds(0.0), &UdpTraceClient::Send, this);
 }
 
-void
-UdpTraceClient::StopApplication ()
+void UdpTraceClient::StopApplication()
 {
-  NS_LOG_FUNCTION (this);
-  Simulator::Cancel (m_sendEvent);
+  NS_LOG_FUNCTION(this);
+  Simulator::Cancel(m_sendEvent);
 }
 
-void
-UdpTraceClient::SendPacket (uint32_t size)
+void UdpTraceClient::SendPacket(uint32_t size)
 {
-  NS_LOG_FUNCTION (this << size);
+  NS_LOG_FUNCTION(this << size);
   Ptr<Packet> p;
   uint32_t packetSize;
-  if (size>12)
-    {
-      packetSize = size - 12; // 12 is the size of the SeqTsHeader
-    }
+  if (size > 12)
+  {
+    packetSize = size - 12; // 12 is the size of the SeqTsHeader
+  }
   else
-    {
-      packetSize = 0;
-    }
-  p = Create<Packet> (packetSize);
+  {
+    packetSize = 0;
+  }
+  p = Create<Packet>(packetSize);
   SeqTsHeader seqTs;
-  seqTs.SetSeq (m_sent);
-  p->AddHeader (seqTs);
+  seqTs.SetSeq(m_sent);
+  p->AddHeader(seqTs);
 
   std::stringstream addressString;
   if (Ipv4Address::IsMatchingType(m_peerAddress) == true)
-    {
-      addressString << Ipv4Address::ConvertFrom (m_peerAddress);
-    }
+  {
+    addressString << Ipv4Address::ConvertFrom(m_peerAddress);
+  }
   else if (Ipv6Address::IsMatchingType(m_peerAddress) == true)
-    {
-      addressString << Ipv6Address::ConvertFrom (m_peerAddress);
-    }
+  {
+    addressString << Ipv6Address::ConvertFrom(m_peerAddress);
+  }
   else
-    {
-      addressString << m_peerAddress;
-    }
+  {
+    addressString << m_peerAddress;
+  }
 
-  if ((m_socket->Send (p)) >= 0)
-    {
-      ++m_sent;
-      NS_LOG_INFO ("Sent " << size << " bytes to "
-                           << addressString.str ());
-    }
+  if ((m_socket->Send(p)) >= 0)
+  {
+    ++m_sent;
+    NS_LOG_INFO("Sent " << size << " bytes to "
+                        << addressString.str());
+  }
   else
-    {
-      NS_LOG_INFO ("Error while sending " << size << " bytes to "
-                                          << addressString.str ());
-    }
+  {
+    NS_LOG_INFO("Error while sending " << size << " bytes to "
+                                       << addressString.str());
+  }
 }
 
-void
-UdpTraceClient::Send (void)
+void UdpTraceClient::Send(void)
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
 
-  NS_ASSERT (m_sendEvent.IsExpired ());
+  NS_ASSERT(m_sendEvent.IsExpired());
 
   bool cycled = false;
   Ptr<Packet> p;
   struct TraceEntry *entry = &m_entries[m_currentEntry];
   do
+  {
+    for (uint32_t i = 0; i < entry->packetSize / m_maxPacketSize; i++)
     {
-      for (uint32_t i = 0; i < entry->packetSize / m_maxPacketSize; i++)
-        {
-          SendPacket (m_maxPacketSize);
-        }
-
-      uint16_t sizetosend = entry->packetSize % m_maxPacketSize;
-      SendPacket (sizetosend);
-
-      m_currentEntry++;
-      if (m_currentEntry >= m_entries.size ())
-        {
-          m_currentEntry = 0;
-          cycled = true;
-        }
-      entry = &m_entries[m_currentEntry];
+      SendPacket(m_maxPacketSize);
     }
-  while (entry->timeToSend == 0);
+
+    uint16_t sizetosend = entry->packetSize % m_maxPacketSize;
+    SendPacket(sizetosend);
+
+    m_currentEntry++;
+    if (m_currentEntry >= m_entries.size())
+    {
+      m_currentEntry = 0;
+      cycled = true;
+    }
+    entry = &m_entries[m_currentEntry];
+  } while (entry->timeToSend == 0);
 
   if (!cycled || m_traceLoop)
-    {
-      m_sendEvent = Simulator::Schedule (MilliSeconds (entry->timeToSend), &UdpTraceClient::Send, this);
-    }
+  {
+    m_sendEvent = Simulator::Schedule(MilliSeconds(entry->timeToSend), &UdpTraceClient::Send, this);
+  }
 }
 
-void
-UdpTraceClient::SetTraceLoop (bool traceLoop)
+void UdpTraceClient::SetTraceLoop(bool traceLoop)
 {
   m_traceLoop = traceLoop;
 }

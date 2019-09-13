@@ -145,8 +145,7 @@ MacLow::GetTypeId (void)
   static TypeId tid = TypeId ("ns3::MacLow")
     .SetParent<Object> ()
     .SetGroupName ("Wifi")
-    .AddConstructor<MacLow> ()
-  ;
+    .AddConstructor<MacLow> ();
   return tid;
 }
 

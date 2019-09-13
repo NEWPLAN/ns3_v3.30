@@ -22,7 +22,8 @@
 
 #include "ns3/tcp-option.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup tcp
@@ -32,23 +33,22 @@ namespace ns3 {
 class TcpOptionEnd : public TcpOption
 {
 public:
-  TcpOptionEnd ();
-  virtual ~TcpOptionEnd ();
+  TcpOptionEnd();
+  virtual ~TcpOptionEnd();
 
   /**
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
-  virtual TypeId GetInstanceTypeId (void) const;
+  static TypeId GetTypeId(void);
+  virtual TypeId GetInstanceTypeId(void) const;
 
-  virtual void Print (std::ostream &os) const;
-  virtual void Serialize (Buffer::Iterator start) const;
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual void Print(std::ostream &os) const;
+  virtual void Serialize(Buffer::Iterator start) const;
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 
-  virtual uint8_t GetKind (void) const;
-  virtual uint32_t GetSerializedSize (void) const;
-
+  virtual uint8_t GetKind(void) const;
+  virtual uint32_t GetSerializedSize(void) const;
 };
 
 /**
@@ -57,22 +57,22 @@ public:
 class TcpOptionNOP : public TcpOption
 {
 public:
-  TcpOptionNOP ();
-  virtual ~TcpOptionNOP ();
+  TcpOptionNOP();
+  virtual ~TcpOptionNOP();
 
   /**
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
-  virtual TypeId GetInstanceTypeId (void) const;
+  static TypeId GetTypeId(void);
+  virtual TypeId GetInstanceTypeId(void) const;
 
-  virtual void Print (std::ostream &os) const;
-  virtual void Serialize (Buffer::Iterator start) const;
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual void Print(std::ostream &os) const;
+  virtual void Serialize(Buffer::Iterator start) const;
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 
-  virtual uint8_t GetKind (void) const;
-  virtual uint32_t GetSerializedSize (void) const;
+  virtual uint8_t GetKind(void) const;
+  virtual uint32_t GetSerializedSize(void) const;
 };
 
 /**
@@ -81,33 +81,33 @@ public:
 class TcpOptionMSS : public TcpOption
 {
 public:
-  TcpOptionMSS ();
-  virtual ~TcpOptionMSS ();
+  TcpOptionMSS();
+  virtual ~TcpOptionMSS();
 
   /**
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
-  virtual TypeId GetInstanceTypeId (void) const;
+  static TypeId GetTypeId(void);
+  virtual TypeId GetInstanceTypeId(void) const;
 
-  virtual void Print (std::ostream &os) const;
-  virtual void Serialize (Buffer::Iterator start) const;
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual void Print(std::ostream &os) const;
+  virtual void Serialize(Buffer::Iterator start) const;
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 
-  virtual uint8_t GetKind (void) const;
-  virtual uint32_t GetSerializedSize (void) const;
+  virtual uint8_t GetKind(void) const;
+  virtual uint32_t GetSerializedSize(void) const;
 
   /**
    * \brief Get the Maximum Segment Size stored in the Option
    * \return The Maximum Segment Size
    */
-  uint16_t GetMSS (void) const;
+  uint16_t GetMSS(void) const;
   /**
    * \brief Set the Maximum Segment Size stored in the Option
    * \param mss The Maximum Segment Size
    */
-  void SetMSS (uint16_t mss);
+  void SetMSS(uint16_t mss);
 
 protected:
   uint16_t m_mss; //!< maximum segment size

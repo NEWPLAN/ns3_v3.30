@@ -23,7 +23,8 @@
 #include "ns3/queue-item.h"
 #include "ipv6-header.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup ipv6
@@ -33,7 +34,8 @@ namespace ns3 {
  * Header and payload are kept separate to allow the queue disc to manipulate
  * the header, which is added to the packet when the packet is dequeued.
  */
-class Ipv6QueueDiscItem : public QueueDiscItem {
+class Ipv6QueueDiscItem : public QueueDiscItem
+{
 public:
   /**
    * \brief Create an IPv6 queue disc item containing an IPv6 packet.
@@ -42,30 +44,30 @@ public:
    * \param protocol the protocol number
    * \param header the IPv6 header
    */
-  Ipv6QueueDiscItem (Ptr<Packet> p, const Address & addr, uint16_t protocol, const Ipv6Header & header);
+  Ipv6QueueDiscItem(Ptr<Packet> p, const Address &addr, uint16_t protocol, const Ipv6Header &header);
 
-  virtual ~Ipv6QueueDiscItem ();
+  virtual ~Ipv6QueueDiscItem();
 
   /**
    * \return the correct packet size (header plus payload).
    */
-  virtual uint32_t GetSize (void) const;
+  virtual uint32_t GetSize(void) const;
 
   /**
    * \return the header stored in this item..
    */
-  const Ipv6Header & GetHeader (void) const;
+  const Ipv6Header &GetHeader(void) const;
 
   /**
    * \brief Add the header to the packet
    */
-  virtual void AddHeader (void);
+  virtual void AddHeader(void);
 
   /**
    * \brief Print the item contents.
    * \param os output stream in which the data should be printed.
    */
-  virtual void Print (std::ostream &os) const;
+  virtual void Print(std::ostream &os) const;
 
   /*
    * The values for the fields of the Ipv6 header are taken from m_header and
@@ -74,13 +76,13 @@ public:
    * to be called before the header is added to the packet (i.e., before the
    * packet is dequeued from the queue disc)
    */
-  virtual bool GetUint8Value (Uint8Values field, uint8_t &value) const;
+  virtual bool GetUint8Value(Uint8Values field, uint8_t &value) const;
 
   /**
    * \brief Marks the packet by setting ECN_CE bits if the packet has ECN_ECT0 or ECN_ECT1 bits set
    * \return true if the packet gets marked, false otherwise
    */
-  virtual bool Mark (void);
+  virtual bool Mark(void);
 
   /**
    * \brief Computes the hash of the packet's 5-tuple
@@ -92,7 +94,7 @@ public:
    * \param perturbation hash perturbation value
    * \return the hash of the packet's 5-tuple
    */
-  virtual uint32_t Hash (uint32_t perturbation) const;
+  virtual uint32_t Hash(uint32_t perturbation) const;
 
 private:
   /**
@@ -100,23 +102,23 @@ private:
    *
    * Defined and unimplemented to avoid misuse
    */
-  Ipv6QueueDiscItem ();
+  Ipv6QueueDiscItem();
   /**
    * \brief Copy constructor
    *
    * Defined and unimplemented to avoid misuse
    */
-  Ipv6QueueDiscItem (const Ipv6QueueDiscItem &);
+  Ipv6QueueDiscItem(const Ipv6QueueDiscItem &);
   /**
    * \brief Assignment operator
    *
    * Defined and unimplemented to avoid misuse
    * \returns
    */
-  Ipv6QueueDiscItem &operator = (const Ipv6QueueDiscItem &);
+  Ipv6QueueDiscItem &operator=(const Ipv6QueueDiscItem &);
 
-  Ipv6Header m_header;  //!< The IPv6 header.
-  bool m_headerAdded;   //!< True if the header has already been added to the packet.
+  Ipv6Header m_header; //!< The IPv6 header.
+  bool m_headerAdded;  //!< True if the header has already been added to the packet.
 };
 
 } // namespace ns3

@@ -21,61 +21,57 @@
 #include "infrastructure-wifi-mac.h"
 #include "ns3/log.h"
 
-namespace ns3 {
+namespace ns3
+{
 
-NS_LOG_COMPONENT_DEFINE ("InfrastructureWifiMac");
+NS_LOG_COMPONENT_DEFINE("InfrastructureWifiMac");
 
-NS_OBJECT_ENSURE_REGISTERED (InfrastructureWifiMac);
-
+NS_OBJECT_ENSURE_REGISTERED(InfrastructureWifiMac);
 
 TypeId
-InfrastructureWifiMac::GetTypeId (void)
+InfrastructureWifiMac::GetTypeId(void)
 {
-  static TypeId tid = TypeId ("ns3::InfrastructureWifiMac")
-    .SetParent<RegularWifiMac> ()
-    .SetGroupName ("Wifi")
-    .AddAttribute ("PcfSupported",
-                   "This Boolean attribute is set to enable PCF support at this STA",
-                   BooleanValue (false),
-                   MakeBooleanAccessor (&InfrastructureWifiMac::SetPcfSupported,
-                                        &InfrastructureWifiMac::GetPcfSupported),
-                   MakeBooleanChecker ())
-  ;
+  static TypeId tid = TypeId("ns3::InfrastructureWifiMac")
+                          .SetParent<RegularWifiMac>()
+                          .SetGroupName("Wifi")
+                          .AddAttribute("PcfSupported",
+                                        "This Boolean attribute is set to enable PCF support at this STA",
+                                        BooleanValue(false),
+                                        MakeBooleanAccessor(&InfrastructureWifiMac::SetPcfSupported,
+                                                            &InfrastructureWifiMac::GetPcfSupported),
+                                        MakeBooleanChecker());
   return tid;
 }
 
-InfrastructureWifiMac::InfrastructureWifiMac ()
-  : m_pcfSupported (0)
+InfrastructureWifiMac::InfrastructureWifiMac()
+    : m_pcfSupported(0)
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
 }
 
-InfrastructureWifiMac::~InfrastructureWifiMac ()
+InfrastructureWifiMac::~InfrastructureWifiMac()
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
 }
 
-void
-InfrastructureWifiMac::SetQosSupported (bool enable)
+void InfrastructureWifiMac::SetQosSupported(bool enable)
 {
-  NS_ASSERT_MSG (!(GetPcfSupported () && enable), "QoS cannot be enabled when PCF support is activated (not supported)");
-  RegularWifiMac::SetQosSupported (enable);
+  NS_ASSERT_MSG(!(GetPcfSupported() && enable), "QoS cannot be enabled when PCF support is activated (not supported)");
+  RegularWifiMac::SetQosSupported(enable);
 }
 
-void
-InfrastructureWifiMac::SetPcfSupported (bool enable)
+void InfrastructureWifiMac::SetPcfSupported(bool enable)
 {
-  NS_LOG_FUNCTION (this << enable);
-  NS_ASSERT_MSG (!(GetQosSupported () && enable), "PCF cannot be enabled when QoS support is activated (not supported)");
+  NS_LOG_FUNCTION(this << enable);
+  NS_ASSERT_MSG(!(GetQosSupported() && enable), "PCF cannot be enabled when QoS support is activated (not supported)");
   m_pcfSupported = enable;
   if (m_stationManager != 0)
-    {
-      m_stationManager->SetPcfSupported (enable);
-    }
+  {
+    m_stationManager->SetPcfSupported(enable);
+  }
 }
 
-bool
-InfrastructureWifiMac::GetPcfSupported () const
+bool InfrastructureWifiMac::GetPcfSupported() const
 {
   return m_pcfSupported;
 }

@@ -25,7 +25,8 @@
 #include "buffer.h"
 #include <stdint.h>
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup packet
@@ -46,8 +47,8 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
-  virtual ~Header ();
+  static TypeId GetTypeId(void);
+  virtual ~Header();
 
   using Chunk::Deserialize;
   /**
@@ -58,7 +59,7 @@ public:
    * should return the number of bytes which are needed to store
    * the full header data by Serialize.
    */
-  virtual uint32_t GetSerializedSize (void) const = 0;
+  virtual uint32_t GetSerializedSize(void) const = 0;
   /**
    * \param start an iterator which points to where the header should
    *        be written.
@@ -69,7 +70,7 @@ public:
    * is expected to match bit-for-bit the representation of this
    * header in a real network.
    */
-  virtual void Serialize (Buffer::Iterator start) const = 0;
+  virtual void Serialize(Buffer::Iterator start) const = 0;
   /**
    * \param start an iterator which points to where the header should
    *        read from.
@@ -87,7 +88,7 @@ public:
    * has additional statements to remove the header bytes from the
    * underlying buffer and associated metadata.
    */
-  virtual uint32_t Deserialize (Buffer::Iterator start) = 0;
+  virtual uint32_t Deserialize(Buffer::Iterator start) = 0;
   /**
    * \param os output stream
    * This method is used by Packet::Print to print the 
@@ -100,9 +101,8 @@ public:
    * separated by whitespace.
    * i.e.: (field1 val1 field2 val2 field3 val3) field4 val4 field5 val5
    */
-  virtual void Print (std::ostream &os) const = 0;
+  virtual void Print(std::ostream &os) const = 0;
 };
-
 
 /**
  * \brief Stream insertion operator.
@@ -111,7 +111,7 @@ public:
  * \param header the header
  * \returns a reference to the stream
  */
-std::ostream & operator << (std::ostream &os, const Header &header);
+std::ostream &operator<<(std::ostream &os, const Header &header);
 
 } // namespace ns3
 

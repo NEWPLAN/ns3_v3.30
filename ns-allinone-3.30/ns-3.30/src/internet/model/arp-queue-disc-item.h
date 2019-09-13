@@ -23,7 +23,8 @@
 #include "ns3/queue-item.h"
 #include "arp-header.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup arp
@@ -33,7 +34,8 @@ namespace ns3 {
  * Header and payload are kept separate to allow the queue disc to hash the
  * fields of the header, which is added to the packet when the packet is dequeued.
  */
-class ArpQueueDiscItem : public QueueDiscItem {
+class ArpQueueDiscItem : public QueueDiscItem
+{
 public:
   /**
    * \brief Create an ARP queue disc item containing an ARP packet.
@@ -42,36 +44,36 @@ public:
    * \param protocol the protocol number
    * \param header the ARP header
    */
-  ArpQueueDiscItem (Ptr<Packet> p, const Address & addr, uint16_t protocol, const ArpHeader & header);
+  ArpQueueDiscItem(Ptr<Packet> p, const Address &addr, uint16_t protocol, const ArpHeader &header);
 
-  virtual ~ArpQueueDiscItem ();
+  virtual ~ArpQueueDiscItem();
 
   /**
    * \return the correct packet size (header plus payload).
    */
-  virtual uint32_t GetSize (void) const;
+  virtual uint32_t GetSize(void) const;
 
   /**
    * \return the header stored in this item..
    */
-  const ArpHeader & GetHeader (void) const;
+  const ArpHeader &GetHeader(void) const;
 
   /**
    * \brief Add the header to the packet
    */
-  virtual void AddHeader (void);
+  virtual void AddHeader(void);
 
   /**
    * \brief Print the item contents.
    * \param os output stream in which the data should be printed.
    */
-  virtual void Print (std::ostream &os) const;
+  virtual void Print(std::ostream &os) const;
 
   /**
    * \brief Inherited from the base class, but we cannot mark ARP packets
    * \return false
    */
-  virtual bool Mark (void);
+  virtual bool Mark(void);
 
   /**
    * \brief Computes the hash of the packet's 5-tuple
@@ -79,7 +81,7 @@ public:
    * \param perturbation hash perturbation value
    * \return the hash of the packet's 5-tuple
    */
-  virtual uint32_t Hash (uint32_t perturbation) const;
+  virtual uint32_t Hash(uint32_t perturbation) const;
 
 private:
   /**
@@ -87,23 +89,23 @@ private:
    *
    * Defined and unimplemented to avoid misuse
    */
-  ArpQueueDiscItem ();
+  ArpQueueDiscItem();
   /**
    * \brief Copy constructor
    *
    * Defined and unimplemented to avoid misuse
    */
-  ArpQueueDiscItem (const ArpQueueDiscItem &);
+  ArpQueueDiscItem(const ArpQueueDiscItem &);
   /**
    * \brief Assignment operator
    *
    * Defined and unimplemented to avoid misuse
    * \returns
    */
-  ArpQueueDiscItem &operator = (const ArpQueueDiscItem &);
+  ArpQueueDiscItem &operator=(const ArpQueueDiscItem &);
 
-  ArpHeader m_header;  //!< The ARP header.
-  bool m_headerAdded;   //!< True if the header has already been added to the packet.
+  ArpHeader m_header; //!< The ARP header.
+  bool m_headerAdded; //!< True if the header has already been added to the packet.
 };
 
 } // namespace ns3

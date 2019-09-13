@@ -43,55 +43,54 @@ public:
    * \brief The interface ID.
    * \return type ID
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
   /**
    * \brief Constructor.
    */
-  Ipv6ExtensionDemux ();
+  Ipv6ExtensionDemux();
 
   /**
    * \brief Destructor.
    */
-  virtual ~Ipv6ExtensionDemux ();
+  virtual ~Ipv6ExtensionDemux();
 
   /**
    * \brief Set the node.
    * \param node the node to set
    */
-  void SetNode (Ptr<Node> node);
+  void SetNode(Ptr<Node> node);
 
   /**
    * \brief Insert a new IPv6 Extension.
    * \param extension the extension to insert
    */
-  void Insert (Ptr<Ipv6Extension> extension);
+  void Insert(Ptr<Ipv6Extension> extension);
 
   /**
    * \brief Get the extension corresponding to extensionNumber.
    * \param extensionNumber extension number of the extension to retrieve
    * \return a matching IPv6 extension
    */
-  Ptr<Ipv6Extension> GetExtension (uint8_t extensionNumber);
+  Ptr<Ipv6Extension> GetExtension(uint8_t extensionNumber);
 
   /**
    * \brief Remove an extension from this demux.
    * \param extension pointer on the extension to remove
    */
-  void Remove (Ptr<Ipv6Extension> extension);
+  void Remove(Ptr<Ipv6Extension> extension);
 
 protected:
   /**
    * \brief Dispose object.
    */
-  virtual void DoDispose ();
+  virtual void DoDispose();
 
 private:
-
   /**
    * \brief Container of the IPv6 Extensions.
    */
-  typedef std::list<Ptr<Ipv6Extension> > Ipv6ExtensionList_t;
+  typedef std::list<Ptr<Ipv6Extension>> Ipv6ExtensionList_t;
 
   /**
    * \brief List of IPv6 Extensions supported.
@@ -107,4 +106,3 @@ private:
 } /* namespace ns3 */
 
 #endif /* IPV6_EXTENSION_DEMUX_H */
-

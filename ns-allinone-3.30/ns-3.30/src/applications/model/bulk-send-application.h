@@ -27,7 +27,8 @@
 #include "ns3/ptr.h"
 #include "ns3/traced-callback.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class Address;
 class Socket;
@@ -72,11 +73,11 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
-  BulkSendApplication ();
+  BulkSendApplication();
 
-  virtual ~BulkSendApplication ();
+  virtual ~BulkSendApplication();
 
   /**
    * \brief Set the upper bound for the total number of bytes to send.
@@ -91,52 +92,53 @@ public:
    *
    * \param maxBytes the upper bound of bytes to send
    */
-  void SetMaxBytes (uint64_t maxBytes);
+  void SetMaxBytes(uint64_t maxBytes);
 
   /**
    * \brief Get the socket this application is attached to.
    * \return pointer to associated socket
    */
-  Ptr<Socket> GetSocket (void) const;
+  Ptr<Socket> GetSocket(void) const;
 
 protected:
-  virtual void DoDispose (void);
+  virtual void DoDispose(void);
+
 private:
   // inherited from Application base class.
-  virtual void StartApplication (void);    // Called at time specified by Start
-  virtual void StopApplication (void);     // Called at time specified by Stop
+  virtual void StartApplication(void); // Called at time specified by Start
+  virtual void StopApplication(void);  // Called at time specified by Stop
 
   /**
    * \brief Send data until the L4 transmission buffer is full.
    */
-  void SendData ();
+  void SendData();
 
-  Ptr<Socket>     m_socket;       //!< Associated socket
-  Address         m_peer;         //!< Peer address
-  bool            m_connected;    //!< True if connected
-  uint32_t        m_sendSize;     //!< Size of data to send each time
-  uint64_t        m_maxBytes;     //!< Limit total number of bytes sent
-  uint64_t        m_totBytes;     //!< Total bytes sent so far
-  TypeId          m_tid;          //!< The type of protocol to use.
+  Ptr<Socket> m_socket; //!< Associated socket
+  Address m_peer;       //!< Peer address
+  bool m_connected;     //!< True if connected
+  uint32_t m_sendSize;  //!< Size of data to send each time
+  uint64_t m_maxBytes;  //!< Limit total number of bytes sent
+  uint64_t m_totBytes;  //!< Total bytes sent so far
+  TypeId m_tid;         //!< The type of protocol to use.
 
   /// Traced Callback: sent packets
-  TracedCallback<Ptr<const Packet> > m_txTrace;
+  TracedCallback<Ptr<const Packet>> m_txTrace;
 
 private:
   /**
    * \brief Connection Succeeded (called by Socket through a callback)
    * \param socket the connected socket
    */
-  void ConnectionSucceeded (Ptr<Socket> socket);
+  void ConnectionSucceeded(Ptr<Socket> socket);
   /**
    * \brief Connection Failed (called by Socket through a callback)
    * \param socket the connected socket
    */
-  void ConnectionFailed (Ptr<Socket> socket);
+  void ConnectionFailed(Ptr<Socket> socket);
   /**
    * \brief Send more data as soon as some has been transmitted.
    */
-  void DataSend (Ptr<Socket>, uint32_t); // for socket's SetSendCallback
+  void DataSend(Ptr<Socket>, uint32_t); // for socket's SetSendCallback
 };
 
 } // namespace ns3

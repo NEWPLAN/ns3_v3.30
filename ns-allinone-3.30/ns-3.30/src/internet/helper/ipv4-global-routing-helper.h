@@ -23,27 +23,28 @@
 #include "ns3/node-container.h"
 #include "ns3/ipv4-routing-helper.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup ipv4Helpers
  *
  * \brief Helper class that adds ns3::Ipv4GlobalRouting objects
  */
-class Ipv4GlobalRoutingHelper  : public Ipv4RoutingHelper
+class Ipv4GlobalRoutingHelper : public Ipv4RoutingHelper
 {
 public:
   /**
    * \brief Construct a GlobalRoutingHelper to make life easier for managing
    * global routing tasks.
    */
-  Ipv4GlobalRoutingHelper ();
+  Ipv4GlobalRoutingHelper();
 
   /**
    * \brief Construct a GlobalRoutingHelper from another previously initialized
    * instance (Copy Constructor).
    */
-  Ipv4GlobalRoutingHelper (const Ipv4GlobalRoutingHelper &);
+  Ipv4GlobalRoutingHelper(const Ipv4GlobalRoutingHelper &);
 
   /**
    * \returns pointer to clone of this Ipv4GlobalRoutingHelper
@@ -51,7 +52,7 @@ public:
    * This method is mainly for internal use by the other helpers;
    * clients are expected to free the dynamic memory allocated by this method
    */
-  Ipv4GlobalRoutingHelper* Copy (void) const;
+  Ipv4GlobalRoutingHelper *Copy(void) const;
 
   /**
    * \param node the node on which the routing protocol will run
@@ -59,7 +60,7 @@ public:
    *
    * This method will be called by ns3::InternetStackHelper::Install
    */
-  virtual Ptr<Ipv4RoutingProtocol> Create (Ptr<Node> node) const;
+  virtual Ptr<Ipv4RoutingProtocol> Create(Ptr<Node> node) const;
 
   /**
    * \brief Build a routing database and initialize the routing tables of
@@ -70,7 +71,7 @@ public:
    * BuildGlobalRoutingDatabase () and  InitializeRoutes ().
    *
    */
-  static void PopulateRoutingTables (void);
+  static void PopulateRoutingTables(void);
   /**
    * \brief Remove all routes that were previously installed in a prior call
    * to either PopulateRoutingTables() or RecomputeRoutingTables(), and 
@@ -83,14 +84,15 @@ public:
    * call RecomputeRoutingTables() at any later time in the simulation.
    *
    */
-  static void RecomputeRoutingTables (void);
+  static void RecomputeRoutingTables(void);
+
 private:
   /**
    * \brief Assignment operator declared private and not implemented to disallow
    * assignment and prevent the compiler from happily inserting its own.
    * \return
    */
-  Ipv4GlobalRoutingHelper &operator = (const Ipv4GlobalRoutingHelper &);
+  Ipv4GlobalRoutingHelper &operator=(const Ipv4GlobalRoutingHelper &);
 };
 
 } // namespace ns3

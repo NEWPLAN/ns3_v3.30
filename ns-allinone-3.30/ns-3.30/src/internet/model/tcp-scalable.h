@@ -33,7 +33,8 @@
 #include "ns3/tcp-congestion-ops.h"
 #include "ns3/tcp-recovery-ops.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup congestionOps
@@ -67,21 +68,21 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
   /**
    * Create an unbound tcp socket.
    */
-  TcpScalable (void);
+  TcpScalable(void);
 
   /**
    * \brief Copy constructor
    * \param sock the object to copy
    */
-  TcpScalable (const TcpScalable& sock);
-  virtual ~TcpScalable (void);
+  TcpScalable(const TcpScalable &sock);
+  virtual ~TcpScalable(void);
 
-  virtual std::string GetName () const;
+  virtual std::string GetName() const;
 
   /**
    * \brief Get slow start threshold following Scalable principle (Equation 2)
@@ -91,10 +92,10 @@ public:
    *
    * \return the slow start threshold value
    */
-  virtual uint32_t GetSsThresh (Ptr<const TcpSocketState> tcb,
-                                uint32_t bytesInFlight);
+  virtual uint32_t GetSsThresh(Ptr<const TcpSocketState> tcb,
+                               uint32_t bytesInFlight);
 
-  virtual Ptr<TcpCongestionOps> Fork ();
+  virtual Ptr<TcpCongestionOps> Fork();
 
 protected:
   /**
@@ -103,13 +104,13 @@ protected:
    * \param tcb internal congestion state
    * \param segmentsAcked count of segments acked
    */
-  virtual void CongestionAvoidance (Ptr<TcpSocketState> tcb,
-                                    uint32_t segmentsAcked);
+  virtual void CongestionAvoidance(Ptr<TcpSocketState> tcb,
+                                   uint32_t segmentsAcked);
 
 private:
-  uint32_t m_ackCnt;               //!< Number of received ACK
-  uint32_t m_aiFactor;             //!< Additive increase factor
-  double m_mdFactor;               //!< Multiplicative decrease factor
+  uint32_t m_ackCnt;   //!< Number of received ACK
+  uint32_t m_aiFactor; //!< Additive increase factor
+  double m_mdFactor;   //!< Multiplicative decrease factor
 };
 
 } // namespace ns3

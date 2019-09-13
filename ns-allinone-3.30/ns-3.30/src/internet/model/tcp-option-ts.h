@@ -24,7 +24,8 @@
 #include "ns3/tcp-option.h"
 #include "ns3/timer.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup tcp
@@ -35,43 +36,43 @@ namespace ns3 {
 class TcpOptionTS : public TcpOption
 {
 public:
-  TcpOptionTS ();
-  virtual ~TcpOptionTS ();
+  TcpOptionTS();
+  virtual ~TcpOptionTS();
 
   /**
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
-  virtual TypeId GetInstanceTypeId (void) const;
+  static TypeId GetTypeId(void);
+  virtual TypeId GetInstanceTypeId(void) const;
 
-  virtual void Print (std::ostream &os) const;
-  virtual void Serialize (Buffer::Iterator start) const;
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual void Print(std::ostream &os) const;
+  virtual void Serialize(Buffer::Iterator start) const;
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 
-  virtual uint8_t GetKind (void) const;
-  virtual uint32_t GetSerializedSize (void) const;
+  virtual uint8_t GetKind(void) const;
+  virtual uint32_t GetSerializedSize(void) const;
 
   /**
    * \brief Get the timestamp stored in the Option
    * \return the timestamp
    */
-  uint32_t GetTimestamp (void) const;
+  uint32_t GetTimestamp(void) const;
   /**
    * \brief Get the timestamp echo stored in the Option
    * \return the timestamp echo
    */
-  uint32_t GetEcho (void) const;
+  uint32_t GetEcho(void) const;
   /**
    * \brief Set the timestamp stored in the Option
    * \param ts the timestamp
    */
-  void SetTimestamp (uint32_t ts);
+  void SetTimestamp(uint32_t ts);
   /**
    * \brief Set the timestamp echo stored in the Option
    * \param ts the timestamp echo
    */
-  void SetEcho (uint32_t ts);
+  void SetEcho(uint32_t ts);
 
   /**
     * \brief Return an uint32_t value which represent "now"
@@ -87,7 +88,7 @@ public:
     * \see EstimateRttFromTs
     * \return The Timestamp value to use
     */
-  static uint32_t NowToTsValue ();
+  static uint32_t NowToTsValue();
 
   /**
    * \brief Estimate the Time elapsed from a TS echo value
@@ -98,11 +99,11 @@ public:
    * \see NowToTsValue
    * \return The measured RTT
    */
-  static Time ElapsedTimeFromTsValue (uint32_t echoTime);
+  static Time ElapsedTimeFromTsValue(uint32_t echoTime);
 
 protected:
   uint32_t m_timestamp; //!< local timestamp
-  uint32_t m_echo; //!< echo timestamp
+  uint32_t m_echo;      //!< echo timestamp
 };
 
 } // namespace ns3

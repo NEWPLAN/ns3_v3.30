@@ -20,157 +20,155 @@
 
 #include "he-capabilities.h"
 
-namespace ns3 {
-
-HeCapabilities::HeCapabilities ()
-  : m_plusHtcHeSupport (0),
-    m_twtRequesterSupport (0),
-    m_twtResponderSupport (0),
-    m_fragmentationSupport (0),
-    m_maximumNumberOfFragmentedMsdus (0),
-    m_minimumFragmentSize (0),
-    m_triggerFrameMacPaddingDuration (0),
-    m_multiTidAggregationSupport (0),
-    m_heLinkAdaptation (0),
-    m_allAckSupport (0),
-    m_ulMuResponseSchedulingSupport (0),
-    m_aBsrSupport (0),
-    m_broadcastTwtSupport (0),
-    m_32bitBaBitmapSupport (0),
-    m_muCascadeSupport (0),
-    m_ackEnabledMultiTidAggregationSupport (0),
-    m_groupAddressedMultiStaBlockAckInDlMuSupport (0),
-    m_omiAcontrolSupport (0),
-    m_ofdmaRaSupport (0),
-    m_maxAmpduLengthExponent (0),
-    m_amsduFragmentationSupport (0),
-    m_flexibleTwtScheduleSupport (0),
-    m_rxControlFrameToMultiBss (0),
-    m_bsrpAmpduAggregation (0),
-    m_qtpSupport (0),
-    m_aBqrSupport (0),
-    m_dualBandSupport (0),
-    m_channelWidthSet (0),
-    m_preamblePuncturingRx (0),
-    m_deviceClass (0),
-    m_ldpcCodingInPayload (0),
-    m_heLtfAndGiForHePpdus (0),
-    m_heLtfAndGiForNdp (0),
-    m_stbcTxAndRx (0),
-    m_doppler (0),
-    m_ulMu (0),
-    m_dcmEncodingTx (0),
-    m_dcmEncodingRx (0),
-    m_ulHeMuPpduPayloadSupport (0),
-    m_suBeamformer (0),
-    m_suBeamformee (0),
-    m_muBeamformer (0),
-    m_beamformeeStsForSmallerOrEqualThan80Mhz (0),
-    m_nstsTotalForSmallerOrEqualThan80Mhz (0),
-    m_beamformeeStsForLargerThan80Mhz (0),
-    m_nstsTotalForLargerThan80Mhz (0),
-    m_numberOfSoundingDimensionsForSmallerOrEqualThan80Mhz (0),
-    m_numberOfSoundingDimensionsForLargerThan80Mhz (0),
-    m_ngEqual16ForSuFeedbackSupport (0),
-    m_ngEqual16ForMuFeedbackSupport (0),
-    m_codebookSize42ForSuSupport (0),
-    m_codebookSize75ForSuSupport (0),
-    m_beamformingFeedbackWithTriggerFrame (0),
-    m_heErSuPpduPayload (0),
-    m_dlMuMimoOnPartialBandwidth (0),
-    m_ppeThresholdPresent (0),
-    m_srpBasedSrSupport (0),
-    m_powerBoostFactorAlphaSupport (0),
-    m_4TimesHeLtfAnd800NsGiSupportForHePpdus (0),
-    m_highestNssSupportedM1 (0),
-    m_highestMcsSupported (0),
-    m_heSupported (0)
+namespace ns3
 {
-  m_txBwMap.resize (8,0);
-  m_rxBwMap.resize (8,0);
+
+HeCapabilities::HeCapabilities()
+    : m_plusHtcHeSupport(0),
+      m_twtRequesterSupport(0),
+      m_twtResponderSupport(0),
+      m_fragmentationSupport(0),
+      m_maximumNumberOfFragmentedMsdus(0),
+      m_minimumFragmentSize(0),
+      m_triggerFrameMacPaddingDuration(0),
+      m_multiTidAggregationSupport(0),
+      m_heLinkAdaptation(0),
+      m_allAckSupport(0),
+      m_ulMuResponseSchedulingSupport(0),
+      m_aBsrSupport(0),
+      m_broadcastTwtSupport(0),
+      m_32bitBaBitmapSupport(0),
+      m_muCascadeSupport(0),
+      m_ackEnabledMultiTidAggregationSupport(0),
+      m_groupAddressedMultiStaBlockAckInDlMuSupport(0),
+      m_omiAcontrolSupport(0),
+      m_ofdmaRaSupport(0),
+      m_maxAmpduLengthExponent(0),
+      m_amsduFragmentationSupport(0),
+      m_flexibleTwtScheduleSupport(0),
+      m_rxControlFrameToMultiBss(0),
+      m_bsrpAmpduAggregation(0),
+      m_qtpSupport(0),
+      m_aBqrSupport(0),
+      m_dualBandSupport(0),
+      m_channelWidthSet(0),
+      m_preamblePuncturingRx(0),
+      m_deviceClass(0),
+      m_ldpcCodingInPayload(0),
+      m_heLtfAndGiForHePpdus(0),
+      m_heLtfAndGiForNdp(0),
+      m_stbcTxAndRx(0),
+      m_doppler(0),
+      m_ulMu(0),
+      m_dcmEncodingTx(0),
+      m_dcmEncodingRx(0),
+      m_ulHeMuPpduPayloadSupport(0),
+      m_suBeamformer(0),
+      m_suBeamformee(0),
+      m_muBeamformer(0),
+      m_beamformeeStsForSmallerOrEqualThan80Mhz(0),
+      m_nstsTotalForSmallerOrEqualThan80Mhz(0),
+      m_beamformeeStsForLargerThan80Mhz(0),
+      m_nstsTotalForLargerThan80Mhz(0),
+      m_numberOfSoundingDimensionsForSmallerOrEqualThan80Mhz(0),
+      m_numberOfSoundingDimensionsForLargerThan80Mhz(0),
+      m_ngEqual16ForSuFeedbackSupport(0),
+      m_ngEqual16ForMuFeedbackSupport(0),
+      m_codebookSize42ForSuSupport(0),
+      m_codebookSize75ForSuSupport(0),
+      m_beamformingFeedbackWithTriggerFrame(0),
+      m_heErSuPpduPayload(0),
+      m_dlMuMimoOnPartialBandwidth(0),
+      m_ppeThresholdPresent(0),
+      m_srpBasedSrSupport(0),
+      m_powerBoostFactorAlphaSupport(0),
+      m_4TimesHeLtfAnd800NsGiSupportForHePpdus(0),
+      m_highestNssSupportedM1(0),
+      m_highestMcsSupported(0),
+      m_heSupported(0)
+{
+  m_txBwMap.resize(8, 0);
+  m_rxBwMap.resize(8, 0);
 }
 
 WifiInformationElementId
-HeCapabilities::ElementId () const
+HeCapabilities::ElementId() const
 {
   return IE_EXTENSION;
 }
 
 WifiInformationElementId
-HeCapabilities::ElementIdExt () const
+HeCapabilities::ElementIdExt() const
 {
   return IE_EXT_HE_CAPABILITIES;
 }
 
-void
-HeCapabilities::SetHeSupported (uint8_t hesupported)
+void HeCapabilities::SetHeSupported(uint8_t hesupported)
 {
   m_heSupported = hesupported;
 }
 
 uint8_t
-HeCapabilities::GetInformationFieldSize () const
+HeCapabilities::GetInformationFieldSize() const
 {
   //we should not be here if ht is not supported
-  NS_ASSERT (m_heSupported > 0);
+  NS_ASSERT(m_heSupported > 0);
   return 19; //todo: variable length!
 }
 
 Buffer::Iterator
-HeCapabilities::Serialize (Buffer::Iterator i) const
+HeCapabilities::Serialize(Buffer::Iterator i) const
 {
   if (m_heSupported < 1)
-    {
-      return i;
-    }
-  return WifiInformationElement::Serialize (i);
+  {
+    return i;
+  }
+  return WifiInformationElement::Serialize(i);
 }
 
 uint16_t
-HeCapabilities::GetSerializedSize () const
+HeCapabilities::GetSerializedSize() const
 {
   if (m_heSupported < 1)
-    {
-      return 0;
-    }
-  return WifiInformationElement::GetSerializedSize ();
+  {
+    return 0;
+  }
+  return WifiInformationElement::GetSerializedSize();
 }
 
-void
-HeCapabilities::SerializeInformationField (Buffer::Iterator start) const
+void HeCapabilities::SerializeInformationField(Buffer::Iterator start) const
 {
   if (m_heSupported == 1)
-    {
-      //write the corresponding value for each bit
-      start.WriteHtolsbU32 (GetHeMacCapabilitiesInfo1 ());
-      start.WriteU8 (GetHeMacCapabilitiesInfo2 ());
-      start.WriteHtolsbU64 (GetHePhyCapabilitiesInfo1 ());
-      start.WriteU8 (GetHePhyCapabilitiesInfo2 ());
-      start.WriteHtolsbU32 (GetSupportedMcsAndNss ());
-      //todo: add another 32-bits field if 160 MHz channel is supported (variable length)
-      //todo: optional PPE Threshold field (variable length)
-    }
+  {
+    //write the corresponding value for each bit
+    start.WriteHtolsbU32(GetHeMacCapabilitiesInfo1());
+    start.WriteU8(GetHeMacCapabilitiesInfo2());
+    start.WriteHtolsbU64(GetHePhyCapabilitiesInfo1());
+    start.WriteU8(GetHePhyCapabilitiesInfo2());
+    start.WriteHtolsbU32(GetSupportedMcsAndNss());
+    //todo: add another 32-bits field if 160 MHz channel is supported (variable length)
+    //todo: optional PPE Threshold field (variable length)
+  }
 }
 
 uint8_t
-HeCapabilities::DeserializeInformationField (Buffer::Iterator start, uint8_t length)
+HeCapabilities::DeserializeInformationField(Buffer::Iterator start, uint8_t length)
 {
   Buffer::Iterator i = start;
-  uint32_t macCapabilities1 = i.ReadLsbtohU32 ();
-  uint8_t macCapabilities2 = i.ReadU8 ();
-  uint64_t phyCapabilities1 = i.ReadLsbtohU64 ();
-  uint8_t phyCapabilities2 = i.ReadU8 ();
-  uint32_t mcsset = i.ReadU32 ();
-  SetHeMacCapabilitiesInfo (macCapabilities1, macCapabilities2);
-  SetHePhyCapabilitiesInfo (phyCapabilities1, phyCapabilities2);
-  SetSupportedMcsAndNss (mcsset);
+  uint32_t macCapabilities1 = i.ReadLsbtohU32();
+  uint8_t macCapabilities2 = i.ReadU8();
+  uint64_t phyCapabilities1 = i.ReadLsbtohU64();
+  uint8_t phyCapabilities2 = i.ReadU8();
+  uint32_t mcsset = i.ReadU32();
+  SetHeMacCapabilitiesInfo(macCapabilities1, macCapabilities2);
+  SetHePhyCapabilitiesInfo(phyCapabilities1, phyCapabilities2);
+  SetSupportedMcsAndNss(mcsset);
   //todo: add another 32-bits field if 160 MHz channel is supported (variable length)
   //todo: optional PPE Threshold field (variable length)
   return length;
 }
 
-void
-HeCapabilities::SetHeMacCapabilitiesInfo (uint32_t ctrl1, uint8_t ctrl2)
+void HeCapabilities::SetHeMacCapabilitiesInfo(uint32_t ctrl1, uint8_t ctrl2)
 {
   m_plusHtcHeSupport = ctrl1 & 0x01;
   m_twtRequesterSupport = (ctrl1 >> 1) & 0x01;
@@ -201,7 +199,7 @@ HeCapabilities::SetHeMacCapabilitiesInfo (uint32_t ctrl1, uint8_t ctrl2)
 }
 
 uint32_t
-HeCapabilities::GetHeMacCapabilitiesInfo1 () const
+HeCapabilities::GetHeMacCapabilitiesInfo1() const
 {
   uint32_t val = 0;
   val |= m_plusHtcHeSupport & 0x01;
@@ -231,7 +229,7 @@ HeCapabilities::GetHeMacCapabilitiesInfo1 () const
 }
 
 uint8_t
-HeCapabilities::GetHeMacCapabilitiesInfo2 () const
+HeCapabilities::GetHeMacCapabilitiesInfo2() const
 {
   uint8_t val = 0;
   val |= m_bsrpAmpduAggregation & 0x01;
@@ -240,8 +238,7 @@ HeCapabilities::GetHeMacCapabilitiesInfo2 () const
   return val;
 }
 
-void
-HeCapabilities::SetHePhyCapabilitiesInfo (uint64_t ctrl1, uint8_t ctrl2)
+void HeCapabilities::SetHePhyCapabilitiesInfo(uint64_t ctrl1, uint8_t ctrl2)
 {
   m_dualBandSupport = ctrl1 & 0x01;
   m_channelWidthSet = (ctrl1 >> 1) & 0x7f;
@@ -279,7 +276,7 @@ HeCapabilities::SetHePhyCapabilitiesInfo (uint64_t ctrl1, uint8_t ctrl2)
 }
 
 uint64_t
-HeCapabilities::GetHePhyCapabilitiesInfo1 () const
+HeCapabilities::GetHePhyCapabilitiesInfo1() const
 {
   uint64_t val = 0;
   val |= m_dualBandSupport & 0x01;
@@ -296,196 +293,188 @@ HeCapabilities::GetHePhyCapabilitiesInfo1 () const
   val |= (m_dcmEncodingRx & 0x0f) << 27;
   val |= (m_ulHeMuPpduPayloadSupport & 0x01) << 30;
   val |= (m_suBeamformer & 0x01) << 31;
-  val |= (static_cast<uint64_t> (m_suBeamformee) & 0x01) << 32;
-  val |= (static_cast<uint64_t> (m_muBeamformer) & 0x01) << 33;
-  val |= (static_cast<uint64_t> (m_beamformeeStsForSmallerOrEqualThan80Mhz) & 0x07) << 34;
-  val |= (static_cast<uint64_t> (m_nstsTotalForSmallerOrEqualThan80Mhz) & 0x07) << 37;
-  val |= (static_cast<uint64_t> (m_beamformeeStsForLargerThan80Mhz) & 0x07) << 40;
-  val |= (static_cast<uint64_t> (m_nstsTotalForLargerThan80Mhz) & 0x07) << 43;
-  val |= (static_cast<uint64_t> (m_numberOfSoundingDimensionsForSmallerOrEqualThan80Mhz) & 0x07) << 46;
-  val |= (static_cast<uint64_t> (m_numberOfSoundingDimensionsForLargerThan80Mhz) & 0x07) << 49;
-  val |= (static_cast<uint64_t> (m_ngEqual16ForSuFeedbackSupport) & 0x01) << 52;
-  val |= (static_cast<uint64_t> (m_ngEqual16ForMuFeedbackSupport) & 0x01) << 53;
-  val |= (static_cast<uint64_t> (m_codebookSize42ForSuSupport) & 0x01) << 54;
-  val |= (static_cast<uint64_t> (m_codebookSize75ForSuSupport) & 0x01) << 55;
-  val |= (static_cast<uint64_t> (m_beamformingFeedbackWithTriggerFrame) & 0x07) << 56;
-  val |= (static_cast<uint64_t> (m_heErSuPpduPayload) & 0x01) << 59;
-  val |= (static_cast<uint64_t> (m_dlMuMimoOnPartialBandwidth) & 0x01) << 60;
-  val |= (static_cast<uint64_t> (m_ppeThresholdPresent) & 0x01) << 61;
-  val |= (static_cast<uint64_t> (m_srpBasedSrSupport) & 0x01) << 62;
-  val |= (static_cast<uint64_t> (m_powerBoostFactorAlphaSupport) & 0x01) << 63;
+  val |= (static_cast<uint64_t>(m_suBeamformee) & 0x01) << 32;
+  val |= (static_cast<uint64_t>(m_muBeamformer) & 0x01) << 33;
+  val |= (static_cast<uint64_t>(m_beamformeeStsForSmallerOrEqualThan80Mhz) & 0x07) << 34;
+  val |= (static_cast<uint64_t>(m_nstsTotalForSmallerOrEqualThan80Mhz) & 0x07) << 37;
+  val |= (static_cast<uint64_t>(m_beamformeeStsForLargerThan80Mhz) & 0x07) << 40;
+  val |= (static_cast<uint64_t>(m_nstsTotalForLargerThan80Mhz) & 0x07) << 43;
+  val |= (static_cast<uint64_t>(m_numberOfSoundingDimensionsForSmallerOrEqualThan80Mhz) & 0x07) << 46;
+  val |= (static_cast<uint64_t>(m_numberOfSoundingDimensionsForLargerThan80Mhz) & 0x07) << 49;
+  val |= (static_cast<uint64_t>(m_ngEqual16ForSuFeedbackSupport) & 0x01) << 52;
+  val |= (static_cast<uint64_t>(m_ngEqual16ForMuFeedbackSupport) & 0x01) << 53;
+  val |= (static_cast<uint64_t>(m_codebookSize42ForSuSupport) & 0x01) << 54;
+  val |= (static_cast<uint64_t>(m_codebookSize75ForSuSupport) & 0x01) << 55;
+  val |= (static_cast<uint64_t>(m_beamformingFeedbackWithTriggerFrame) & 0x07) << 56;
+  val |= (static_cast<uint64_t>(m_heErSuPpduPayload) & 0x01) << 59;
+  val |= (static_cast<uint64_t>(m_dlMuMimoOnPartialBandwidth) & 0x01) << 60;
+  val |= (static_cast<uint64_t>(m_ppeThresholdPresent) & 0x01) << 61;
+  val |= (static_cast<uint64_t>(m_srpBasedSrSupport) & 0x01) << 62;
+  val |= (static_cast<uint64_t>(m_powerBoostFactorAlphaSupport) & 0x01) << 63;
   return val;
 }
 
 uint8_t
-HeCapabilities::GetHePhyCapabilitiesInfo2 () const
+HeCapabilities::GetHePhyCapabilitiesInfo2() const
 {
   uint8_t val = 0;
   val |= m_4TimesHeLtfAnd800NsGiSupportForHePpdus & 0x01;
   return val;
 }
 
-void
-HeCapabilities::SetSupportedMcsAndNss (uint16_t ctrl)
+void HeCapabilities::SetSupportedMcsAndNss(uint16_t ctrl)
 {
   m_highestNssSupportedM1 = ctrl & 0x07;
   m_highestMcsSupported = (ctrl >> 3) & 0x07;
-  NS_ASSERT (m_highestMcsSupported <= 4);
+  NS_ASSERT(m_highestMcsSupported <= 4);
   uint8_t i;
   for (i = 0; i < 5; i++)
-    {
-      m_txBwMap[i] = (ctrl >> (6 + i)) & 0x01;
-    }
+  {
+    m_txBwMap[i] = (ctrl >> (6 + i)) & 0x01;
+  }
   for (i = 0; i < 5; i++)
-    {
-      m_rxBwMap[i] = (ctrl >> (11 + i)) & 0x01;
-    }
+  {
+    m_rxBwMap[i] = (ctrl >> (11 + i)) & 0x01;
+  }
   //todo: MCS NSS Descriptors
 }
 
 uint16_t
-HeCapabilities::GetSupportedMcsAndNss () const
+HeCapabilities::GetSupportedMcsAndNss() const
 {
   uint16_t val = 0;
   val |= m_highestNssSupportedM1 & 0x07;
   val |= (m_highestMcsSupported & 0x07) << 3;
   uint8_t i;
   for (i = 0; i < 5; i++)
-    {
-      val |= (m_txBwMap[i] & 0x01) << (6 + 1);
-    }
+  {
+    val |= (m_txBwMap[i] & 0x01) << (6 + 1);
+  }
   for (i = 0; i < 5; i++)
-    {
-      val |= (m_rxBwMap[i] & 0x01) << (11 + 1);
-    }
+  {
+    val |= (m_rxBwMap[i] & 0x01) << (11 + 1);
+  }
   //todo: MCS NSS Descriptors
   return val;
 }
 
 //todo: PPE threshold
 
-bool
-HeCapabilities::IsSupportedTxMcs (uint8_t mcs) const
+bool HeCapabilities::IsSupportedTxMcs(uint8_t mcs) const
 {
-  NS_ASSERT (mcs >= 0 && mcs <= 11);
+  NS_ASSERT(mcs >= 0 && mcs <= 11);
   if (mcs <= 7)
-    {
-      return true;
-    }
+  {
+    return true;
+  }
   if (mcs == 8 && m_highestMcsSupported >= 1)
-    {
-      return true;
-    }
+  {
+    return true;
+  }
   if (mcs == 9 && m_highestMcsSupported >= 2)
-    {
-      return true;
-    }
+  {
+    return true;
+  }
   if (mcs == 10 && m_highestMcsSupported >= 3)
-    {
-      return true;
-    }
+  {
+    return true;
+  }
   if (mcs == 11 && m_highestMcsSupported == 4)
-    {
-      return true;
-    }
+  {
+    return true;
+  }
   return false;
 }
 
-bool
-HeCapabilities::IsSupportedRxMcs (uint8_t mcs) const
+bool HeCapabilities::IsSupportedRxMcs(uint8_t mcs) const
 {
-  NS_ASSERT (mcs >= 0 && mcs <= 11);
+  NS_ASSERT(mcs >= 0 && mcs <= 11);
   if (mcs <= 7)
-    {
-      return true;
-    }
+  {
+    return true;
+  }
   if (mcs == 8 && m_highestMcsSupported >= 1)
-    {
-      return true;
-    }
+  {
+    return true;
+  }
   if (mcs == 9 && m_highestMcsSupported >= 2)
-    {
-      return true;
-    }
+  {
+    return true;
+  }
   if (mcs == 10 && m_highestMcsSupported >= 3)
-    {
-      return true;
-    }
+  {
+    return true;
+  }
   if (mcs == 11 && m_highestMcsSupported == 4)
-    {
-      return true;
-    }
+  {
+    return true;
+  }
   return false;
 }
 
-void
-HeCapabilities::SetChannelWidthSet (uint8_t channelWidthSet)
+void HeCapabilities::SetChannelWidthSet(uint8_t channelWidthSet)
 {
-  NS_ASSERT (channelWidthSet <= 0x2f);
+  NS_ASSERT(channelWidthSet <= 0x2f);
   m_channelWidthSet = channelWidthSet;
 }
 
-void
-HeCapabilities::SetHeLtfAndGiForHePpdus (uint8_t heLtfAndGiForHePpdus)
+void HeCapabilities::SetHeLtfAndGiForHePpdus(uint8_t heLtfAndGiForHePpdus)
 {
-  NS_ASSERT (heLtfAndGiForHePpdus <= 0x03);
+  NS_ASSERT(heLtfAndGiForHePpdus <= 0x03);
   m_heLtfAndGiForHePpdus = heLtfAndGiForHePpdus;
 }
 
-void
-HeCapabilities::SetMaxAmpduLength (uint32_t maxampdulength)
+void HeCapabilities::SetMaxAmpduLength(uint32_t maxampdulength)
 {
   for (uint8_t i = 0; i <= 3; i++)
+  {
+    if ((1ul << (20 + i)) - 1 == maxampdulength)
     {
-      if ((1ul << (20 + i)) - 1 == maxampdulength)
-        {
-          m_maxAmpduLengthExponent = i;
-          return;
-        }
+      m_maxAmpduLengthExponent = i;
+      return;
     }
-  NS_ABORT_MSG ("Invalid A-MPDU Max Length value");
+  }
+  NS_ABORT_MSG("Invalid A-MPDU Max Length value");
 }
 
-void
-HeCapabilities::SetHighestMcsSupported (uint8_t mcs)
+void HeCapabilities::SetHighestMcsSupported(uint8_t mcs)
 {
-  NS_ASSERT (mcs >= 7 && mcs <= 11);
+  NS_ASSERT(mcs >= 7 && mcs <= 11);
   m_highestMcsSupported = mcs - 7;
 }
 
-void
-HeCapabilities::SetHighestNssSupported (uint8_t nss)
+void HeCapabilities::SetHighestNssSupported(uint8_t nss)
 {
-  NS_ASSERT (nss >= 1 && nss <= 8);
+  NS_ASSERT(nss >= 1 && nss <= 8);
   m_highestNssSupportedM1 = nss - 1;
 }
 
 uint8_t
-HeCapabilities::GetChannelWidthSet (void) const
+HeCapabilities::GetChannelWidthSet(void) const
 {
   return m_channelWidthSet;
 }
 
 uint8_t
-HeCapabilities::GetHeLtfAndGiForHePpdus (void) const
+HeCapabilities::GetHeLtfAndGiForHePpdus(void) const
 {
   return m_heLtfAndGiForHePpdus;
 }
 
 uint8_t
-HeCapabilities::GetHighestMcsSupported (void) const
+HeCapabilities::GetHighestMcsSupported(void) const
 {
   return m_highestMcsSupported + 7;
 }
 
 uint8_t
-HeCapabilities::GetHighestNssSupported (void) const
+HeCapabilities::GetHighestNssSupported(void) const
 {
   return m_highestNssSupportedM1 + 1;
 }
 
 uint32_t
-HeCapabilities::GetMaxAmpduLength (void) const
+HeCapabilities::GetMaxAmpduLength(void) const
 {
   return (1ul << (20 + m_maxAmpduLengthExponent)) - 1;
 }
@@ -497,13 +486,13 @@ HeCapabilities::GetMaxAmpduLength (void) const
  * \returns the output stream
  */
 std::ostream &
-operator << (std::ostream &os, const HeCapabilities &HeCapabilities)
+operator<<(std::ostream &os, const HeCapabilities &HeCapabilities)
 {
-  os << HeCapabilities.GetHeMacCapabilitiesInfo1 () << "|"
-     << +HeCapabilities.GetHeMacCapabilitiesInfo2 () << "|"
-     << HeCapabilities.GetHePhyCapabilitiesInfo1 () << "|"
-     << +HeCapabilities.GetHePhyCapabilitiesInfo2 () << "|"
-     << HeCapabilities.GetSupportedMcsAndNss ();
+  os << HeCapabilities.GetHeMacCapabilitiesInfo1() << "|"
+     << +HeCapabilities.GetHeMacCapabilitiesInfo2() << "|"
+     << HeCapabilities.GetHePhyCapabilitiesInfo1() << "|"
+     << +HeCapabilities.GetHePhyCapabilitiesInfo2() << "|"
+     << HeCapabilities.GetSupportedMcsAndNss();
   return os;
 }
 

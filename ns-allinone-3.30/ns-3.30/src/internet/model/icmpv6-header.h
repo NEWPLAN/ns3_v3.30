@@ -118,84 +118,84 @@ public:
    * \brief Get the UID of this class.
    * \return UID
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * \brief Get the instance type ID.
    * \return instance type ID
    */
-  virtual TypeId GetInstanceTypeId () const;
+  virtual TypeId GetInstanceTypeId() const;
 
   /**
    * \brief Constructor.
    */
-  Icmpv6Header ();
+  Icmpv6Header();
 
   /**
    * \brief Destructor.
    */
-  virtual ~Icmpv6Header ();
+  virtual ~Icmpv6Header();
 
   /**
    * \brief Get the type field.
    * \return type of ICMPv6 message
    */
-  uint8_t GetType () const;
+  uint8_t GetType() const;
 
   /**
    * \brief Set the type.
    * \param type type to set
    */
-  void SetType (uint8_t type);
+  void SetType(uint8_t type);
 
   /**
    * \brief Get the code field.
    * \return code of ICMPv6 message
    */
-  uint8_t GetCode () const;
+  uint8_t GetCode() const;
 
   /**
    * \brief Set the code field.
    * \param code code to set
    */
-  void SetCode (uint8_t code);
+  void SetCode(uint8_t code);
 
   /**
    * \brief Get the checksum.
    * \return checksum
    */
-  uint16_t GetChecksum () const;
+  uint16_t GetChecksum() const;
 
   /**
    * \brief Set the checksum.
    * \param checksum to set
    */
-  void SetChecksum (uint16_t checksum);
+  void SetChecksum(uint16_t checksum);
 
   /**
    * \brief Print information.
    * \param os output stream
    */
-  virtual void Print (std::ostream& os) const;
+  virtual void Print(std::ostream &os) const;
 
   /**
    * \brief Get the serialized size.
    * \return serialized size
    */
-  virtual uint32_t GetSerializedSize () const;
+  virtual uint32_t GetSerializedSize() const;
 
   /**
    * \brief Serialize the packet.
    * \param start start offset
    */
-  virtual void Serialize (Buffer::Iterator start) const;
+  virtual void Serialize(Buffer::Iterator start) const;
 
   /**
    * \brief Deserialize the packet.
    * \param start start offset
    * \return length of packet
    */
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 
   /**
    * \brief Calculate pseudo header checksum for IPv6.
@@ -205,7 +205,7 @@ public:
    * \param protocol the protocol number to use in the
    * underlying IPv6 packet.
    */
-  void CalculatePseudoHeaderChecksum (Ipv6Address src, Ipv6Address dst, uint16_t length, uint8_t protocol);
+  void CalculatePseudoHeaderChecksum(Ipv6Address src, Ipv6Address dst, uint16_t length, uint8_t protocol);
 
 protected:
   /**
@@ -216,7 +216,7 @@ protected:
   /**
    * \brief The checksum.
    */
-  uint16_t m_checksum; 
+  uint16_t m_checksum;
 
 private:
   /**
@@ -242,72 +242,72 @@ public:
    * \brief Get the UID of this class.
    * \return UID
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * \brief Get the instance type ID.
    * \return instance type ID
    */
-  virtual TypeId GetInstanceTypeId () const;
+  virtual TypeId GetInstanceTypeId() const;
 
   /**
    * \brief Constructor.
    */
-  Icmpv6OptionHeader ();
+  Icmpv6OptionHeader();
 
   /**
    * \brief Destructor.
    */
-  virtual ~Icmpv6OptionHeader ();
+  virtual ~Icmpv6OptionHeader();
 
   /**
    * \brief Get the type of the option.
    * \return type
    */
-  uint8_t GetType () const;
+  uint8_t GetType() const;
 
   /**
    * \brief Set the type of the option.
    * \param type the type to set
    */
-  void SetType (uint8_t type);
+  void SetType(uint8_t type);
 
   /**
    * \brief Get the length of the option in 8 bytes unit.
    * \return length of the option
    */
-  uint8_t GetLength () const;
+  uint8_t GetLength() const;
 
   /**
    * \brief Set the length of the option.
    * \param len length value to set
    */
-  void SetLength (uint8_t len);
+  void SetLength(uint8_t len);
 
   /**
    * \brief Print information.
    * \param os output stream
    */
-  virtual void Print (std::ostream& os) const;
+  virtual void Print(std::ostream &os) const;
 
   /**
    * \brief Get the serialized size.
    * \return serialized size
    */
-  virtual uint32_t GetSerializedSize () const;
+  virtual uint32_t GetSerializedSize() const;
 
   /**
    * \brief Serialize the packet.
    * \param start start offset
    */
-  virtual void Serialize (Buffer::Iterator start) const;
+  virtual void Serialize(Buffer::Iterator start) const;
 
   /**
    * \brief Deserialize the packet.
    * \param start start offset
    * \return length of packet
    */
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 
 private:
   /**
@@ -333,81 +333,80 @@ public:
    * \brief Constructor.
    * \param target target IPv6 address
    */
-  Icmpv6NS (Ipv6Address target);
+  Icmpv6NS(Ipv6Address target);
 
   /**
    * \brief Constructor.
    */
-  Icmpv6NS ();
+  Icmpv6NS();
 
   /**
    * \brief Destructor.
    */
-  virtual ~Icmpv6NS ();
+  virtual ~Icmpv6NS();
 
   /**
    * \brief Get the UID of this class.
    * \return UID
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * \brief Get the instance type ID.
    * \return instance type ID
    */
-  virtual TypeId GetInstanceTypeId () const;
+  virtual TypeId GetInstanceTypeId() const;
 
   /**
    * \brief Get the reserved field.
    * \return reserved value
    */
-  uint32_t GetReserved () const;
+  uint32_t GetReserved() const;
 
   /**
    * \brief Set the reserved field.
    * \param reserved the reserved value
    */
-  void SetReserved (uint32_t reserved);
+  void SetReserved(uint32_t reserved);
 
   /**
    * \brief Get the IPv6 target field.
    * \return IPv6 address
    */
-  Ipv6Address GetIpv6Target () const;
+  Ipv6Address GetIpv6Target() const;
 
   /**
    * \brief Set the IPv6 target field.
    * \param target IPv6 address
    */
-  void SetIpv6Target (Ipv6Address target);
+  void SetIpv6Target(Ipv6Address target);
 
   /**
    * \brief Print information.
    * \param os output stream
    */
-  virtual void Print (std::ostream& os) const;
+  virtual void Print(std::ostream &os) const;
 
   /**
    * \brief Get the serialized size.
    * \return serialized size
    */
-  virtual uint32_t GetSerializedSize () const;
+  virtual uint32_t GetSerializedSize() const;
 
   /**
    * \brief Serialize the packet.
    * \param start start offset
    */
-  virtual void Serialize (Buffer::Iterator start) const;
+  virtual void Serialize(Buffer::Iterator start) const;
 
   /**
    * \brief Deserialize the packet.
    * \param start start offset
    * \return length of packet
    */
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 
 private:
-
   /**
    * \brief The reserved value.
    */
@@ -430,109 +429,109 @@ public:
   /**
    * \brief Constructor.
    */
-  Icmpv6NA ();
+  Icmpv6NA();
 
   /**
    * \brief Destructor.
    */
-  virtual ~Icmpv6NA ();
+  virtual ~Icmpv6NA();
 
   /**
    * \brief Get the UID of this class.
    * \return UID
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * \brief Get the instance type ID.
    * \return instance type ID
    */
-  virtual TypeId GetInstanceTypeId () const;
+  virtual TypeId GetInstanceTypeId() const;
 
   /**
    * \brief Get the reserved field.
    * \return reserved value
    */
-  uint32_t GetReserved () const;
+  uint32_t GetReserved() const;
 
   /**
    * \brief Set the reserved field.
    * \param reserved the reserved value
    */
-  void SetReserved (uint32_t reserved);
+  void SetReserved(uint32_t reserved);
 
   /**
    * \brief Get the IPv6 target field.
    * \return IPv6 address
    */
-  Ipv6Address GetIpv6Target () const;
+  Ipv6Address GetIpv6Target() const;
 
   /**
    * \brief Set the IPv6 target field.
    * \param target IPv6 address
    */
-  void SetIpv6Target (Ipv6Address target);
+  void SetIpv6Target(Ipv6Address target);
 
   /**
    * \brief Get the R flag.
    * \return R flag
    */
-  bool GetFlagR () const;
+  bool GetFlagR() const;
 
   /**
    * \brief Set the R flag.
    * \param r value
    */
-  void SetFlagR (bool r);
+  void SetFlagR(bool r);
 
   /**
    * \brief Get the S flag.
    * \return S flag
    */
-  bool GetFlagS () const;
+  bool GetFlagS() const;
 
   /**
    * \brief Set the S flag.
    * \param s value
    */
-  void SetFlagS (bool s);
+  void SetFlagS(bool s);
 
   /**
    * \brief Get the O flag.
    * \return O flag
    */
-  bool GetFlagO () const;
+  bool GetFlagO() const;
 
   /**
    * \brief Set the O flag.
    * \param o value
    */
-  void SetFlagO (bool o);
+  void SetFlagO(bool o);
 
   /**
    * \brief Print information.
    * \param os output stream
    */
-  virtual void Print (std::ostream& os) const;
+  virtual void Print(std::ostream &os) const;
 
   /**
    * \brief Get the serialized size.
    * \return serialized size
    */
-  virtual uint32_t GetSerializedSize () const;
+  virtual uint32_t GetSerializedSize() const;
 
   /**
    * \brief Serialize the packet.
    * \param start start offset
    */
-  virtual void Serialize (Buffer::Iterator start) const;
+  virtual void Serialize(Buffer::Iterator start) const;
 
   /**
    * \brief Deserialize the packet.
    * \param start start offset
    * \return length of packet
    */
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 
 private:
   /**
@@ -572,145 +571,145 @@ public:
   /**
    * \brief Constructor.
    */
-  Icmpv6RA ();
+  Icmpv6RA();
 
   /**
    * \brief Destructor.
    */
-  virtual ~Icmpv6RA ();
+  virtual ~Icmpv6RA();
 
   /**
    * \brief Get the UID of this class.
    * \return UID
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * \brief Get the instance type ID.
    * \return instance type ID
    */
-  virtual TypeId GetInstanceTypeId () const;
+  virtual TypeId GetInstanceTypeId() const;
 
   /**
    * \brief Set the IPv6 maximum number of jumps.
    * \param m maximum jumps
    */
-  void SetCurHopLimit (uint8_t m);
+  void SetCurHopLimit(uint8_t m);
 
   /**
    * \brief Get the IPv6 maximum number of jumps.
    * \return maximum jumps
    */
-  uint8_t GetCurHopLimit () const;
+  uint8_t GetCurHopLimit() const;
 
   /**
    * \brief Set the node Life time (Neighbor Discovery).
    * \param l life time
    */
-  void SetLifeTime (uint16_t l);
+  void SetLifeTime(uint16_t l);
 
   /**
    * \brief Get the node Life time (Neighbor Discovery).
    * \return life time
    */
-  uint16_t GetLifeTime () const;
+  uint16_t GetLifeTime() const;
 
   /**
    * \brief Set the node Reachable time (Neighbor Discovery).
    * \param r Reachable time
    */
-  void SetReachableTime (uint32_t r);
+  void SetReachableTime(uint32_t r);
 
   /**
    * \brief Get the node Reachable time (Neighbor Discovery).
    * \return reachable time
    */
-  uint32_t GetReachableTime () const;
+  uint32_t GetReachableTime() const;
 
   /**
    * \brief Set the node Retransmission time (Neighbor Discovery).
    * \param r Retransmission time
    */
-  void SetRetransmissionTime (uint32_t r);
+  void SetRetransmissionTime(uint32_t r);
 
   /**
    * \brief Get the node Retransmission time (Neighbor Discovery).
    * \return retransmission time
    */
-  uint32_t GetRetransmissionTime () const;
+  uint32_t GetRetransmissionTime() const;
 
   /**
    * \brief Get the M flag.
    * \return M flag
    */
-  bool GetFlagM () const;
+  bool GetFlagM() const;
 
   /**
    * \brief Set the M flag.
    * \param m value
    */
-  void SetFlagM (bool m);
+  void SetFlagM(bool m);
 
   /**
    * \brief Get the O flag.
    * \return O flag
    */
-  bool GetFlagO () const;
+  bool GetFlagO() const;
 
   /**
    * \brief Set the O flag.
    * \param o value
    */
-  void SetFlagO (bool o);
+  void SetFlagO(bool o);
 
   /**
    * \brief Get the H flag.
    * \return H flag
    */
-  bool GetFlagH () const;
+  bool GetFlagH() const;
 
   /**
    * \brief Set the H flag.
    * \param h value
    */
-  void SetFlagH (bool h);
+  void SetFlagH(bool h);
 
   /**
    * \brief Print information.
    * \param os output stream
    */
-  virtual void Print (std::ostream& os) const;
+  virtual void Print(std::ostream &os) const;
 
   /**
    * \brief Getflags.
    * \return the flags value
    */
-  uint8_t GetFlags () const;
+  uint8_t GetFlags() const;
 
   /**
    * \brief Setflags.
    * \param f the flags value
    */
-  void SetFlags (uint8_t f);
+  void SetFlags(uint8_t f);
 
   /**
    * \brief Get the serialized size.
    * \return serialized size
    */
-  virtual uint32_t GetSerializedSize () const;
+  virtual uint32_t GetSerializedSize() const;
 
   /**
    * \brief Serialize the packet.
    * \param start start offset
    */
-  virtual void Serialize (Buffer::Iterator start) const;
+  virtual void Serialize(Buffer::Iterator start) const;
 
   /**
    * \brief Deserialize the packet.
    * \param start start offset
    * \return length of packet
    */
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 
 private:
   /**
@@ -765,61 +764,61 @@ public:
   /**
    * \brief Constructor.
    */
-  Icmpv6RS ();
+  Icmpv6RS();
 
   /**
    * \brief Destructor.
    */
-  virtual ~Icmpv6RS ();
+  virtual ~Icmpv6RS();
 
   /**
    * \brief Get the UID of this class.
    * \return UID
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * \brief Get the instance type ID.
    * \return instance type ID
    */
-  virtual TypeId GetInstanceTypeId () const;
+  virtual TypeId GetInstanceTypeId() const;
 
   /**
    * \brief Get the reserved field.
    * \return reserved value
    */
-  uint32_t GetReserved () const;
+  uint32_t GetReserved() const;
 
   /**
    * \brief Set the reserved field.
    * \param reserved the reserved value
    */
-  void SetReserved (uint32_t reserved);
+  void SetReserved(uint32_t reserved);
 
   /**
    * \brief Print information.
    * \param os output stream
    */
-  virtual void Print (std::ostream& os) const;
+  virtual void Print(std::ostream &os) const;
 
   /**
    * \brief Get the serialized size.
    * \return serialized size
    */
-  virtual uint32_t GetSerializedSize () const;
+  virtual uint32_t GetSerializedSize() const;
 
   /**
    * \brief Serialize the packet.
    * \param start start offset
    */
-  virtual void Serialize (Buffer::Iterator start) const;
+  virtual void Serialize(Buffer::Iterator start) const;
 
   /**
    * \brief Deserialize the packet.
    * \param start start offset
    * \return length of packet
    */
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 
 private:
   /**
@@ -839,85 +838,85 @@ public:
   /**
    * \brief Constructor.
    */
-  Icmpv6Redirection ();
+  Icmpv6Redirection();
 
   /**
    * \brief Destructor.
    */
-  virtual ~Icmpv6Redirection ();
+  virtual ~Icmpv6Redirection();
 
   /**
    * \brief Get the UID of this class.
    * \return UID
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * \brief Get the instance type ID.
    * \return instance type ID
    */
-  virtual TypeId GetInstanceTypeId () const;
+  virtual TypeId GetInstanceTypeId() const;
 
   /**
    * \brief Get the IPv6 target address.
    * \return the IPv6 target address
    */
-  Ipv6Address GetTarget () const;
+  Ipv6Address GetTarget() const;
 
   /**
    * \brief Set the IPv6 target address.
    * \param target IPv6 target address
    */
-  void SetTarget (Ipv6Address target);
+  void SetTarget(Ipv6Address target);
 
   /**
    * \brief Get the IPv6 destination address.
    * \return the IPv6 destination address
    */
-  Ipv6Address GetDestination () const;
+  Ipv6Address GetDestination() const;
 
   /**
    * \brief Set the IPv6 destination address.
    * \param destination IPv6 destination address
    */
-  void SetDestination (Ipv6Address destination);
+  void SetDestination(Ipv6Address destination);
 
   /**
    * \brief Print information.
    * \param os output stream
    */
-  virtual void Print (std::ostream& os) const;
+  virtual void Print(std::ostream &os) const;
 
   /**
    * \brief Get the serialized size.
    * \return serialized size
    */
-  virtual uint32_t GetSerializedSize () const;
+  virtual uint32_t GetSerializedSize() const;
 
   /**
    * \brief Serialize the packet.
    * \param start start offset
    */
-  virtual void Serialize (Buffer::Iterator start) const;
+  virtual void Serialize(Buffer::Iterator start) const;
 
   /**
    * \brief Deserialize the packet.
    * \param start start offset
    * \return length of packet
    */
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 
   /**
    * \brief Get the reserved field.
    * \return reserved value
    */
-  uint32_t GetReserved () const;
+  uint32_t GetReserved() const;
 
   /**
    * \brief Set the reserved field.
    * \param reserved the reserved value
    */
-  void SetReserved (uint32_t reserved);
+  void SetReserved(uint32_t reserved);
 
 private:
   /**
@@ -948,78 +947,78 @@ public:
    * \brief Get the UID of this class.
    * \return UID
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * \brief Get the instance type ID.
    * \return instance type ID
    */
-  virtual TypeId GetInstanceTypeId () const;
+  virtual TypeId GetInstanceTypeId() const;
 
   /**
    * \brief Default constructor.
    */
-  Icmpv6Echo ();
+  Icmpv6Echo();
 
   /**
    * \brief Constructor.
    * \param request request or reply message
    */
-  Icmpv6Echo (bool request);
+  Icmpv6Echo(bool request);
 
   /**
    * \brief Destructor.
    */
-  virtual ~Icmpv6Echo ();
+  virtual ~Icmpv6Echo();
 
   /**
    * \brief Get the ID of the packet.
    * \return id
    */
-  uint16_t GetId () const;
+  uint16_t GetId() const;
 
   /**
    * \brief Set the ID of the packet.
    * \param id id to set
    */
-  void SetId (uint16_t id);
+  void SetId(uint16_t id);
 
   /**
    * \brief Get the sequence number.
    * \return sequence number
    */
-  uint16_t GetSeq () const;
+  uint16_t GetSeq() const;
 
   /**
    * \brief Set the sequence number.
    * \param seq sequence to set
    */
-  void SetSeq (uint16_t seq);
+  void SetSeq(uint16_t seq);
 
   /**
    * \brief Print information.
    * \param os output stream
    */
-  virtual void Print (std::ostream& os) const;
+  virtual void Print(std::ostream &os) const;
 
   /**
    * \brief Get the serialized size.
    * \return serialized size
    */
-  virtual uint32_t GetSerializedSize () const;
+  virtual uint32_t GetSerializedSize() const;
 
   /**
    * \brief Serialize the packet.
    * \param start start offset
    */
-  virtual void Serialize (Buffer::Iterator start) const;
+  virtual void Serialize(Buffer::Iterator start) const;
 
   /**
    * \brief Deserialize the packet.
    * \param start start offset
    * \return length of packet
    */
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 
 private:
   /**
@@ -1044,61 +1043,61 @@ public:
   /**
    * \brief Constructor.
    */
-  Icmpv6DestinationUnreachable ();
+  Icmpv6DestinationUnreachable();
 
   /**
    * \brief Destructor.
    */
-  virtual ~Icmpv6DestinationUnreachable ();
+  virtual ~Icmpv6DestinationUnreachable();
 
   /**
    * \brief Get the UID of this class.
    * \return UID
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * \brief Get the instance type ID.
    * \return instance type ID
    */
-  virtual TypeId GetInstanceTypeId () const;
+  virtual TypeId GetInstanceTypeId() const;
 
   /**
    * \brief Get the incorrect packet.
    * \return the incorrect packet
    */
-  Ptr<Packet> GetPacket () const;
+  Ptr<Packet> GetPacket() const;
 
   /**
    * \brief Set the incorrect packet.
    * \param p the incorrect packet
    */
-  void SetPacket (Ptr<Packet> p);
+  void SetPacket(Ptr<Packet> p);
 
   /**
    * \brief Print information.
    * \param os output stream
    */
-  virtual void Print (std::ostream& os) const;
+  virtual void Print(std::ostream &os) const;
 
   /**
    * \brief Get the serialized size.
    * \return serialized size
    */
-  virtual uint32_t GetSerializedSize () const;
+  virtual uint32_t GetSerializedSize() const;
 
   /**
    * \brief Serialize the packet.
    * \param start start offset
    */
-  virtual void Serialize (Buffer::Iterator start) const;
+  virtual void Serialize(Buffer::Iterator start) const;
 
   /**
    * \brief Deserialize the packet.
    * \param start start offset
    * \return length of packet
    */
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 
 private:
   /**
@@ -1118,76 +1117,75 @@ public:
   /**
    * \brief Constructor.
    */
-  Icmpv6TooBig ();
+  Icmpv6TooBig();
 
   /**
    * \brief Destructor.
    */
-  virtual ~Icmpv6TooBig ();
+  virtual ~Icmpv6TooBig();
 
   /**
    * \brief Get the UID of this class.
    * \return UID
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * \brief Get the instance type ID.
    * \return instance type ID
    */
-  virtual TypeId GetInstanceTypeId () const;
+  virtual TypeId GetInstanceTypeId() const;
 
   /**
    * \brief Get the incorrect packet.
    * \return the incorrect packet
    */
-  Ptr<Packet> GetPacket () const;
+  Ptr<Packet> GetPacket() const;
 
   /**
    * \brief Set the incorrect packet.
    * \param p the incorrect packet
    */
-  void SetPacket (Ptr<Packet> p);
+  void SetPacket(Ptr<Packet> p);
 
   /**
    * \brief Get the MTU field.
    * \return MTU value
    */
-  uint32_t GetMtu () const;
+  uint32_t GetMtu() const;
 
   /**
    * \brief Set the MTU.
    * \param mtu the MTU
    */
-  void SetMtu (uint32_t mtu);
+  void SetMtu(uint32_t mtu);
 
   /**
    * \brief Print information.
    * \param os output stream
    */
-  virtual void Print (std::ostream& os) const;
+  virtual void Print(std::ostream &os) const;
 
   /**
    * \brief Get the serialized size.
    * \return serialized size
    */
-  virtual uint32_t GetSerializedSize () const;
+  virtual uint32_t GetSerializedSize() const;
 
   /**
    * \brief Serialize the packet.
    * \param start start offset
    */
-  virtual void Serialize (Buffer::Iterator start) const;
+  virtual void Serialize(Buffer::Iterator start) const;
 
   /**
    * \brief Deserialize the packet.
    * \param start start offset
    * \return length of packet
    */
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 
 private:
-
   /**
    * \brief the incorrect packet.
    */
@@ -1210,64 +1208,63 @@ public:
   /**
    * \brief Constructor.
    */
-  Icmpv6TimeExceeded ();
+  Icmpv6TimeExceeded();
 
   /**
    * \brief Destructor.
    */
-  virtual ~Icmpv6TimeExceeded ();
+  virtual ~Icmpv6TimeExceeded();
 
   /**
    * \brief Get the UID of this class.
    * \return UID
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * \brief Get the instance type ID.
    * \return instance type ID
    */
-  virtual TypeId GetInstanceTypeId () const;
+  virtual TypeId GetInstanceTypeId() const;
 
   /**
    * \brief Get the incorrect packet.
    * \return the incorrect packet
    */
-  Ptr<Packet> GetPacket () const;
+  Ptr<Packet> GetPacket() const;
 
   /**
    * \brief Set the incorrect packet.
    * \param p the incorrect packet
    */
-  void SetPacket (Ptr<Packet> p);
+  void SetPacket(Ptr<Packet> p);
 
   /**
    * \brief Print information.
    * \param os output stream
    */
-  virtual void Print (std::ostream& os) const;
+  virtual void Print(std::ostream &os) const;
 
   /**
    * \brief Get the serialized size.
    * \return serialized size
    */
-  virtual uint32_t GetSerializedSize () const;
+  virtual uint32_t GetSerializedSize() const;
 
   /**
    * \brief Serialize the packet.
    * \param start start offset
    */
-  virtual void Serialize (Buffer::Iterator start) const;
+  virtual void Serialize(Buffer::Iterator start) const;
 
   /**
    * \brief Deserialize the packet.
    * \param start start offset
    * \return length of packet
    */
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 
 private:
-
   /**
    * \brief The incorrect packet.
    */
@@ -1285,76 +1282,75 @@ public:
   /**
    * \brief Constructor.
    */
-  Icmpv6ParameterError ();
+  Icmpv6ParameterError();
 
   /**
    * \brief Destructor.
    */
-  virtual ~Icmpv6ParameterError ();
+  virtual ~Icmpv6ParameterError();
 
   /**
    * \brief Get the UID of this class.
    * \return UID
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * \brief Get the instance type ID.
    * \return instance type ID
    */
-  virtual TypeId GetInstanceTypeId () const;
+  virtual TypeId GetInstanceTypeId() const;
 
   /**
    * \brief Get the incorrect packet.
    * \return the incorrect packet
    */
-  Ptr<Packet> GetPacket () const;
+  Ptr<Packet> GetPacket() const;
 
   /**
    * \brief Set the incorrect packet.
    * \param p the incorrect packet
    */
-  void SetPacket (Ptr<Packet> p);
+  void SetPacket(Ptr<Packet> p);
 
   /**
    * \brief Get the pointer field.
    * \return pointer value
    */
-  uint32_t GetPtr () const;
+  uint32_t GetPtr() const;
 
   /**
    * \brief Set the pointer field.
    * \param ptr byte where the error is located in the incorrect packet
    */
-  void SetPtr (uint32_t ptr);
+  void SetPtr(uint32_t ptr);
 
   /**
    * \brief Print information.
    * \param os output stream
    */
-  virtual void Print (std::ostream& os) const;
+  virtual void Print(std::ostream &os) const;
 
   /**
    * \brief Get the serialized size.
    * \return serialized size
    */
-  virtual uint32_t GetSerializedSize () const;
+  virtual uint32_t GetSerializedSize() const;
 
   /**
    * \brief Serialize the packet.
    * \param start start offset
    */
-  virtual void Serialize (Buffer::Iterator start) const;
+  virtual void Serialize(Buffer::Iterator start) const;
 
   /**
    * \brief Deserialize the packet.
    * \param start start offset
    * \return length of packet
    */
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 
 private:
-
   /**
    * \brief The incorrect packet.
    */
@@ -1377,79 +1373,79 @@ public:
   /**
    * \brief Constructor.
    */
-  Icmpv6OptionMtu ();
+  Icmpv6OptionMtu();
 
   /**
    * \brief Constructor.
    * \param mtu MTU used.
    */
-  Icmpv6OptionMtu (uint32_t mtu);
+  Icmpv6OptionMtu(uint32_t mtu);
 
   /**
    * \brief Destructor.
    */
-  virtual ~Icmpv6OptionMtu ();
+  virtual ~Icmpv6OptionMtu();
 
   /**
    * \brief Get the UID of this class.
    * \return UID
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * \brief Get the instance type ID.
    * \return instance type ID
    */
-  virtual TypeId GetInstanceTypeId () const;
+  virtual TypeId GetInstanceTypeId() const;
 
   /**
    * \brief Get the reserved field.
    * \return the reserved value
    */
-  uint16_t GetReserved () const;
+  uint16_t GetReserved() const;
 
   /**
    * \brief Set the reserved field.
    * \param reserved the reserved value
    */
-  void SetReserved (uint16_t reserved);
+  void SetReserved(uint16_t reserved);
 
   /**
    * \brief Get the MTU.
    * \return the MTU value
    */
-  uint32_t GetMtu () const;
+  uint32_t GetMtu() const;
 
   /**
    * \brief Set the MTU.
    * \param mtu the MTU to set
    */
-  void SetMtu (uint32_t mtu);
+  void SetMtu(uint32_t mtu);
 
   /**
    * \brief Print information.
    * \param os output stream
    */
-  virtual void Print (std::ostream& os) const;
+  virtual void Print(std::ostream &os) const;
 
   /**
    * \brief Get the serialized size.
    * \return serialized size
    */
-  virtual uint32_t GetSerializedSize () const;
+  virtual uint32_t GetSerializedSize() const;
 
   /**
    * \brief Serialize the packet.
    * \param start start offset
    */
-  virtual void Serialize (Buffer::Iterator start) const;
+  virtual void Serialize(Buffer::Iterator start) const;
 
   /**
    * \brief Deserialize the packet.
    * \param start start offset
    * \return length of packet
    */
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 
 private:
   /**
@@ -1474,128 +1470,128 @@ public:
   /**
    * \brief Constructor.
    */
-  Icmpv6OptionPrefixInformation ();
+  Icmpv6OptionPrefixInformation();
 
   /**
    * \brief Constructor.
    * \param network prefix
    * \param prefixlen prefix length
    */
-  Icmpv6OptionPrefixInformation (Ipv6Address network, uint8_t prefixlen);
+  Icmpv6OptionPrefixInformation(Ipv6Address network, uint8_t prefixlen);
 
   /**
    * \brief Destructor.
    */
-  virtual ~Icmpv6OptionPrefixInformation ();
+  virtual ~Icmpv6OptionPrefixInformation();
 
   /**
    * \brief Get the UID of this class.
    * \return UID
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * \brief Get the instance type ID.
    * \return instance type ID
    */
-  virtual TypeId GetInstanceTypeId () const;
+  virtual TypeId GetInstanceTypeId() const;
 
   /**
    * \brief Get the prefix length.
    * \return prefix length
    */
-  uint8_t GetPrefixLength () const;
+  uint8_t GetPrefixLength() const;
 
   /**
    * \brief Set the prefix length.
    * \param prefixLength the prefix length
    */
-  void SetPrefixLength (uint8_t prefixLength);
+  void SetPrefixLength(uint8_t prefixLength);
 
   /**
    * \brief Get the flags.
    * \return the flags.
    */
-  uint8_t GetFlags () const;
+  uint8_t GetFlags() const;
 
   /**
    * \brief Set the flags.
    * \param flags the flags to set
    */
-  void SetFlags (uint8_t flags);
+  void SetFlags(uint8_t flags);
 
   /**
    * \brief Get the valid time of the information.
    * \return valid time
    */
-  uint32_t GetValidTime () const;
+  uint32_t GetValidTime() const;
 
   /**
    * \brief Set the valid time of the information.
    * \param validTime valid time
    */
-  void SetValidTime (uint32_t validTime);
+  void SetValidTime(uint32_t validTime);
 
   /**
    * \brief Get the preferred time of the information.
    * \return preferred time
    */
-  uint32_t GetPreferredTime () const;
+  uint32_t GetPreferredTime() const;
 
   /**
    * \brief Set the preferred time of the information.
    * \param preferredTime preferred time
    */
-  void SetPreferredTime (uint32_t preferredTime);
+  void SetPreferredTime(uint32_t preferredTime);
 
   /**
    * \brief Get the reserved field.
    * \return the reserved field (should be 0x00000000)
    */
-  uint32_t GetReserved () const;
+  uint32_t GetReserved() const;
 
   /**
    * \brief Set the reserved field (normally it will be 0x00000000).
    * \param reserved reserved value
    */
-  void SetReserved (uint32_t reserved);
+  void SetReserved(uint32_t reserved);
 
   /**
    * \brief Get the IPv6 prefix.
    * \return IPv6 prefix
    */
-  Ipv6Address GetPrefix () const;
+  Ipv6Address GetPrefix() const;
 
   /**
    * \brief Set the IPv6 prefix.
    * \param prefix the IPv6 prefix
    */
-  void SetPrefix (Ipv6Address prefix);
+  void SetPrefix(Ipv6Address prefix);
 
   /**
    * \brief Print information.
    * \param os output stream
    */
-  virtual void Print (std::ostream& os) const;
+  virtual void Print(std::ostream &os) const;
 
   /**
    * \brief Get the serialized size.
    * \return serialized size
    */
-  virtual uint32_t GetSerializedSize () const;
+  virtual uint32_t GetSerializedSize() const;
 
   /**
    * \brief Serialize the packet.
    * \param start start offset
    */
-  virtual void Serialize (Buffer::Iterator start) const;
+  virtual void Serialize(Buffer::Iterator start) const;
 
   /**
    * \brief Deserialize the packet.
    * \param start start offset
    * \return length of packet
    */
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 
 private:
   /**
@@ -1641,73 +1637,73 @@ public:
    * \brief Constructor.
    * \param source source hardware address or target hardware address for the option
    */
-  Icmpv6OptionLinkLayerAddress (bool source);
+  Icmpv6OptionLinkLayerAddress(bool source);
 
   /**
    * \brief Get the UID of this class.
    * \return UID
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * \brief Get the instance type ID.
    * \return instance type ID
    */
-  virtual TypeId GetInstanceTypeId (void) const;
+  virtual TypeId GetInstanceTypeId(void) const;
 
   /**
    * \brief Constructor.
    * \param source source hardware address or target hardware address for the option
    * \param addr hardware address
    */
-  Icmpv6OptionLinkLayerAddress (bool source, Address addr);
+  Icmpv6OptionLinkLayerAddress(bool source, Address addr);
 
   /**
    * \brief Constructor.
    */
-  Icmpv6OptionLinkLayerAddress ();
+  Icmpv6OptionLinkLayerAddress();
 
   /**
    * \brief Destructor.
    */
-  virtual ~Icmpv6OptionLinkLayerAddress ();
+  virtual ~Icmpv6OptionLinkLayerAddress();
 
   /**
    * \brief Get the hardware address.
    * \return the hardware address
    */
-  Address GetAddress () const;
+  Address GetAddress() const;
 
   /**
    * \brief Set the hardware address.
    * \param addr the address to set
    */
-  void SetAddress (Address addr);
+  void SetAddress(Address addr);
 
   /**
    * \brief Print information.
    * \param os output stream
    */
-  virtual void Print (std::ostream& os) const;
+  virtual void Print(std::ostream &os) const;
 
   /**
    * \brief Get the serialized size.
    * \return serialized size
    */
-  virtual uint32_t GetSerializedSize () const;
+  virtual uint32_t GetSerializedSize() const;
 
   /**
    * \brief Serialize the packet.
    * \param start start offset
    */
-  virtual void Serialize (Buffer::Iterator start) const;
+  virtual void Serialize(Buffer::Iterator start) const;
 
   /**
    * \brief Deserialize the packet.
    * \param start start offset
    * \return length of packet
    */
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 
 private:
   /**
@@ -1728,60 +1724,60 @@ public:
    * \brief Get the UID of this class.
    * \return UID
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * \brief Get the instance type ID.
    * \return instance type ID
    */
-  virtual TypeId GetInstanceTypeId () const;
+  virtual TypeId GetInstanceTypeId() const;
 
   /**
    * \brief Constructor.
    */
-  Icmpv6OptionRedirected ();
+  Icmpv6OptionRedirected();
 
   /**
    * \brief Destructor.
    */
-  virtual ~Icmpv6OptionRedirected ();
+  virtual ~Icmpv6OptionRedirected();
 
   /**
    * \brief Get the redirected packet.
    * \return the redirected packet
    */
-  Ptr<Packet> GetPacket () const;
+  Ptr<Packet> GetPacket() const;
 
   /**
    * \brief Set the redirected packet.
    * \param packet the redirected packet
    */
-  void SetPacket (Ptr<Packet> packet);
+  void SetPacket(Ptr<Packet> packet);
 
   /**
    * \brief Print information.
    * \param os output stream
    */
-  virtual void Print (std::ostream& os) const;
+  virtual void Print(std::ostream &os) const;
 
   /**
    * \brief Get the serialized size.
    * \return serialized size
    */
-  virtual uint32_t GetSerializedSize () const;
+  virtual uint32_t GetSerializedSize() const;
 
   /**
    * \brief Serialize the packet.
    * \param start start offset
    */
-  virtual void Serialize (Buffer::Iterator start) const;
+  virtual void Serialize(Buffer::Iterator start) const;
 
   /**
    * \brief Deserialize the packet.
    * \param start start offset
    * \return length of packet
    */
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 
 private:
   /**
@@ -1793,4 +1789,3 @@ private:
 } /* namespace ns3 */
 
 #endif /* ICMPV6_HEADER_H */
-

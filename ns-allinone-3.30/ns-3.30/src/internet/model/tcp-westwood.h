@@ -39,7 +39,8 @@
 #include "ns3/traced-value.h"
 #include "ns3/event-id.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class Packet;
 class TcpHeader;
@@ -71,20 +72,20 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
-  TcpWestwood (void);
+  TcpWestwood(void);
   /**
    * \brief Copy constructor
    * \param sock the object to copy
    */
-  TcpWestwood (const TcpWestwood& sock);
-  virtual ~TcpWestwood (void);
+  TcpWestwood(const TcpWestwood &sock);
+  virtual ~TcpWestwood(void);
 
   /**
    * \brief Protocol variant (Westwood or Westwood+)
    */
-  enum ProtocolType 
+  enum ProtocolType
   {
     WESTWOOD,
     WESTWOODPLUS
@@ -93,19 +94,19 @@ public:
   /**
    * \brief Filter type (None or Tustin)
    */
-  enum FilterType 
+  enum FilterType
   {
     NONE,
     TUSTIN
   };
 
-  virtual uint32_t GetSsThresh (Ptr<const TcpSocketState> tcb,
-                                uint32_t bytesInFlight);
+  virtual uint32_t GetSsThresh(Ptr<const TcpSocketState> tcb,
+                               uint32_t bytesInFlight);
 
-  virtual void PktsAcked (Ptr<TcpSocketState> tcb, uint32_t packetsAcked,
-                          const Time& rtt);
+  virtual void PktsAcked(Ptr<TcpSocketState> tcb, uint32_t packetsAcked,
+                         const Time &rtt);
 
-  virtual Ptr<TcpCongestionOps> Fork ();
+  virtual Ptr<TcpCongestionOps> Fork();
 
 private:
   /**
@@ -113,7 +114,7 @@ private:
    *
    * \param [in] acked the number of packets the currently received ACK acknowledges
    */
-  void UpdateAckedSegments (int acked);
+  void UpdateAckedSegments(int acked);
 
   /**
    * Estimate the network's bandwidth
@@ -121,19 +122,18 @@ private:
    * \param [in] rtt the RTT estimation.
    * \param [in] tcb the socket state.
    */
-  void EstimateBW (const Time& rtt, Ptr<TcpSocketState> tcb);
+  void EstimateBW(const Time &rtt, Ptr<TcpSocketState> tcb);
 
 protected:
-  TracedValue<double>    m_currentBW;              //!< Current value of the estimated BW
-  double                 m_lastSampleBW;           //!< Last bandwidth sample
-  double                 m_lastBW;                 //!< Last bandwidth sample after being filtered
-  enum ProtocolType      m_pType;                  //!< 0 for Westwood, 1 for Westwood+
-  enum FilterType        m_fType;                  //!< 0 for none, 1 for Tustin
+  TracedValue<double> m_currentBW; //!< Current value of the estimated BW
+  double m_lastSampleBW;           //!< Last bandwidth sample
+  double m_lastBW;                 //!< Last bandwidth sample after being filtered
+  enum ProtocolType m_pType;       //!< 0 for Westwood, 1 for Westwood+
+  enum FilterType m_fType;         //!< 0 for none, 1 for Tustin
 
-  uint32_t               m_ackedSegments;          //!< The number of segments ACKed between RTTs
-  bool                   m_IsCount;                //!< Start keeping track of m_ackedSegments for Westwood+ if TRUE
-  EventId                m_bwEstimateEvent;        //!< The BW estimation event for Westwood+
-
+  uint32_t m_ackedSegments;  //!< The number of segments ACKed between RTTs
+  bool m_IsCount;            //!< Start keeping track of m_ackedSegments for Westwood+ if TRUE
+  EventId m_bwEstimateEvent; //!< The BW estimation event for Westwood+
 };
 
 } // namespace ns3

@@ -24,7 +24,8 @@
 #include "ns3/header.h"
 #include "ns3/nstime.h"
 
-namespace ns3 {
+namespace ns3
+{
 /**
  * \ingroup udpclientserver
  *
@@ -36,36 +37,36 @@ namespace ns3 {
 class SeqTsHeader : public Header
 {
 public:
-  SeqTsHeader ();
+  SeqTsHeader();
 
   /**
    * \param seq the sequence number
    */
-  void SetSeq (uint32_t seq);
+  void SetSeq(uint32_t seq);
   /**
    * \return the sequence number
    */
-  uint32_t GetSeq (void) const;
+  uint32_t GetSeq(void) const;
   /**
    * \return the time stamp
    */
-  Time GetTs (void) const;
+  Time GetTs(void) const;
 
   /**
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
-  virtual TypeId GetInstanceTypeId (void) const;
-  virtual void Print (std::ostream &os) const;
-  virtual uint32_t GetSerializedSize (void) const;
-  virtual void Serialize (Buffer::Iterator start) const;
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual TypeId GetInstanceTypeId(void) const;
+  virtual void Print(std::ostream &os) const;
+  virtual uint32_t GetSerializedSize(void) const;
+  virtual void Serialize(Buffer::Iterator start) const;
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 
 private:
   uint32_t m_seq; //!< Sequence number
-  uint64_t m_ts; //!< Timestamp
+  uint64_t m_ts;  //!< Timestamp
 };
 
 } // namespace ns3

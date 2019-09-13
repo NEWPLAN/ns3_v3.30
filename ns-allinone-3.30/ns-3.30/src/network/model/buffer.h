@@ -27,7 +27,8 @@
 
 #define BUFFER_FREE_LIST 1
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup packet
@@ -89,32 +90,32 @@ namespace ns3 {
  *
  * A simple state invariant is that m_start <= m_zeroStart <= m_zeroEnd <= m_end
  */
-class Buffer 
+class Buffer
 {
 public:
   /**
    * \brief iterator in a Buffer instance
    */
-  class Iterator 
+  class Iterator
   {
-public:
-    inline Iterator ();
+  public:
+    inline Iterator();
     /**
      * go forward by one byte
      */
-    inline void Next (void);
+    inline void Next(void);
     /**
      * go backward by one byte
      */
-    inline void Prev (void);
+    inline void Prev(void);
     /**
      * \param delta number of bytes to go forward
      */
-    inline void Next (uint32_t delta);
+    inline void Next(uint32_t delta);
     /**
      * \param delta number of bytes to go backward
      */
-    inline void Prev (uint32_t delta);
+    inline void Prev(uint32_t delta);
     /**
      * \param o the second iterator
      * \return number of bytes included between the two iterators
@@ -123,18 +124,18 @@ public:
      * to the same underlying buffer. Debug builds ensure
      * this with an assert.
      */
-    uint32_t GetDistanceFrom (Iterator const &o) const;
+    uint32_t GetDistanceFrom(Iterator const &o) const;
 
     /**
      * \return true if this iterator points to the end of the byte array.
      *     false otherwise.
      */
-    bool IsEnd (void) const;
+    bool IsEnd(void) const;
     /**
      * \return true if this iterator points to the start of the byte array.
      *     false otherwise.
      */
-    bool IsStart (void) const;
+    bool IsStart(void) const;
 
     /**
      * \param data data to write in buffer
@@ -142,7 +143,7 @@ public:
      * Write the data in buffer and advance the iterator position
      * by one byte.
      */
-    inline void WriteU8 (uint8_t  data);
+    inline void WriteU8(uint8_t data);
     /**
      * \param data data to write in buffer
      * \param len number of times data must be written in buffer
@@ -150,7 +151,7 @@ public:
      * Write the data in buffer len times and advance the iterator position
      * by len byte.
      */
-    inline void WriteU8 (uint8_t data, uint32_t len);
+    inline void WriteU8(uint8_t data, uint32_t len);
     /**
      * \param data data to write in buffer
      *
@@ -160,7 +161,7 @@ public:
      * return exactly what we wrote with writeU16 if the program
      * is run on the same machine.
      */
-    void WriteU16 (uint16_t data);
+    void WriteU16(uint16_t data);
     /**
      * \param data data to write in buffer
      *
@@ -170,7 +171,7 @@ public:
      * return exactly what we wrote with writeU32 if the program
      * is run on the same machine.
      */
-    void WriteU32 (uint32_t data);
+    void WriteU32(uint32_t data);
     /**
      * \param data data to write in buffer
      *
@@ -180,7 +181,7 @@ public:
      * return exactly what we wrote with writeU64 if the program
      * is run on the same machine.
      */
-    void WriteU64 (uint64_t data);
+    void WriteU64(uint64_t data);
     /**
      * \param data data to write in buffer
      *
@@ -188,7 +189,7 @@ public:
      * by two bytes. The data is written in least significant byte order and the
      * input data is expected to be in host order.
      */
-    void WriteHtolsbU16 (uint16_t data);
+    void WriteHtolsbU16(uint16_t data);
     /**
      * \param data data to write in buffer
      *
@@ -196,7 +197,7 @@ public:
      * by four bytes. The data is written in least significant byte order and the
      * input data is expected to be in host order.
      */
-    void WriteHtolsbU32 (uint32_t data);
+    void WriteHtolsbU32(uint32_t data);
     /**
      * \param data data to write in buffer
      *
@@ -204,7 +205,7 @@ public:
      * by eight bytes. The data is written in least significant byte order and the
      * input data is expected to be in host order.
      */
-    void WriteHtolsbU64 (uint64_t data);
+    void WriteHtolsbU64(uint64_t data);
     /**
      * \param data data to write in buffer
      *
@@ -212,7 +213,7 @@ public:
      * by two bytes. The data is written in network order and the
      * input data is expected to be in host order.
      */
-    inline void WriteHtonU16 (uint16_t data);
+    inline void WriteHtonU16(uint16_t data);
     /**
      * \param data data to write in buffer
      *
@@ -220,7 +221,7 @@ public:
      * by four bytes. The data is written in network order and the
      * input data is expected to be in host order.
      */
-    inline void WriteHtonU32 (uint32_t data);
+    inline void WriteHtonU32(uint32_t data);
     /**
      * \param data data to write in buffer
      *
@@ -228,7 +229,7 @@ public:
      * by eight bytes. The data is written in network order and the
      * input data is expected to be in host order.
      */
-    void WriteHtonU64 (uint64_t data);
+    void WriteHtonU64(uint64_t data);
     /**
      * \param buffer a byte buffer to copy in the internal buffer.
      * \param size number of bytes to copy.
@@ -236,7 +237,7 @@ public:
      * Write the data in buffer and advance the iterator position
      * by size bytes.
      */
-    void Write (uint8_t const*buffer, uint32_t size);
+    void Write(uint8_t const *buffer, uint32_t size);
     /**
      * \param start the start of the data to copy
      * \param end the end of the data to copy
@@ -248,14 +249,14 @@ public:
      * we do to avoid overlapping copies. This is enforced
      * in debug builds by asserts.
      */
-    void Write (Iterator start, Iterator end);
+    void Write(Iterator start, Iterator end);
 
     /**
      * \return the byte read in the buffer.
      *
      * Read data, but do not advance the Iterator read.
      */
-    inline uint8_t  PeekU8 (void);
+    inline uint8_t PeekU8(void);
 
     /**
      * \return the byte read in the buffer.
@@ -263,7 +264,7 @@ public:
      * Read data and advance the Iterator by the number of bytes
      * read.
      */
-    inline uint8_t  ReadU8 (void);
+    inline uint8_t ReadU8(void);
     /**
      * \return the two bytes read in the buffer.
      *
@@ -271,7 +272,7 @@ public:
      * read.
      * The data is read in the format written by writeU16.
      */
-    inline uint16_t ReadU16 (void);
+    inline uint16_t ReadU16(void);
     /**
      * \return the four bytes read in the buffer.
      *
@@ -279,7 +280,7 @@ public:
      * read.
      * The data is read in the format written by writeU32.
      */
-    uint32_t ReadU32 (void);
+    uint32_t ReadU32(void);
     /**
      * \return the eight bytes read in the buffer.
      *
@@ -287,7 +288,7 @@ public:
      * read.
      * The data is read in the format written by writeU64.
      */
-    uint64_t ReadU64 (void);
+    uint64_t ReadU64(void);
     /**
      * \return the two bytes read in the buffer.
      *
@@ -295,7 +296,7 @@ public:
      * read.
      * The data is read in network format and returned in host format.
      */
-    inline uint16_t ReadNtohU16 (void);
+    inline uint16_t ReadNtohU16(void);
     /**
      * \return the four bytes read in the buffer.
      *
@@ -303,7 +304,7 @@ public:
      * read.
      * The data is read in network format and returned in host format.
      */
-    inline uint32_t ReadNtohU32 (void);
+    inline uint32_t ReadNtohU32(void);
     /**
      * \return the eight bytes read in the buffer.
      *
@@ -311,7 +312,7 @@ public:
      * read.
      * The data is read in network format and returned in host format.
      */
-    uint64_t ReadNtohU64 (void);
+    uint64_t ReadNtohU64(void);
     /**
      * \return the two bytes read in the buffer.
      *
@@ -319,7 +320,7 @@ public:
      * read.
      * The data is read in least significant byte format and returned in host format.
      */
-    uint16_t ReadLsbtohU16 (void);
+    uint16_t ReadLsbtohU16(void);
     /**
      * \return the four bytes read in the buffer.
      *
@@ -327,7 +328,7 @@ public:
      * read.
      * The data is read in least significant byte format and returned in host format.
      */
-    uint32_t ReadLsbtohU32 (void);
+    uint32_t ReadLsbtohU32(void);
     /**
      * \return the eight bytes read in the buffer.
      *
@@ -335,7 +336,7 @@ public:
      * read.
      * The data is read in least significant byte format and returned in host format.
      */
-    uint64_t ReadLsbtohU64 (void);
+    uint64_t ReadLsbtohU64(void);
     /**
      * \param buffer buffer to copy data into
      * \param size number of bytes to copy
@@ -344,7 +345,7 @@ public:
      * input buffer and advance the Iterator by the number of
      * bytes read.
      */
-    void Read (uint8_t *buffer, uint32_t size);
+    void Read(uint8_t *buffer, uint32_t size);
 
     /**
      * \param start start iterator of the buffer to copy data into
@@ -354,14 +355,14 @@ public:
      * the provided iterator and advance the Iterator by the number of bytes
      * read.
      */
-    inline void Read (Iterator start, uint32_t size);
+    inline void Read(Iterator start, uint32_t size);
 
     /**
      * \brief Calculate the checksum.
      * \param size size of the buffer.
      * \return checksum
      */
-    uint16_t CalculateIpChecksum (uint16_t size);
+    uint16_t CalculateIpChecksum(uint16_t size);
 
     /**
      * \brief Calculate the checksum.
@@ -369,19 +370,19 @@ public:
      * \param initialChecksum initial value
      * \return checksum
      */
-    uint16_t CalculateIpChecksum (uint16_t size, uint32_t initialChecksum);
+    uint16_t CalculateIpChecksum(uint16_t size, uint32_t initialChecksum);
 
     /**
      * \returns the size of the underlying buffer we are iterating
      */
-    uint32_t GetSize (void) const;
+    uint32_t GetSize(void) const;
 
     /**
      * \returns the size left to read of the underlying buffer we are iterating
      */
-    uint32_t GetRemainingSize (void) const;
+    uint32_t GetRemainingSize(void) const;
 
-private:
+  private:
     /// Friend class
     friend class Buffer;
     /**
@@ -389,20 +390,20 @@ private:
      *
      * \param buffer the buffer this iterator refers to
      */
-    inline Iterator (Buffer const*buffer);
+    inline Iterator(Buffer const *buffer);
     /**
      * Constructor - initializes the iterator to point to the buffer end
      *
      * \param buffer the buffer this iterator refers to
      * \param dummy not used param
      */
-    inline Iterator (Buffer const*buffer, bool dummy);
+    inline Iterator(Buffer const *buffer, bool dummy);
     /**
      * Initializes the iterator values
      *
      * \param buffer the buffer this iterator refers to
      */
-    inline void Construct (const Buffer *buffer);
+    inline void Construct(const Buffer *buffer);
     /**
      * Checks that the [start, end) is not in the "virtual zero area".
      *
@@ -410,14 +411,14 @@ private:
      * \param end end buffer position
      * \returns true if [start, end) is not in the "virtual zero area".
      */
-    bool CheckNoZero (uint32_t start, uint32_t end) const;
+    bool CheckNoZero(uint32_t start, uint32_t end) const;
     /**
      * Checks that the buffer position is not in the "virtual zero area".
      *
      * \param i buffer position
      * \returns true if not in the "virtual zero area".
      */
-    bool Check (uint32_t i) const;
+    bool Check(uint32_t i) const;
     /**
      * \return the two bytes read in the buffer.
      *
@@ -427,7 +428,7 @@ private:
      *
      * \warning this is the slow version, please use ReadNtohU16 (void)
      */
-    uint16_t SlowReadNtohU16 (void);
+    uint16_t SlowReadNtohU16(void);
     /**
      * \return the four bytes read in the buffer.
      *
@@ -437,12 +438,12 @@ private:
      *
      * \warning this is the slow version, please use ReadNtohU32 (void)
      */
-    uint32_t SlowReadNtohU32 (void);
+    uint32_t SlowReadNtohU32(void);
     /**
      * \brief Returns an appropriate message indicating a read error
      * \returns the error message
      */
-    std::string GetReadErrorMessage (void) const;
+    std::string GetReadErrorMessage(void) const;
     /**
      * \brief Returns an appropriate message indicating a write error
      *
@@ -450,7 +451,7 @@ private:
      *
      * \returns the error message
      */
-    std::string GetWriteErrorMessage (void) const;
+    std::string GetWriteErrorMessage(void) const;
 
     /**
      * offset in virtual bytes from the start of the data buffer to the
@@ -487,7 +488,7 @@ private:
   /**
    * \return the number of bytes stored in this buffer.
    */
-  inline uint32_t GetSize (void) const;
+  inline uint32_t GetSize(void) const;
 
   /**
    * \return a pointer to the start of the internal 
@@ -498,7 +499,7 @@ private:
    * Please, try to never ever use this method. It is really
    * evil and is present only for a few specific uses.
    */
-  uint8_t const*PeekData (void) const;
+  uint8_t const *PeekData(void) const;
 
   /**
    * \param start size to reserve
@@ -509,7 +510,7 @@ private:
    * Any call to this method invalidates any Iterator
    * pointing to this Buffer.
    */
-  void AddAtStart (uint32_t start);
+  void AddAtStart(uint32_t start);
   /**
    * \param end size to reserve
    *
@@ -519,7 +520,7 @@ private:
    * Any call to this method invalidates any Iterator
    * pointing to this Buffer.
    */
-  void AddAtEnd (uint32_t end);
+  void AddAtEnd(uint32_t end);
 
   /**
    * \param o the buffer to append to the end of this buffer.
@@ -528,7 +529,7 @@ private:
    * Any call to this method invalidates any Iterator
    * pointing to this Buffer.
    */
-  void AddAtEnd (const Buffer &o);
+  void AddAtEnd(const Buffer &o);
   /**
    * \param start size to remove
    *
@@ -536,7 +537,7 @@ private:
    * Any call to this method invalidates any Iterator
    * pointing to this Buffer.
    */
-  void RemoveAtStart (uint32_t start);
+  void RemoveAtStart(uint32_t start);
   /**
    * \param end size to remove
    *
@@ -544,7 +545,7 @@ private:
    * Any call to this method invalidates any Iterator
    * pointing to this Buffer.
    */
-  void RemoveAtEnd (uint32_t end);
+  void RemoveAtEnd(uint32_t end);
 
   /**
    * \param start offset from start of packet
@@ -553,24 +554,24 @@ private:
    * \return a fragment of size length starting at offset
    * start.
    */
-  Buffer CreateFragment (uint32_t start, uint32_t length) const;
+  Buffer CreateFragment(uint32_t start, uint32_t length) const;
 
   /**
    * \return an Iterator which points to the
    * start of this Buffer.
    */
-  inline Buffer::Iterator Begin (void) const;
+  inline Buffer::Iterator Begin(void) const;
   /**
    * \return an Iterator which points to the
    * end of this Buffer.
    */
-  inline Buffer::Iterator End (void) const;
+  inline Buffer::Iterator End(void) const;
 
   /**
    * \brief Return the number of bytes required for serialization.
    * \return the number of bytes.
    */
-  uint32_t GetSerializedSize (void) const;
+  uint32_t GetSerializedSize(void) const;
 
   /**
    * \return zero if buffer not large enough
@@ -582,7 +583,7 @@ private:
    * data is not copied entirely. Only the length of 
    * zero byte data is serialized.
    */
-  uint32_t Serialize (uint8_t* buffer, uint32_t maxSize) const;
+  uint32_t Serialize(uint8_t *buffer, uint32_t maxSize) const;
 
   /**
    * \return zero if a complete buffer is not deserialized
@@ -592,7 +593,7 @@ private:
    * The raw character buffer is deserialized and all the 
    * data is placed into this buffer.
    */
-  uint32_t Deserialize (const uint8_t* buffer, uint32_t size);
+  uint32_t Deserialize(const uint8_t *buffer, uint32_t size);
 
   /** 
    * Copy the specified amount of data from the buffer to the given output stream.
@@ -600,7 +601,7 @@ private:
    * @param os the output stream
    * @param size the maximum amount of bytes to copy. If zero, nothing is copied.
    */
-  void CopyData (std::ostream *os, uint32_t size) const;
+  void CopyData(std::ostream *os, uint32_t size) const;
 
   /**
    * Copy the specified amount of data from the buffer to the given buffer.
@@ -609,20 +610,20 @@ private:
    * @param size the maximum amount of bytes to copy. If zero, nothing is copied.
    * @returns the amount of bytes copied
    */
-  uint32_t CopyData (uint8_t *buffer, uint32_t size) const;
+  uint32_t CopyData(uint8_t *buffer, uint32_t size) const;
 
   /**
    * \brief Copy constructor
    * \param o the buffer to copy
    */
-  inline Buffer (Buffer const &o);
+  inline Buffer(Buffer const &o);
   /**
    * \brief Assignment operator
    * \param o the buffer to copy
    * \return a reference to the buffer
    */
-  Buffer &operator = (Buffer const &o);
-  Buffer ();
+  Buffer &operator=(Buffer const &o);
+  Buffer();
   /**
    * \brief Constructor
    *
@@ -630,7 +631,7 @@ private:
    *
    * \param dataSize the buffer size
    */
-  Buffer (uint32_t dataSize);
+  Buffer(uint32_t dataSize);
   /**
    * \brief Constructor
    *
@@ -640,8 +641,9 @@ private:
    * \param dataSize the buffer size.
    * \param initialize initialize the buffer with zeroes.
    */
-  Buffer (uint32_t dataSize, bool initialize);
-  ~Buffer ();
+  Buffer(uint32_t dataSize, bool initialize);
+  ~Buffer();
+
 private:
   /**
    * This data structure is variable-sized through its last member whose size
@@ -691,12 +693,12 @@ private:
    *
    * \returns a copy of the buffer
    */
-  Buffer CreateFullCopy (void) const;
+  Buffer CreateFullCopy(void) const;
 
   /**
    * \brief Transform a "Virtual byte buffer" into a "Real byte buffer"
    */
-  void TransformIntoRealBuffer (void) const;
+  void TransformIntoRealBuffer(void) const;
   /**
    * \brief Checks the internal buffer structures consistency
    *
@@ -704,50 +706,50 @@ private:
    *
    * \returns true if the buffer status is consistent.
    */
-  bool CheckInternalState (void) const;
+  bool CheckInternalState(void) const;
 
   /**
    * \brief Initializes the buffer with a number of zeroes.
    *
    * \param zeroSize the zeroes size
    */
-  void Initialize (uint32_t zeroSize);
+  void Initialize(uint32_t zeroSize);
 
   /**
    * \brief Get the buffer real size.
    * \warning The real size is the actual memory used by the buffer.
    * \returns the memory used by the buffer.
    */
-  uint32_t GetInternalSize (void) const;
+  uint32_t GetInternalSize(void) const;
 
   /**
    * \brief Get the buffer end position.
    * \returns the buffer end index.
    */
-  uint32_t GetInternalEnd (void) const;
+  uint32_t GetInternalEnd(void) const;
 
   /**
    * \brief Recycle the buffer memory
    * \param data the buffer data storage
    */
-  static void Recycle (struct Buffer::Data *data);
+  static void Recycle(struct Buffer::Data *data);
   /**
    * \brief Create a buffer data storage
    * \param size the storage size to create
    * \returns a pointer to the created buffer storage
    */
-  static struct Buffer::Data *Create (uint32_t size);
+  static struct Buffer::Data *Create(uint32_t size);
   /**
    * \brief Allocate a buffer data storage
    * \param reqSize the storage size to create
    * \returns a pointer to the allocated buffer storage
    */
-  static struct Buffer::Data *Allocate (uint32_t reqSize);
+  static struct Buffer::Data *Allocate(uint32_t reqSize);
   /**
    * \brief Deallocate the buffer memory
    * \param data the buffer data storage
    */
-  static void Deallocate (struct Buffer::Data *data);
+  static void Deallocate(struct Buffer::Data *data);
 
   struct Data *m_data; //!< the buffer data storage
 
@@ -792,14 +794,14 @@ private:
 
 #ifdef BUFFER_FREE_LIST
   /// Container for buffer data
-  typedef std::vector<struct Buffer::Data*> FreeList;
+  typedef std::vector<struct Buffer::Data *> FreeList;
   /// Local static destructor structure
-  struct LocalStaticDestructor 
+  struct LocalStaticDestructor
   {
-    ~LocalStaticDestructor ();
+    ~LocalStaticDestructor();
   };
-  static uint32_t g_maxSize; //!< Max observed data size
-  static FreeList *g_freeList; //!< Buffer data container
+  static uint32_t g_maxSize;                                   //!< Max observed data size
+  static FreeList *g_freeList;                                 //!< Buffer data container
   static struct LocalStaticDestructor g_localStaticDestructor; //!< Local static destructor
 #endif
 };
@@ -809,30 +811,30 @@ private:
 #include "ns3/assert.h"
 #include <cstring>
 
-namespace ns3 {
+namespace ns3
+{
 
-Buffer::Iterator::Iterator ()
-  : m_zeroStart (0),
-    m_zeroEnd (0),
-    m_dataStart (0),
-    m_dataEnd (0),
-    m_current (0),
-    m_data (0)
+Buffer::Iterator::Iterator()
+    : m_zeroStart(0),
+      m_zeroEnd(0),
+      m_dataStart(0),
+      m_dataEnd(0),
+      m_current(0),
+      m_data(0)
 {
 }
-Buffer::Iterator::Iterator (Buffer const*buffer)
+Buffer::Iterator::Iterator(Buffer const *buffer)
 {
-  Construct (buffer);
+  Construct(buffer);
   m_current = m_dataStart;
 }
-Buffer::Iterator::Iterator (Buffer const*buffer, bool dummy)
+Buffer::Iterator::Iterator(Buffer const *buffer, bool dummy)
 {
-  Construct (buffer);
+  Construct(buffer);
   m_current = m_dataEnd;
 }
 
-void
-Buffer::Iterator::Construct (const Buffer *buffer)
+void Buffer::Iterator::Construct(const Buffer *buffer)
 {
   m_zeroStart = buffer->m_zeroAreaStart;
   m_zeroEnd = buffer->m_zeroAreaEnd;
@@ -841,123 +843,115 @@ Buffer::Iterator::Construct (const Buffer *buffer)
   m_data = buffer->m_data->m_data;
 }
 
-void 
-Buffer::Iterator::Next (void)
+void Buffer::Iterator::Next(void)
 {
-  NS_ASSERT (m_current + 1 <= m_dataEnd);
+  NS_ASSERT(m_current + 1 <= m_dataEnd);
   m_current++;
 }
-void 
-Buffer::Iterator::Prev (void)
+void Buffer::Iterator::Prev(void)
 {
-  NS_ASSERT (m_current >= 1);
+  NS_ASSERT(m_current >= 1);
   m_current--;
 }
-void 
-Buffer::Iterator::Next (uint32_t delta)
+void Buffer::Iterator::Next(uint32_t delta)
 {
-  NS_ASSERT (m_current + delta <= m_dataEnd);
+  NS_ASSERT(m_current + delta <= m_dataEnd);
   m_current += delta;
 }
-void 
-Buffer::Iterator::Prev (uint32_t delta)
+void Buffer::Iterator::Prev(uint32_t delta)
 {
-  NS_ASSERT (m_current >= delta);
+  NS_ASSERT(m_current >= delta);
   m_current -= delta;
 }
-void
-Buffer::Iterator::WriteU8 (uint8_t data)
+void Buffer::Iterator::WriteU8(uint8_t data)
 {
-  NS_ASSERT_MSG (Check (m_current),
-                 GetWriteErrorMessage ());
+  NS_ASSERT_MSG(Check(m_current),
+                GetWriteErrorMessage());
 
   if (m_current < m_zeroStart)
-    {
-      m_data[m_current] = data;
-      m_current++;
-    }
+  {
+    m_data[m_current] = data;
+    m_current++;
+  }
   else
-    {
-      m_data[m_current - (m_zeroEnd-m_zeroStart)] = data;
-      m_current++;
-    }
+  {
+    m_data[m_current - (m_zeroEnd - m_zeroStart)] = data;
+    m_current++;
+  }
 }
 
-void 
-Buffer::Iterator::WriteU8 (uint8_t  data, uint32_t len)
+void Buffer::Iterator::WriteU8(uint8_t data, uint32_t len)
 {
-  NS_ASSERT_MSG (CheckNoZero (m_current, m_current + len),
-                 GetWriteErrorMessage ());
+  NS_ASSERT_MSG(CheckNoZero(m_current, m_current + len),
+                GetWriteErrorMessage());
   if (m_current <= m_zeroStart)
-    {
-      std::memset (&(m_data[m_current]), data, len);
-      m_current += len;
-    }
+  {
+    std::memset(&(m_data[m_current]), data, len);
+    m_current += len;
+  }
   else
-    {
-      uint8_t *buffer = &m_data[m_current - (m_zeroEnd-m_zeroStart)];
-      std::memset (buffer, data, len);
-      m_current += len;
-    }
+  {
+    uint8_t *buffer = &m_data[m_current - (m_zeroEnd - m_zeroStart)];
+    std::memset(buffer, data, len);
+    m_current += len;
+  }
 }
 
-void 
-Buffer::Iterator::WriteHtonU16 (uint16_t data)
+void Buffer::Iterator::WriteHtonU16(uint16_t data)
 {
-  NS_ASSERT_MSG (CheckNoZero (m_current, m_current + 2),
-                 GetWriteErrorMessage ());
+  NS_ASSERT_MSG(CheckNoZero(m_current, m_current + 2),
+                GetWriteErrorMessage());
   uint8_t *buffer;
   if (m_current + 2 <= m_zeroStart)
-    {
-      buffer = &m_data[m_current];
-    }
+  {
+    buffer = &m_data[m_current];
+  }
   else
-    {
-      buffer = &m_data[m_current - (m_zeroEnd - m_zeroStart)];
-    }
-  buffer[0] = (data >> 8)& 0xff;
-  buffer[1] = (data >> 0)& 0xff;
-  m_current+= 2;
+  {
+    buffer = &m_data[m_current - (m_zeroEnd - m_zeroStart)];
+  }
+  buffer[0] = (data >> 8) & 0xff;
+  buffer[1] = (data >> 0) & 0xff;
+  m_current += 2;
 }
 
-void 
-Buffer::Iterator::WriteHtonU32 (uint32_t data)
+void Buffer::Iterator::WriteHtonU32(uint32_t data)
 {
-  NS_ASSERT_MSG (CheckNoZero (m_current, m_current + 4),
-                 GetWriteErrorMessage ());
+  NS_ASSERT_MSG(CheckNoZero(m_current, m_current + 4),
+                GetWriteErrorMessage());
 
   uint8_t *buffer;
   if (m_current + 4 <= m_zeroStart)
-    {
-      buffer = &m_data[m_current];
-    }
+  {
+    buffer = &m_data[m_current];
+  }
   else
-    {
-      buffer = &m_data[m_current - (m_zeroEnd - m_zeroStart)];
-    }
-  buffer[0] = (data >> 24)& 0xff;
-  buffer[1] = (data >> 16)& 0xff;
-  buffer[2] = (data >> 8)& 0xff;
-  buffer[3] = (data >> 0)& 0xff;
-  m_current+= 4;
+  {
+    buffer = &m_data[m_current - (m_zeroEnd - m_zeroStart)];
+  }
+  buffer[0] = (data >> 24) & 0xff;
+  buffer[1] = (data >> 16) & 0xff;
+  buffer[2] = (data >> 8) & 0xff;
+  buffer[3] = (data >> 0) & 0xff;
+  m_current += 4;
 }
 
-uint16_t 
-Buffer::Iterator::ReadNtohU16 (void)
+uint16_t
+Buffer::Iterator::ReadNtohU16(void)
 {
   uint8_t *buffer;
   if (m_current + 2 <= m_zeroStart)
-    {
-      buffer = &m_data[m_current];
-    }
+  {
+    buffer = &m_data[m_current];
+  }
   else if (m_current >= m_zeroEnd)
-    {
-      buffer = &m_data[m_current - (m_zeroEnd - m_zeroStart)];
-    }
+  {
+    buffer = &m_data[m_current - (m_zeroEnd - m_zeroStart)];
+  }
   else
-    {
-      return SlowReadNtohU16 ();
-    }
+  {
+    return SlowReadNtohU16();
+  }
   uint16_t retval = 0;
   retval |= buffer[0];
   retval <<= 8;
@@ -966,22 +960,22 @@ Buffer::Iterator::ReadNtohU16 (void)
   return retval;
 }
 
-uint32_t 
-Buffer::Iterator::ReadNtohU32 (void)
+uint32_t
+Buffer::Iterator::ReadNtohU32(void)
 {
   uint8_t *buffer;
   if (m_current + 4 <= m_zeroStart)
-    {
-      buffer = &m_data[m_current];
-    }
+  {
+    buffer = &m_data[m_current];
+  }
   else if (m_current >= m_zeroEnd)
-    {
-      buffer = &m_data[m_current - (m_zeroEnd - m_zeroStart)];
-    }
+  {
+    buffer = &m_data[m_current - (m_zeroEnd - m_zeroStart)];
+  }
   else
-    {
-      return SlowReadNtohU32 ();
-    }
+  {
+    return SlowReadNtohU32();
+  }
   uint32_t retval = 0;
   retval |= buffer[0];
   retval <<= 8;
@@ -995,41 +989,41 @@ Buffer::Iterator::ReadNtohU32 (void)
 }
 
 uint8_t
-Buffer::Iterator::PeekU8 (void)
+Buffer::Iterator::PeekU8(void)
 {
-  NS_ASSERT_MSG (m_current >= m_dataStart &&
-                 m_current < m_dataEnd,
-                 GetReadErrorMessage ());
+  NS_ASSERT_MSG(m_current >= m_dataStart &&
+                    m_current < m_dataEnd,
+                GetReadErrorMessage());
 
   if (m_current < m_zeroStart)
-    {
-      uint8_t data = m_data[m_current];
-      return data;
-    }
+  {
+    uint8_t data = m_data[m_current];
+    return data;
+  }
   else if (m_current < m_zeroEnd)
-    {
-      return 0;
-    }
+  {
+    return 0;
+  }
   else
-    {
-      uint8_t data = m_data[m_current - (m_zeroEnd-m_zeroStart)];
-      return data;
-    }
+  {
+    uint8_t data = m_data[m_current - (m_zeroEnd - m_zeroStart)];
+    return data;
+  }
 }
 
 uint8_t
-Buffer::Iterator::ReadU8 (void)
+Buffer::Iterator::ReadU8(void)
 {
-  uint8_t ret = PeekU8 ();
-  m_current ++;
+  uint8_t ret = PeekU8();
+  m_current++;
   return ret;
 }
 
-uint16_t 
-Buffer::Iterator::ReadU16 (void)
+uint16_t
+Buffer::Iterator::ReadU16(void)
 {
-  uint8_t byte0 = ReadU8 ();
-  uint8_t byte1 = ReadU8 ();
+  uint8_t byte0 = ReadU8();
+  uint8_t byte1 = ReadU8();
   uint16_t data = byte1;
   data <<= 8;
   data |= byte0;
@@ -1037,48 +1031,44 @@ Buffer::Iterator::ReadU16 (void)
   return data;
 }
 
-void
-Buffer::Iterator::Read (Buffer::Iterator start, uint32_t size)
+void Buffer::Iterator::Read(Buffer::Iterator start, uint32_t size)
 {
   Buffer::Iterator end = *this;
-  end.Next (size);
-  
-  start.Write (*this, end);
+  end.Next(size);
+
+  start.Write(*this, end);
 }
 
-
-Buffer::Buffer (Buffer const&o)
-  : m_data (o.m_data),
-    m_maxZeroAreaStart (o.m_zeroAreaStart),
-    m_zeroAreaStart (o.m_zeroAreaStart),
-    m_zeroAreaEnd (o.m_zeroAreaEnd),
-    m_start (o.m_start),
-    m_end (o.m_end)
+Buffer::Buffer(Buffer const &o)
+    : m_data(o.m_data),
+      m_maxZeroAreaStart(o.m_zeroAreaStart),
+      m_zeroAreaStart(o.m_zeroAreaStart),
+      m_zeroAreaEnd(o.m_zeroAreaEnd),
+      m_start(o.m_start),
+      m_end(o.m_end)
 {
   m_data->m_count++;
-  NS_ASSERT (CheckInternalState ());
+  NS_ASSERT(CheckInternalState());
 }
 
-uint32_t 
-Buffer::GetSize (void) const
+uint32_t
+Buffer::GetSize(void) const
 {
   return m_end - m_start;
 }
 
-Buffer::Iterator 
-Buffer::Begin (void) const
+Buffer::Iterator
+Buffer::Begin(void) const
 {
-  NS_ASSERT (CheckInternalState ());
-  return Buffer::Iterator (this);
+  NS_ASSERT(CheckInternalState());
+  return Buffer::Iterator(this);
 }
-Buffer::Iterator 
-Buffer::End (void) const
+Buffer::Iterator
+Buffer::End(void) const
 {
-  NS_ASSERT (CheckInternalState ());
-  return Buffer::Iterator (this, false);
+  NS_ASSERT(CheckInternalState());
+  return Buffer::Iterator(this, false);
 }
-
-
 
 } // namespace ns3
 

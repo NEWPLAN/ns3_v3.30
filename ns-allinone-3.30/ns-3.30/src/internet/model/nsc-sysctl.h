@@ -23,7 +23,8 @@
 
 struct INetStack;
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup nsctcp
@@ -39,13 +40,13 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
-  virtual TypeId GetInstanceTypeId (void) const;
+  static TypeId GetTypeId(void);
+  virtual TypeId GetInstanceTypeId(void) const;
   /**
    * \brief Set the underlying stack
    * \param stack the stack
    */
-  void SetStack (INetStack *stack) { m_stack = stack; }
+  void SetStack(INetStack *stack) { m_stack = stack; }
 
 private:
   /**
@@ -58,13 +59,13 @@ private:
    * \param name the attribute name
    * \param value the attribute value
    */
-  void Set (std::string name, std::string value);
+  void Set(std::string name, std::string value);
   /**
    * \brief Get an attribute
    * \param name the attribute name
    * \returns the attribute value
    */
-  std::string Get (std::string name) const;
+  std::string Get(std::string name) const;
   INetStack *m_stack; //!< the underlying stack
 };
 } // namespace ns3

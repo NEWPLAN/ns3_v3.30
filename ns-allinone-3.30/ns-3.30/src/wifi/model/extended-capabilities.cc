@@ -20,123 +20,121 @@
 
 #include "extended-capabilities.h"
 
-namespace ns3 {
+namespace ns3
+{
 
-ExtendedCapabilities::ExtendedCapabilities ()
-  : m_20_40_bssCoexistenceManagementSupport (0),
-    m_extendedChannelSwitching (0),
-    m_psmpCapability (0),
-    m_spsmpSupport (0),
-    m_event (0),
-    m_diagnostics (0),
-    m_multicastDiagnostics (0),
-    m_locationTracking (0),
-    m_fms (0),
-    m_proxyArpService (0),
-    m_collocatedInterferenceReporting (0),
-    m_civicLocation (0),
-    m_geospatialLocation (0),
-    m_tfs (0),
-    m_wnmSleepMode (0),
-    m_timBroadcast (0),
-    m_bssTransition (0),
-    m_qosTrafficCapability (0),
-    m_acStationCount (0),
-    m_multipleBssid (0),
-    m_timingMeasurement (0),
-    m_channelUsage (0),
-    m_ssidList (0),
-    m_dms (0),
-    m_utcTsfOffset (0),
-    m_tpuBufferStaSupport (0),
-    m_tdlsPeerPsmSupport (0),
-    m_tdlsChannelSwitching (0),
-    m_interworking (0),
-    m_qosMap (0),
-    m_ebr (0),
-    m_sspnInterface (0),
-    m_msgcfCapability (0),
-    m_tdlsSupport (0),
-    m_tdlsProhibited (0),
-    m_tdlsChannelSwitchingProhibited (0),
-    m_rejectUnadmittedFrame (0),
-    m_serviceIntervalGranularity (0),
-    m_identifierLocation (0),
-    m_uapsdCoexistence (0),
-    m_wnmNotification (0),
-    m_qabCapability (0),
-    m_utf8Ssid (0),
-    m_qmfActivated (0),
-    m_qmfReconfigurationActivated (0),
-    m_robustAvStreaming (0),
-    m_advancedGcr (0),
-    m_meshGcr (0),
-    m_scs (0),
-    m_qloadReport (0),
-    m_alternateEdca (0),
-    m_unprotectedTxopNegotiation (0),
-    m_protectedTxopNegotiation (0),
-    m_protectedQloadReport (0),
-    m_tdlsWiderBandwidth (0),
-    m_operatingModeNotification (0),
-    m_maxNumberOfMsdusInAmsdu (0),
-    m_htSupported (0),
-    m_vhtSupported (0)
+ExtendedCapabilities::ExtendedCapabilities()
+    : m_20_40_bssCoexistenceManagementSupport(0),
+      m_extendedChannelSwitching(0),
+      m_psmpCapability(0),
+      m_spsmpSupport(0),
+      m_event(0),
+      m_diagnostics(0),
+      m_multicastDiagnostics(0),
+      m_locationTracking(0),
+      m_fms(0),
+      m_proxyArpService(0),
+      m_collocatedInterferenceReporting(0),
+      m_civicLocation(0),
+      m_geospatialLocation(0),
+      m_tfs(0),
+      m_wnmSleepMode(0),
+      m_timBroadcast(0),
+      m_bssTransition(0),
+      m_qosTrafficCapability(0),
+      m_acStationCount(0),
+      m_multipleBssid(0),
+      m_timingMeasurement(0),
+      m_channelUsage(0),
+      m_ssidList(0),
+      m_dms(0),
+      m_utcTsfOffset(0),
+      m_tpuBufferStaSupport(0),
+      m_tdlsPeerPsmSupport(0),
+      m_tdlsChannelSwitching(0),
+      m_interworking(0),
+      m_qosMap(0),
+      m_ebr(0),
+      m_sspnInterface(0),
+      m_msgcfCapability(0),
+      m_tdlsSupport(0),
+      m_tdlsProhibited(0),
+      m_tdlsChannelSwitchingProhibited(0),
+      m_rejectUnadmittedFrame(0),
+      m_serviceIntervalGranularity(0),
+      m_identifierLocation(0),
+      m_uapsdCoexistence(0),
+      m_wnmNotification(0),
+      m_qabCapability(0),
+      m_utf8Ssid(0),
+      m_qmfActivated(0),
+      m_qmfReconfigurationActivated(0),
+      m_robustAvStreaming(0),
+      m_advancedGcr(0),
+      m_meshGcr(0),
+      m_scs(0),
+      m_qloadReport(0),
+      m_alternateEdca(0),
+      m_unprotectedTxopNegotiation(0),
+      m_protectedTxopNegotiation(0),
+      m_protectedQloadReport(0),
+      m_tdlsWiderBandwidth(0),
+      m_operatingModeNotification(0),
+      m_maxNumberOfMsdusInAmsdu(0),
+      m_htSupported(0),
+      m_vhtSupported(0)
 {
 }
 
 WifiInformationElementId
-ExtendedCapabilities::ElementId () const
+ExtendedCapabilities::ElementId() const
 {
   return IE_EXTENDED_CAPABILITIES;
 }
 
-void
-ExtendedCapabilities::SetHtSupported (uint8_t htSupported)
+void ExtendedCapabilities::SetHtSupported(uint8_t htSupported)
 {
   m_htSupported = htSupported;
 }
 
-void
-ExtendedCapabilities::SetVhtSupported (uint8_t vhtSupported)
+void ExtendedCapabilities::SetVhtSupported(uint8_t vhtSupported)
 {
   m_vhtSupported = vhtSupported;
 }
 
 uint8_t
-ExtendedCapabilities::GetInformationFieldSize () const
+ExtendedCapabilities::GetInformationFieldSize() const
 {
   //we should not be here if it is not supported
-  NS_ASSERT (m_htSupported > 0 || m_vhtSupported > 0);
+  NS_ASSERT(m_htSupported > 0 || m_vhtSupported > 0);
   if (!m_vhtSupported)
-    {
-      return 1;
-    }
+  {
+    return 1;
+  }
   return 8;
 }
 
 Buffer::Iterator
-ExtendedCapabilities::Serialize (Buffer::Iterator i) const
+ExtendedCapabilities::Serialize(Buffer::Iterator i) const
 {
   if (m_htSupported < 1 && m_vhtSupported < 1)
-    {
-      return i;
-    }
-  return WifiInformationElement::Serialize (i);
+  {
+    return i;
+  }
+  return WifiInformationElement::Serialize(i);
 }
 
 uint16_t
-ExtendedCapabilities::GetSerializedSize () const
+ExtendedCapabilities::GetSerializedSize() const
 {
   if (m_htSupported < 1 && m_vhtSupported < 1)
-    {
-      return 0;
-    }
-  return WifiInformationElement::GetSerializedSize ();
+  {
+    return 0;
+  }
+  return WifiInformationElement::GetSerializedSize();
 }
 
-void
-ExtendedCapabilities::SetExtendedCapabilitiesByte1 (uint8_t ctrl)
+void ExtendedCapabilities::SetExtendedCapabilitiesByte1(uint8_t ctrl)
 {
   m_20_40_bssCoexistenceManagementSupport = ctrl & 0x01;
   m_extendedChannelSwitching = (ctrl >> 2) & 0x01;
@@ -146,7 +144,7 @@ ExtendedCapabilities::SetExtendedCapabilitiesByte1 (uint8_t ctrl)
 }
 
 uint8_t
-ExtendedCapabilities::GetExtendedCapabilitiesByte1 (void) const
+ExtendedCapabilities::GetExtendedCapabilitiesByte1(void) const
 {
   uint8_t val = 0;
   val |= m_20_40_bssCoexistenceManagementSupport & 0x01;
@@ -157,8 +155,7 @@ ExtendedCapabilities::GetExtendedCapabilitiesByte1 (void) const
   return val;
 }
 
-void
-ExtendedCapabilities::SetExtendedCapabilitiesByte2 (uint8_t ctrl)
+void ExtendedCapabilities::SetExtendedCapabilitiesByte2(uint8_t ctrl)
 {
   m_diagnostics = ctrl & 0x01;
   m_multicastDiagnostics = (ctrl >> 1) & 0x01;
@@ -171,7 +168,7 @@ ExtendedCapabilities::SetExtendedCapabilitiesByte2 (uint8_t ctrl)
 }
 
 uint8_t
-ExtendedCapabilities::GetExtendedCapabilitiesByte2 (void) const
+ExtendedCapabilities::GetExtendedCapabilitiesByte2(void) const
 {
   uint8_t val = 0;
   val |= m_diagnostics & 0x01;
@@ -185,8 +182,7 @@ ExtendedCapabilities::GetExtendedCapabilitiesByte2 (void) const
   return val;
 }
 
-void
-ExtendedCapabilities::SetExtendedCapabilitiesByte3 (uint8_t ctrl)
+void ExtendedCapabilities::SetExtendedCapabilitiesByte3(uint8_t ctrl)
 {
   m_tfs = ctrl & 0x01;
   m_wnmSleepMode = (ctrl >> 1) & 0x01;
@@ -199,7 +195,7 @@ ExtendedCapabilities::SetExtendedCapabilitiesByte3 (uint8_t ctrl)
 }
 
 uint8_t
-ExtendedCapabilities::GetExtendedCapabilitiesByte3 (void) const
+ExtendedCapabilities::GetExtendedCapabilitiesByte3(void) const
 {
   uint8_t val = 0;
   val |= m_tfs & 0x01;
@@ -213,8 +209,7 @@ ExtendedCapabilities::GetExtendedCapabilitiesByte3 (void) const
   return val;
 }
 
-void
-ExtendedCapabilities::SetExtendedCapabilitiesByte4 (uint8_t ctrl)
+void ExtendedCapabilities::SetExtendedCapabilitiesByte4(uint8_t ctrl)
 {
   m_channelUsage = ctrl & 0x01;
   m_ssidList = (ctrl >> 1) & 0x01;
@@ -227,7 +222,7 @@ ExtendedCapabilities::SetExtendedCapabilitiesByte4 (uint8_t ctrl)
 }
 
 uint8_t
-ExtendedCapabilities::GetExtendedCapabilitiesByte4 (void) const
+ExtendedCapabilities::GetExtendedCapabilitiesByte4(void) const
 {
   uint8_t val = 0;
   val |= m_channelUsage & 0x01;
@@ -241,8 +236,7 @@ ExtendedCapabilities::GetExtendedCapabilitiesByte4 (void) const
   return val;
 }
 
-void
-ExtendedCapabilities::SetExtendedCapabilitiesByte5 (uint8_t ctrl)
+void ExtendedCapabilities::SetExtendedCapabilitiesByte5(uint8_t ctrl)
 {
   m_qosMap = ctrl & 0x01;
   m_ebr = (ctrl >> 1) & 0x01;
@@ -254,7 +248,7 @@ ExtendedCapabilities::SetExtendedCapabilitiesByte5 (uint8_t ctrl)
 }
 
 uint8_t
-ExtendedCapabilities::GetExtendedCapabilitiesByte5 (void) const
+ExtendedCapabilities::GetExtendedCapabilitiesByte5(void) const
 {
   uint8_t val = 0;
   val |= m_qosMap & 0x01;
@@ -267,8 +261,7 @@ ExtendedCapabilities::GetExtendedCapabilitiesByte5 (void) const
   return val;
 }
 
-void
-ExtendedCapabilities::SetExtendedCapabilitiesByte6 (uint8_t ctrl)
+void ExtendedCapabilities::SetExtendedCapabilitiesByte6(uint8_t ctrl)
 {
   m_rejectUnadmittedFrame = ctrl & 0x01;
   m_serviceIntervalGranularity = (ctrl >> 1) & 0x07;
@@ -279,7 +272,7 @@ ExtendedCapabilities::SetExtendedCapabilitiesByte6 (uint8_t ctrl)
 }
 
 uint8_t
-ExtendedCapabilities::GetExtendedCapabilitiesByte6 (void) const
+ExtendedCapabilities::GetExtendedCapabilitiesByte6(void) const
 {
   uint8_t val = 0;
   val |= m_rejectUnadmittedFrame & 0x01;
@@ -291,8 +284,7 @@ ExtendedCapabilities::GetExtendedCapabilitiesByte6 (void) const
   return val;
 }
 
-void
-ExtendedCapabilities::SetExtendedCapabilitiesByte7 (uint8_t ctrl)
+void ExtendedCapabilities::SetExtendedCapabilitiesByte7(uint8_t ctrl)
 {
   m_utf8Ssid = ctrl & 0x01;
   m_qmfActivated = (ctrl >> 1) & 0x01;
@@ -305,7 +297,7 @@ ExtendedCapabilities::SetExtendedCapabilitiesByte7 (uint8_t ctrl)
 }
 
 uint8_t
-ExtendedCapabilities::GetExtendedCapabilitiesByte7 (void) const
+ExtendedCapabilities::GetExtendedCapabilitiesByte7(void) const
 {
   uint8_t val = 0;
   val |= m_utf8Ssid & 0x01;
@@ -319,8 +311,7 @@ ExtendedCapabilities::GetExtendedCapabilitiesByte7 (void) const
   return val;
 }
 
-void
-ExtendedCapabilities::SetExtendedCapabilitiesByte8 (uint8_t ctrl)
+void ExtendedCapabilities::SetExtendedCapabilitiesByte8(uint8_t ctrl)
 {
   m_alternateEdca = ctrl & 0x01;
   m_unprotectedTxopNegotiation = (ctrl >> 1) & 0x01;
@@ -332,7 +323,7 @@ ExtendedCapabilities::SetExtendedCapabilitiesByte8 (uint8_t ctrl)
 }
 
 uint8_t
-ExtendedCapabilities::GetExtendedCapabilitiesByte8 (void) const
+ExtendedCapabilities::GetExtendedCapabilitiesByte8(void) const
 {
   uint8_t val = 0;
   val |= m_alternateEdca & 0x01;
@@ -345,51 +336,50 @@ ExtendedCapabilities::GetExtendedCapabilitiesByte8 (void) const
   return val;
 }
 
-void
-ExtendedCapabilities::SerializeInformationField (Buffer::Iterator start) const
+void ExtendedCapabilities::SerializeInformationField(Buffer::Iterator start) const
 {
   if (m_htSupported > 0 && m_vhtSupported == 0)
-    {
-      //write the corresponding value for each bit
-      start.WriteU8 (GetExtendedCapabilitiesByte1 () & 0x7f);
-    }
+  {
+    //write the corresponding value for each bit
+    start.WriteU8(GetExtendedCapabilitiesByte1() & 0x7f);
+  }
   else if (m_vhtSupported > 0)
-    {
-      //write the corresponding value for each bit
-      start.WriteU8 (GetExtendedCapabilitiesByte1 ());
-      start.WriteU8 (GetExtendedCapabilitiesByte2 ());
-      start.WriteU8 (GetExtendedCapabilitiesByte3 ());
-      start.WriteU8 (GetExtendedCapabilitiesByte4 ());
-      start.WriteU8 (GetExtendedCapabilitiesByte5 ());
-      start.WriteU8 (GetExtendedCapabilitiesByte6 ());
-      start.WriteU8 (GetExtendedCapabilitiesByte7 ());
-      start.WriteU8 (GetExtendedCapabilitiesByte8 ());
-    }
+  {
+    //write the corresponding value for each bit
+    start.WriteU8(GetExtendedCapabilitiesByte1());
+    start.WriteU8(GetExtendedCapabilitiesByte2());
+    start.WriteU8(GetExtendedCapabilitiesByte3());
+    start.WriteU8(GetExtendedCapabilitiesByte4());
+    start.WriteU8(GetExtendedCapabilitiesByte5());
+    start.WriteU8(GetExtendedCapabilitiesByte6());
+    start.WriteU8(GetExtendedCapabilitiesByte7());
+    start.WriteU8(GetExtendedCapabilitiesByte8());
+  }
 }
 
 uint8_t
-ExtendedCapabilities::DeserializeInformationField (Buffer::Iterator start, uint8_t length)
+ExtendedCapabilities::DeserializeInformationField(Buffer::Iterator start, uint8_t length)
 {
   Buffer::Iterator i = start;
-  uint8_t byte1 = i.ReadU8 ();
-  SetExtendedCapabilitiesByte1 (byte1);
+  uint8_t byte1 = i.ReadU8();
+  SetExtendedCapabilitiesByte1(byte1);
   if (m_vhtSupported > 0)
-    {
-      uint8_t byte2 = i.ReadU8 ();
-      uint8_t byte3 = i.ReadU8 ();
-      uint8_t byte4 = i.ReadU8 ();
-      uint8_t byte5 = i.ReadU8 ();
-      uint8_t byte6 = i.ReadU8 ();
-      uint8_t byte7 = i.ReadU8 ();
-      uint8_t byte8 = i.ReadU8 ();
-      SetExtendedCapabilitiesByte2 (byte2);
-      SetExtendedCapabilitiesByte3 (byte3);
-      SetExtendedCapabilitiesByte4 (byte4);
-      SetExtendedCapabilitiesByte5 (byte5);
-      SetExtendedCapabilitiesByte6 (byte6);
-      SetExtendedCapabilitiesByte7 (byte7);
-      SetExtendedCapabilitiesByte8 (byte8);
-    }
+  {
+    uint8_t byte2 = i.ReadU8();
+    uint8_t byte3 = i.ReadU8();
+    uint8_t byte4 = i.ReadU8();
+    uint8_t byte5 = i.ReadU8();
+    uint8_t byte6 = i.ReadU8();
+    uint8_t byte7 = i.ReadU8();
+    uint8_t byte8 = i.ReadU8();
+    SetExtendedCapabilitiesByte2(byte2);
+    SetExtendedCapabilitiesByte3(byte3);
+    SetExtendedCapabilitiesByte4(byte4);
+    SetExtendedCapabilitiesByte5(byte5);
+    SetExtendedCapabilitiesByte6(byte6);
+    SetExtendedCapabilitiesByte7(byte7);
+    SetExtendedCapabilitiesByte8(byte8);
+  }
   return length;
 }
 
@@ -402,9 +392,9 @@ ExtendedCapabilities::DeserializeInformationField (Buffer::Iterator start, uint8
  * \returns output stream
  */
 std::ostream &
-operator << (std::ostream &os, const ExtendedCapabilities &extendedcapabilities)
+operator<<(std::ostream &os, const ExtendedCapabilities &extendedcapabilities)
 {
-  os << +extendedcapabilities.GetExtendedCapabilitiesByte1 ();
+  os << +extendedcapabilities.GetExtendedCapabilitiesByte1();
   return os;
 }
 

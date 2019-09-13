@@ -36,7 +36,7 @@ struct INetStack
    * \brief Initialize the stack
    * \param hz timer_interrupt frequency
    */
-  virtual void init (int hz) = 0;
+  virtual void init(int hz) = 0;
 
   /**
    * \brief Deliver complete packet to the NSC network stack
@@ -44,18 +44,18 @@ struct INetStack
    * \param data data
    * \param datalen data length
    */
-  virtual void if_receive_packet (int if_id, const void *data, int datalen) = 0;
+  virtual void if_receive_packet(int if_id, const void *data, int datalen) = 0;
   /**
    * \brief Send complete packet to the NSC network stack
    * \param data data
    * \param datalen data length
    */
-  virtual void if_send_packet (const void *data, int datalen) = 0;
+  virtual void if_send_packet(const void *data, int datalen) = 0;
   /**
    * \brief Signal the completion of send procedure to the NSC network stack
    * \param if_id interface ID
    */
-  virtual void if_send_finish (int if_id) = 0;
+  virtual void if_send_finish(int if_id) = 0;
 
   /**
    * \brief Attach an interface to the stack
@@ -63,12 +63,12 @@ struct INetStack
    * \param mask network mask
    * \param mtu MTU
    */
-  virtual void if_attach (const char *addr, const char *mask, int mtu) = 0;
+  virtual void if_attach(const char *addr, const char *mask, int mtu) = 0;
   /**
    * \brief Add a default gateway to the interface
    * \param addr gateway address
    */
-  virtual void add_default_gateway (const char *addr) = 0;
+  virtual void add_default_gateway(const char *addr) = 0;
 
   /**
    * \brief Returns the internal id of the stack instance.
@@ -76,7 +76,7 @@ struct INetStack
    * Purely for debugging/diagnostic purposes.
    * \return internal stack id
    */
-  virtual int get_id () = 0;
+  virtual int get_id() = 0;
 
   /**
    * \brief Return a short one-word name of the stack
@@ -86,7 +86,7 @@ struct INetStack
    * from a stack, for example a packet trace file.
    * \return short one-word name of the stack
    */
-  virtual const char *get_name () = 0;
+  virtual const char *get_name() = 0;
 
   /**
    * \brief Get the timer_interrupt frequency
@@ -99,39 +99,39 @@ struct INetStack
    *
    * \return frequency
    */
-  virtual int get_hz () = 0;
+  virtual int get_hz() = 0;
 
   /**
    * \brief The stack timer_interrupt function
    */
-  virtual void timer_interrupt () = 0;
+  virtual void timer_interrupt() = 0;
 
   /**
    * \brief Increment the time ticks
    */
-  virtual void increment_ticks () = 0;
+  virtual void increment_ticks() = 0;
 
   /**
    * \brief Set the buffer size
    * \param size the buffer size.
    */
-  virtual void buffer_size (int size) = 0;
+  virtual void buffer_size(int size) = 0;
 
   /**
    * \brief Create a new UDP socket
    * \returns A new UDP socket.
    */
-  virtual struct INetDatagramSocket *new_udp_socket () { return NULL; }
+  virtual struct INetDatagramSocket *new_udp_socket() { return NULL; }
   /**
    * \brief Create a new TCP socket
    * \returns A new TCP socket.
    */
-  virtual struct INetStreamSocket *new_tcp_socket () { return NULL; }
+  virtual struct INetStreamSocket *new_tcp_socket() { return NULL; }
   /**
    * \brief Create a new SCTP socket
    * \returns A new SCTP socket.
    */
-  virtual struct INetStreamSocket *new_sctp_socket () { return NULL; }
+  virtual struct INetStreamSocket *new_sctp_socket() { return NULL; }
 
   // The following I've made optional to implement for now. Eases
   // integration of new features.
@@ -144,8 +144,8 @@ struct INetStack
    * \param newlen new value length
    * \returns The status code.
    */
-  virtual int sysctl (const char *sysctl_name, void *oldval, size_t *oldlenp,
-                      void *newval, size_t newlen)
+  virtual int sysctl(const char *sysctl_name, void *oldval, size_t *oldlenp,
+                     void *newval, size_t newlen)
   {
     return -1;
   }
@@ -160,7 +160,7 @@ struct INetStack
    * \param value new value
    * \returns
    */
-  virtual int sysctl_set (const char *name, const char *value)
+  virtual int sysctl_set(const char *name, const char *value)
   {
     return -1;
   }
@@ -175,7 +175,7 @@ struct INetStack
    * \param len value length
    * \returns length of the string in value, i.e. retval > len: 'output truncated'.
    */
-  virtual int sysctl_get (const char *name, char *value, size_t len)
+  virtual int sysctl_get(const char *name, char *value, size_t len)
   {
     return -1;
   }
@@ -195,7 +195,7 @@ struct INetStack
    * \param len sysctl length
    * \returns -1 if idx is out of range and the length of the sysctl name otherwise.
    */
-  virtual int sysctl_getnum (size_t idx, char *name, size_t len)
+  virtual int sysctl_getnum(size_t idx, char *name, size_t len)
   {
     return -1;
   }
@@ -203,7 +203,7 @@ struct INetStack
   /**
    * \brief Show the NSC configuration
    */
-  virtual void show_config ()
+  virtual void show_config()
   {
     ;
   }
@@ -215,7 +215,7 @@ struct INetStack
    * \param result_len result length
    * \returns true on success
    */
-  virtual bool get_var (const char *var, char *result, int result_len)
+  virtual bool get_var(const char *var, char *result, int result_len)
   {
     return false;
   }
@@ -226,7 +226,7 @@ struct INetStack
    * \param val the new value
    * \returns true on success
    */
-  virtual bool set_var (const char *var, const char *val)
+  virtual bool set_var(const char *var, const char *val)
   {
     return false;
   }
@@ -239,14 +239,14 @@ struct INetStack
    *
    * \param level debugging/diagnostic level
    */
-  virtual void set_diagnostic (int level) {}
+  virtual void set_diagnostic(int level) {}
 
   /**
    * \brief Simple interface to support sending any textual command to a stack
    *
    * @returns 0 on success
    */
-  virtual int cmd (const char *)
+  virtual int cmd(const char *)
   {
     return 1;
   }
@@ -263,35 +263,35 @@ struct INetStreamSocket
   /**
    * \brief Connect to a remote peer
    */
-  virtual void connect (const char *, int) = 0;
+  virtual void connect(const char *, int) = 0;
   /**
    * \brief Disconnect from a remote peer
    */
-  virtual void disconnect () = 0;
+  virtual void disconnect() = 0;
   /**
    * \brief Put the socket in Listening state on a port
    */
-  virtual void listen (int) = 0;
+  virtual void listen(int) = 0;
   /**
    * \brief Accept an incoming connection
    * \param handler a handler to the INetStreamSocket.
    * \returns The status code.
    */
-  virtual int accept (INetStreamSocket **handler) = 0;
+  virtual int accept(INetStreamSocket **handler) = 0;
   /**
    * \brief Send some data
    * \param data the data
    * \param datalen data length
    * \return the number of data sent or -1 on error
    */
-  virtual int send_data (const void *data, int datalen) = 0;
+  virtual int send_data(const void *data, int datalen) = 0;
   /**
    * \brief Read some data
    * \param buf the buffer to store the data
    * \param buflen buffer length
    * \return the number of data read or -1 on error
    */
-  virtual int read_data (void *buf, int *buflen) = 0;
+  virtual int read_data(void *buf, int *buflen) = 0;
   /**
    * \brief Set the socket options
    *
@@ -304,21 +304,21 @@ struct INetStreamSocket
    * \param valsize size of the option value
    * \returns
    */
-  virtual int setsockopt (char *optname, void *val, size_t valsize) = 0;
+  virtual int setsockopt(char *optname, void *val, size_t valsize) = 0;
   /**
    * \brief Print the socket state
    */
-  virtual void print_state (FILE *) = 0;
+  virtual void print_state(FILE *) = 0;
   /**
    * \brief Check the connection state
    * \returns true if socket is in connected state
    */
-  virtual bool is_connected () = 0;
+  virtual bool is_connected() = 0;
   /**
    * \brief Check the listening state
    * \returns true if socket is in listening state
    */
-  virtual bool is_listening () = 0;
+  virtual bool is_listening() = 0;
   /**
    * \brief Get the peer name
    *
@@ -328,7 +328,8 @@ struct INetStreamSocket
    * \param salen sockaddr structure length
    * \returns -1 on error (always returns -1)
    */
-  virtual int getpeername (struct sockaddr *sa, size_t *salen) {
+  virtual int getpeername(struct sockaddr *sa, size_t *salen)
+  {
     return -1;
   }
   /**
@@ -340,7 +341,8 @@ struct INetStreamSocket
    * \param salen sockaddr structure length
    * \returns -1 on error (always returns -1)
    */
-  virtual int getsockname (struct sockaddr *sa, size_t *salen) {
+  virtual int getsockname(struct sockaddr *sa, size_t *salen)
+  {
     return -1;
   }
   /**
@@ -353,7 +355,7 @@ struct INetStreamSocket
    * \param result_len result length
    * \return always false
    */
-  virtual bool get_var (const char *var, char *result, int result_len)
+  virtual bool get_var(const char *var, char *result, int result_len)
   {
     return false;
   }
@@ -366,7 +368,7 @@ struct INetStreamSocket
    * \param val value to set
    * \return always false
    */
-  virtual bool set_var (const char *var, const char *val)
+  virtual bool set_var(const char *var, const char *val)
   {
     return false;
   }
@@ -383,13 +385,13 @@ struct INetDatagramSocket
   /**
    * \brief Set the destination address and port
    */
-  virtual void set_destination (const char *, int) = 0;
+  virtual void set_destination(const char *, int) = 0;
   /**
    * \brief Send a datagram
    * \param data the data
    * \param datalen data length
    */
-  virtual void send_data (const void *data, int datalen) = 0;
+  virtual void send_data(const void *data, int datalen) = 0;
 };
 
 /**
@@ -405,7 +407,7 @@ struct ISendCallback
    * \param data the data.
    * \param datalen the data length.
    */
-  virtual void send_callback (const void *data, int datalen) = 0;
+  virtual void send_callback(const void *data, int datalen) = 0;
 };
 
 /**
@@ -419,18 +421,18 @@ struct IInterruptCallback
   /**
    * \brief Called by the NSC stack whenever something of interest has happened
    */
-  virtual void wakeup () = 0;
+  virtual void wakeup() = 0;
   /**
    * \brief Get the actual time
    */
-  virtual void gettime (unsigned int *, unsigned int *) = 0;
+  virtual void gettime(unsigned int *, unsigned int *) = 0;
 };
 
 typedef int (*FRandom)();
-typedef INetStack *(*FCreateStack)(ISendCallback *, IInterruptCallback *, 
+typedef INetStack *(*FCreateStack)(ISendCallback *, IInterruptCallback *,
                                    FRandom);
 
-#define CREATE_STACK_FUNC(a,b,c) extern "C" INetStack *nsc_create_stack ( \
+#define CREATE_STACK_FUNC(a, b, c) extern "C" INetStack *nsc_create_stack( \
     ISendCallback *a, IInterruptCallback *b, FRandom c)
 
 #endif /* NSC_SIM_INTERFACE_H */

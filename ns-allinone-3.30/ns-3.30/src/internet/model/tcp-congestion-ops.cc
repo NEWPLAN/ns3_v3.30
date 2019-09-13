@@ -20,62 +20,60 @@
 #include "tcp-socket-base.h"
 #include "ns3/log.h"
 
-namespace ns3 {
+namespace ns3
+{
 
-NS_LOG_COMPONENT_DEFINE ("TcpCongestionOps");
+NS_LOG_COMPONENT_DEFINE("TcpCongestionOps");
 
-NS_OBJECT_ENSURE_REGISTERED (TcpCongestionOps);
+NS_OBJECT_ENSURE_REGISTERED(TcpCongestionOps);
 
 TypeId
-TcpCongestionOps::GetTypeId (void)
+TcpCongestionOps::GetTypeId(void)
 {
-  static TypeId tid = TypeId ("ns3::TcpCongestionOps")
-    .SetParent<Object> ()
-    .SetGroupName ("Internet")
-  ;
+  static TypeId tid = TypeId("ns3::TcpCongestionOps")
+                          .SetParent<Object>()
+                          .SetGroupName("Internet");
   return tid;
 }
 
-TcpCongestionOps::TcpCongestionOps () : Object ()
+TcpCongestionOps::TcpCongestionOps() : Object()
 {
 }
 
-TcpCongestionOps::TcpCongestionOps (const TcpCongestionOps &other) : Object (other)
+TcpCongestionOps::TcpCongestionOps(const TcpCongestionOps &other) : Object(other)
 {
 }
 
-TcpCongestionOps::~TcpCongestionOps ()
+TcpCongestionOps::~TcpCongestionOps()
 {
 }
-
 
 // RENO
 
-NS_OBJECT_ENSURE_REGISTERED (TcpNewReno);
+NS_OBJECT_ENSURE_REGISTERED(TcpNewReno);
 
 TypeId
-TcpNewReno::GetTypeId (void)
+TcpNewReno::GetTypeId(void)
 {
-  static TypeId tid = TypeId ("ns3::TcpNewReno")
-    .SetParent<TcpCongestionOps> ()
-    .SetGroupName ("Internet")
-    .AddConstructor<TcpNewReno> ()
-  ;
+  static TypeId tid = TypeId("ns3::TcpNewReno")
+                          .SetParent<TcpCongestionOps>()
+                          .SetGroupName("Internet")
+                          .AddConstructor<TcpNewReno>();
   return tid;
 }
 
-TcpNewReno::TcpNewReno (void) : TcpCongestionOps ()
+TcpNewReno::TcpNewReno(void) : TcpCongestionOps()
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
 }
 
-TcpNewReno::TcpNewReno (const TcpNewReno& sock)
-  : TcpCongestionOps (sock)
+TcpNewReno::TcpNewReno(const TcpNewReno &sock)
+    : TcpCongestionOps(sock)
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
 }
 
-TcpNewReno::~TcpNewReno (void)
+TcpNewReno::~TcpNewReno(void)
 {
 }
 
@@ -122,16 +120,16 @@ u32 tcp_slow_start(struct tcp_sock *tp, u32 acked)
  * \return the number of segments not considered for increasing the cWnd
  */
 uint32_t
-TcpNewReno::SlowStart (Ptr<TcpSocketState> tcb, uint32_t segmentsAcked)
+TcpNewReno::SlowStart(Ptr<TcpSocketState> tcb, uint32_t segmentsAcked)
 {
-  NS_LOG_FUNCTION (this << tcb << segmentsAcked);
+  NS_LOG_FUNCTION(this << tcb << segmentsAcked);
 
   if (segmentsAcked >= 1)
-    {
-      tcb->m_cWnd += tcb->m_segmentSize;
-      NS_LOG_INFO ("In SlowStart, updated to cwnd " << tcb->m_cWnd << " ssthresh " << tcb->m_ssThresh);
-      return segmentsAcked - 1;
-    }
+  {
+    tcb->m_cWnd += tcb->m_segmentSize;
+    NS_LOG_INFO("In SlowStart, updated to cwnd " << tcb->m_cWnd << " ssthresh " << tcb->m_ssThresh);
+    return segmentsAcked - 1;
+  }
 
   return 0;
 }
@@ -145,19 +143,17 @@ TcpNewReno::SlowStart (Ptr<TcpSocketState> tcb, uint32_t segmentsAcked)
  * \param tcb internal congestion state
  * \param segmentsAcked count of segments acked
  */
-void
-TcpNewReno::CongestionAvoidance (Ptr<TcpSocketState> tcb, uint32_t segmentsAcked)
+void TcpNewReno::CongestionAvoidance(Ptr<TcpSocketState> tcb, uint32_t segmentsAcked)
 {
-  NS_LOG_FUNCTION (this << tcb << segmentsAcked);
+  NS_LOG_FUNCTION(this << tcb << segmentsAcked);
 
   if (segmentsAcked > 0)
-    {
-      double adder = static_cast<double> (tcb->m_segmentSize * tcb->m_segmentSize) / tcb->m_cWnd.Get ();
-      adder = std::max (1.0, adder);
-      tcb->m_cWnd += static_cast<uint32_t> (adder);
-      NS_LOG_INFO ("In CongAvoid, updated to cwnd " << tcb->m_cWnd <<
-                   " ssthresh " << tcb->m_ssThresh);
-    }
+  {
+    double adder = static_cast<double>(tcb->m_segmentSize * tcb->m_segmentSize) / tcb->m_cWnd.Get();
+    adder = std::max(1.0, adder);
+    tcb->m_cWnd += static_cast<uint32_t>(adder);
+    NS_LOG_INFO("In CongAvoid, updated to cwnd " << tcb->m_cWnd << " ssthresh " << tcb->m_ssThresh);
+  }
 }
 
 /**
@@ -169,20 +165,19 @@ TcpNewReno::CongestionAvoidance (Ptr<TcpSocketState> tcb, uint32_t segmentsAcked
  * \param tcb internal congestion state
  * \param segmentsAcked count of segments acked
  */
-void
-TcpNewReno::IncreaseWindow (Ptr<TcpSocketState> tcb, uint32_t segmentsAcked)
+void TcpNewReno::IncreaseWindow(Ptr<TcpSocketState> tcb, uint32_t segmentsAcked)
 {
-  NS_LOG_FUNCTION (this << tcb << segmentsAcked);
+  NS_LOG_FUNCTION(this << tcb << segmentsAcked);
 
   if (tcb->m_cWnd < tcb->m_ssThresh)
-    {
-      segmentsAcked = SlowStart (tcb, segmentsAcked);
-    }
+  {
+    segmentsAcked = SlowStart(tcb, segmentsAcked);
+  }
 
   if (tcb->m_cWnd >= tcb->m_ssThresh)
-    {
-      CongestionAvoidance (tcb, segmentsAcked);
-    }
+  {
+    CongestionAvoidance(tcb, segmentsAcked);
+  }
 
   /* At this point, we could have segmentsAcked != 0. This because RFC says
    * that in slow start, we should increase cWnd by min (N, SMSS); if in
@@ -195,25 +190,24 @@ TcpNewReno::IncreaseWindow (Ptr<TcpSocketState> tcb, uint32_t segmentsAcked)
 }
 
 std::string
-TcpNewReno::GetName () const
+TcpNewReno::GetName() const
 {
   return "TcpNewReno";
 }
 
 uint32_t
-TcpNewReno::GetSsThresh (Ptr<const TcpSocketState> state,
-                         uint32_t bytesInFlight)
+TcpNewReno::GetSsThresh(Ptr<const TcpSocketState> state,
+                        uint32_t bytesInFlight)
 {
-  NS_LOG_FUNCTION (this << state << bytesInFlight);
+  NS_LOG_FUNCTION(this << state << bytesInFlight);
 
-  return std::max (2 * state->m_segmentSize, bytesInFlight / 2);
+  return std::max(2 * state->m_segmentSize, bytesInFlight / 2);
 }
 
 Ptr<TcpCongestionOps>
-TcpNewReno::Fork ()
+TcpNewReno::Fork()
 {
-  return CopyObject<TcpNewReno> (this);
+  return CopyObject<TcpNewReno>(this);
 }
 
 } // namespace ns3
-

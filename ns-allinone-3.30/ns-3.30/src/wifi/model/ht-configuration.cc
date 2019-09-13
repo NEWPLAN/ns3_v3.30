@@ -23,86 +23,80 @@
 #include "ns3/uinteger.h"
 #include "ht-configuration.h"
 
-namespace ns3 {
-
-NS_LOG_COMPONENT_DEFINE ("HtConfiguration");
-
-NS_OBJECT_ENSURE_REGISTERED (HtConfiguration);
-
-HtConfiguration::HtConfiguration ()
+namespace ns3
 {
-  NS_LOG_FUNCTION (this);
+
+NS_LOG_COMPONENT_DEFINE("HtConfiguration");
+
+NS_OBJECT_ENSURE_REGISTERED(HtConfiguration);
+
+HtConfiguration::HtConfiguration()
+{
+  NS_LOG_FUNCTION(this);
 }
 
-HtConfiguration::~HtConfiguration ()
+HtConfiguration::~HtConfiguration()
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
 }
 
 TypeId
-HtConfiguration::GetTypeId (void)
+HtConfiguration::GetTypeId(void)
 {
-  static ns3::TypeId tid = ns3::TypeId ("ns3::HtConfiguration")
-    .SetParent<Object> ()
-    .SetGroupName ("Wifi")
-    .AddConstructor<HtConfiguration> ()
-    .AddAttribute ("ShortGuardIntervalSupported",
-                   "Whether or not short guard interval is supported.",
-                   BooleanValue (false),
-                   MakeBooleanAccessor (&HtConfiguration::GetShortGuardIntervalSupported,
-                                        &HtConfiguration::SetShortGuardIntervalSupported),
-                   MakeBooleanChecker ())
-    .AddAttribute ("GreenfieldSupported",
-                   "Whether or not Greenfield is supported.",
-                   BooleanValue (false),
-                   MakeBooleanAccessor (&HtConfiguration::GetGreenfieldSupported,
-                                        &HtConfiguration::SetGreenfieldSupported),
-                   MakeBooleanChecker ())
-    .AddAttribute ("RifsSupported",
-                   "Whether or not RIFS is supported.",
-                   BooleanValue (false),
-                   MakeBooleanAccessor (&HtConfiguration::SetRifsSupported,
-                                        &HtConfiguration::GetRifsSupported),
-                   MakeBooleanChecker ())
-    ;
-    return tid;
+  static ns3::TypeId tid = ns3::TypeId("ns3::HtConfiguration")
+                               .SetParent<Object>()
+                               .SetGroupName("Wifi")
+                               .AddConstructor<HtConfiguration>()
+                               .AddAttribute("ShortGuardIntervalSupported",
+                                             "Whether or not short guard interval is supported.",
+                                             BooleanValue(false),
+                                             MakeBooleanAccessor(&HtConfiguration::GetShortGuardIntervalSupported,
+                                                                 &HtConfiguration::SetShortGuardIntervalSupported),
+                                             MakeBooleanChecker())
+                               .AddAttribute("GreenfieldSupported",
+                                             "Whether or not Greenfield is supported.",
+                                             BooleanValue(false),
+                                             MakeBooleanAccessor(&HtConfiguration::GetGreenfieldSupported,
+                                                                 &HtConfiguration::SetGreenfieldSupported),
+                                             MakeBooleanChecker())
+                               .AddAttribute("RifsSupported",
+                                             "Whether or not RIFS is supported.",
+                                             BooleanValue(false),
+                                             MakeBooleanAccessor(&HtConfiguration::SetRifsSupported,
+                                                                 &HtConfiguration::GetRifsSupported),
+                                             MakeBooleanChecker());
+  return tid;
 }
 
-void
-HtConfiguration::SetShortGuardIntervalSupported (bool enable)
+void HtConfiguration::SetShortGuardIntervalSupported(bool enable)
 {
-  NS_LOG_FUNCTION (this << enable);
+  NS_LOG_FUNCTION(this << enable);
   m_sgiSupported = enable;
 }
 
-bool
-HtConfiguration::GetShortGuardIntervalSupported (void) const
+bool HtConfiguration::GetShortGuardIntervalSupported(void) const
 {
   return m_sgiSupported;
 }
 
-void
-HtConfiguration::SetGreenfieldSupported (bool enable)
+void HtConfiguration::SetGreenfieldSupported(bool enable)
 {
-  NS_LOG_FUNCTION (this << enable);
+  NS_LOG_FUNCTION(this << enable);
   m_greenfieldSupported = enable;
 }
 
-bool
-HtConfiguration::GetGreenfieldSupported (void) const
+bool HtConfiguration::GetGreenfieldSupported(void) const
 {
   return m_greenfieldSupported;
 }
 
-void
-HtConfiguration::SetRifsSupported (bool enable)
+void HtConfiguration::SetRifsSupported(bool enable)
 {
-  NS_LOG_FUNCTION (this << enable);
+  NS_LOG_FUNCTION(this << enable);
   m_rifsSupported = enable;
 }
 
-bool
-HtConfiguration::GetRifsSupported (void) const
+bool HtConfiguration::GetRifsSupported(void) const
 {
   return m_rifsSupported;
 }

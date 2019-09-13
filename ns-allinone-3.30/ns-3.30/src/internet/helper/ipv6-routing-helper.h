@@ -26,7 +26,8 @@
 #include "ns3/output-stream-wrapper.h"
 #include "ns3/ipv6-list-routing.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class Ipv6RoutingProtocol;
 class Node;
@@ -45,11 +46,10 @@ class Node;
 class Ipv6RoutingHelper
 {
 public:
-
   /**
    * \brief Destroy an Ipv6 Ipv6RoutingHelper.
    */
-  virtual ~Ipv6RoutingHelper ();
+  virtual ~Ipv6RoutingHelper();
 
   /**
    * \brief virtual constructor
@@ -58,13 +58,13 @@ public:
    * This method is mainly for internal use by the other helpers;
    * clients are expected to free the dynamic memory allocated by this method
    */
-  virtual Ipv6RoutingHelper* Copy (void) const = 0;
+  virtual Ipv6RoutingHelper *Copy(void) const = 0;
 
   /**
    * \param node the node within which the new routing protocol will run
    * \returns a newly-created routing protocol
    */
-  virtual Ptr<Ipv6RoutingProtocol> Create (Ptr<Node> node) const = 0;
+  virtual Ptr<Ipv6RoutingProtocol> Create(Ptr<Node> node) const = 0;
 
   /**
    * \brief prints the routing tables of all nodes at a particular time.
@@ -76,7 +76,7 @@ public:
    * Ipv6RoutingProtocol stored in the Ipv6 object, for all nodes at the
    * specified time; the output format is routing protocol-specific.
    */
-  static void PrintRoutingTableAllAt (Time printTime, Ptr<OutputStreamWrapper> stream, Time::Unit unit = Time::S);
+  static void PrintRoutingTableAllAt(Time printTime, Ptr<OutputStreamWrapper> stream, Time::Unit unit = Time::S);
 
   /**
    * \brief prints the routing tables of all nodes at regular intervals specified by user.
@@ -88,7 +88,7 @@ public:
    * Ipv6RoutingProtocol stored in the Ipv6 object, for all nodes at the
    * specified time interval; the output format is routing protocol-specific.
    */
-  static void PrintRoutingTableAllEvery (Time printInterval, Ptr<OutputStreamWrapper> stream, Time::Unit unit = Time::S);
+  static void PrintRoutingTableAllEvery(Time printInterval, Ptr<OutputStreamWrapper> stream, Time::Unit unit = Time::S);
 
   /**
    * \brief prints the routing tables of a node at a particular time.
@@ -101,7 +101,7 @@ public:
    * Ipv6RoutingProtocol stored in the Ipv6 object, for the selected node
    * at the specified time; the output format is routing protocol-specific.
    */
-  static void PrintRoutingTableAt (Time printTime, Ptr<Node> node, Ptr<OutputStreamWrapper> stream, Time::Unit unit = Time::S);
+  static void PrintRoutingTableAt(Time printTime, Ptr<Node> node, Ptr<OutputStreamWrapper> stream, Time::Unit unit = Time::S);
 
   /**
    * \brief prints the routing tables of a node at regular intervals specified by user.
@@ -114,7 +114,7 @@ public:
    * Ipv6RoutingProtocol stored in the Ipv6 object, for the selected node
    * at the specified interval; the output format is routing protocol-specific.
    */
-  static void PrintRoutingTableEvery (Time printInterval, Ptr<Node> node, Ptr<OutputStreamWrapper> stream, Time::Unit unit = Time::S);
+  static void PrintRoutingTableEvery(Time printInterval, Ptr<Node> node, Ptr<OutputStreamWrapper> stream, Time::Unit unit = Time::S);
 
   /**
    * \brief prints the neighbor cache of all nodes at a particular time.
@@ -129,7 +129,7 @@ public:
      \endverbatim
    * Note that the MAC address is printed as "type"-"size"-"actual address"
    */
-  static void PrintNeighborCacheAllAt (Time printTime, Ptr<OutputStreamWrapper> stream);
+  static void PrintNeighborCacheAllAt(Time printTime, Ptr<OutputStreamWrapper> stream);
 
   /**
    * \brief prints the neighbor cache of all nodes at regular intervals specified by user.
@@ -144,7 +144,7 @@ public:
      \endverbatim
    * Note that the MAC address is printed as "type"-"size"-"actual address"
    */
-  static void PrintNeighborCacheAllEvery (Time printInterval, Ptr<OutputStreamWrapper> stream);
+  static void PrintNeighborCacheAllEvery(Time printInterval, Ptr<OutputStreamWrapper> stream);
 
   /**
    * \brief prints the neighbor cache of a node at a particular time.
@@ -160,7 +160,7 @@ public:
      \endverbatim
    * Note that the MAC address is printed as "type"-"size"-"actual address"
    */
-  static void PrintNeighborCacheAt (Time printTime, Ptr<Node> node, Ptr<OutputStreamWrapper> stream);
+  static void PrintNeighborCacheAt(Time printTime, Ptr<Node> node, Ptr<OutputStreamWrapper> stream);
 
   /**
    * \brief prints the neighbor cache of a node at regular intervals specified by user.
@@ -176,7 +176,7 @@ public:
      \endverbatim
    * Note that the MAC address is printed as "type"-"size"-"actual address"
    */
-  static void PrintNeighborCacheEvery (Time printInterval, Ptr<Node> node, Ptr<OutputStreamWrapper> stream);
+  static void PrintNeighborCacheEvery(Time printInterval, Ptr<Node> node, Ptr<OutputStreamWrapper> stream);
 
   /**
    * \brief Request a specified routing protocol &lt;T&gt; from Ipv6RoutingProtocol protocol
@@ -187,9 +187,9 @@ public:
    * \param protocol Smart pointer to Ipv6RoutingProtocol object
    * \return a Smart Pointer to the requested protocol (zero if the protocol can't be found)
    */
-  template<class T>
-  static Ptr<T> GetRouting (Ptr<Ipv6RoutingProtocol> protocol);
-  
+  template <class T>
+  static Ptr<T> GetRouting(Ptr<Ipv6RoutingProtocol> protocol);
+
 private:
   /**
    * \brief prints the routing tables of a node.
@@ -201,7 +201,7 @@ private:
    * Ipv6RoutingProtocol stored in the Ipv6 object;
    * the output format is routing protocol-specific.
    */
-  static void Print (Ptr<Node> node, Ptr<OutputStreamWrapper> stream, Time::Unit unit);
+  static void Print(Ptr<Node> node, Ptr<OutputStreamWrapper> stream, Time::Unit unit);
 
   /**
    * \brief prints the routing tables of a node at regular intervals specified by user.
@@ -214,7 +214,7 @@ private:
    * Ipv6RoutingProtocol stored in the Ipv6 object, for the selected node
    * at the specified interval; the output format is routing protocol-specific.
    */
-  static void PrintEvery (Time printInterval, Ptr<Node> node, Ptr<OutputStreamWrapper> stream, Time::Unit unit);
+  static void PrintEvery(Time printInterval, Ptr<Node> node, Ptr<OutputStreamWrapper> stream, Time::Unit unit);
 
   /**
    * \brief prints the neighbor cache of a node.
@@ -229,7 +229,7 @@ private:
      \endverbatim
    * Note that the MAC address is printed as "type"-"size"-"actual address"
    */
-  static void PrintNdiscCache (Ptr<Node> node, Ptr<OutputStreamWrapper> stream);
+  static void PrintNdiscCache(Ptr<Node> node, Ptr<OutputStreamWrapper> stream);
 
   /**
    * \brief prints the neighbor cache of a node at regular intervals specified by user.
@@ -245,7 +245,7 @@ private:
      \endverbatim
    * Note that the MAC address is printed as "type"-"size"-"actual address"
    */
-  static void PrintNdiscCacheEvery (Time printInterval, Ptr<Node> node, Ptr<OutputStreamWrapper> stream);
+  static void PrintNdiscCacheEvery(Time printInterval, Ptr<Node> node, Ptr<OutputStreamWrapper> stream);
 };
 
 /**
@@ -257,31 +257,29 @@ private:
  * \param protocol Smart pointer to Ipv6RoutingProtocol object
  * \return a Smart Pointer to the requested protocol (zero if the protocol can't be found)
  */
-template<class T>
-Ptr<T> Ipv6RoutingHelper::GetRouting (Ptr<Ipv6RoutingProtocol> protocol)
+template <class T>
+Ptr<T> Ipv6RoutingHelper::GetRouting(Ptr<Ipv6RoutingProtocol> protocol)
 {
-  Ptr<T> ret = DynamicCast<T> (protocol);
+  Ptr<T> ret = DynamicCast<T>(protocol);
   if (ret == 0)
+  {
+    // trying to check if protocol is a list routing
+    Ptr<Ipv6ListRouting> lrp = DynamicCast<Ipv6ListRouting>(protocol);
+    if (lrp != 0)
     {
-      // trying to check if protocol is a list routing
-      Ptr<Ipv6ListRouting> lrp = DynamicCast<Ipv6ListRouting> (protocol);
-      if (lrp != 0)
-        {
-          for (uint32_t i = 0; i < lrp->GetNRoutingProtocols ();  i++)
-            {
-              int16_t priority;
-              ret = GetRouting<T> (lrp->GetRoutingProtocol (i, priority)); // potential recursion, if inside ListRouting is ListRouting
-              if (ret != 0)
-                break;
-            }
-        }
+      for (uint32_t i = 0; i < lrp->GetNRoutingProtocols(); i++)
+      {
+        int16_t priority;
+        ret = GetRouting<T>(lrp->GetRoutingProtocol(i, priority)); // potential recursion, if inside ListRouting is ListRouting
+        if (ret != 0)
+          break;
+      }
     }
+  }
 
   return ret;
 }
 
 } // namespace ns3
 
-
 #endif /* IPV6_ROUTING_HELPER_H */
-

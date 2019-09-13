@@ -28,7 +28,8 @@
 #include "ns3/ipv4-address.h"
 #include <vector>
 
-namespace ns3 {
+namespace ns3
+{
 
 class Socket;
 class Packet;
@@ -64,9 +65,9 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
-  UdpTraceClient ();
+  UdpTraceClient();
 
   /**
    * \brief Creates a traceBasedStreamer application
@@ -79,20 +80,20 @@ public:
    *
    *
    */
-  UdpTraceClient (Ipv4Address ip, uint16_t port, char *traceFile);
-  ~UdpTraceClient ();
+  UdpTraceClient(Ipv4Address ip, uint16_t port, char *traceFile);
+  ~UdpTraceClient();
 
   /**
    * \brief set the remote address and port
    * \param ip remote IP address
    * \param port remote port
    */
-  void SetRemote (Address ip, uint16_t port);
+  void SetRemote(Address ip, uint16_t port);
   /**
    * \brief set the remote address
    * \param addr remote address
    */
-  void SetRemote (Address addr);
+  void SetRemote(Address addr);
 
   /**
    * \brief Set the trace file to be used by the application
@@ -101,51 +102,51 @@ public:
    *  Frame No Frametype   Time[ms]    Length [byte]
    *  ...
    */
-  void SetTraceFile (std::string filename);
+  void SetTraceFile(std::string filename);
 
   /**
    * \brief Return the maximum packet size
    * \return the maximum packet size
    */
-  uint16_t GetMaxPacketSize (void);
+  uint16_t GetMaxPacketSize(void);
 
   /**
    * \brief Set the maximum packet size
    * \param maxPacketSize The maximum packet size
    */
-  void SetMaxPacketSize (uint16_t maxPacketSize);
+  void SetMaxPacketSize(uint16_t maxPacketSize);
 
   /**
    * \brief Set the trace loop flag
    * \param traceLoop true if the trace should be re-used
    */
-  void SetTraceLoop (bool traceLoop);
+  void SetTraceLoop(bool traceLoop);
 
 protected:
-  virtual void DoDispose (void);
+  virtual void DoDispose(void);
 
 private:
   /**
    * \brief Load a trace file
    * \param filename the trace file path
    */
-  void LoadTrace (std::string filename);
+  void LoadTrace(std::string filename);
   /**
    * \brief Load the default trace
    */
-  void LoadDefaultTrace (void);
-  virtual void StartApplication (void);
-  virtual void StopApplication (void);
+  void LoadDefaultTrace(void);
+  virtual void StartApplication(void);
+  virtual void StopApplication(void);
 
   /**
    * \brief Send a packet
    */
-  void Send (void);
+  void Send(void);
   /**
    * \brief Send a packet of a given size
    * \param size the packet size
    */
-  void SendPacket (uint32_t size);
+  void SendPacket(uint32_t size);
 
   /**
    * \brief Entry to send.
@@ -156,20 +157,20 @@ private:
   {
     uint32_t timeToSend; //!< Time to send the frame
     uint32_t packetSize; //!< Size of the frame
-    char frameType; //!< Frame type (I, P or B)
+    char frameType;      //!< Frame type (I, P or B)
   };
 
-  uint32_t m_sent; //!< Counter for sent packets
-  Ptr<Socket> m_socket; //!< Socket
+  uint32_t m_sent;       //!< Counter for sent packets
+  Ptr<Socket> m_socket;  //!< Socket
   Address m_peerAddress; //!< Remote peer address
-  uint16_t m_peerPort; //!< Remote peer port
-  EventId m_sendEvent; //!< Event to send the next packet
+  uint16_t m_peerPort;   //!< Remote peer port
+  EventId m_sendEvent;   //!< Event to send the next packet
 
-  std::vector<struct TraceEntry> m_entries; //!< Entries in the trace to send
-  uint32_t m_currentEntry; //!< Current entry index
+  std::vector<struct TraceEntry> m_entries;    //!< Entries in the trace to send
+  uint32_t m_currentEntry;                     //!< Current entry index
   static struct TraceEntry g_defaultEntries[]; //!< Default trace to send
-  uint16_t m_maxPacketSize; //!< Maximum packet size to send (including the SeqTsHeader)
-  bool m_traceLoop; //!< Loop through the trace file
+  uint16_t m_maxPacketSize;                    //!< Maximum packet size to send (including the SeqTsHeader)
+  bool m_traceLoop;                            //!< Loop through the trace file
 };
 
 } // namespace ns3

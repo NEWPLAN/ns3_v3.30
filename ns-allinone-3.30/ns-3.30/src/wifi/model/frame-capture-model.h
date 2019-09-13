@@ -23,7 +23,8 @@
 
 #include "ns3/object.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class Event;
 class Time;
@@ -40,7 +41,7 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
   /**
    * A pure virtual method that must be implemented in the subclass.
@@ -53,7 +54,7 @@ public:
    * \return true if the reception should be switched to a new incoming frame,
    *         false otherwise
    */
-  virtual bool CaptureNewFrame (Ptr<Event> currentEvent, Ptr<Event> newEvent) const = 0;
+  virtual bool CaptureNewFrame(Ptr<Event> currentEvent, Ptr<Event> newEvent) const = 0;
 
   /**
    * This method returns true if the capture window duration has not elapsed yet,
@@ -64,8 +65,7 @@ public:
    * \return true if the capture window duration has not elapsed yet,
    *         false otherwise
    */
-  virtual bool IsInCaptureWindow (Time timePreambleDetected) const;
-
+  virtual bool IsInCaptureWindow(Time timePreambleDetected) const;
 
 private:
   Time m_captureWindow; //!< Capture window duration

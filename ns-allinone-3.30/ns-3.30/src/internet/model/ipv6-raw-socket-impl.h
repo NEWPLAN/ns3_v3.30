@@ -29,7 +29,7 @@
 
 namespace ns3
 {
- 
+
 class NetDevice;
 class Node;
 
@@ -70,52 +70,52 @@ public:
    * \brief Get the type ID of this class.
    * \return type ID
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
-  Ipv6RawSocketImpl ();
-  virtual ~Ipv6RawSocketImpl ();
+  Ipv6RawSocketImpl();
+  virtual ~Ipv6RawSocketImpl();
 
   /**
    * \brief Set the node associated with this socket.
    * \param node node to set
    */
-  void SetNode (Ptr<Node> node);
+  void SetNode(Ptr<Node> node);
 
-  virtual enum Socket::SocketErrno GetErrno () const;
+  virtual enum Socket::SocketErrno GetErrno() const;
 
   /**
    * \brief Get socket type (NS3_SOCK_RAW)
    * \return socket type
    */
-  virtual enum Socket::SocketType GetSocketType () const;
+  virtual enum Socket::SocketType GetSocketType() const;
 
-  virtual Ptr<Node> GetNode () const;
+  virtual Ptr<Node> GetNode() const;
 
-  virtual int Bind (const Address& address);
-  virtual int Bind ();
-  virtual int Bind6 ();
+  virtual int Bind(const Address &address);
+  virtual int Bind();
+  virtual int Bind6();
 
-  virtual int GetSockName (Address& address) const;
-  virtual int GetPeerName (Address& address) const;
+  virtual int GetSockName(Address &address) const;
+  virtual int GetPeerName(Address &address) const;
 
-  virtual int Close ();
-  virtual int ShutdownSend ();
-  virtual int ShutdownRecv ();
-  virtual int Connect (const Address& address);
-  virtual int Listen ();
-  virtual uint32_t GetTxAvailable () const;
-  virtual uint32_t GetRxAvailable () const;
-  virtual int Send (Ptr<Packet> p, uint32_t flags);
-  virtual int SendTo (Ptr<Packet> p, uint32_t flags, const Address& toAddress);
-  virtual Ptr<Packet> Recv (uint32_t maxSize, uint32_t flags);
-  virtual Ptr<Packet> RecvFrom (uint32_t maxSize, uint32_t flags, Address& fromAddress);
-  virtual void Ipv6JoinGroup (Ipv6Address address, Socket::Ipv6MulticastFilterMode filterMode, std::vector<Ipv6Address> sourceAddresses);
+  virtual int Close();
+  virtual int ShutdownSend();
+  virtual int ShutdownRecv();
+  virtual int Connect(const Address &address);
+  virtual int Listen();
+  virtual uint32_t GetTxAvailable() const;
+  virtual uint32_t GetRxAvailable() const;
+  virtual int Send(Ptr<Packet> p, uint32_t flags);
+  virtual int SendTo(Ptr<Packet> p, uint32_t flags, const Address &toAddress);
+  virtual Ptr<Packet> Recv(uint32_t maxSize, uint32_t flags);
+  virtual Ptr<Packet> RecvFrom(uint32_t maxSize, uint32_t flags, Address &fromAddress);
+  virtual void Ipv6JoinGroup(Ipv6Address address, Socket::Ipv6MulticastFilterMode filterMode, std::vector<Ipv6Address> sourceAddresses);
 
   /**
    * \brief Set protocol field.
    * \param protocol protocol to set
    */
-  void SetProtocol (uint16_t protocol);
+  void SetProtocol(uint16_t protocol);
 
   /**
    * \brief Forward up to receive method.
@@ -124,10 +124,10 @@ public:
    * \param device device
    * \return true if forwarded, false otherwise
    */
-  bool ForwardUp (Ptr<const Packet> p, Ipv6Header hdr, Ptr<NetDevice> device);
+  bool ForwardUp(Ptr<const Packet> p, Ipv6Header hdr, Ptr<NetDevice> device);
 
-  virtual bool SetAllowBroadcast (bool allowBroadcast);
-  virtual bool GetAllowBroadcast () const;
+  virtual bool SetAllowBroadcast(bool allowBroadcast);
+  virtual bool GetAllowBroadcast() const;
 
   /**
    * \brief Clean the ICMPv6 filter structure
@@ -165,22 +165,21 @@ public:
    */
   bool Icmpv6FilterWillBlock(uint8_t type);
 
-
 private:
   /**
    * \brief IPv6 raw data and additional information.
    */
   typedef struct
   {
-    Ptr<Packet> packet;   /**< Packet data */
-    Ipv6Address fromIp;   /**< Source address */
-    uint16_t fromProtocol;   /**< Protocol used */
+    Ptr<Packet> packet;    /**< Packet data */
+    Ipv6Address fromIp;    /**< Source address */
+    uint16_t fromProtocol; /**< Protocol used */
   } Data;
 
   /**
    * \brief Dispose object.
    */
-  virtual void DoDispose ();
+  virtual void DoDispose();
 
   /**
    * \brief Last error number.
@@ -239,4 +238,3 @@ private:
 } /* namespace ns3 */
 
 #endif /* IPV6_RAW_SOCKET_IMPL_H */
-

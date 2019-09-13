@@ -25,7 +25,8 @@
 #include "ns3/address.h"
 #include "ns3/traced-callback.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class Socket;
 class Packet;
@@ -41,24 +42,23 @@ class Packet;
  *
  * Every packet received is sent back.
  */
-class UdpEchoServer : public Application 
+class UdpEchoServer : public Application
 {
 public:
   /**
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
-  UdpEchoServer ();
-  virtual ~UdpEchoServer ();
+  static TypeId GetTypeId(void);
+  UdpEchoServer();
+  virtual ~UdpEchoServer();
 
 protected:
-  virtual void DoDispose (void);
+  virtual void DoDispose(void);
 
 private:
-
-  virtual void StartApplication (void);
-  virtual void StopApplication (void);
+  virtual void StartApplication(void);
+  virtual void StopApplication(void);
 
   /**
    * \brief Handle a packet reception.
@@ -67,15 +67,15 @@ private:
    *
    * \param socket the socket the packet was received to.
    */
-  void HandleRead (Ptr<Socket> socket);
+  void HandleRead(Ptr<Socket> socket);
 
-  uint16_t m_port; //!< Port on which we listen for incoming packets.
-  Ptr<Socket> m_socket; //!< IPv4 Socket
+  uint16_t m_port;       //!< Port on which we listen for incoming packets.
+  Ptr<Socket> m_socket;  //!< IPv4 Socket
   Ptr<Socket> m_socket6; //!< IPv6 Socket
-  Address m_local; //!< local multicast address
+  Address m_local;       //!< local multicast address
 
   /// Callbacks for tracing the packet Rx events
-  TracedCallback<Ptr<const Packet> > m_rxTrace;
+  TracedCallback<Ptr<const Packet>> m_rxTrace;
 
   /// Callbacks for tracing the packet Rx events, includes source and destination addresses
   TracedCallback<Ptr<const Packet>, const Address &, const Address &> m_rxTraceWithAddresses;
@@ -84,4 +84,3 @@ private:
 } // namespace ns3
 
 #endif /* UDP_ECHO_SERVER_H */
-

@@ -21,7 +21,8 @@
 #ifndef BLOCK_ACK_TYPE_H
 #define BLOCK_ACK_TYPE_H
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup wifi

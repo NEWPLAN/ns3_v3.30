@@ -27,7 +27,8 @@
 #include <list>
 #include <map>
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup traffic-control
@@ -35,62 +36,62 @@ namespace ns3 {
  * \brief A flow queue used by the FqCoDel queue disc
  */
 
-class FqCoDelFlow : public QueueDiscClass {
+class FqCoDelFlow : public QueueDiscClass
+{
 public:
   /**
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
   /**
    * \brief FqCoDelFlow constructor
    */
-  FqCoDelFlow ();
+  FqCoDelFlow();
 
-  virtual ~FqCoDelFlow ();
+  virtual ~FqCoDelFlow();
 
   /**
    * \enum FlowStatus
    * \brief Used to determine the status of this flow queue
    */
   enum FlowStatus
-    {
-      INACTIVE,
-      NEW_FLOW,
-      OLD_FLOW
-    };
+  {
+    INACTIVE,
+    NEW_FLOW,
+    OLD_FLOW
+  };
 
   /**
    * \brief Set the deficit for this flow
    * \param deficit the deficit for this flow
    */
-  void SetDeficit (uint32_t deficit);
+  void SetDeficit(uint32_t deficit);
   /**
    * \brief Get the deficit for this flow
    * \return the deficit for this flow
    */
-  int32_t GetDeficit (void) const;
+  int32_t GetDeficit(void) const;
   /**
    * \brief Increase the deficit for this flow
    * \param deficit the amount by which the deficit is to be increased
    */
-  void IncreaseDeficit (int32_t deficit);
+  void IncreaseDeficit(int32_t deficit);
   /**
    * \brief Set the status for this flow
    * \param status the status for this flow
    */
-  void SetStatus (FlowStatus status);
+  void SetStatus(FlowStatus status);
   /**
    * \brief Get the status of this flow
    * \return the status of this flow
    */
-  FlowStatus GetStatus (void) const;
+  FlowStatus GetStatus(void) const;
 
 private:
-  int32_t m_deficit;    //!< the deficit for this flow
-  FlowStatus m_status;  //!< the status of this flow
+  int32_t m_deficit;   //!< the deficit for this flow
+  FlowStatus m_status; //!< the status of this flow
 };
-
 
 /**
  * \ingroup traffic-control
@@ -98,64 +99,65 @@ private:
  * \brief A FqCoDel packet queue disc
  */
 
-class FqCoDelQueueDisc : public QueueDisc {
+class FqCoDelQueueDisc : public QueueDisc
+{
 public:
   /**
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
   /**
    * \brief FqCoDelQueueDisc constructor
    */
-  FqCoDelQueueDisc ();
+  FqCoDelQueueDisc();
 
-  virtual ~FqCoDelQueueDisc ();
+  virtual ~FqCoDelQueueDisc();
 
-   /**
+  /**
     * \brief Set the quantum value.
     *
     * \param quantum The number of bytes each queue gets to dequeue on each round of the scheduling algorithm
     */
-   void SetQuantum (uint32_t quantum);
+  void SetQuantum(uint32_t quantum);
 
-   /**
+  /**
     * \brief Get the quantum value.
     *
     * \returns The number of bytes each queue gets to dequeue on each round of the scheduling algorithm
     */
-   uint32_t GetQuantum (void) const;
+  uint32_t GetQuantum(void) const;
 
   // Reasons for dropping packets
-  static constexpr const char* UNCLASSIFIED_DROP = "Unclassified drop";  //!< No packet filter able to classify packet
-  static constexpr const char* OVERLIMIT_DROP = "Overlimit drop";        //!< Overlimit dropped packets
+  static constexpr const char *UNCLASSIFIED_DROP = "Unclassified drop"; //!< No packet filter able to classify packet
+  static constexpr const char *OVERLIMIT_DROP = "Overlimit drop";       //!< Overlimit dropped packets
 
 private:
-  virtual bool DoEnqueue (Ptr<QueueDiscItem> item);
-  virtual Ptr<QueueDiscItem> DoDequeue (void);
-  virtual bool CheckConfig (void);
-  virtual void InitializeParams (void);
+  virtual bool DoEnqueue(Ptr<QueueDiscItem> item);
+  virtual Ptr<QueueDiscItem> DoDequeue(void);
+  virtual bool CheckConfig(void);
+  virtual void InitializeParams(void);
 
   /**
    * \brief Drop a packet from the head of the queue with the largest current byte count
    * \return the index of the queue with the largest current byte count
    */
-  uint32_t FqCoDelDrop (void);
+  uint32_t FqCoDelDrop(void);
 
-  std::string m_interval;    //!< CoDel interval attribute
-  std::string m_target;      //!< CoDel target attribute
-  uint32_t m_quantum;        //!< Deficit assigned to flows at each round
-  uint32_t m_flows;          //!< Number of flow queues
-  uint32_t m_dropBatchSize;  //!< Max number of packets dropped from the fat flow
-  uint32_t m_perturbation;   //!< hash perturbation value
+  std::string m_interval;   //!< CoDel interval attribute
+  std::string m_target;     //!< CoDel target attribute
+  uint32_t m_quantum;       //!< Deficit assigned to flows at each round
+  uint32_t m_flows;         //!< Number of flow queues
+  uint32_t m_dropBatchSize; //!< Max number of packets dropped from the fat flow
+  uint32_t m_perturbation;  //!< hash perturbation value
 
-  std::list<Ptr<FqCoDelFlow> > m_newFlows;    //!< The list of new flows
-  std::list<Ptr<FqCoDelFlow> > m_oldFlows;    //!< The list of old flows
+  std::list<Ptr<FqCoDelFlow>> m_newFlows; //!< The list of new flows
+  std::list<Ptr<FqCoDelFlow>> m_oldFlows; //!< The list of old flows
 
-  std::map<uint32_t, uint32_t> m_flowsIndices;    //!< Map with the index of class for each flow
+  std::map<uint32_t, uint32_t> m_flowsIndices; //!< Map with the index of class for each flow
 
-  ObjectFactory m_flowFactory;         //!< Factory to create a new flow
-  ObjectFactory m_queueDiscFactory;    //!< Factory to create a new queue
+  ObjectFactory m_flowFactory;      //!< Factory to create a new flow
+  ObjectFactory m_queueDiscFactory; //!< Factory to create a new queue
 };
 
 } // namespace ns3

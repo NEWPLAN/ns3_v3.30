@@ -26,7 +26,8 @@
 #include "ns3/ipv4-header.h"
 #include <stdint.h>
 
-namespace ns3 {
+namespace ns3
+{
 
 class Packet;
 
@@ -40,11 +41,11 @@ class Packet;
 class Icmpv4Header : public Header
 {
 public:
-
   /**
    * ICMP type code.
    */
-  enum Type_e {
+  enum Type_e
+  {
     ICMPV4_ECHO_REPLY = 0,
     ICMPV4_DEST_UNREACH = 3,
     ICMPV4_ECHO = 8,
@@ -54,49 +55,49 @@ public:
   /**
    * Enables ICMP Checksum calculation
    */
-  void EnableChecksum (void);
+  void EnableChecksum(void);
 
   /**
    * Set ICMP type
    * \param type the ICMP type
    */
-  void SetType (uint8_t type);
+  void SetType(uint8_t type);
 
   /**
    * Set ICMP code
    * \param code the ICMP code
    */
-  void SetCode (uint8_t code);
+  void SetCode(uint8_t code);
 
   /**
    * Get ICMP type
    * \returns the ICMP type
    */
-  uint8_t GetType (void) const;
+  uint8_t GetType(void) const;
   /**
    * Get ICMP code
    * \returns the ICMP code
    */
-  uint8_t GetCode (void) const;
+  uint8_t GetCode(void) const;
 
   /**
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
-  Icmpv4Header ();
-  virtual ~Icmpv4Header ();
+  static TypeId GetTypeId(void);
+  Icmpv4Header();
+  virtual ~Icmpv4Header();
 
-  virtual TypeId GetInstanceTypeId (void) const;
-  virtual uint32_t GetSerializedSize (void) const;
-  virtual void Serialize (Buffer::Iterator start) const;
-  virtual uint32_t Deserialize (Buffer::Iterator start);
-  virtual void Print (std::ostream &os) const;
+  virtual TypeId GetInstanceTypeId(void) const;
+  virtual uint32_t GetSerializedSize(void) const;
+  virtual void Serialize(Buffer::Iterator start) const;
+  virtual uint32_t Deserialize(Buffer::Iterator start);
+  virtual void Print(std::ostream &os) const;
 
 private:
-  uint8_t m_type; //!< ICMP type
-  uint8_t m_code; //!< ICMP code
-  bool m_calcChecksum;  //!< true if checksum is calculated
+  uint8_t m_type;      //!< ICMP type
+  uint8_t m_code;      //!< ICMP code
+  bool m_calcChecksum; //!< true if checksum is calculated
 };
 
 /**
@@ -111,52 +112,52 @@ public:
    * \brief Set the Echo identifier
    * \param id the identifier
    */
-  void SetIdentifier (uint16_t id);
+  void SetIdentifier(uint16_t id);
   /**
    * \brief Set the Echo sequence number
    * \param seq the sequence number
    */
-  void SetSequenceNumber (uint16_t seq);
+  void SetSequenceNumber(uint16_t seq);
   /**
    * \brief Set the Echo data
    * \param data the data
    */
-  void SetData (Ptr<const Packet> data);
+  void SetData(Ptr<const Packet> data);
   /**
    * \brief Get the Echo identifier
    * \returns the identifier
    */
-  uint16_t GetIdentifier (void) const;
+  uint16_t GetIdentifier(void) const;
   /**
    * \brief Get the Echo sequence number
    * \returns the sequence number
    */
-  uint16_t GetSequenceNumber (void) const;
+  uint16_t GetSequenceNumber(void) const;
   /**
    * \brief Get the Echo data size
    * \returns the data size
    */
-  uint32_t GetDataSize (void) const;
+  uint32_t GetDataSize(void) const;
   /**
    * \brief Get the Echo data
    * \param payload the data (filled)
    * \returns the data length
    */
-  uint32_t GetData (uint8_t payload[]) const;
-
+  uint32_t GetData(uint8_t payload[]) const;
 
   /**
    * Get ICMP type
    * \returns the ICMP type
    */
-  static TypeId GetTypeId (void);
-  Icmpv4Echo ();
-  virtual ~Icmpv4Echo ();
-  virtual TypeId GetInstanceTypeId (void) const;
-  virtual uint32_t GetSerializedSize (void) const;
-  virtual void Serialize (Buffer::Iterator start) const;
-  virtual uint32_t Deserialize (Buffer::Iterator start);
-  virtual void Print (std::ostream &os) const;
+  static TypeId GetTypeId(void);
+  Icmpv4Echo();
+  virtual ~Icmpv4Echo();
+  virtual TypeId GetInstanceTypeId(void) const;
+  virtual uint32_t GetSerializedSize(void) const;
+  virtual void Serialize(Buffer::Iterator start) const;
+  virtual uint32_t Deserialize(Buffer::Iterator start);
+  virtual void Print(std::ostream &os) const;
+
 private:
   uint16_t m_identifier; //!< identifier
   uint16_t m_sequence;   //!< sequence number
@@ -175,7 +176,8 @@ public:
   /**
    * ICMP error code : Destination Unreachable
    */
-  enum ErrorDestinationUnreachable_e {
+  enum ErrorDestinationUnreachable_e
+  {
     ICMPV4_NET_UNREACHABLE = 0,
     ICMPV4_HOST_UNREACHABLE = 1,
     ICMPV4_PROTOCOL_UNREACHABLE = 2,
@@ -188,55 +190,55 @@ public:
    * Get ICMP type
    * \returns the ICMP type
    */
-  static TypeId GetTypeId (void);
-  Icmpv4DestinationUnreachable ();
-  virtual ~Icmpv4DestinationUnreachable ();
+  static TypeId GetTypeId(void);
+  Icmpv4DestinationUnreachable();
+  virtual ~Icmpv4DestinationUnreachable();
 
   /**
    * \brief Set the next hop MTU
    * \param mtu the MTU
    */
-  void SetNextHopMtu (uint16_t mtu);
+  void SetNextHopMtu(uint16_t mtu);
   /**
    * \brief Get the next hop MTU
    * \returns the MTU
    */
-  uint16_t GetNextHopMtu (void) const;
+  uint16_t GetNextHopMtu(void) const;
 
   /**
    * \brief Set the ICMP carried data
    * \param data the data
    */
-  void SetData (Ptr<const Packet> data);
+  void SetData(Ptr<const Packet> data);
   /**
    * \brief Set the ICMP carried IPv4 header
    * \param header the header
    */
-  void SetHeader (Ipv4Header header);
+  void SetHeader(Ipv4Header header);
 
   /**
    * \brief Get the ICMP carried data
    * \param payload the data (filled)
    */
-  void GetData (uint8_t payload[8]) const;
+  void GetData(uint8_t payload[8]) const;
   /**
    * \brief Get the ICMP carried IPv4 header
    * \returns the header
    */
-  Ipv4Header GetHeader (void) const;
+  Ipv4Header GetHeader(void) const;
 
 private:
-  virtual TypeId GetInstanceTypeId (void) const;
-  virtual uint32_t GetSerializedSize (void) const;
-  virtual void Serialize (Buffer::Iterator start) const;
-  virtual uint32_t Deserialize (Buffer::Iterator start);
-  virtual void Print (std::ostream &os) const;
+  virtual TypeId GetInstanceTypeId(void) const;
+  virtual uint32_t GetSerializedSize(void) const;
+  virtual void Serialize(Buffer::Iterator start) const;
+  virtual uint32_t Deserialize(Buffer::Iterator start);
+  virtual void Print(std::ostream &os) const;
+
 private:
   uint16_t m_nextHopMtu; //!< next hop MTU
   Ipv4Header m_header;   //!< carried IPv4 header
   uint8_t m_data[8];     //!< carried data
 };
-
 
 /**
  * \ingroup icmp
@@ -259,40 +261,40 @@ public:
    * \brief Get the ICMP carried data
    * \param data the data
    */
-  void SetData (Ptr<const Packet> data);
+  void SetData(Ptr<const Packet> data);
   /**
    * \brief Set the ICMP carried IPv4 header
    * \param header the header
    */
-  void SetHeader (Ipv4Header header);
+  void SetHeader(Ipv4Header header);
 
   /**
    * \brief Get the ICMP carried data
    * \param payload the data (filled)
    */
-  void GetData (uint8_t payload[8]) const;
+  void GetData(uint8_t payload[8]) const;
   /**
    * \brief Get the ICMP carried IPv4 header
    * \returns the header
    */
-  Ipv4Header GetHeader (void) const;
+  Ipv4Header GetHeader(void) const;
 
   /**
    * Get ICMP type
    * \returns the ICMP type
    */
-  static TypeId GetTypeId (void);
-  Icmpv4TimeExceeded ();
-  virtual ~Icmpv4TimeExceeded ();
-  virtual TypeId GetInstanceTypeId (void) const;
-  virtual uint32_t GetSerializedSize (void) const;
-  virtual void Serialize (Buffer::Iterator start) const;
-  virtual uint32_t Deserialize (Buffer::Iterator start);
-  virtual void Print (std::ostream &os) const;
+  static TypeId GetTypeId(void);
+  Icmpv4TimeExceeded();
+  virtual ~Icmpv4TimeExceeded();
+  virtual TypeId GetInstanceTypeId(void) const;
+  virtual uint32_t GetSerializedSize(void) const;
+  virtual void Serialize(Buffer::Iterator start) const;
+  virtual uint32_t Deserialize(Buffer::Iterator start);
+  virtual void Print(std::ostream &os) const;
 
 private:
-  Ipv4Header m_header;   //!< carried IPv4 header
-  uint8_t m_data[8];     //!< carried data
+  Ipv4Header m_header; //!< carried IPv4 header
+  uint8_t m_data[8];   //!< carried data
 };
 
 } // namespace ns3

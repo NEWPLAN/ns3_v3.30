@@ -26,7 +26,8 @@
 #include "ns3/ipv4.h"
 #include "ns3/ipv4-address.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup ipv4
@@ -57,18 +58,18 @@ public:
   /**
    * \brief Container Const Iterator for pairs of Ipv4 smart pointer / Interface Index.
    */
-  typedef std::vector<std::pair<Ptr<Ipv4>, uint32_t> >::const_iterator Iterator;
+  typedef std::vector<std::pair<Ptr<Ipv4>, uint32_t>>::const_iterator Iterator;
 
   /**
    * Create an empty Ipv4InterfaceContainer.
    */
-  Ipv4InterfaceContainer ();
+  Ipv4InterfaceContainer();
 
   /**
    * Concatenate the entries in the other container with ours.
    * \param other container
    */
-  void Add (const Ipv4InterfaceContainer& other);
+  void Add(const Ipv4InterfaceContainer &other);
 
   /**
    * \brief Get an iterator which refers to the first pair in the 
@@ -90,7 +91,7 @@ public:
    *
    * \returns an iterator which refers to the first pair in the container.
    */
-  Iterator Begin (void) const;
+  Iterator Begin(void) const;
 
   /**
    * \brief Get an iterator which indicates past-the-last Node in the 
@@ -112,7 +113,7 @@ public:
    *
    * \returns an iterator which indicates an ending condition for a loop.
    */
-  Iterator End (void) const;
+  Iterator End(void) const;
 
   /**
    * \returns the number of Ptr<Ipv4> and interface pairs stored in this 
@@ -135,7 +136,7 @@ public:
    *
    * \returns the number of Ptr<Node> stored in this container.
    */
-  uint32_t GetN (void) const;
+  uint32_t GetN(void) const;
 
   /**
    * \param i index of ipInterfacePair in container
@@ -147,14 +148,14 @@ public:
    * the interface is returned.  Unless IP aliasing is being used on
    * the interface, the second parameter may typically be omitted.
    */
-  Ipv4Address GetAddress (uint32_t i, uint32_t j = 0) const;
+  Ipv4Address GetAddress(uint32_t i, uint32_t j = 0) const;
 
   /**
    * \brief Set a metric for the given interface
    * \param i Interface index
    * \param metric the interface metric
    */
-  void SetMetric (uint32_t i, uint16_t metric);
+  void SetMetric(uint32_t i, uint16_t metric);
 
   /**
    * Manually add an entry to the container consisting of the individual parts
@@ -163,7 +164,7 @@ public:
    * \param ipv4 pointer to Ipv4 object
    * \param interface interface index of the Ipv4Interface to add to the container
    */
-  void Add (Ptr<Ipv4> ipv4, uint32_t interface);
+  void Add(Ptr<Ipv4> ipv4, uint32_t interface);
 
   /**
    * Manually add an entry to the container consisting of a previously composed 
@@ -171,7 +172,7 @@ public:
    *
    * \param ipInterfacePair the pair of a pointer to Ipv4 object and interface index of the Ipv4Interface to add to the container
    */
-  void Add (std::pair<Ptr<Ipv4>, uint32_t> ipInterfacePair);
+  void Add(std::pair<Ptr<Ipv4>, uint32_t> ipInterfacePair);
 
   /**
    * Manually add an entry to the container consisting of the individual parts
@@ -181,7 +182,7 @@ public:
    *        has been previously named using the Object Name Service.
    * \param interface interface index of the Ipv4Interface to add to the container
    */
-  void Add (std::string ipv4Name, uint32_t interface);
+  void Add(std::string ipv4Name, uint32_t interface);
 
   /**
    * Get the std::pair of an Ptr<Ipv4> and interface stored at the location 
@@ -204,13 +205,13 @@ public:
    *   Ptr<Ipv4Interface> iface =  ipv4->GetObject<Ipv4L3Protocol> ()->GetInterface (index);
    * \endcode
    */
-  std::pair<Ptr<Ipv4>, uint32_t> Get (uint32_t i) const;
+  std::pair<Ptr<Ipv4>, uint32_t> Get(uint32_t i) const;
 
 private:
   /**
    * \brief Container for pairs of Ipv4 smart pointer / Interface Index.
    */
-  typedef std::vector<std::pair<Ptr<Ipv4>,uint32_t> > InterfaceVector;
+  typedef std::vector<std::pair<Ptr<Ipv4>, uint32_t>> InterfaceVector;
 
   /**
    * \brief List of IPv4 stack and interfaces index.

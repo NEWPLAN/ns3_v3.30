@@ -28,7 +28,8 @@
 #include "ns3/type-id.h"
 #include "buffer.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class Chunk;
 class Buffer;
@@ -75,21 +76,21 @@ class Trailer;
  * The variable-size 32 bit integers are stored using the uleb128
  * encoding.
  */
-class PacketMetadata 
+class PacketMetadata
 {
 public:
-
   /**
    * \brief structure describing a packet metadata item
    */
-  struct Item 
+  struct Item
   {
     /// Type of data in the packet
-    enum ItemType {
-      PAYLOAD,  //!< Payload
-      HEADER,   //!< Header
-      TRAILER   //!< Trailer
-    } type; //!< metadata type
+    enum ItemType
+    {
+      PAYLOAD, //!< Payload
+      HEADER,  //!< Header
+      TRAILER  //!< Trailer
+    } type;    //!< metadata type
     /**
      * true: this is a fragmented header, trailer, or, payload.
      * false: this is a whole header, trailer, or, payload.
@@ -125,86 +126,87 @@ public:
   /**
    * \brief Iterator class for metadata items.
    */
-  class ItemIterator 
+  class ItemIterator
   {
-public:
+  public:
     /**
      * \brief Constructor
      * \param metadata a pointer to the metadata
      * \param buffer the buffer the metadata refers to
      */
-    ItemIterator (const PacketMetadata *metadata, Buffer buffer);
+    ItemIterator(const PacketMetadata *metadata, Buffer buffer);
     /**
      * \brief Checks if there is another metadata item
      * \returns true if there is another item
      */
-    bool HasNext (void) const;
+    bool HasNext(void) const;
     /**
      * \brief Retrieve the next metadata item
      * \returns the next metadata item
      */
-    Item Next (void);
-private:
+    Item Next(void);
+
+  private:
     const PacketMetadata *m_metadata; //!< pointer to the metadata
-    Buffer m_buffer; //!< buffer the metadata refers to
-    uint16_t m_current; //!< current position
-    uint32_t m_offset; //!< offset
-    bool m_hasReadTail; //!< true if the metadata tail has been read
+    Buffer m_buffer;                  //!< buffer the metadata refers to
+    uint16_t m_current;               //!< current position
+    uint32_t m_offset;                //!< offset
+    bool m_hasReadTail;               //!< true if the metadata tail has been read
   };
 
   /**
    * \brief Enable the packet metadata
    */
-  static void Enable (void);
+  static void Enable(void);
   /**
    * \brief Enable the packet metadata checking
    */
-  static void EnableChecking (void);
+  static void EnableChecking(void);
 
   /**
    * \brief Constructor
    * \param uid packet uid
    * \param size size of the header
    */
-  inline PacketMetadata (uint64_t uid, uint32_t size);
+  inline PacketMetadata(uint64_t uid, uint32_t size);
   /**
    * \brief Copy constructor
    * \param o the object to copy
    */
-  inline PacketMetadata (PacketMetadata const &o);
+  inline PacketMetadata(PacketMetadata const &o);
   /**
    * \brief Basic assignment
    * \param o the object to copy
    * \return a copied object
    */
-  inline PacketMetadata &operator = (PacketMetadata const& o);
-  inline ~PacketMetadata ();
+  inline PacketMetadata &operator=(PacketMetadata const &o);
+  inline ~PacketMetadata();
 
   /**
    * \brief Add an header
    * \param header header to add
    * \param size header serialized size
    */
-  void AddHeader (Header const &header, uint32_t size);
+  void AddHeader(Header const &header, uint32_t size);
   /**
    * \brief Remove an header
    * \param header header to remove
    * \param size header serialized size
    */
-  void RemoveHeader (Header const &header, uint32_t size);
+  void RemoveHeader(Header const &header, uint32_t size);
 
   /**
    * Add a trailer
    * \param trailer trailer to add
    * \param size trailer serialized size
    */
-  void AddTrailer (Trailer const &trailer, uint32_t size);
+  void AddTrailer(Trailer const &trailer, uint32_t size);
   /**
    * Remove a trailer
    * \param trailer trailer to remove
    * \param size trailer serialized size
    */
-  void RemoveTrailer (Trailer const &trailer, uint32_t size);
+  void RemoveTrailer(Trailer const &trailer, uint32_t size);
 
   /**
    * \brief Creates a fragment.
@@ -216,47 +218,47 @@ private:
    * Calling this method is equivalent to calling RemoveAtStart (start)
    * and then, RemoveAtEnd (end).
    */
-  PacketMetadata CreateFragment (uint32_t start, uint32_t end) const;
+  PacketMetadata CreateFragment(uint32_t start, uint32_t end) const;
 
   /**
    * \brief Add a metadata at the metadata start
    * \param o the metadata to add
    */
-  void AddAtEnd (PacketMetadata const&o);
+  void AddAtEnd(PacketMetadata const &o);
   /**
    * \brief Add some padding at the end
    * \param end size of padding
    */
-  void AddPaddingAtEnd (uint32_t end);
+  void AddPaddingAtEnd(uint32_t end);
   /**
    * \brief Remove a chunk of metadata at the metadata start
    * \param start the size of metadata to remove
    */
-  void RemoveAtStart (uint32_t start);
+  void RemoveAtStart(uint32_t start);
   /**
    * \brief Remove a chunk of metadata at the metadata end
    * \param end the size of metadata to remove
    */
-  void RemoveAtEnd (uint32_t end);
+  void RemoveAtEnd(uint32_t end);
 
   /**
    * \brief Get the packet Uid
    * \return the packet Uid
    */
-  uint64_t GetUid (void) const;
+  uint64_t GetUid(void) const;
 
   /**
    * \brief Get the metadata serialized size
    * \return the seralized size
    */
-  uint32_t GetSerializedSize (void) const;
+  uint32_t GetSerializedSize(void) const;
 
   /**
    * \brief Initialize the item iterator to the buffer begin
    * \param buffer buffer to initialize.
    * \return the buffer iterator.
    */
-  ItemIterator BeginItem (Buffer buffer) const;
+  ItemIterator BeginItem(Buffer buffer) const;
 
   /**
    *  \brief Serialization to raw uint8_t*
@@ -264,14 +266,14 @@ private:
    *  \param maxSize the maximum serialization size
    *  \return 1 on success, 0 on failure
    */
-  uint32_t Serialize   (uint8_t* buffer, uint32_t maxSize) const;
+  uint32_t Serialize(uint8_t *buffer, uint32_t maxSize) const;
   /**
    *  \brief Deserialization from raw uint8_t*
    *  \param buffer the buffer to deserialize from
    *  \param size the size
    *  \return 1 on success, 0 on failure
    */
-  uint32_t Deserialize (const uint8_t* buffer, uint32_t size);
+  uint32_t Deserialize(const uint8_t *buffer, uint32_t size);
 
 private:
   /**
@@ -283,9 +285,23 @@ private:
    * \param maxSize maximum size
    * \return updated current index
    */
-  static uint8_t* AddToRawU8 (const uint8_t& data,
-                              uint8_t* start,
-                              uint8_t* current,
+  static uint8_t *AddToRawU8(const uint8_t &data,
+                             uint8_t *start,
+                             uint8_t *current,
+                             uint32_t maxSize);
+
+  /**
+   * \brief Helper for the raw serialization.
+   *
+   * \param data the buffer to write to
+   * \param start start index
+   * \param current current index
+   * \param maxSize maximum size
+   * \return updated current index
+   */
+  static uint8_t *AddToRawU16(const uint16_t &data,
+                              uint8_t *start,
+                              uint8_t *current,
                               uint32_t maxSize);
 
   /**
@@ -297,10 +313,10 @@ private:
    * \param maxSize maximum size
    * \return updated current index
    */
-  static uint8_t* AddToRawU16 (const uint16_t& data,
-                               uint8_t* start,
-                               uint8_t* current,
-                               uint32_t maxSize);
+  static uint8_t *AddToRawU32(const uint32_t &data,
+                              uint8_t *start,
+                              uint8_t *current,
+                              uint32_t maxSize);
 
   /**
    * \brief Helper for the raw serialization.
@@ -311,24 +327,10 @@ private:
    * \param maxSize maximum size
    * \return updated current index
    */
-  static uint8_t* AddToRawU32 (const uint32_t& data,
-                               uint8_t* start,
-                               uint8_t* current,
-                               uint32_t maxSize);
-
-  /**
-   * \brief Helper for the raw serialization.
-   *
-   * \param data the buffer to write to
-   * \param start start index
-   * \param current current index
-   * \param maxSize maximum size
-   * \return updated current index
-   */
-  static uint8_t* AddToRawU64 (const uint64_t& data,
-                               uint8_t* start,
-                               uint8_t* current,
-                               uint32_t maxSize);
+  static uint8_t *AddToRawU64(const uint64_t &data,
+                              uint8_t *start,
+                              uint8_t *current,
+                              uint32_t maxSize);
 
   /**
    * \brief Helper for the raw serialization.
@@ -340,11 +342,11 @@ private:
    * \param maxSize maximum size
    * \return updated current index
    */
-  static uint8_t* AddToRaw (const uint8_t* data,
-                            uint32_t dataSize,
-                            uint8_t* start,
-                            uint8_t* current,
-                            uint32_t maxSize);
+  static uint8_t *AddToRaw(const uint8_t *data,
+                           uint32_t dataSize,
+                           uint8_t *start,
+                           uint8_t *current,
+                           uint32_t maxSize);
 
   /**
    * \brief Helper for the raw deserialization.
@@ -355,9 +357,23 @@ private:
    * \param maxSize maximum size
    * \return updated current index
    */
-  static uint8_t* ReadFromRawU8 (uint8_t& data,
-                                 const uint8_t* start,
-                                 const uint8_t* current,
+  static uint8_t *ReadFromRawU8(uint8_t &data,
+                                const uint8_t *start,
+                                const uint8_t *current,
+                                uint32_t maxSize);
+
+  /**
+   * \brief Helper for the raw deserialization.
+   *
+   * \param data the buffer to read from
+   * \param start start index
+   * \param current current index
+   * \param maxSize maximum size
+   * \return updated current index
+   */
+  static uint8_t *ReadFromRawU16(uint16_t &data,
+                                 const uint8_t *start,
+                                 const uint8_t *current,
                                  uint32_t maxSize);
 
   /**
@@ -369,10 +385,10 @@ private:
    * \param maxSize maximum size
    * \return updated current index
    */
-  static uint8_t* ReadFromRawU16 (uint16_t& data,
-                                  const uint8_t* start,
-                                  const uint8_t* current,
-                                  uint32_t maxSize);
+  static uint8_t *ReadFromRawU32(uint32_t &data,
+                                 const uint8_t *start,
+                                 const uint8_t *current,
+                                 uint32_t maxSize);
 
   /**
    * \brief Helper for the raw deserialization.
@@ -383,35 +399,22 @@ private:
    * \param maxSize maximum size
    * \return updated current index
    */
-  static uint8_t* ReadFromRawU32 (uint32_t& data,
-                                  const uint8_t* start,
-                                  const uint8_t* current,
-                                  uint32_t maxSize);
-
-  /**
-   * \brief Helper for the raw deserialization.
-   *
-   * \param data the buffer to read from
-   * \param start start index
-   * \param current current index
-   * \param maxSize maximum size
-   * \return updated current index
-   */
-  static uint8_t* ReadFromRawU64 (uint64_t& data,
-                                  const uint8_t* start,
-                                  const uint8_t* current,
-                                  uint32_t maxSize);
+  static uint8_t *ReadFromRawU64(uint64_t &data,
+                                 const uint8_t *start,
+                                 const uint8_t *current,
+                                 uint32_t maxSize);
 
   /**
    * the size of PacketMetadata::Data::m_data such that the total size
    * of PacketMetadata::Data is 16 bytes
-   */ 
+   */
 #define PACKET_METADATA_DATA_M_DATA_SIZE 8
-  
+
   /**
    * Data structure
    */
-  struct Data {
+  struct Data
+  {
     /** number of references to this struct Data instance. */
     uint32_t m_count;
     /** size (in bytes) of m_data buffer below */
@@ -420,7 +423,7 @@ private:
      * reference this struct Data instance */
     uint16_t m_dirtyEnd;
     /** variable-sized buffer of bytes */
-    uint8_t m_data[PACKET_METADATA_DATA_M_DATA_SIZE]; 
+    uint8_t m_data[PACKET_METADATA_DATA_M_DATA_SIZE];
   };
   /* Note that since the next and prev fields are 16 bit integers
      and since the value 0xffff is reserved to identify the 
@@ -431,7 +434,8 @@ private:
   /**
    * \brief SmallItem structure
    */
-  struct SmallItem {
+  struct SmallItem
+  {
     /** offset (in bytes) from start of m_data buffer
        to next element in linked list. value is 0xffff 
        if next element does not exist.
@@ -475,7 +479,8 @@ private:
   /**
    * \brief ExtraItem structure
    */
-  struct ExtraItem {
+  struct ExtraItem
+  {
     /** offset (in bytes) from start of original header to
        the start of the fragment still present.
        stored as a variable-size 32 bit integer.
@@ -499,22 +504,22 @@ private:
    */
   class DataFreeList : public std::vector<struct Data *>
   {
-public:
-    ~DataFreeList ();
+  public:
+    ~DataFreeList();
   };
 
-  friend DataFreeList::~DataFreeList ();
+  friend DataFreeList::~DataFreeList();
   /// Friend class
   friend class ItemIterator;
 
-  PacketMetadata ();
+  PacketMetadata();
 
   /**
    * \brief Add a SmallItem
    * \param item the SmallItem to add
    * \return added size
    */
-  inline uint16_t AddSmall (const PacketMetadata::SmallItem *item);
+  inline uint16_t AddSmall(const PacketMetadata::SmallItem *item);
   /**
    * \brief Add a "Big" Item (a SmallItem plus an ExtraItem)
    * \param head the head
@@ -523,9 +528,9 @@ public:
    * \param extraItem the ExtraItem to add
    * \return added size
    */
-  uint16_t AddBig (uint32_t head, uint32_t tail,
-                   const PacketMetadata::SmallItem *item, 
-                   const PacketMetadata::ExtraItem *extraItem);
+  uint16_t AddBig(uint32_t head, uint32_t tail,
+                  const PacketMetadata::SmallItem *item,
+                  const PacketMetadata::ExtraItem *extraItem);
   /**
    * \brief Replace the tail
    * \param item the item data to write
@@ -533,50 +538,50 @@ public:
    * \param available the number of bytes which can
    *        be written without having to rewrite the buffer entirely.
    */
-  void ReplaceTail (PacketMetadata::SmallItem *item, 
-                    PacketMetadata::ExtraItem *extraItem,
-                    uint32_t available);
+  void ReplaceTail(PacketMetadata::SmallItem *item,
+                   PacketMetadata::ExtraItem *extraItem,
+                   uint32_t available);
   /**
    * \brief Update the head
    * \param written the used bytes
    */
-  inline void UpdateHead (uint16_t written);
+  inline void UpdateHead(uint16_t written);
   /**
    * \brief Update the tail
    * \param written the used bytes
    */
-  inline void UpdateTail (uint16_t written);
+  inline void UpdateTail(uint16_t written);
 
   /**
    * \brief Get the ULEB128 (Unsigned Little Endian Base 128) size
    * \param value the value
    * \returns the value's ULEB128 size
    */
-  inline uint32_t GetUleb128Size (uint32_t value) const;
+  inline uint32_t GetUleb128Size(uint32_t value) const;
   /**
    * \brief Read a ULEB128 (Unsigned Little Endian Base 128) coded number
    * \param pBuffer the buffer to read from
    * \returns the value
    */
-  uint32_t ReadUleb128 (const uint8_t **pBuffer) const;
+  uint32_t ReadUleb128(const uint8_t **pBuffer) const;
   /**
    * \brief Append a 16-bit value to the buffer
    * \param value the value to add
    * \param buffer the buffer to write to
    */
-  inline void Append16 (uint16_t value, uint8_t *buffer);
+  inline void Append16(uint16_t value, uint8_t *buffer);
   /**
    * \brief Append a 32-bit value to the buffer
    * \param value the value to add
    * \param buffer the buffer to write to
    */
-  inline void Append32 (uint32_t value, uint8_t *buffer);
+  inline void Append32(uint32_t value, uint8_t *buffer);
   /**
    * \brief Append a value to the buffer
    * \param value the value to add
    * \param buffer the buffer to write to
    */
-  inline void AppendValue (uint32_t value, uint8_t *buffer);
+  inline void AppendValue(uint32_t value, uint8_t *buffer);
   /**
    * \brief Append a value to the buffer - extra
    *
@@ -585,24 +590,24 @@ public:
    * \param value the value to add
    * \param buffer the buffer to write to
    */
-  void AppendValueExtra (uint32_t value, uint8_t *buffer);
+  void AppendValueExtra(uint32_t value, uint8_t *buffer);
 
   /**
    * \brief Reserve space
    * \param n space to reserve
    */
-  inline void Reserve (uint32_t n);
+  inline void Reserve(uint32_t n);
   /**
    * \brief Reserve space and make a metadata copy
    * \param n space to reserve
    */
-  void ReserveCopy (uint32_t n);
+  void ReserveCopy(uint32_t n);
 
   /**
    * \brief Get the total size used by the metadata
    * \return the metadata used size
    */
-  uint32_t GetTotalSize (void) const;
+  uint32_t GetTotalSize(void) const;
 
   /**
    * \brief Read items
@@ -611,59 +616,59 @@ public:
    * \param extraItem pointer to where we should store the data to return to the caller
    * \returns the number of bytes read.
    */
-  uint32_t ReadItems (uint16_t current, 
-                      struct PacketMetadata::SmallItem *item,
-                      struct PacketMetadata::ExtraItem *extraItem) const;
+  uint32_t ReadItems(uint16_t current,
+                     struct PacketMetadata::SmallItem *item,
+                     struct PacketMetadata::ExtraItem *extraItem) const;
   /**
    * \brief Add an header
    * \param uid header's uid to add
    * \param size header serialized size
    */
-  void DoAddHeader (uint32_t uid, uint32_t size);
+  void DoAddHeader(uint32_t uid, uint32_t size);
   /**
    * \brief Check if the metadata state is ok
    * \returns true if the internal state is ok
    */
-  bool IsStateOk (void) const;
+  bool IsStateOk(void) const;
   /**
    * \brief Check if the position is valid
    * \param pointer the position to check
    * \returns true if the position is valid
    */
-  bool IsPointerOk (uint16_t pointer) const;
+  bool IsPointerOk(uint16_t pointer) const;
   /**
    * \brief Check if the position is valid
    * \param pointer the position to check
    * \returns true if the position is valid
    */
-  bool IsSharedPointerOk (uint16_t pointer) const;
+  bool IsSharedPointerOk(uint16_t pointer) const;
 
   /**
    * \brief Recycle the buffer memory
    * \param data the buffer data storage
    */
-  static void Recycle (struct PacketMetadata::Data *data);
+  static void Recycle(struct PacketMetadata::Data *data);
   /**
    * \brief Create a buffer data storage
    * \param size the storage size to create
    * \returns a pointer to the created buffer storage
    */
-  static struct PacketMetadata::Data *Create (uint32_t size);
+  static struct PacketMetadata::Data *Create(uint32_t size);
   /**
    * \brief Allocate a buffer data storage
    * \param n the storage size to create
    * \returns a pointer to the allocated buffer storage
    */
-  static struct PacketMetadata::Data *Allocate (uint32_t n);
+  static struct PacketMetadata::Data *Allocate(uint32_t n);
   /**
    * \brief Deallocate the buffer memory
    * \param data the buffer data storage
    */
-  static void Deallocate (struct PacketMetadata::Data *data);
+  static void Deallocate(struct PacketMetadata::Data *data);
 
   static DataFreeList m_freeList; //!< the metadata data storage
-  static bool m_enable; //!< Enable the packet metadata
-  static bool m_enableChecking; //!< Enable the packet metadata checking
+  static bool m_enable;           //!< Enable the packet metadata
+  static bool m_enableChecking;   //!< Enable the packet metadata checking
 
   /**
    * Set to true when adding metadata to a packet is skipped because
@@ -672,7 +677,7 @@ public:
    */
   static bool m_metadataSkipped;
 
-  static uint32_t m_maxSize; //!< maximum metadata size
+  static uint32_t m_maxSize;  //!< maximum metadata size
   static uint16_t m_chunkUid; //!< Chunk Uid
 
   struct Data *m_data; //!< Metadata storage
@@ -681,73 +686,73 @@ public:
        ^             |
         \---(prev)---|
    */
-  uint16_t m_head; //!< list head
-  uint16_t m_tail; //!< list tail
-  uint16_t m_used; //!< used portion
+  uint16_t m_head;      //!< list head
+  uint16_t m_tail;      //!< list tail
+  uint16_t m_used;      //!< used portion
   uint64_t m_packetUid; //!< packet Uid
 };
 
 } // namespace ns3
 
-namespace ns3 {
+namespace ns3
+{
 
-PacketMetadata::PacketMetadata (uint64_t uid, uint32_t size)
-  : m_data (PacketMetadata::Create (10)),
-    m_head (0xffff),
-    m_tail (0xffff),
-    m_used (0),
-    m_packetUid (uid)
+PacketMetadata::PacketMetadata(uint64_t uid, uint32_t size)
+    : m_data(PacketMetadata::Create(10)),
+      m_head(0xffff),
+      m_tail(0xffff),
+      m_used(0),
+      m_packetUid(uid)
 {
-  memset (m_data->m_data, 0xff, 4);
+  memset(m_data->m_data, 0xff, 4);
   if (size > 0)
-    {
-      DoAddHeader (0, size);
-    }
+  {
+    DoAddHeader(0, size);
+  }
 }
-PacketMetadata::PacketMetadata (PacketMetadata const &o)
-  : m_data (o.m_data),
-    m_head (o.m_head),
-    m_tail (o.m_tail),
-    m_used (o.m_used),
-    m_packetUid (o.m_packetUid)
+PacketMetadata::PacketMetadata(PacketMetadata const &o)
+    : m_data(o.m_data),
+      m_head(o.m_head),
+      m_tail(o.m_tail),
+      m_used(o.m_used),
+      m_packetUid(o.m_packetUid)
 {
-  NS_ASSERT (m_data != 0);
-  NS_ASSERT (m_data->m_count < std::numeric_limits<uint32_t>::max());
+  NS_ASSERT(m_data != 0);
+  NS_ASSERT(m_data->m_count < std::numeric_limits<uint32_t>::max());
   m_data->m_count++;
 }
 PacketMetadata &
-PacketMetadata::operator = (PacketMetadata const& o)
+PacketMetadata::operator=(PacketMetadata const &o)
 {
-  if (m_data != o.m_data) 
+  if (m_data != o.m_data)
+  {
+    // not self assignment
+    NS_ASSERT(m_data != 0);
+    m_data->m_count--;
+    if (m_data->m_count == 0)
     {
-      // not self assignment
-      NS_ASSERT (m_data != 0);
-      m_data->m_count--;
-      if (m_data->m_count == 0) 
-        {
-          PacketMetadata::Recycle (m_data);
-        }
-      m_data = o.m_data;
-      NS_ASSERT (m_data != 0);
-      m_data->m_count++;
+      PacketMetadata::Recycle(m_data);
     }
+    m_data = o.m_data;
+    NS_ASSERT(m_data != 0);
+    m_data->m_count++;
+  }
   m_head = o.m_head;
   m_tail = o.m_tail;
   m_used = o.m_used;
   m_packetUid = o.m_packetUid;
   return *this;
 }
-PacketMetadata::~PacketMetadata ()
+PacketMetadata::~PacketMetadata()
 {
-  NS_ASSERT (m_data != 0);
+  NS_ASSERT(m_data != 0);
   m_data->m_count--;
-  if (m_data->m_count == 0) 
-    {
-      PacketMetadata::Recycle (m_data);
-    }
+  if (m_data->m_count == 0)
+  {
+    PacketMetadata::Recycle(m_data);
+  }
 }
 
 } // namespace ns3
-
 
 #endif /* PACKET_METADATA_H */

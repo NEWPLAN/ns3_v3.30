@@ -22,7 +22,8 @@
 #ifndef GLOBAL_ROUTE_MANAGER_H
 #define GLOBAL_ROUTE_MANAGER_H
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup globalrouting
@@ -40,48 +41,48 @@ namespace ns3 {
 class GlobalRouteManager
 {
 public:
-/**
+  /**
  * @brief Allocate a 32-bit router ID from monotonically increasing counter.
  * @returns A new new RouterId.
  */
-  static uint32_t AllocateRouterId ();
+  static uint32_t AllocateRouterId();
 
-/**
+  /**
  * @brief Delete all static routes on all nodes that have a 
  * GlobalRouterInterface
  *
  */
-  static void DeleteGlobalRoutes ();
+  static void DeleteGlobalRoutes();
 
-/**
+  /**
  * @brief Build the routing database by gathering Link State Advertisements
  * from each node exporting a GlobalRouter interface.
  */
-  static void BuildGlobalRoutingDatabase ();
+  static void BuildGlobalRoutingDatabase();
 
-/**
+  /**
  * @brief Compute routes using a Dijkstra SPF computation and populate
  * per-node forwarding tables
  */
-  static void InitializeRoutes ();
+  static void InitializeRoutes();
 
 private:
-/**
+  /**
  * @brief Global Route Manager copy construction is disallowed.  There's no 
  * need for it and a compiler provided shallow copy would be wrong.
  *
  * @param srm object to copy from
  */
-  GlobalRouteManager (GlobalRouteManager& srm);
+  GlobalRouteManager(GlobalRouteManager &srm);
 
-/**
+  /**
  * @brief Global Router copy assignment operator is disallowed.  There's no 
  * need for it and a compiler provided shallow copy would be wrong.
  *
  * @param srm object to copy from
  * @returns the copied object
  */
-  GlobalRouteManager& operator= (GlobalRouteManager& srm);
+  GlobalRouteManager &operator=(GlobalRouteManager &srm);
 };
 
 } // namespace ns3

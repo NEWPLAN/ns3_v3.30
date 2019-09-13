@@ -27,7 +27,8 @@
 #include <map>
 #include <vector>
 
-namespace ns3 {
+namespace ns3
+{
 
 class Packet;
 class QueueDisc;
@@ -93,20 +94,20 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
   /**
    * \brief Get the type ID for the instance
    * \return the instance TypeId
    */
-  virtual TypeId GetInstanceTypeId (void) const;
+  virtual TypeId GetInstanceTypeId(void) const;
 
   /**
    * \brief Constructor
    */
-  TrafficControlLayer ();
+  TrafficControlLayer();
 
-  virtual ~TrafficControlLayer ();
+  virtual ~TrafficControlLayer();
 
   /**
    * \brief Register an IN handler
@@ -125,12 +126,12 @@ public:
    *        value is zero, the handler is attached to all
    *        devices.
    */
-  void RegisterProtocolHandler (Node::ProtocolHandler handler,
-                                uint16_t protocolType,
-                                Ptr<NetDevice> device);
+  void RegisterProtocolHandler(Node::ProtocolHandler handler,
+                               uint16_t protocolType,
+                               Ptr<NetDevice> device);
 
   /// Typedef for queue disc vector
-  typedef std::vector<Ptr<QueueDisc> > QueueDiscVector;
+  typedef std::vector<Ptr<QueueDisc>> QueueDiscVector;
 
   /**
    * \brief Collect information needed to determine how to handle packets
@@ -139,7 +140,7 @@ public:
    * Checks whether a NetDeviceQueueInterface objects is aggregated to each of
    * the NetDevices of this node and sets the required callbacks properly.
    */
-  virtual void ScanDevices (void);
+  virtual void ScanDevices(void);
 
   /**
    * \brief This method can be used to set the root queue disc installed on a device
@@ -147,7 +148,7 @@ public:
    * \param device the device on which the provided queue disc will be installed
    * \param qDisc the queue disc to be installed as root queue disc on device
    */
-  virtual void SetRootQueueDiscOnDevice (Ptr<NetDevice> device, Ptr<QueueDisc> qDisc);
+  virtual void SetRootQueueDiscOnDevice(Ptr<NetDevice> device, Ptr<QueueDisc> qDisc);
 
   /**
    * \brief This method can be used to get the root queue disc installed on a device
@@ -155,7 +156,7 @@ public:
    * \param device the device on which the requested root queue disc is installed
    * \return the root queue disc installed on the given device
    */
-  virtual Ptr<QueueDisc> GetRootQueueDiscOnDevice (Ptr<NetDevice> device) const;
+  virtual Ptr<QueueDisc> GetRootQueueDiscOnDevice(Ptr<NetDevice> device) const;
 
   /**
    * \brief This method can be used to remove the root queue disc (and associated
@@ -163,13 +164,13 @@ public:
    *
    * \param device the device on which the installed queue disc will be deleted
    */
-  virtual void DeleteRootQueueDiscOnDevice (Ptr<NetDevice> device);
+  virtual void DeleteRootQueueDiscOnDevice(Ptr<NetDevice> device);
 
   /**
    * \brief Set node associated with this stack.
    * \param node node to set
    */
-  void SetNode (Ptr<Node> node);
+  void SetNode(Ptr<Node> node);
 
   /**
    * \brief Called by NetDevices, incoming packet
@@ -184,40 +185,40 @@ public:
    * \param to address of the destination
    * \param packetType type of the packet
    */
-  virtual void Receive (Ptr<NetDevice> device, Ptr<const Packet> p,
-                        uint16_t protocol, const Address &from,
-                        const Address &to, NetDevice::PacketType packetType);
+  virtual void Receive(Ptr<NetDevice> device, Ptr<const Packet> p,
+                       uint16_t protocol, const Address &from,
+                       const Address &to, NetDevice::PacketType packetType);
   /**
    * \brief Called from upper layer to queue a packet for the transmission.
    *
    * \param device the device the packet must be sent to
    * \param item a queue item including a packet and additional information
    */
-  virtual void Send (Ptr<NetDevice> device, Ptr<QueueDiscItem> item);
+  virtual void Send(Ptr<NetDevice> device, Ptr<QueueDiscItem> item);
 
 protected:
-
-  virtual void DoDispose (void);
-  virtual void DoInitialize (void);
-  virtual void NotifyNewAggregate (void);
+  virtual void DoDispose(void);
+  virtual void DoInitialize(void);
+  virtual void NotifyNewAggregate(void);
 
 private:
   /**
    * \brief Copy constructor
    * Disable default implementation to avoid misuse
    */
-  TrafficControlLayer (TrafficControlLayer const &);
+  TrafficControlLayer(TrafficControlLayer const &);
   /**
    * \brief Assignment operator
    * \return this object
    * Disable default implementation to avoid misuse
    */
-  TrafficControlLayer& operator= (TrafficControlLayer const &);
+  TrafficControlLayer &operator=(TrafficControlLayer const &);
   /**
    * \brief Protocol handler entry.
    * This structure is used to demultiplex all the protocols.
    */
-  struct ProtocolHandlerEntry {
+  struct ProtocolHandlerEntry
+  {
     Node::ProtocolHandler handler; //!< the protocol handler
     Ptr<NetDevice> device;         //!< the NetDevice
     uint16_t protocol;             //!< the protocol number
@@ -229,9 +230,9 @@ private:
    */
   struct NetDeviceInfo
   {
-    Ptr<QueueDisc> m_rootQueueDisc;       //!< the root queue disc on the device
-    Ptr<NetDeviceQueueInterface> m_ndqi;  //!< the netdevice queue interface
-    QueueDiscVector m_queueDiscsToWake;   //!< the vector of queue discs to wake
+    Ptr<QueueDisc> m_rootQueueDisc;      //!< the root queue disc on the device
+    Ptr<NetDeviceQueueInterface> m_ndqi; //!< the netdevice queue interface
+    QueueDiscVector m_queueDiscsToWake;  //!< the vector of queue discs to wake
   };
 
   /// Typedef for protocol handlers container
@@ -241,19 +242,19 @@ private:
    * \brief Required by the object map accessor
    * \return the number of devices in the m_netDevices map
    */
-  uint32_t GetNDevices (void) const;
+  uint32_t GetNDevices(void) const;
   /**
    * \brief Required by the object map accessor
    * \param index the index of the device in the node's device list
    * \return the root queue disc installed on the specified device
    */
-  Ptr<QueueDisc> GetRootQueueDiscOnDeviceByIndex (uint32_t index) const;
+  Ptr<QueueDisc> GetRootQueueDiscOnDeviceByIndex(uint32_t index) const;
 
   /// The node this TrafficControlLayer object is aggregated to
   Ptr<Node> m_node;
   /// Map storing the required information for each device with a queue disc installed
   std::map<Ptr<NetDevice>, NetDeviceInfo> m_netDevices;
-  ProtocolHandlerList m_handlers;  //!< List of upper-layer handlers
+  ProtocolHandlerList m_handlers; //!< List of upper-layer handlers
 };
 
 } // namespace ns3

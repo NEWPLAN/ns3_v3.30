@@ -28,67 +28,65 @@
 namespace ns3
 {
 
-NS_OBJECT_ENSURE_REGISTERED (Ipv6OptionDemux);
+NS_OBJECT_ENSURE_REGISTERED(Ipv6OptionDemux);
 
-TypeId Ipv6OptionDemux::GetTypeId ()
+TypeId Ipv6OptionDemux::GetTypeId()
 {
-  static TypeId tid = TypeId ("ns3::Ipv6OptionDemux")
-    .SetParent<Object> ()
-    .SetGroupName ("Internet")
-    .AddAttribute ("Options", "The set of IPv6 options registered with this demux.",
-                   ObjectVectorValue (),
-                   MakeObjectVectorAccessor (&Ipv6OptionDemux::m_options),
-                   MakeObjectVectorChecker<Ipv6Option> ())
-  ;
+  static TypeId tid = TypeId("ns3::Ipv6OptionDemux")
+                          .SetParent<Object>()
+                          .SetGroupName("Internet")
+                          .AddAttribute("Options", "The set of IPv6 options registered with this demux.",
+                                        ObjectVectorValue(),
+                                        MakeObjectVectorAccessor(&Ipv6OptionDemux::m_options),
+                                        MakeObjectVectorChecker<Ipv6Option>());
   return tid;
 }
 
-Ipv6OptionDemux::Ipv6OptionDemux ()
+Ipv6OptionDemux::Ipv6OptionDemux()
 {
 }
 
-Ipv6OptionDemux::~Ipv6OptionDemux ()
+Ipv6OptionDemux::~Ipv6OptionDemux()
 {
 }
 
-void Ipv6OptionDemux::DoDispose ()
+void Ipv6OptionDemux::DoDispose()
 {
-  for (Ipv6OptionList_t::iterator it = m_options.begin (); it != m_options.end (); it++)
-    {
-      (*it)->Dispose ();
-      *it = 0;
-    }
-  m_options.clear ();
+  for (Ipv6OptionList_t::iterator it = m_options.begin(); it != m_options.end(); it++)
+  {
+    (*it)->Dispose();
+    *it = 0;
+  }
+  m_options.clear();
   m_node = 0;
-  Object::DoDispose ();
+  Object::DoDispose();
 }
 
-void Ipv6OptionDemux::SetNode (Ptr<Node> node)
+void Ipv6OptionDemux::SetNode(Ptr<Node> node)
 {
   m_node = node;
 }
 
-void Ipv6OptionDemux::Insert (Ptr<Ipv6Option> option)
+void Ipv6OptionDemux::Insert(Ptr<Ipv6Option> option)
 {
-  m_options.push_back (option);
+  m_options.push_back(option);
 }
 
-Ptr<Ipv6Option> Ipv6OptionDemux::GetOption (int optionNumber)
+Ptr<Ipv6Option> Ipv6OptionDemux::GetOption(int optionNumber)
 {
-  for (Ipv6OptionList_t::iterator i = m_options.begin (); i != m_options.end (); ++i)
+  for (Ipv6OptionList_t::iterator i = m_options.begin(); i != m_options.end(); ++i)
+  {
+    if ((*i)->GetOptionNumber() == optionNumber)
     {
-      if ((*i)->GetOptionNumber () == optionNumber)
-        {
-          return *i;
-        }
+      return *i;
     }
+  }
   return 0;
 }
 
-void Ipv6OptionDemux::Remove (Ptr<Ipv6Option> option)
+void Ipv6OptionDemux::Remove(Ptr<Ipv6Option> option)
 {
-  m_options.remove (option);
+  m_options.remove(option);
 }
 
 } /* namespace ns3 */
-

@@ -28,7 +28,8 @@
 #include "ns3/ipv4-header.h"
 #include "ns3/ipv4-interface.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class Header;
 class Packet;
@@ -46,52 +47,53 @@ class Packet;
  * received by the corresponding socket.
  */
 
-class Ipv4EndPoint {
+class Ipv4EndPoint
+{
 public:
   /**
    * \brief Constructor.
    * \param address the IPv4 address
    * \param port the port
    */
-  Ipv4EndPoint (Ipv4Address address, uint16_t port);
-  ~Ipv4EndPoint ();
+  Ipv4EndPoint(Ipv4Address address, uint16_t port);
+  ~Ipv4EndPoint();
 
   /**
    * \brief Get the local address.
    * \return the local address
    */
-  Ipv4Address GetLocalAddress (void);
+  Ipv4Address GetLocalAddress(void);
 
   /**
    * \brief Set the local address.
    * \param address the address to set
    */
-  void SetLocalAddress (Ipv4Address address);
+  void SetLocalAddress(Ipv4Address address);
 
   /**
    * \brief Get the local port.
    * \return the local port
    */
-  uint16_t GetLocalPort (void);
+  uint16_t GetLocalPort(void);
 
   /**
    * \brief Get the peer address.
    * \return the peer address
    */
-  Ipv4Address GetPeerAddress (void);
+  Ipv4Address GetPeerAddress(void);
 
   /**
    * \brief Get the peer port.
    * \return the peer port
    */
-  uint16_t GetPeerPort (void);
+  uint16_t GetPeerPort(void);
 
   /**
    * \brief Set the peer information (address and port).
    * \param address peer address
    * \param port peer port
    */
-  void SetPeer (Ipv4Address address, uint16_t port);
+  void SetPeer(Ipv4Address address, uint16_t port);
 
   /**
    * \brief Bind a socket to specific device.
@@ -111,7 +113,7 @@ public:
    *
    * \param netdevice Pointer to Netdevice of desired interface
    */
-  void BindToNetDevice (Ptr<NetDevice> netdevice);
+  void BindToNetDevice(Ptr<NetDevice> netdevice);
 
   /**
    * \brief Returns socket's bound netdevice, if any.
@@ -122,24 +124,24 @@ public:
    *
    * \returns Pointer to interface.
    */
-  Ptr<NetDevice> GetBoundNetDevice (void);
+  Ptr<NetDevice> GetBoundNetDevice(void);
 
   // Called from socket implementations to get notified about important events.
   /**
    * \brief Set the reception callback.
    * \param callback callback function
    */
-  void SetRxCallback (Callback<void,Ptr<Packet>, Ipv4Header, uint16_t, Ptr<Ipv4Interface> > callback);
+  void SetRxCallback(Callback<void, Ptr<Packet>, Ipv4Header, uint16_t, Ptr<Ipv4Interface>> callback);
   /**
    * \brief Set the ICMP callback.
    * \param callback callback function
    */
-  void SetIcmpCallback (Callback<void,Ipv4Address,uint8_t,uint8_t,uint8_t,uint32_t> callback);
+  void SetIcmpCallback(Callback<void, Ipv4Address, uint8_t, uint8_t, uint8_t, uint32_t> callback);
   /**
    * \brief Set the default destroy callback.
    * \param callback callback function
    */
-  void SetDestroyCallback (Callback<void> callback);
+  void SetDestroyCallback(Callback<void> callback);
 
   /**
    * \brief Forward the packet to the upper level.
@@ -151,8 +153,8 @@ public:
    * \param sport source port
    * \param incomingInterface incoming interface
    */
-  void ForwardUp (Ptr<Packet> p, const Ipv4Header& header, uint16_t sport, 
-                  Ptr<Ipv4Interface> incomingInterface);
+  void ForwardUp(Ptr<Packet> p, const Ipv4Header &header, uint16_t sport,
+                 Ptr<Ipv4Interface> incomingInterface);
 
   /**
    * \brief Forward the ICMP packet to the upper level.
@@ -166,21 +168,21 @@ public:
    * \param icmpCode ICMP code
    * \param icmpInfo ICMP info
    */
-  void ForwardIcmp (Ipv4Address icmpSource, uint8_t icmpTtl, 
-                    uint8_t icmpType, uint8_t icmpCode,
-                    uint32_t icmpInfo);
+  void ForwardIcmp(Ipv4Address icmpSource, uint8_t icmpTtl,
+                   uint8_t icmpType, uint8_t icmpCode,
+                   uint32_t icmpInfo);
 
   /**
    * \brief Enable or Disable the endpoint Rx capability.
    * \param enabled true if Rx is enabled
    */
-  void SetRxEnabled (bool enabled);
+  void SetRxEnabled(bool enabled);
 
   /**
    * \brief Checks if the endpoint can receive packets.
    * \returns true if the endpoint can receive packets.
    */
-  bool IsRxEnabled (void);
+  bool IsRxEnabled(void);
 
 private:
   /**
@@ -211,12 +213,12 @@ private:
   /**
    * \brief The RX callback.
    */
-  Callback<void,Ptr<Packet>, Ipv4Header, uint16_t, Ptr<Ipv4Interface> > m_rxCallback;
+  Callback<void, Ptr<Packet>, Ipv4Header, uint16_t, Ptr<Ipv4Interface>> m_rxCallback;
 
   /**
    * \brief The ICMPv6 callback.
    */
-  Callback<void,Ipv4Address,uint8_t,uint8_t,uint8_t,uint32_t> m_icmpCallback;
+  Callback<void, Ipv4Address, uint8_t, uint8_t, uint8_t, uint32_t> m_icmpCallback;
 
   /**
    * \brief The destroy callback.
@@ -230,6 +232,5 @@ private:
 };
 
 } // namespace ns3
-
 
 #endif /* IPV4_END_POINT_H */

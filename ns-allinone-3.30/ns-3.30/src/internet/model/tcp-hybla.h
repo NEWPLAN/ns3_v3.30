@@ -23,7 +23,8 @@
 #include "ns3/tcp-recovery-ops.h"
 #include "ns3/traced-value.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup congestionOps
@@ -49,42 +50,42 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
   /**
    * Create an unbound tcp socket.
    */
-  TcpHybla (void);
+  TcpHybla(void);
 
   /**
    * \brief Copy constructor
    * \param sock the object to copy
    */
-  TcpHybla (const TcpHybla& sock);
+  TcpHybla(const TcpHybla &sock);
 
-  virtual ~TcpHybla (void) override;
+  virtual ~TcpHybla(void) override;
 
   // Inherited
-  virtual void PktsAcked (Ptr<TcpSocketState> tcb, uint32_t segmentsAcked,
-                          const Time& rtt) override;
-  virtual std::string GetName () const override;
-  virtual Ptr<TcpCongestionOps> Fork () override;
+  virtual void PktsAcked(Ptr<TcpSocketState> tcb, uint32_t segmentsAcked,
+                         const Time &rtt) override;
+  virtual std::string GetName() const override;
+  virtual Ptr<TcpCongestionOps> Fork() override;
 
 protected:
-  virtual uint32_t SlowStart (Ptr<TcpSocketState> tcb, uint32_t segmentsAcked) override;
-  virtual void CongestionAvoidance (Ptr<TcpSocketState> tcb, uint32_t segmentsAcked) override;
+  virtual uint32_t SlowStart(Ptr<TcpSocketState> tcb, uint32_t segmentsAcked) override;
+  virtual void CongestionAvoidance(Ptr<TcpSocketState> tcb, uint32_t segmentsAcked) override;
 
 private:
-  TracedValue<double> m_rho;         //!< Rho parameter
-  Time                m_rRtt;        //!< Reference RTT
-  double              m_cWndCnt;     //!< cWnd integer-to-float counter
+  TracedValue<double> m_rho; //!< Rho parameter
+  Time m_rRtt;               //!< Reference RTT
+  double m_cWndCnt;          //!< cWnd integer-to-float counter
 
 private:
   /**
    * \brief Recalculate algorithm parameters
    * \param tcb the socket state.
    */
-  void RecalcParam (const Ptr<TcpSocketState> &tcb);
+  void RecalcParam(const Ptr<TcpSocketState> &tcb);
 };
 
 } // namespace ns3

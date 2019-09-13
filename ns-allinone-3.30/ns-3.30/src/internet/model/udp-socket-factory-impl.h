@@ -23,7 +23,8 @@
 #include "ns3/udp-socket-factory.h"
 #include "ns3/ptr.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class UdpL4Protocol;
 
@@ -39,14 +40,14 @@ class UdpL4Protocol;
 class UdpSocketFactoryImpl : public UdpSocketFactory
 {
 public:
-  UdpSocketFactoryImpl ();
-  virtual ~UdpSocketFactoryImpl ();
+  UdpSocketFactoryImpl();
+  virtual ~UdpSocketFactoryImpl();
 
   /**
    * \brief Set the associated UDP L4 protocol.
    * \param udp the UDP L4 protocol
    */
-  void SetUdp (Ptr<UdpL4Protocol> udp);
+  void SetUdp(Ptr<UdpL4Protocol> udp);
 
   /**
    * \brief Implements a method to create a Udp-based socket and return
@@ -54,10 +55,11 @@ public:
    *
    * \return smart pointer to Socket
    */
-  virtual Ptr<Socket> CreateSocket (void);
+  virtual Ptr<Socket> CreateSocket(void);
 
 protected:
-  virtual void DoDispose (void);
+  virtual void DoDispose(void);
+
 private:
   Ptr<UdpL4Protocol> m_udp; //!< the associated UDP L4 protocol
 };

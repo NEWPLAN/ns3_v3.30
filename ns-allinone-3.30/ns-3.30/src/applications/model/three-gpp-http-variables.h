@@ -26,9 +26,8 @@
 #include <ns3/nstime.h>
 #include <ns3/random-variable-stream.h>
 
-
-namespace ns3 {
-
+namespace ns3
+{
 
 /**
  * \ingroup http
@@ -71,13 +70,13 @@ class ThreeGppHttpVariables : public Object
 {
 public:
   /// Create a new instance with default configuration of random distributions.
-  ThreeGppHttpVariables ();
+  ThreeGppHttpVariables();
 
   /**
    * Returns the object TypeId.
    * \return The object TypeId.
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * Draws a random value of maximum transmission unit (MTU) size in bytes.
@@ -89,7 +88,7 @@ public:
    *
    * \return MTU size in bytes.
    */
-  uint32_t GetMtuSize ();
+  uint32_t GetMtuSize();
 
   /**
    * Returns the constant HTTP request size in bytes.
@@ -101,7 +100,7 @@ public:
    *
    * \return Request size in bytes.
    */
-  uint32_t GetRequestSize ();
+  uint32_t GetRequestSize();
 
   /**
    * Returns the constant length of time needed by an HTTP server to generate
@@ -113,7 +112,7 @@ public:
    *
    * \return The delay for generating a main object.
    */
-  Time GetMainObjectGenerationDelay ();
+  Time GetMainObjectGenerationDelay();
 
   /**
    * Draws a random main object size (in bytes) to be sent by an HTTP server.
@@ -126,7 +125,7 @@ public:
    *
    * \return Main object size in bytes.
    */
-  uint32_t GetMainObjectSize ();
+  uint32_t GetMainObjectSize();
 
   /**
    * Returns the constant length of time needed by an HTTP server to generate
@@ -138,7 +137,7 @@ public:
    *
    * \return The delay for generating an embedded object.
    */
-  Time GetEmbeddedObjectGenerationDelay ();
+  Time GetEmbeddedObjectGenerationDelay();
 
   /**
    * Draws a random embedded object size (in bytes) to be sent by an HTTP
@@ -152,7 +151,7 @@ public:
    *
    * \return Embedded object size in bytes.
    */
-  uint32_t GetEmbeddedObjectSize ();
+  uint32_t GetEmbeddedObjectSize();
 
   /**
    * Draws a random integer indicating the number of embedded objects in a
@@ -166,7 +165,7 @@ public:
    *
    * \return The number of embedded objects.
    */
-  uint32_t GetNumOfEmbeddedObjects ();
+  uint32_t GetNumOfEmbeddedObjects();
 
   /**
    * Draws a random length of time which is spent by a hypothetical human user
@@ -179,7 +178,7 @@ public:
    *
    * \return Time interval for reading a web page.
    */
-  Time GetReadingTime ();
+  Time GetReadingTime();
 
   /**
    * Draws a random length of time which simulate the small delay caused by
@@ -193,7 +192,7 @@ public:
    *
    * \return time interval for parsing a main object
    */
-  Time GetParsingTime ();
+  Time GetParsingTime();
 
   /**
    * Assign a fixed random variable stream number to the random variables used
@@ -208,103 +207,103 @@ public:
    * \param stream The first stream index to use.
    * \return The number of stream indices assigned by this model.
    */
-  int64_t AssignStreams (int64_t stream);
+  int64_t AssignStreams(int64_t stream);
 
   // SETTER METHODS
 
   /**
    * \param constant Request size in bytes.
    */
-  void SetRequestSize (uint32_t constant);
+  void SetRequestSize(uint32_t constant);
   /**
    * \param constant The delay for generating a main object.
    */
-  void SetMainObjectGenerationDelay (Time constant);
+  void SetMainObjectGenerationDelay(Time constant);
   /**
    * \param mean The mean of main object sizes in bytes. Must be greater than
    *             zero.
    */
-  void SetMainObjectSizeMean (uint32_t mean);
+  void SetMainObjectSizeMean(uint32_t mean);
   /**
    * \param stdDev The standard deviation of main object sizes in bytes.
    */
-  void SetMainObjectSizeStdDev (uint32_t stdDev);
+  void SetMainObjectSizeStdDev(uint32_t stdDev);
   /**
    * \param constant The delay for generating an embedded object.
    */
-  void SetEmbeddedObjectGenerationDelay (Time constant);
+  void SetEmbeddedObjectGenerationDelay(Time constant);
   /**
    * \param mean The mean of embedded object sizes in bytes. Must be greater
    *             than zero.
    */
-  void SetEmbeddedObjectSizeMean (uint32_t mean);
+  void SetEmbeddedObjectSizeMean(uint32_t mean);
   /**
    * \param stdDev The standard deviation of embedded object sizes in bytes.
    */
-  void SetEmbeddedObjectSizeStdDev (uint32_t stdDev);
+  void SetEmbeddedObjectSizeStdDev(uint32_t stdDev);
   /**
    * \param max The upper bound parameter of the Pareto distribution for
    *            determining the number of embedded objects per web page.
    */
-  void SetNumOfEmbeddedObjectsMax (uint32_t max);
+  void SetNumOfEmbeddedObjectsMax(uint32_t max);
   /**
    * \param shape The shape parameter of the Pareto distribution for
    *              determining the number of embedded objects per web page.
    */
-  void SetNumOfEmbeddedObjectsShape (double shape);
+  void SetNumOfEmbeddedObjectsShape(double shape);
   /**
    * \param scale The scale parameter of the Pareto distribution for
    *              determining the number of embedded objects per web page.
    */
-  void SetNumOfEmbeddedObjectsScale (uint32_t scale);
+  void SetNumOfEmbeddedObjectsScale(uint32_t scale);
   /**
    * \param mean The mean length of time needed for reading a web page.
    */
-  void SetReadingTimeMean (Time mean);
+  void SetReadingTimeMean(Time mean);
   /**
    * \param mean The mean length of time needed for parsing a main object.
    */
-  void SetParsingTimeMean (Time mean);
+  void SetParsingTimeMean(Time mean);
 
 private:
   /**
    * \brief Upon and after object initialization, update random variable
    * Mu and Sigma based on changes to attribute values.
    */
-  void UpdateMainObjectMuAndSigma (void);
+  void UpdateMainObjectMuAndSigma(void);
   /**
    * \brief Upon and after object initialization, update random variable
    * Mu and Sigma based on changes to attribute values.
    */
-  void UpdateEmbeddedObjectMuAndSigma (void);
-  
-  void DoInitialize (void);   // overridden from base class
+  void UpdateEmbeddedObjectMuAndSigma(void);
+
+  void DoInitialize(void); // overridden from base class
 
   /**
    * Random variable for determining MTU size (in bytes).
    */
-  Ptr<UniformRandomVariable>      m_mtuSizeRng;
+  Ptr<UniformRandomVariable> m_mtuSizeRng;
   /**
    * Random variable for determining request size (in bytes).
    */
-  Ptr<ConstantRandomVariable>     m_requestSizeRng;
+  Ptr<ConstantRandomVariable> m_requestSizeRng;
   /**
    * Random variable for determining the delay needed to generate a main object
    * (in seconds).
    */
-  Ptr<ConstantRandomVariable>     m_mainObjectGenerationDelayRng;
+  Ptr<ConstantRandomVariable> m_mainObjectGenerationDelayRng;
   /**
    * Random variable for determining main object size (in bytes).
    */
-  Ptr<LogNormalRandomVariable>    m_mainObjectSizeRng;
+  Ptr<LogNormalRandomVariable> m_mainObjectSizeRng;
   /// Mean parameter for #m_mainObjectSizeRng;
-  uint32_t                        m_mainObjectSizeMean;
+  uint32_t m_mainObjectSizeMean;
   /// Standard deviation parameter for #m_mainObjectSizeRng;
-  uint32_t                        m_mainObjectSizeStdDev;
+  uint32_t m_mainObjectSizeStdDev;
   /// Lower bound parameter for #m_mainObjectSizeRng;
-  uint32_t                        m_mainObjectSizeMin;
+  uint32_t m_mainObjectSizeMin;
   /// Upper bound parameter for #m_mainObjectSizeRng;
-  uint32_t                        m_mainObjectSizeMax;
+  uint32_t m_mainObjectSizeMax;
   /// Lower MTU size
   uint32_t m_lowMtu;
   /// Higher MTU size
@@ -315,38 +314,36 @@ private:
    * Random variable for determining the delay needed to generate an embedded
    * object (in seconds).
    */
-  Ptr<ConstantRandomVariable>     m_embeddedObjectGenerationDelayRng;
+  Ptr<ConstantRandomVariable> m_embeddedObjectGenerationDelayRng;
   /**
    * Random variable for determining embedded object size (in bytes).
    */
-  Ptr<LogNormalRandomVariable>    m_embeddedObjectSizeRng;
+  Ptr<LogNormalRandomVariable> m_embeddedObjectSizeRng;
   /// Mean parameter for #m_embeddedObjectSizeRng.
-  uint32_t                        m_embeddedObjectSizeMean;
+  uint32_t m_embeddedObjectSizeMean;
   /// Standard deviation parameter for #m_embeddedObjectSizeRng.
-  uint32_t                        m_embeddedObjectSizeStdDev;
+  uint32_t m_embeddedObjectSizeStdDev;
   /// Lower bound parameter for #m_embeddedObjectSizeRng.
-  uint32_t                        m_embeddedObjectSizeMin;
+  uint32_t m_embeddedObjectSizeMin;
   /// Upper bound parameter for #m_embeddedObjectSizeRng.
-  uint32_t                        m_embeddedObjectSizeMax;
+  uint32_t m_embeddedObjectSizeMax;
   /**
    * Random variable for determining the number of embedded objects.
    */
-  Ptr<ParetoRandomVariable>       m_numOfEmbeddedObjectsRng;
+  Ptr<ParetoRandomVariable> m_numOfEmbeddedObjectsRng;
   /// Scale parameter for #m_numOfEmbeddedObjectsRng.
-  uint32_t                        m_numOfEmbeddedObjectsScale;
+  uint32_t m_numOfEmbeddedObjectsScale;
   /**
    * Random variable for determining the length of reading time (in seconds).
    */
-  Ptr<ExponentialRandomVariable>  m_readingTimeRng;
+  Ptr<ExponentialRandomVariable> m_readingTimeRng;
   /**
    * Random variable for determining the length of parsing time (in seconds).
    */
-  Ptr<ExponentialRandomVariable>  m_parsingTimeRng;
+  Ptr<ExponentialRandomVariable> m_parsingTimeRng;
 
 }; // end of `class ThreeGppHttpVariables`
 
-
-} // end of `namespace ns3`
+} // namespace ns3
 
 #endif /* THREE_GPP_HTTP_VARIABLES_H */
-

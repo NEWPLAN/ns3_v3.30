@@ -22,7 +22,8 @@
 
 #include "ns3/socket-factory.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class Socket;
 
@@ -45,8 +46,7 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
-
+  static TypeId GetTypeId(void);
 };
 
 } // namespace ns3

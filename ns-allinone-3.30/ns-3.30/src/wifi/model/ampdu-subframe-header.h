@@ -23,7 +23,8 @@
 
 #include "ns3/header.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup wifi
@@ -31,45 +32,45 @@ namespace ns3 {
 class AmpduSubframeHeader : public Header
 {
 public:
-  AmpduSubframeHeader ();
-  virtual ~AmpduSubframeHeader ();
+  AmpduSubframeHeader();
+  virtual ~AmpduSubframeHeader();
 
   /**
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
-  TypeId GetInstanceTypeId (void) const;
-  void Print (std::ostream &os) const;
-  uint32_t GetSerializedSize (void) const;
-  void Serialize (Buffer::Iterator start) const;
-  uint32_t Deserialize (Buffer::Iterator start);
+  TypeId GetInstanceTypeId(void) const;
+  void Print(std::ostream &os) const;
+  uint32_t GetSerializedSize(void) const;
+  void Serialize(Buffer::Iterator start) const;
+  uint32_t Deserialize(Buffer::Iterator start);
 
   /**
    * Set the length field.
    *
    * \param length
    */
-  void SetLength (uint16_t length);
+  void SetLength(uint16_t length);
   /**
   * Set the EOF field.
   *
   * \param eof
   */
-  void SetEof (bool eof);
+  void SetEof(bool eof);
   /**
    * Return the length field.
    *
    * \return the length field
    */
-  uint16_t GetLength (void) const;
+  uint16_t GetLength(void) const;
   /**
    * Return the EOF field.
    *
    * \return the EOF field
    */
-  bool GetEof (void) const;
+  bool GetEof(void) const;
   /**
    * Return whether the pattern stored in the delimiter
    * signature field is correct, i.e. corresponds to the
@@ -77,7 +78,7 @@ public:
    *
    * \return true if the signature is valid, false otherwise
    */
-  bool IsSignatureValid (void) const;
+  bool IsSignatureValid(void) const;
 
 private:
   uint16_t m_length;   //!< length field

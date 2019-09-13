@@ -23,7 +23,8 @@
 
 #include "regular-wifi-mac.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup wifi
@@ -37,10 +38,10 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
-  InfrastructureWifiMac ();
-  virtual ~InfrastructureWifiMac ();
+  InfrastructureWifiMac();
+  virtual ~InfrastructureWifiMac();
 
   /**
    * \param packet the packet to send.
@@ -50,27 +51,26 @@ public:
    * dequeued as soon as the channel access function determines that
    * access is granted to this MAC.
    */
-  virtual void Enqueue (Ptr<const Packet> packet, Mac48Address to) = 0;
+  virtual void Enqueue(Ptr<const Packet> packet, Mac48Address to) = 0;
   /**
    * Enable or disable QoS support for the device.
    *
    * \param enable whether QoS is supported
    */
-  void SetQosSupported (bool enable);
+  void SetQosSupported(bool enable);
 
   /**
    * Enable or disable PCF support for the device.
    *
    * \param enable whether PCF is supported
    */
-  void SetPcfSupported (bool enable);
+  void SetPcfSupported(bool enable);
   /**
    * Return whether the device supports PCF.
    *
    * \return true if PCF is supported, false otherwise
    */
-  bool GetPcfSupported () const;
-
+  bool GetPcfSupported() const;
 
 private:
   /**

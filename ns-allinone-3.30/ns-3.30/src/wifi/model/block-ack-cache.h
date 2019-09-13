@@ -23,7 +23,8 @@
 
 //#include <stdint.h>
 
-namespace ns3 {
+namespace ns3
+{
 
 class WifiMacHeader;
 class CtrlBAckResponseHeader;
@@ -41,32 +42,31 @@ public:
    * \param winStart the window start
    * \param winSize the window size
    */
-  void Init (uint16_t winStart, uint16_t winSize);
+  void Init(uint16_t winStart, uint16_t winSize);
 
   /**
    * Update with MPDU function
    * \param hdr the wifi MAC header
    */
-  void UpdateWithMpdu (const WifiMacHeader *hdr);
+  void UpdateWithMpdu(const WifiMacHeader *hdr);
   /**
    * Update with block ack request function
    * \param startingSeq the starting sequence
    */
-  void UpdateWithBlockAckReq (uint16_t startingSeq);
+  void UpdateWithBlockAckReq(uint16_t startingSeq);
   /**
    * When an A-MPDU is received, the window start may change to a new value
    * depending on the sequence number of the received MPDU (standard11n page 134).
    * This function is used to retrieve this value in order to add it to the BlockAck.
    * \returns window start
    */
-  uint16_t GetWinStart (void) const;
+  uint16_t GetWinStart(void) const;
 
   /**
    * Fill block ack bitmap function
    * \param blockAckHeader the block ack bitmap
    */
-  void FillBlockAckBitmap (CtrlBAckResponseHeader *blockAckHeader);
-
+  void FillBlockAckBitmap(CtrlBAckResponseHeader *blockAckHeader);
 
 private:
   /**
@@ -74,11 +74,11 @@ private:
    * \param start the starting position
    * \param end the ending position
    */
-  void ResetPortionOfBitmap (uint16_t start, uint16_t end);
+  void ResetPortionOfBitmap(uint16_t start, uint16_t end);
 
   uint16_t m_winStart; ///< window start
-  uint16_t m_winSize; ///< window size
-  uint16_t m_winEnd; ///< window end
+  uint16_t m_winSize;  ///< window size
+  uint16_t m_winEnd;   ///< window end
 
   uint16_t m_bitmap[4096]; ///< bitmap
 };

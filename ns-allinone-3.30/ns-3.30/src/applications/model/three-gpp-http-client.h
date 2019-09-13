@@ -27,14 +27,12 @@
 #include <ns3/traced-callback.h>
 #include <ns3/three-gpp-http-header.h>
 
-
-namespace ns3 {
-
+namespace ns3
+{
 
 class Socket;
 class Packet;
 class ThreeGppHttpVariables;
-
 
 /**
  * \ingroup applications
@@ -115,19 +113,19 @@ public:
    * attributes. To avoid having to do this process manually, please use
    * ThreeGppHttpClientHelper.
    */
-  ThreeGppHttpClient ();
+  ThreeGppHttpClient();
 
   /**
    * Returns the object TypeId.
    * \return The object TypeId.
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   /**
    * Returns a pointer to the associated socket.
    * \return Pointer to the associated socket.
    */
-  Ptr<Socket> GetSocket () const;
+  Ptr<Socket> GetSocket() const;
 
   /// The possible states of the application.
   enum State_t
@@ -152,20 +150,20 @@ public:
    * Returns the current state of the application.
    * \return The current state of the application.
    */
-  State_t GetState () const;
+  State_t GetState() const;
 
   /**
    * Returns the current state of the application in string format.
    * \return The current state of the application in string format.
    */
-  std::string GetStateString () const;
+  std::string GetStateString() const;
 
   /**
    * Returns the given state in string format.
    * \param state An arbitrary state of an application.
    * \return The given state equivalently expressed in string format.
    */
-  static std::string GetStateString (State_t state);
+  static std::string GetStateString(State_t state);
 
   /**
    * Common callback signature for `ConnectionEstablished`, `RxMainObject`, and
@@ -177,11 +175,11 @@ public:
 
 protected:
   // Inherited from Object base class.
-  virtual void DoDispose ();
+  virtual void DoDispose();
 
   // Inherited from Application base class.
-  virtual void StartApplication ();
-  virtual void StopApplication ();
+  virtual void StartApplication();
+  virtual void StopApplication();
 
 private:
   // SOCKET CALLBACK METHODS
@@ -191,31 +189,31 @@ private:
    * triggers a request for a main object.
    * \param socket Pointer to the socket where the event originates from.
    */
-  void ConnectionSucceededCallback (Ptr<Socket> socket);
+  void ConnectionSucceededCallback(Ptr<Socket> socket);
   /**
    * Invoked when #m_socket cannot establish a connection with the web server.
    * Simulation will stop and error will be raised.
    * \param socket Pointer to the socket where the event originates from.
    */
-  void ConnectionFailedCallback (Ptr<Socket> socket);
+  void ConnectionFailedCallback(Ptr<Socket> socket);
   /**
    * Invoked when connection between #m_socket and the web sever is terminated.
    * Error will be logged, but simulation continues.
    * \param socket Pointer to the socket where the event originates from.
    */
-  void NormalCloseCallback (Ptr<Socket> socket);
+  void NormalCloseCallback(Ptr<Socket> socket);
   /**
    * Invoked when connection between #m_socket and the web sever is terminated.
    * Error will be logged, but simulation continues.
    * \param socket Pointer to the socket where the event originates from.
    */
-  void ErrorCloseCallback (Ptr<Socket> socket);
+  void ErrorCloseCallback(Ptr<Socket> socket);
   /**
    * Invoked when #m_socket receives some packet data. Fires the `Rx` trace
    * source and triggers ReceiveMainObject() or ReceiveEmbeddedObject().
    * \param socket Pointer to the socket where the event originates from.
    */
-  void ReceivedDataCallback (Ptr<Socket> socket);
+  void ReceivedDataCallback(Ptr<Socket> socket);
 
   // CONNECTION-RELATED METHOD
 
@@ -224,7 +222,7 @@ private:
    * #m_remoteServerAddress and #m_remoteServerPort and set up callbacks to
    * listen to its event. Invoked upon the start of the application.
    */
-  void OpenConnection ();
+  void OpenConnection();
 
   // TX-RELATED METHODS
 
@@ -237,14 +235,14 @@ private:
    * The method is invoked after a connection is established or after a
    * reading time has elapsed.
    */
-  void RequestMainObject ();
+  void RequestMainObject();
   /**
    * Send a request object for an embedded object to the destination web
    * server. The size of the request packet is randomly determined by
    * ThreeGppHttpVariables and is assumed to be smaller than 536 bytes. Fires the
    * `TxEmbeddedObjectRequest` trace source.
    */
-  void RequestEmbeddedObject ();
+  void RequestEmbeddedObject();
 
   // RX-RELATED METHODS
 
@@ -268,7 +266,7 @@ private:
    * \param packet The received packet.
    * \param from Address of the sender.
    */
-  void ReceiveMainObject (Ptr<Packet> packet, const Address &from);
+  void ReceiveMainObject(Ptr<Packet> packet, const Address &from);
   /**
    * Receive a packet of embedded object from the destination web server. Fires
    * the `RxEmbeddedObjectPacket` trace source.
@@ -291,7 +289,7 @@ private:
    * \param packet The received packet.
    * \param from Address of the sender.
    */
-  void ReceiveEmbeddedObject (Ptr<Packet> packet, const Address &from);
+  void ReceiveEmbeddedObject(Ptr<Packet> packet, const Address &from);
   /**
    * Simulate a consumption of the received packet by subtracting the packet
    * size from the internal counter at #m_objectBytesToBeReceived. Also updates
@@ -304,7 +302,7 @@ private:
    * \param packet The received packet. If it is the first packet of the object,
    *               then it must have a ThreeGppHttpHeader attached to it.
    */
-  void Receive (Ptr<Packet> packet);
+  void Receive(Ptr<Packet> packet);
 
   // OFF-TIME-RELATED METHODS
 
@@ -315,7 +313,7 @@ private:
    *
    * The method is invoked after a complete main object has been received.
    */
-  void EnterParsingTime ();
+  void EnterParsingTime();
   /**
    * Randomly determines the number of embedded objects in the main object.
    * ThreeGppHttpVariables is utilized for this purpose. Then proceeds with
@@ -324,7 +322,7 @@ private:
    *
    * The method is invoked after parsing time has elapsed.
    */
-  void ParseMainObject ();
+  void ParseMainObject();
   /**
    * Becomes idle for a randomly determined amount of time, and then triggers
    * RequestMainObject(). The length of idle time is determined by
@@ -332,70 +330,70 @@ private:
    *
    * The method is invoked after a complete web page has been received.
    */
-  void EnterReadingTime ();
+  void EnterReadingTime();
   /**
    * Cancels #m_eventRequestMainObject, #m_eventRequestEmbeddedObject, and
    * #m_eventParseMainObject. Invoked by StopApplication() and when connection
    * has been terminated.
    */
-  void CancelAllPendingEvents ();
+  void CancelAllPendingEvents();
 
   /**
    * Change the state of the client. Fires the `StateTransition` trace source.
    * \param state The new state.
    */
-  void SwitchToState (State_t state);
+  void SwitchToState(State_t state);
 
   /// The current state of the client application. Begins with NOT_STARTED.
-  State_t      m_state;
+  State_t m_state;
   /// The socket for sending and receiving packets to/from the web server.
-  Ptr<Socket>  m_socket;
+  Ptr<Socket> m_socket;
   /// According to the content length specified by the ThreeGppHttpHeader.
-  uint32_t     m_objectBytesToBeReceived;
+  uint32_t m_objectBytesToBeReceived;
   /// The packet constructed of one or more parts with ThreeGppHttpHeader.
-  Ptr<Packet>  m_constructedPacket;
+  Ptr<Packet> m_constructedPacket;
   /// The client time stamp of the ThreeGppHttpHeader from the last received packet.
-  Time         m_objectClientTs;
+  Time m_objectClientTs;
   /// The server time stamp of the ThreeGppHttpHeader from the last received packet.
-  Time         m_objectServerTs;
+  Time m_objectServerTs;
   /// Determined after parsing the main object.
-  uint32_t     m_embeddedObjectsToBeRequested;
+  uint32_t m_embeddedObjectsToBeRequested;
 
   // ATTRIBUTES
 
   /// The `Variables` attribute.
-  Ptr<ThreeGppHttpVariables>    m_httpVariables;
+  Ptr<ThreeGppHttpVariables> m_httpVariables;
   /// The `RemoteServerAddress` attribute. The address of the web server.
-  Address                               m_remoteServerAddress;
+  Address m_remoteServerAddress;
   /// The `RemoteServerPort` attribute.
-  uint16_t                              m_remoteServerPort;
+  uint16_t m_remoteServerPort;
 
   // TRACE SOURCES
 
   /// The `ConnectionEstablished` trace source.
-  ns3::TracedCallback<Ptr<const ThreeGppHttpClient> > m_connectionEstablishedTrace;
+  ns3::TracedCallback<Ptr<const ThreeGppHttpClient>> m_connectionEstablishedTrace;
   /// The `ConnectionClosed` trace source.
-  ns3::TracedCallback<Ptr<const ThreeGppHttpClient> > m_connectionClosedTrace;
+  ns3::TracedCallback<Ptr<const ThreeGppHttpClient>> m_connectionClosedTrace;
   /// The `Tx` trace source.
-  ns3::TracedCallback<Ptr<const Packet> >   m_txTrace;
+  ns3::TracedCallback<Ptr<const Packet>> m_txTrace;
   /// The `TxMainObjectRequest` trace source.
-  ns3::TracedCallback<Ptr<const Packet> >     m_txMainObjectRequestTrace;
+  ns3::TracedCallback<Ptr<const Packet>> m_txMainObjectRequestTrace;
   /// The `TxEmbeddedObjectRequest` trace source.
-  ns3::TracedCallback<Ptr<const Packet> >     m_txEmbeddedObjectRequestTrace;
+  ns3::TracedCallback<Ptr<const Packet>> m_txEmbeddedObjectRequestTrace;
   /// The `TxMainObjectPacket` trace source.
-  ns3::TracedCallback<Ptr<const Packet> >     m_rxMainObjectPacketTrace;
+  ns3::TracedCallback<Ptr<const Packet>> m_rxMainObjectPacketTrace;
   /// The `TxMainObject` trace source.
-  ns3::TracedCallback<Ptr<const ThreeGppHttpClient>, Ptr<const Packet>  > m_rxMainObjectTrace;
+  ns3::TracedCallback<Ptr<const ThreeGppHttpClient>, Ptr<const Packet>> m_rxMainObjectTrace;
   /// The `TxEmbeddedObjectPacket` trace source.
-  ns3::TracedCallback<Ptr<const Packet> >     m_rxEmbeddedObjectPacketTrace;
+  ns3::TracedCallback<Ptr<const Packet>> m_rxEmbeddedObjectPacketTrace;
   /// The `TxEmbeddedObject` trace source.
-  ns3::TracedCallback<Ptr<const ThreeGppHttpClient>, Ptr<const Packet> > m_rxEmbeddedObjectTrace;
+  ns3::TracedCallback<Ptr<const ThreeGppHttpClient>, Ptr<const Packet>> m_rxEmbeddedObjectTrace;
   /// The `Rx` trace source.
   ns3::TracedCallback<Ptr<const Packet>, const Address &> m_rxTrace;
   /// The `RxDelay` trace source.
-  ns3::TracedCallback<const Time &, const Address &>  m_rxDelayTrace;
+  ns3::TracedCallback<const Time &, const Address &> m_rxDelayTrace;
   /// The `RxRtt` trace source.
-  ns3::TracedCallback<const Time &, const Address &>  m_rxRttTrace;
+  ns3::TracedCallback<const Time &, const Address &> m_rxRttTrace;
   /// The `StateTransition` trace source.
   ns3::TracedCallback<const std::string &, const std::string &> m_stateTransitionTrace;
 
@@ -419,8 +417,6 @@ private:
 
 }; // end of `class ThreeGppHttpClient`
 
-
-}  // end of `namespace ns3`
-
+} // namespace ns3
 
 #endif /* THREE_GPP_HTTP_CLIENT_H */

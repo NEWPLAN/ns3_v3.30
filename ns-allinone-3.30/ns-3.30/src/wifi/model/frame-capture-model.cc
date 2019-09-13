@@ -22,28 +22,27 @@
 #include "ns3/simulator.h"
 #include "frame-capture-model.h"
 
-namespace ns3 {
-
-NS_OBJECT_ENSURE_REGISTERED (FrameCaptureModel);
-
-TypeId FrameCaptureModel::GetTypeId (void)
+namespace ns3
 {
-  static TypeId tid = TypeId ("ns3::FrameCaptureModel")
-    .SetParent<Object> ()
-    .SetGroupName ("Wifi")
-    .AddAttribute ("CaptureWindow",
-                   "The duration of the capture window.",
-                   TimeValue (MicroSeconds (16)),
-                   MakeTimeAccessor (&FrameCaptureModel::m_captureWindow),
-                   MakeTimeChecker ())
-  ;
+
+NS_OBJECT_ENSURE_REGISTERED(FrameCaptureModel);
+
+TypeId FrameCaptureModel::GetTypeId(void)
+{
+  static TypeId tid = TypeId("ns3::FrameCaptureModel")
+                          .SetParent<Object>()
+                          .SetGroupName("Wifi")
+                          .AddAttribute("CaptureWindow",
+                                        "The duration of the capture window.",
+                                        TimeValue(MicroSeconds(16)),
+                                        MakeTimeAccessor(&FrameCaptureModel::m_captureWindow),
+                                        MakeTimeChecker());
   return tid;
 }
 
-bool
-FrameCaptureModel::IsInCaptureWindow (Time timePreambleDetected) const
+bool FrameCaptureModel::IsInCaptureWindow(Time timePreambleDetected) const
 {
-  return (timePreambleDetected + m_captureWindow >= Simulator::Now ());
+  return (timePreambleDetected + m_captureWindow >= Simulator::Now());
 }
 
 } //namespace ns3

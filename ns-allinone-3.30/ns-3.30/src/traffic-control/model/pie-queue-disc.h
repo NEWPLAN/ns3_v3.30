@@ -38,7 +38,8 @@
 
 #define BURST_RESET_TIMEOUT 1.5
 
-namespace ns3 {
+namespace ns3
+{
 
 class TraceContainer;
 class UniformRandomVariable;
@@ -55,17 +56,17 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
   /**
    * \brief PieQueueDisc Constructor
    */
-  PieQueueDisc ();
+  PieQueueDisc();
 
   /**
    * \brief PieQueueDisc Destructor
    */
-  virtual ~PieQueueDisc ();
+  virtual ~PieQueueDisc();
 
   /**
    * \brief Burst types
@@ -82,7 +83,7 @@ public:
    *
    * \returns The current queue delay.
    */
-  Time GetQueueDelay (void);
+  Time GetQueueDelay(void);
 
   /**
    * Assign a fixed random variable stream number to the random variables
@@ -92,27 +93,27 @@ public:
    * \param stream first stream index to use
    * \return the number of stream indices assigned by this model
    */
-  int64_t AssignStreams (int64_t stream);
+  int64_t AssignStreams(int64_t stream);
 
   // Reasons for dropping packets
-  static constexpr const char* UNFORCED_DROP = "Unforced drop";  //!< Early probability drops: proactive
-  static constexpr const char* FORCED_DROP = "Forced drop";      //!< Drops due to queue limit: reactive
+  static constexpr const char *UNFORCED_DROP = "Unforced drop"; //!< Early probability drops: proactive
+  static constexpr const char *FORCED_DROP = "Forced drop";     //!< Drops due to queue limit: reactive
 
 protected:
   /**
    * \brief Dispose of the object
    */
-  virtual void DoDispose (void);
+  virtual void DoDispose(void);
 
 private:
-  virtual bool DoEnqueue (Ptr<QueueDiscItem> item);
-  virtual Ptr<QueueDiscItem> DoDequeue (void);
-  virtual bool CheckConfig (void);
+  virtual bool DoEnqueue(Ptr<QueueDiscItem> item);
+  virtual Ptr<QueueDiscItem> DoDequeue(void);
+  virtual bool CheckConfig(void);
 
   /**
    * \brief Initialize the queue parameters.
    */
-  virtual void InitializeParams (void);
+  virtual void InitializeParams(void);
 
   /**
    * \brief Check if a packet needs to be dropped due to probability drop
@@ -120,43 +121,42 @@ private:
    * \param qSize queue size
    * \returns 0 for no drop, 1 for drop
    */
-  bool DropEarly (Ptr<QueueDiscItem> item, uint32_t qSize);
+  bool DropEarly(Ptr<QueueDiscItem> item, uint32_t qSize);
 
   /**
    * Periodically update the drop probability based on the delay samples:
    * not only the current delay sample but also the trend where the delay
    * is going, up or down
    */
-  void CalculateP ();
+  void CalculateP();
 
-  static const uint64_t DQCOUNT_INVALID = std::numeric_limits<uint64_t>::max();  //!< Invalid dqCount value
+  static const uint64_t DQCOUNT_INVALID = std::numeric_limits<uint64_t>::max(); //!< Invalid dqCount value
 
   // ** Variables supplied by user
-  Time m_sUpdate;                               //!< Start time of the update timer
-  Time m_tUpdate;                               //!< Time period after which CalculateP () is called
-  Time m_qDelayRef;                             //!< Desired queue delay
-  uint32_t m_meanPktSize;                       //!< Average packet size in bytes
-  Time m_maxBurst;                              //!< Maximum burst allowed before random early dropping kicks in
-  double m_a;                                   //!< Parameter to pie controller
-  double m_b;                                   //!< Parameter to pie controller
-  uint32_t m_dqThreshold;                       //!< Minimum queue size in bytes before dequeue rate is measured
+  Time m_sUpdate;         //!< Start time of the update timer
+  Time m_tUpdate;         //!< Time period after which CalculateP () is called
+  Time m_qDelayRef;       //!< Desired queue delay
+  uint32_t m_meanPktSize; //!< Average packet size in bytes
+  Time m_maxBurst;        //!< Maximum burst allowed before random early dropping kicks in
+  double m_a;             //!< Parameter to pie controller
+  double m_b;             //!< Parameter to pie controller
+  uint32_t m_dqThreshold; //!< Minimum queue size in bytes before dequeue rate is measured
 
   // ** Variables maintained by PIE
-  double m_dropProb;                            //!< Variable used in calculation of drop probability
-  Time m_qDelayOld;                             //!< Old value of queue delay
-  Time m_qDelay;                                //!< Current value of queue delay
-  Time m_burstAllowance;                        //!< Current max burst value in seconds that is allowed before random drops kick in
-  uint32_t m_burstReset;                        //!< Used to reset value of burst allowance
-  BurstStateT m_burstState;                     //!< Used to determine the current state of burst
-  bool m_inMeasurement;                         //!< Indicates whether we are in a measurement cycle
-  double m_avgDqRate;                           //!< Time averaged dequeue rate
-  double m_dqStart;                             //!< Start timestamp of current measurement cycle
-  uint64_t m_dqCount;                           //!< Number of bytes departed since current measurement cycle starts
-  EventId m_rtrsEvent;                          //!< Event used to decide the decision of interval of drop probability calculation
-  Ptr<UniformRandomVariable> m_uv;              //!< Rng stream
+  double m_dropProb;               //!< Variable used in calculation of drop probability
+  Time m_qDelayOld;                //!< Old value of queue delay
+  Time m_qDelay;                   //!< Current value of queue delay
+  Time m_burstAllowance;           //!< Current max burst value in seconds that is allowed before random drops kick in
+  uint32_t m_burstReset;           //!< Used to reset value of burst allowance
+  BurstStateT m_burstState;        //!< Used to determine the current state of burst
+  bool m_inMeasurement;            //!< Indicates whether we are in a measurement cycle
+  double m_avgDqRate;              //!< Time averaged dequeue rate
+  double m_dqStart;                //!< Start timestamp of current measurement cycle
+  uint64_t m_dqCount;              //!< Number of bytes departed since current measurement cycle starts
+  EventId m_rtrsEvent;             //!< Event used to decide the decision of interval of drop probability calculation
+  Ptr<UniformRandomVariable> m_uv; //!< Rng stream
 };
 
-};   // namespace ns3
+}; // namespace ns3
 
 #endif
-

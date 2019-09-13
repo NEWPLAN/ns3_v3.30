@@ -27,7 +27,8 @@
 #include "ns3/ptr.h"
 #include "ns3/node.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class Node;
 
@@ -64,9 +65,9 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
-  Application ();
-  virtual ~Application ();
+  static TypeId GetTypeId(void);
+  Application();
+  virtual ~Application();
 
   /**
    * \brief Specify application start time
@@ -79,7 +80,7 @@ public:
    * private "StartApplication" method defined below, which is called at the
    * time specified, to cause the application to begin.
    */
-  void SetStartTime (Time start);
+  void SetStartTime(Time start);
 
   /**
    * \brief Specify application stop time
@@ -92,17 +93,17 @@ public:
    * the private StopApplication method, to be notified when that
    * time has come.
    */
-  void SetStopTime (Time stop);
+  void SetStopTime(Time stop);
 
   /**
    * \returns the Node to which this Application object is attached.
    */
-  Ptr<Node> GetNode () const;
+  Ptr<Node> GetNode() const;
 
   /**
    * \param node the node to which this Application object is attached.
    */
-  void SetNode (Ptr<Node> node);
+  void SetNode(Ptr<Node> node);
 
   /**
    * \brief Common callback signature for packet delay and address.
@@ -111,8 +112,8 @@ public:
    * \param from The source socket address associated with the packet,
    *             indicating the packet's origin.
    */
-  typedef void (*DelayAddressCallback) (const Time &delay,
-                                        const Address &from);
+  typedef void (*DelayAddressCallback)(const Time &delay,
+                                       const Address &from);
 
   /**
    * \brief Common signature used by callbacks to application's state
@@ -131,7 +132,7 @@ private:
    * This method should be overridden by all or most application
    * subclasses.
    */
-  virtual void StartApplication (void);
+  virtual void StartApplication(void);
 
   /**
    * \brief Application specific shutdown code
@@ -140,16 +141,17 @@ private:
    * This method should be overridden by all or most application
    * subclasses.
    */
-  virtual void StopApplication (void);
-protected:
-  virtual void DoDispose (void);
-  virtual void DoInitialize (void);
+  virtual void StopApplication(void);
 
-  Ptr<Node>       m_node;   //!< The node that this application is installed on
-  Time m_startTime;         //!< The simulation time that the application will start
-  Time m_stopTime;          //!< The simulation time that the application will end
-  EventId m_startEvent;     //!< The event that will fire at m_startTime to start the application
-  EventId m_stopEvent;      //!< The event that will fire at m_stopTime to end the application
+protected:
+  virtual void DoDispose(void);
+  virtual void DoInitialize(void);
+
+  Ptr<Node> m_node;     //!< The node that this application is installed on
+  Time m_startTime;     //!< The simulation time that the application will start
+  Time m_stopTime;      //!< The simulation time that the application will end
+  EventId m_startEvent; //!< The event that will fire at m_startTime to start the application
+  EventId m_stopEvent;  //!< The event that will fire at m_stopTime to end the application
 };
 
 } // namespace ns3

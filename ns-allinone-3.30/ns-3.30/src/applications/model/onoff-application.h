@@ -32,7 +32,8 @@
 #include "ns3/data-rate.h"
 #include "ns3/traced-callback.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class Address;
 class RandomVariableStream;
@@ -83,16 +84,16 @@ class Socket;
 * If the underlying socket type supports broadcast, this application
 * will automatically enable the SetAllowBroadcast(true) socket option.
 */
-class OnOffApplication : public Application 
+class OnOffApplication : public Application
 {
 public:
   /**
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
-  OnOffApplication ();
+  OnOffApplication();
 
   virtual ~OnOffApplication();
 
@@ -104,68 +105,69 @@ public:
    *
    * \param maxBytes the total number of bytes to send
    */
-  void SetMaxBytes (uint64_t maxBytes);
+  void SetMaxBytes(uint64_t maxBytes);
 
   /**
    * \brief Return a pointer to associated socket.
    * \return pointer to associated socket
    */
-  Ptr<Socket> GetSocket (void) const;
+  Ptr<Socket> GetSocket(void) const;
 
- /**
+  /**
   * \brief Assign a fixed random variable stream number to the random variables
   * used by this model.
   *
   * \param stream first stream index to use
   * \return the number of stream indices assigned by this model
   */
-  int64_t AssignStreams (int64_t stream);
+  int64_t AssignStreams(int64_t stream);
 
 protected:
-  virtual void DoDispose (void);
+  virtual void DoDispose(void);
+
 private:
   // inherited from Application base class.
-  virtual void StartApplication (void);    // Called at time specified by Start
-  virtual void StopApplication (void);     // Called at time specified by Stop
+  virtual void StartApplication(void); // Called at time specified by Start
+  virtual void StopApplication(void);  // Called at time specified by Stop
 
   //helpers
   /**
    * \brief Cancel all pending events.
    */
-  void CancelEvents ();
+  void CancelEvents();
 
   // Event handlers
   /**
    * \brief Start an On period
    */
-  void StartSending ();
+  void StartSending();
   /**
    * \brief Start an Off period
    */
-  void StopSending ();
+  void StopSending();
   /**
    * \brief Send a packet
    */
-  void SendPacket ();
+  void SendPacket();
 
-  Ptr<Socket>     m_socket;       //!< Associated socket
-  Address         m_peer;         //!< Peer address
-  bool            m_connected;    //!< True if connected
-  Ptr<RandomVariableStream>  m_onTime;       //!< rng for On Time
-  Ptr<RandomVariableStream>  m_offTime;      //!< rng for Off Time
-  DataRate        m_cbrRate;      //!< Rate that data is generated
-  DataRate        m_cbrRateFailSafe;      //!< Rate that data is generated (check copy)
-  uint32_t        m_pktSize;      //!< Size of packets
-  uint32_t        m_residualBits; //!< Number of generated, but not sent, bits
-  Time            m_lastStartTime; //!< Time last packet sent
-  uint64_t        m_maxBytes;     //!< Limit total number of bytes sent
-  uint64_t        m_totBytes;     //!< Total bytes sent so far
-  EventId         m_startStopEvent;     //!< Event id for next start or stop event
-  EventId         m_sendEvent;    //!< Event id of pending "send packet" event
-  TypeId          m_tid;          //!< Type of the socket used
+  Ptr<Socket> m_socket;                //!< Associated socket
+  Address m_peer;                      //!< Peer address
+  bool m_connected;                    //!< True if connected
+  Ptr<RandomVariableStream> m_onTime;  //!< rng for On Time
+  Ptr<RandomVariableStream> m_offTime; //!< rng for Off Time
+  DataRate m_cbrRate;                  //!< Rate that data is generated
+  DataRate m_cbrRateFailSafe;          //!< Rate that data is generated (check copy)
+  uint32_t m_pktSize;                  //!< Size of packets
+  uint32_t m_residualBits;             //!< Number of generated, but not sent, bits
+  Time m_lastStartTime;                //!< Time last packet sent
+  uint64_t m_maxBytes;                 //!< Limit total number of bytes sent
+  uint64_t m_totBytes;                 //!< Total bytes sent so far
+  EventId m_startStopEvent;            //!< Event id for next start or stop event
+  EventId m_sendEvent;                 //!< Event id of pending "send packet" event
+  TypeId m_tid;                        //!< Type of the socket used
 
   /// Traced Callback: transmitted packets.
-  TracedCallback<Ptr<const Packet> > m_txTrace;
+  TracedCallback<Ptr<const Packet>> m_txTrace;
 
   /// Callbacks for tracing the packet Tx events, includes source and destination addresses
   TracedCallback<Ptr<const Packet>, const Address &, const Address &> m_txTraceWithAddresses;
@@ -174,25 +176,25 @@ private:
   /**
    * \brief Schedule the next packet transmission
    */
-  void ScheduleNextTx ();
+  void ScheduleNextTx();
   /**
    * \brief Schedule the next On period start
    */
-  void ScheduleStartEvent ();
+  void ScheduleStartEvent();
   /**
    * \brief Schedule the next Off period start
    */
-  void ScheduleStopEvent ();
+  void ScheduleStopEvent();
   /**
    * \brief Handle a Connection Succeed event
    * \param socket the connected socket
    */
-  void ConnectionSucceeded (Ptr<Socket> socket);
+  void ConnectionSucceeded(Ptr<Socket> socket);
   /**
    * \brief Handle a Connection Failed event
    * \param socket the not connected socket
    */
-  void ConnectionFailed (Ptr<Socket> socket);
+  void ConnectionFailed(Ptr<Socket> socket);
 };
 
 } // namespace ns3

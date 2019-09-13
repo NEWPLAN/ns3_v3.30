@@ -24,8 +24,8 @@
 
 #include "topology-reader.h"
 
-namespace ns3 {
-
+namespace ns3
+{
 
 // ------------------------------------------------------------
 // --------------------------------------------
@@ -47,10 +47,10 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId.
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
-  OrbisTopologyReader ();
-  virtual ~OrbisTopologyReader ();
+  OrbisTopologyReader();
+  virtual ~OrbisTopologyReader();
 
   /**
    * \brief Main topology reading function.
@@ -62,7 +62,7 @@ public:
    *
    * \return The container of the nodes created (or empty container if there was an error)
    */
-  virtual NodeContainer Read (void);
+  virtual NodeContainer Read(void);
 
 private:
 private:
@@ -71,21 +71,19 @@ private:
    *
    * Defined and unimplemented to avoid misuse.
    */
-  OrbisTopologyReader (const OrbisTopologyReader&);
+  OrbisTopologyReader(const OrbisTopologyReader &);
   /**
    * \brief Copy constructor
    *
    * Defined and unimplemented to avoid misuse.
    * \returns
    */
-  OrbisTopologyReader& operator= (const OrbisTopologyReader&);
+  OrbisTopologyReader &operator=(const OrbisTopologyReader &);
 
   // end class OrbisTopologyReader
 };
 
 // end namespace ns3
-};
-
+}; // namespace ns3
 
 #endif /* ORBIS_TOPOLOGY_READER_H */
-

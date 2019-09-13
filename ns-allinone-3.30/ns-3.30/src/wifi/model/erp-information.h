@@ -23,7 +23,8 @@
 
 #include "wifi-information-element.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \brief The ErpInformation Information Element
@@ -34,70 +35,70 @@ namespace ns3 {
 class ErpInformation : public WifiInformationElement
 {
 public:
-  ErpInformation ();
+  ErpInformation();
   /**
    * Set the ERP supported field.
    *
    * \param erpSupported the ERP supported field in the ErpInformation information element
    */
-  void SetErpSupported (uint8_t erpSupported);
+  void SetErpSupported(uint8_t erpSupported);
 
   /**
    * Set the Barker_Preamble_Mode field in the ErpInformation information element.
    *
    * \param barkerPreambleMode the Barker_Preamble_Mode field in the ErpInformation information element
    */
-  void SetBarkerPreambleMode (uint8_t barkerPreambleMode);
+  void SetBarkerPreambleMode(uint8_t barkerPreambleMode);
   /**
    * Set the Use_Protection field in the ErpInformation information element.
    *
    * \param useProtection the Use_Protection field in the ErpInformation information element
    */
-  void SetUseProtection (uint8_t useProtection);
+  void SetUseProtection(uint8_t useProtection);
   /**
    * Set the Non_Erp_Present field in the ErpInformation information element.
    *
    * \param nonErpPresent the Non_Erp_Present field in the ErpInformation information element
    */
-  void SetNonErpPresent (uint8_t nonErpPresent);
+  void SetNonErpPresent(uint8_t nonErpPresent);
 
   /**
    * Return the Barker_Preamble_Mode field in the ErpInformation information element.
    *
    * \return the Barker_Preamble_Mode field in the ErpInformation information element
    */
-  uint8_t GetBarkerPreambleMode (void) const;
+  uint8_t GetBarkerPreambleMode(void) const;
   /**
    * Return the Use_Protection field in the ErpInformation information element.
    *
    * \return the Use_Protection field in the ErpInformation information element
    */
-  uint8_t GetUseProtection (void) const;
+  uint8_t GetUseProtection(void) const;
   /**
    * Return the Non_Erp_Present field in the ErpInformation information element.
    *
    * \return the Non_Erp_Present field in the ErpInformation information element
    */
-  uint8_t GetNonErpPresent (void) const;
+  uint8_t GetNonErpPresent(void) const;
 
   /**
    * Get the element ID field.
    *
    * \returns WifiInformationElementId
    */
-  WifiInformationElementId ElementId () const;
+  WifiInformationElementId ElementId() const;
   /**
    * Get the information field size.
    *
    * \returns the element field size
    */
-  uint8_t GetInformationFieldSize () const;
+  uint8_t GetInformationFieldSize() const;
   /**
    * Serialize the information field.
    *
    * \param start the information element iterator
    */
-  void SerializeInformationField (Buffer::Iterator start) const;
+  void SerializeInformationField(Buffer::Iterator start) const;
   /**
    * Get the information field size.
    *
@@ -106,8 +107,8 @@ public:
    *
    * \returns the information field
    */
-  uint8_t DeserializeInformationField (Buffer::Iterator start,
-                                       uint8_t length);
+  uint8_t DeserializeInformationField(Buffer::Iterator start,
+                                      uint8_t length);
 
   /**
    * This information element is a bit special in that it is only
@@ -119,13 +120,13 @@ public:
    *
    * \return an iterator
    */
-  Buffer::Iterator Serialize (Buffer::Iterator start) const;
+  Buffer::Iterator Serialize(Buffer::Iterator start) const;
   /**
    * Return the serialized size of this ErpInformation information element.
    *
    * \return the serialized size of this ErpInformation information element
    */
-  uint16_t GetSerializedSize () const;
+  uint16_t GetSerializedSize() const;
 
 private:
   uint8_t m_erpInformation; ///< ERP information
@@ -142,7 +143,7 @@ private:
  *
  * \returns output stream
  */
-std::ostream &operator << (std::ostream &os, const ErpInformation &erpinformation);
+std::ostream &operator<<(std::ostream &os, const ErpInformation &erpinformation);
 
 } //namespace ns3
 

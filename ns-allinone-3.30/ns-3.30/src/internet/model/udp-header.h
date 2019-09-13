@@ -27,7 +27,8 @@
 #include "ns3/ipv4-address.h"
 #include "ns3/ipv6-address.h"
 
-namespace ns3 {
+namespace ns3
+{
 /**
  * \ingroup udp
  * \brief Packet header for UDP packets
@@ -36,38 +37,37 @@ namespace ns3 {
  * (port numbers, payload size, checksum) as well as methods for serialization
  * to and deserialization from a byte buffer.
  */
-class UdpHeader : public Header 
+class UdpHeader : public Header
 {
 public:
-
   /**
    * \brief Constructor
    *
    * Creates a null header
    */
-  UdpHeader ();
-  ~UdpHeader ();
+  UdpHeader();
+  ~UdpHeader();
 
   /**
    * \brief Enable checksum calculation for UDP 
    */
-  void EnableChecksums (void);
+  void EnableChecksums(void);
   /**
    * \param port the destination port for this UdpHeader
    */
-  void SetDestinationPort (uint16_t port);
+  void SetDestinationPort(uint16_t port);
   /**
    * \param port The source port for this UdpHeader
    */
-  void SetSourcePort (uint16_t port);
+  void SetSourcePort(uint16_t port);
   /**
    * \return The source port for this UdpHeader
    */
-  uint16_t GetSourcePort (void) const;
+  uint16_t GetSourcePort(void) const;
   /**
    * \return the destination port for this UdpHeader
    */
-  uint16_t GetDestinationPort (void) const;
+  uint16_t GetDestinationPort(void) const;
 
   /**
    * \param source the ip source to use in the underlying
@@ -80,9 +80,9 @@ public:
    * If you want to use udp checksums, you should call this
    * method prior to adding the header to a packet.
    */
-  void InitializeChecksum (Address source, 
-                           Address destination,
-                           uint8_t protocol);
+  void InitializeChecksum(Address source,
+                          Address destination,
+                          uint8_t protocol);
 
   /**
    * \param source the ip source to use in the underlying
@@ -95,9 +95,9 @@ public:
    * If you want to use udp checksums, you should call this
    * method prior to adding the header to a packet.
    */
-  void InitializeChecksum (Ipv4Address source, 
-                           Ipv4Address destination,
-                           uint8_t protocol);
+  void InitializeChecksum(Ipv4Address source,
+                          Ipv4Address destination,
+                          uint8_t protocol);
 
   /**
    * \param source the ip source to use in the underlying
@@ -110,26 +110,26 @@ public:
    * If you want to use udp checksums, you should call this
    * method prior to adding the header to a packet.
    */
-  void InitializeChecksum (Ipv6Address source, 
-                           Ipv6Address destination,
-                           uint8_t protocol);
+  void InitializeChecksum(Ipv6Address source,
+                          Ipv6Address destination,
+                          uint8_t protocol);
 
   /**
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
-  virtual TypeId GetInstanceTypeId (void) const;
-  virtual void Print (std::ostream &os) const;
-  virtual uint32_t GetSerializedSize (void) const;
-  virtual void Serialize (Buffer::Iterator start) const;
-  virtual uint32_t Deserialize (Buffer::Iterator start);
+  static TypeId GetTypeId(void);
+  virtual TypeId GetInstanceTypeId(void) const;
+  virtual void Print(std::ostream &os) const;
+  virtual uint32_t GetSerializedSize(void) const;
+  virtual void Serialize(Buffer::Iterator start) const;
+  virtual uint32_t Deserialize(Buffer::Iterator start);
 
   /**
    * \brief Is the UDP checksum correct ?
    * \returns true if the checksum is correct, false otherwise.
    */
-  bool IsChecksumOk (void) const;
+  bool IsChecksumOk(void) const;
 
   /**
    * \brief Force the UDP checksum to a given value.
@@ -148,7 +148,7 @@ public:
    *
    * \param checksum the checksum to use (big endian).
    */
-  void ForceChecksum (uint16_t checksum);
+  void ForceChecksum(uint16_t checksum);
 
   /**
    * \brief Force the UDP payload length to a given value.
@@ -158,13 +158,13 @@ public:
    *
    * \param payloadSize the payload length to use.
    */
-  void ForcePayloadSize (uint16_t payloadSize);
+  void ForcePayloadSize(uint16_t payloadSize);
 
   /**
    * \brief Return the checksum (only known after a Deserialize)
    * \return The checksum for this UdpHeader
    */
-  uint16_t GetChecksum ();
+  uint16_t GetChecksum();
 
 private:
   /**
@@ -172,17 +172,17 @@ private:
    * \param size packet size
    * \returns the checksum
    */
-  uint16_t CalculateHeaderChecksum (uint16_t size) const;
+  uint16_t CalculateHeaderChecksum(uint16_t size) const;
   uint16_t m_sourcePort;      //!< Source port
   uint16_t m_destinationPort; //!< Destination port
   uint16_t m_payloadSize;     //!< Payload size
 
-  Address m_source;           //!< Source IP address
-  Address m_destination;      //!< Destination IP address
-  uint8_t m_protocol;         //!< Protocol number
-  uint16_t m_checksum;        //!< Forced Checksum value
-  bool m_calcChecksum;        //!< Flag to calculate checksum
-  bool m_goodChecksum;        //!< Flag to indicate that checksum is correct
+  Address m_source;      //!< Source IP address
+  Address m_destination; //!< Destination IP address
+  uint8_t m_protocol;    //!< Protocol number
+  uint16_t m_checksum;   //!< Forced Checksum value
+  bool m_calcChecksum;   //!< Flag to calculate checksum
+  bool m_goodChecksum;   //!< Flag to indicate that checksum is correct
 };
 
 } // namespace ns3

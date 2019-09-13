@@ -26,7 +26,8 @@
 #include "ns3/tcp-congestion-ops.h"
 #include "ns3/tcp-recovery-ops.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup congestionOps
@@ -42,8 +43,8 @@ private:
    */
   enum SlowStartType
   {
-    DO_NOT_SLOWSTART,           //!< Do not Slow Start
-    DO_SLOWSTART,               //!< Do NewReno Slow Start
+    DO_NOT_SLOWSTART, //!< Do not Slow Start
+    DO_SLOWSTART,     //!< Do NewReno Slow Start
   };
 
   /**
@@ -52,8 +53,8 @@ private:
    */
   enum State : uint32_t
   {
-    LEDBAT_VALID_OWD  = (1 << 1),  //!< If valid timestamps are present
-    LEDBAT_CAN_SS     = (1 << 3)   //!< If LEDBAT allows Slow Start
+    LEDBAT_VALID_OWD = (1 << 1), //!< If valid timestamps are present
+    LEDBAT_CAN_SS = (1 << 3)     //!< If LEDBAT allows Slow Start
   };
 
 public:
@@ -61,30 +62,30 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
   /**
    * Create an unbound tcp socket.
    */
-  TcpLedbat (void);
+  TcpLedbat(void);
 
   /**
    * \brief Copy constructor
    * \param sock the object to copy
    */
-  TcpLedbat (const TcpLedbat& sock);
+  TcpLedbat(const TcpLedbat &sock);
 
   /**
    * \brief Destructor
    */
-  virtual ~TcpLedbat (void);
+  virtual ~TcpLedbat(void);
 
   /**
    * \brief Get the name of the TCP flavour
    *
    * \return The name of the TCP
    */
-  virtual std::string GetName () const;
+  virtual std::string GetName() const;
 
   /**
    * \brief Get information from the acked packet
@@ -93,11 +94,11 @@ public:
    * \param segmentsAcked count of segments ACKed
    * \param rtt The estimated rtt
    */
-  virtual void PktsAcked (Ptr<TcpSocketState> tcb, uint32_t segmentsAcked,
-                          const Time& rtt);
+  virtual void PktsAcked(Ptr<TcpSocketState> tcb, uint32_t segmentsAcked,
+                         const Time &rtt);
 
   // Inherited
-  virtual Ptr<TcpCongestionOps> Fork ();
+  virtual Ptr<TcpCongestionOps> Fork();
 
   /**
    * \brief Adjust cwnd following LEDBAT algorithm
@@ -105,14 +106,14 @@ public:
    * \param tcb internal congestion state
    * \param segmentsAcked count of segments ACKed
    */
-  virtual void IncreaseWindow (Ptr<TcpSocketState> tcb, uint32_t segmentsAcked);
+  virtual void IncreaseWindow(Ptr<TcpSocketState> tcb, uint32_t segmentsAcked);
 
   /**
    * \brief Change the Slow Start Capability
    *
    * \param doSS Slow Start Option
    */
-  void SetDoSs (SlowStartType doSS);
+  void SetDoSs(SlowStartType doSS);
 
 protected:
   /**
@@ -121,7 +122,7 @@ protected:
    * \param tcb internal congestion state
    * \param segmentsAcked count of segments ACKed
    */
-  virtual void CongestionAvoidance (Ptr<TcpSocketState> tcb, uint32_t segmentsAcked);
+  virtual void CongestionAvoidance(Ptr<TcpSocketState> tcb, uint32_t segmentsAcked);
 
 private:
   /**
@@ -130,7 +131,7 @@ private:
   struct OwdCircBuf
   {
     std::vector<uint32_t> buffer; //!< Vector to store the delay
-    uint32_t min;  //!< The index of minimum value
+    uint32_t min;                 //!< The index of minimum value
   };
 
   /**
@@ -138,7 +139,7 @@ private:
    *
    * \param buffer The buffer to be initialised
    */
-  void InitCircBuf (struct OwdCircBuf &buffer);
+  void InitCircBuf(struct OwdCircBuf &buffer);
 
   /// Filter function used by LEDBAT for current delay
   typedef uint32_t (*FilterFunction)(struct OwdCircBuf &);
@@ -149,7 +150,7 @@ private:
    * \param b The buffer
    * \return The minimum delay
    */
-  static uint32_t MinCircBuf (struct OwdCircBuf &b);
+  static uint32_t MinCircBuf(struct OwdCircBuf &b);
 
   /**
    * \brief Return the value of current delay
@@ -157,14 +158,14 @@ private:
    * \param filter The filter function
    * \return The current delay
    */
-  uint32_t CurrentDelay (FilterFunction filter);
+  uint32_t CurrentDelay(FilterFunction filter);
 
   /**
    * \brief Return the value of base delay
    *
    * \return The base delay
    */
-  uint32_t BaseDelay ();
+  uint32_t BaseDelay();
 
   /**
    * \brief Add new delay to the buffers
@@ -173,26 +174,26 @@ private:
    * \param owd The new delay
    * \param maxlen The maximum permitted length
    */
-  void AddDelay (struct OwdCircBuf &cb, uint32_t owd, uint32_t maxlen);
+  void AddDelay(struct OwdCircBuf &cb, uint32_t owd, uint32_t maxlen);
 
   /**
    * \brief Update the base delay buffer
    *
    * \param owd The delay
    */
-  void UpdateBaseDelay (uint32_t owd);
+  void UpdateBaseDelay(uint32_t owd);
 
-  Time m_target;                     //!< Target Queue Delay
-  double m_gain;                     //!< GAIN value from RFC
-  SlowStartType m_doSs;              //!< Permissible Slow Start State
-  uint32_t m_baseHistoLen;           //!< Length of base delay history buffer
-  uint32_t m_noiseFilterLen;         //!< Length of current delay buffer
-  uint64_t m_lastRollover;           //!< Timestamp of last added delay
-  int32_t m_sndCwndCnt;              //!< The congestion window addition parameter
-  OwdCircBuf m_baseHistory;   //!< Buffer to store the base delay
-  OwdCircBuf m_noiseFilter;   //!< Buffer to store the current delay
-  uint32_t m_flag;                   //!< LEDBAT Flag
-  uint32_t m_minCwnd;                //!< Minimum cWnd value mentioned in RFC 6817
+  Time m_target;             //!< Target Queue Delay
+  double m_gain;             //!< GAIN value from RFC
+  SlowStartType m_doSs;      //!< Permissible Slow Start State
+  uint32_t m_baseHistoLen;   //!< Length of base delay history buffer
+  uint32_t m_noiseFilterLen; //!< Length of current delay buffer
+  uint64_t m_lastRollover;   //!< Timestamp of last added delay
+  int32_t m_sndCwndCnt;      //!< The congestion window addition parameter
+  OwdCircBuf m_baseHistory;  //!< Buffer to store the base delay
+  OwdCircBuf m_noiseFilter;  //!< Buffer to store the current delay
+  uint32_t m_flag;           //!< LEDBAT Flag
+  uint32_t m_minCwnd;        //!< Minimum cWnd value mentioned in RFC 6817
 };
 
 } // namespace ns3

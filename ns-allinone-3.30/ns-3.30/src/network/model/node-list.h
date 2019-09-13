@@ -24,11 +24,11 @@
 #include <vector>
 #include "ns3/ptr.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class Node;
 class CallbackBase;
-
 
 /**
  * \ingroup network
@@ -41,7 +41,7 @@ class NodeList
 {
 public:
   /// Node container iterator
-  typedef std::vector< Ptr<Node> >::const_iterator Iterator;
+  typedef std::vector<Ptr<Node>>::const_iterator Iterator;
 
   /**
    * \param node node to add
@@ -50,29 +50,28 @@ public:
    * This method is called automatically from Node::Node so
    * the user has little reason to call it himself.
    */
-  static uint32_t Add (Ptr<Node> node);
+  static uint32_t Add(Ptr<Node> node);
   /**
    * \returns a C++ iterator located at the beginning of this
    *          list.
    */
-  static Iterator Begin (void);
+  static Iterator Begin(void);
   /**
    * \returns a C++ iterator located at the end of this
    *          list.
    */
-  static Iterator End (void);
+  static Iterator End(void);
   /**
    * \param n index of requested node.
    * \returns the Node associated to index n.
    */
-  static Ptr<Node> GetNode (uint32_t n);
+  static Ptr<Node> GetNode(uint32_t n);
   /**
    * \returns the number of nodes currently in the list.
    */
-  static uint32_t GetNNodes (void);
+  static uint32_t GetNNodes(void);
 };
 
 } // namespace ns3
-
 
 #endif /* NODE_LIST_H */

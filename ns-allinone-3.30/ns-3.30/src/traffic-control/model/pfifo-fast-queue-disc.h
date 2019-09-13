@@ -25,7 +25,8 @@
 
 #include "ns3/queue-disc.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup traffic-control
@@ -46,24 +47,25 @@ namespace ns3 {
  * three, operate in packet mode and each have a capacity not less
  * than limit. No packet filter can be provided.
  */
-class PfifoFastQueueDisc : public QueueDisc {
+class PfifoFastQueueDisc : public QueueDisc
+{
 public:
   /**
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
   /**
    * \brief PfifoFastQueueDisc constructor
    *
    * Creates a queue with a depth of 1000 packets per band by default
    */
-  PfifoFastQueueDisc ();
+  PfifoFastQueueDisc();
 
   virtual ~PfifoFastQueueDisc();
 
   // Reasons for dropping packets
-  static constexpr const char* LIMIT_EXCEEDED_DROP = "Queue disc limit exceeded";  //!< Packet dropped due to queue disc limit exceeded
+  static constexpr const char *LIMIT_EXCEEDED_DROP = "Queue disc limit exceeded"; //!< Packet dropped due to queue disc limit exceeded
 
 private:
   /**
@@ -72,11 +74,11 @@ private:
    */
   static const uint32_t prio2band[16];
 
-  virtual bool DoEnqueue (Ptr<QueueDiscItem> item);
-  virtual Ptr<QueueDiscItem> DoDequeue (void);
-  virtual Ptr<const QueueDiscItem> DoPeek (void);
-  virtual bool CheckConfig (void);
-  virtual void InitializeParams (void);
+  virtual bool DoEnqueue(Ptr<QueueDiscItem> item);
+  virtual Ptr<QueueDiscItem> DoDequeue(void);
+  virtual Ptr<const QueueDiscItem> DoPeek(void);
+  virtual bool CheckConfig(void);
+  virtual void InitializeParams(void);
 };
 
 } // namespace ns3

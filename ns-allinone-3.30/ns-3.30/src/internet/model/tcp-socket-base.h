@@ -33,7 +33,8 @@
 #include "ns3/node.h"
 #include "ns3/tcp-socket-state.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class Ipv4EndPoint;
 class Ipv6EndPoint;
@@ -64,17 +65,17 @@ public:
    * \param c Number of bytes sent
    * \param t Time this one was sent
    */
-  RttHistory (SequenceNumber32 s, uint32_t c, Time t);
+  RttHistory(SequenceNumber32 s, uint32_t c, Time t);
   /**
    * \brief Copy constructor
    * \param h the object to copy
    */
-  RttHistory (const RttHistory& h); // Copy constructor
+  RttHistory(const RttHistory &h); // Copy constructor
 public:
-  SequenceNumber32  seq;  //!< First sequence number in packet sent
-  uint32_t        count;  //!< Number of bytes sent
-  Time            time;   //!< Time this one was sent
-  bool            retx;   //!< True if this has been retransmitted
+  SequenceNumber32 seq; //!< First sequence number in packet sent
+  uint32_t count;       //!< Number of bytes sent
+  Time time;            //!< Time this one was sent
+  bool retx;            //!< True if this has been retransmitted
 };
 
 /**
@@ -221,13 +222,13 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
   /**
    * \brief Get the instance TypeId
    * \return the instance TypeId
    */
-  virtual TypeId GetInstanceTypeId () const;
+  virtual TypeId GetInstanceTypeId() const;
 
   /**
    * \brief TcpGeneralTest friend class (for tests).
@@ -238,15 +239,15 @@ public:
   /**
    * Create an unbound TCP socket
    */
-  TcpSocketBase (void);
+  TcpSocketBase(void);
 
   /**
    * Clone a TCP socket, for use upon receiving a connection request in LISTEN state
    *
    * \param sock the original Tcp Socket
    */
-  TcpSocketBase (const TcpSocketBase& sock);
-  virtual ~TcpSocketBase (void);
+  TcpSocketBase(const TcpSocketBase &sock);
+  virtual ~TcpSocketBase(void);
 
   // Set associated Node, TcpL4Protocol, RttEstimator to this socket
 
@@ -254,67 +255,67 @@ public:
    * \brief Set the associated node.
    * \param node the node
    */
-  virtual void SetNode (Ptr<Node> node);
+  virtual void SetNode(Ptr<Node> node);
 
   /**
    * \brief Set the associated TCP L4 protocol.
    * \param tcp the TCP L4 protocol
    */
-  virtual void SetTcp (Ptr<TcpL4Protocol> tcp);
+  virtual void SetTcp(Ptr<TcpL4Protocol> tcp);
 
   /**
    * \brief Set the associated RTT estimator.
    * \param rtt the RTT estimator
    */
-  virtual void SetRtt (Ptr<RttEstimator> rtt);
+  virtual void SetRtt(Ptr<RttEstimator> rtt);
 
   /**
    * \brief Sets the Minimum RTO.
    * \param minRto The minimum RTO.
    */
-  void SetMinRto (Time minRto);
+  void SetMinRto(Time minRto);
 
   /**
    * \brief Get the Minimum RTO.
    * \return The minimum RTO.
    */
-  Time GetMinRto (void) const;
+  Time GetMinRto(void) const;
 
   /**
    * \brief Sets the Clock Granularity (used in RTO calcs).
    * \param clockGranularity The Clock Granularity
    */
-  void SetClockGranularity (Time clockGranularity);
+  void SetClockGranularity(Time clockGranularity);
 
   /**
    * \brief Get the Clock Granularity (used in RTO calcs).
    * \return The Clock Granularity.
    */
-  Time GetClockGranularity (void) const;
+  Time GetClockGranularity(void) const;
 
   /**
    * \brief Get a pointer to the Tx buffer
    * \return a pointer to the tx buffer
    */
-  Ptr<TcpTxBuffer> GetTxBuffer (void) const;
+  Ptr<TcpTxBuffer> GetTxBuffer(void) const;
 
   /**
    * \brief Get a pointer to the Rx buffer
    * \return a pointer to the rx buffer
    */
-  Ptr<TcpRxBuffer> GetRxBuffer (void) const;
+  Ptr<TcpRxBuffer> GetRxBuffer(void) const;
 
   /**
    * \brief Set the retransmission threshold (dup ack threshold for a fast retransmit)
    * \param retxThresh the threshold
    */
-  void SetRetxThresh (uint32_t retxThresh);
+  void SetRetxThresh(uint32_t retxThresh);
 
   /**
    * \brief Get the retransmission threshold (dup ack threshold for a fast retransmit)
    * \return the threshold
    */
-  uint32_t GetRetxThresh (void) const { return m_retxThresh; }
+  uint32_t GetRetxThresh(void) const { return m_retxThresh; }
 
   /**
    * \brief Callback pointer for cWnd trace chaining
@@ -336,7 +337,7 @@ public:
    */
   TracedCallback<TcpSocketState::TcpCongState_t, TcpSocketState::TcpCongState_t> m_congStateTrace;
 
-   /**
+  /**
    * \brief Callback pointer for ECN state trace chaining
    */
   TracedCallback<TcpSocketState::EcnState_t, TcpSocketState::EcnState_t> m_ecnStateTrace;
@@ -344,7 +345,7 @@ public:
   /**
    * \brief Callback pointer for high tx mark chaining
    */
-  TracedCallback <SequenceNumber32, SequenceNumber32> m_highTxMarkTrace;
+  TracedCallback<SequenceNumber32, SequenceNumber32> m_highTxMarkTrace;
 
   /**
    * \brief Callback pointer for next tx sequence chaining
@@ -366,197 +367,197 @@ public:
    * \param oldValue old cWnd value
    * \param newValue new cWnd value
    */
-  void UpdateCwnd (uint32_t oldValue, uint32_t newValue);
+  void UpdateCwnd(uint32_t oldValue, uint32_t newValue);
 
   /**
    * \brief Callback function to hook to TcpSocketState inflated congestion window
    * \param oldValue old cWndInfl value
    * \param newValue new cWndInfl value
    */
-  void UpdateCwndInfl (uint32_t oldValue, uint32_t newValue);
+  void UpdateCwndInfl(uint32_t oldValue, uint32_t newValue);
 
   /**
    * \brief Callback function to hook to TcpSocketState slow start threshold
    * \param oldValue old ssTh value
    * \param newValue new ssTh value
    */
-  void UpdateSsThresh (uint32_t oldValue, uint32_t newValue);
+  void UpdateSsThresh(uint32_t oldValue, uint32_t newValue);
 
   /**
    * \brief Callback function to hook to TcpSocketState congestion state
    * \param oldValue old congestion state value
    * \param newValue new congestion state value
    */
-  void UpdateCongState (TcpSocketState::TcpCongState_t oldValue,
-                        TcpSocketState::TcpCongState_t newValue);
+  void UpdateCongState(TcpSocketState::TcpCongState_t oldValue,
+                       TcpSocketState::TcpCongState_t newValue);
 
-   /**
+  /**
    * \brief Callback function to hook to EcnState state
    * \param oldValue old ecn state value
    * \param newValue new ecn state value
    */
-  void UpdateEcnState (TcpSocketState::EcnState_t oldValue,
-                        TcpSocketState::EcnState_t newValue);
+  void UpdateEcnState(TcpSocketState::EcnState_t oldValue,
+                      TcpSocketState::EcnState_t newValue);
 
   /**
    * \brief Callback function to hook to TcpSocketState high tx mark
    * \param oldValue old high tx mark
    * \param newValue new high tx mark
    */
-  void UpdateHighTxMark (SequenceNumber32 oldValue, SequenceNumber32 newValue);
+  void UpdateHighTxMark(SequenceNumber32 oldValue, SequenceNumber32 newValue);
 
   /**
    * \brief Callback function to hook to TcpSocketState next tx sequence
    * \param oldValue old nextTxSeq value
    * \param newValue new nextTxSeq value
    */
-  void UpdateNextTxSequence (SequenceNumber32 oldValue, SequenceNumber32 newValue);
+  void UpdateNextTxSequence(SequenceNumber32 oldValue, SequenceNumber32 newValue);
 
   /**
    * \brief Callback function to hook to TcpSocketState bytes inflight
    * \param oldValue old bytesInFlight value
    * \param newValue new bytesInFlight value
    */
-  void UpdateBytesInFlight (uint32_t oldValue, uint32_t newValue);
+  void UpdateBytesInFlight(uint32_t oldValue, uint32_t newValue);
 
   /**
    * \brief Callback function to hook to TcpSocketState rtt
    * \param oldValue old rtt value
    * \param newValue new rtt value
    */
-  void UpdateRtt (Time oldValue, Time newValue);
+  void UpdateRtt(Time oldValue, Time newValue);
 
   /**
    * \brief Install a congestion control algorithm on this socket
    *
    * \param algo Algorithm to be installed
    */
-  void SetCongestionControlAlgorithm (Ptr<TcpCongestionOps> algo);
+  void SetCongestionControlAlgorithm(Ptr<TcpCongestionOps> algo);
 
   /**
    * \brief Install a recovery algorithm on this socket
    *
    * \param recovery Algorithm to be installed
    */
-  void SetRecoveryAlgorithm (Ptr<TcpRecoveryOps> recovery);
+  void SetRecoveryAlgorithm(Ptr<TcpRecoveryOps> recovery);
 
   /**
    * \brief Mark ECT(0)
    *
    * \return TOS with ECT(0)
    */
-  inline uint8_t MarkEcnEct0 (uint8_t tos) const
-    {
-      return ((tos & 0xfc) | 0x02);
-    }
+  inline uint8_t MarkEcnEct0(uint8_t tos) const
+  {
+    return ((tos & 0xfc) | 0x02);
+  }
 
   /**
    * \brief Mark ECT(1)
    *
    * \return TOS with ECT(1)
    */
-  inline uint8_t MarkEcnEct1 (uint8_t tos) const
-    {
-      return ((tos & 0xfc) | 0x01);
-    }
+  inline uint8_t MarkEcnEct1(uint8_t tos) const
+  {
+    return ((tos & 0xfc) | 0x01);
+  }
 
   /**
    * \brief Mark CE
    *
    * \return TOS with CE
    */
-  inline uint8_t MarkEcnCe (uint8_t tos) const
-    {
-      return ((tos & 0xfc) | 0x03);
-    }
+  inline uint8_t MarkEcnCe(uint8_t tos) const
+  {
+    return ((tos & 0xfc) | 0x03);
+  }
 
   /**
    * \brief Clears ECN bits from TOS
    *
    * \return TOS without ECN bits
    */
-  inline uint8_t ClearEcnBits (uint8_t tos) const
-    {
-      return tos & 0xfc;
-    }
+  inline uint8_t ClearEcnBits(uint8_t tos) const
+  {
+    return tos & 0xfc;
+  }
 
   /**
    * \brief ECN Modes
    */
   typedef enum
-    {
-      NoEcn = 0,   //!< ECN is not enabled.
-      ClassicEcn   //!< ECN functionality as described in RFC 3168.
-    } EcnMode_t;
+  {
+    NoEcn = 0, //!< ECN is not enabled.
+    ClassicEcn //!< ECN functionality as described in RFC 3168.
+  } EcnMode_t;
 
   /**
    * \brief Checks if TOS has no ECN bits
    *
    * \return true if TOS does not have any ECN bits set; otherwise false
    */
-  inline bool CheckNoEcn (uint8_t tos) const
-    {
-      return ((tos & 0xfc) == 0x00);
-    }
+  inline bool CheckNoEcn(uint8_t tos) const
+  {
+    return ((tos & 0xfc) == 0x00);
+  }
 
   /**
    * \brief Checks for ECT(0) bits
    *
    * \return true if TOS has ECT(0) bit set; otherwise false
    */
-  inline bool CheckEcnEct0 (uint8_t tos) const
-    {
-      return ((tos & 0xfc) == 0x02);
-    }
+  inline bool CheckEcnEct0(uint8_t tos) const
+  {
+    return ((tos & 0xfc) == 0x02);
+  }
 
   /**
    * \brief Checks for ECT(1) bits
    *
    * \return true if TOS has ECT(1) bit set; otherwise false
    */
-  inline bool CheckEcnEct1 (uint8_t tos) const
-    {
-      return ((tos & 0xfc) == 0x01);
-    }
+  inline bool CheckEcnEct1(uint8_t tos) const
+  {
+    return ((tos & 0xfc) == 0x01);
+  }
 
   /**
    * \brief Checks for CE bits
    *
    * \return true if TOS has CE bit set; otherwise false
    */
-  inline bool CheckEcnCe (uint8_t tos) const
-    {
-      return ((tos & 0xfc) == 0x03);
-    }
+  inline bool CheckEcnCe(uint8_t tos) const
+  {
+    return ((tos & 0xfc) == 0x03);
+  }
 
   /**
    * \brief Set ECN mode to use on the socket
    *
    * \param ecnMode Mode of ECN. Currently NoEcn and ClassicEcn is supported.
    */
-  void SetEcn (EcnMode_t ecnMode);
+  void SetEcn(EcnMode_t ecnMode);
 
   // Necessary implementations of null functions from ns3::Socket
-  virtual enum SocketErrno GetErrno (void) const;    // returns m_errno
-  virtual enum SocketType GetSocketType (void) const; // returns socket type
-  virtual Ptr<Node> GetNode (void) const;            // returns m_node
-  virtual int Bind (void);    // Bind a socket by setting up endpoint in TcpL4Protocol
-  virtual int Bind6 (void);    // Bind a socket by setting up endpoint in TcpL4Protocol
-  virtual int Bind (const Address &address);         // ... endpoint of specific addr or port
-  virtual int Connect (const Address &address);      // Setup endpoint and call ProcessAction() to connect
-  virtual int Listen (void);  // Verify the socket is in a correct state and call ProcessAction() to listen
-  virtual int Close (void);   // Close by app: Kill socket upon tx buffer emptied
-  virtual int ShutdownSend (void);    // Assert the m_shutdownSend flag to prevent send to network
-  virtual int ShutdownRecv (void);    // Assert the m_shutdownRecv flag to prevent forward to app
-  virtual int Send (Ptr<Packet> p, uint32_t flags);  // Call by app to send data to network
-  virtual int SendTo (Ptr<Packet> p, uint32_t flags, const Address &toAddress); // Same as Send(), toAddress is insignificant
-  virtual Ptr<Packet> Recv (uint32_t maxSize, uint32_t flags); // Return a packet to be forwarded to app
-  virtual Ptr<Packet> RecvFrom (uint32_t maxSize, uint32_t flags, Address &fromAddress); // ... and write the remote address at fromAddress
-  virtual uint32_t GetTxAvailable (void) const; // Available Tx buffer size
-  virtual uint32_t GetRxAvailable (void) const; // Available-to-read data size, i.e. value of m_rxAvailable
-  virtual int GetSockName (Address &address) const; // Return local addr:port in address
-  virtual int GetPeerName (Address &address) const;
-  virtual void BindToNetDevice (Ptr<NetDevice> netdevice); // NetDevice with my m_endPoint
+  virtual enum SocketErrno GetErrno(void) const;                                        // returns m_errno
+  virtual enum SocketType GetSocketType(void) const;                                    // returns socket type
+  virtual Ptr<Node> GetNode(void) const;                                                // returns m_node
+  virtual int Bind(void);                                                               // Bind a socket by setting up endpoint in TcpL4Protocol
+  virtual int Bind6(void);                                                              // Bind a socket by setting up endpoint in TcpL4Protocol
+  virtual int Bind(const Address &address);                                             // ... endpoint of specific addr or port
+  virtual int Connect(const Address &address);                                          // Setup endpoint and call ProcessAction() to connect
+  virtual int Listen(void);                                                             // Verify the socket is in a correct state and call ProcessAction() to listen
+  virtual int Close(void);                                                              // Close by app: Kill socket upon tx buffer emptied
+  virtual int ShutdownSend(void);                                                       // Assert the m_shutdownSend flag to prevent send to network
+  virtual int ShutdownRecv(void);                                                       // Assert the m_shutdownRecv flag to prevent forward to app
+  virtual int Send(Ptr<Packet> p, uint32_t flags);                                      // Call by app to send data to network
+  virtual int SendTo(Ptr<Packet> p, uint32_t flags, const Address &toAddress);          // Same as Send(), toAddress is insignificant
+  virtual Ptr<Packet> Recv(uint32_t maxSize, uint32_t flags);                           // Return a packet to be forwarded to app
+  virtual Ptr<Packet> RecvFrom(uint32_t maxSize, uint32_t flags, Address &fromAddress); // ... and write the remote address at fromAddress
+  virtual uint32_t GetTxAvailable(void) const;                                          // Available Tx buffer size
+  virtual uint32_t GetRxAvailable(void) const;                                          // Available-to-read data size, i.e. value of m_rxAvailable
+  virtual int GetSockName(Address &address) const;                                      // Return local addr:port in address
+  virtual int GetPeerName(Address &address) const;
+  virtual void BindToNetDevice(Ptr<NetDevice> netdevice); // NetDevice with my m_endPoint
 
   /**
    * TracedCallback signature for tcp packet transmission or reception events.
@@ -565,41 +566,39 @@ public:
    * \param [in] header The TcpHeader
    * \param [in] socket This socket
    */
-  typedef void (* TcpTxRxTracedCallback)(const Ptr<const Packet> packet, const TcpHeader& header,
-                                         const Ptr<const TcpSocketBase> socket);
+  typedef void (*TcpTxRxTracedCallback)(const Ptr<const Packet> packet, const TcpHeader &header,
+                                        const Ptr<const TcpSocketBase> socket);
 
 protected:
   // Implementing ns3::TcpSocket -- Attribute get/set
   // inherited, no need to doc
 
-  virtual void     SetSndBufSize (uint32_t size);
-  virtual uint32_t GetSndBufSize (void) const;
-  virtual void     SetRcvBufSize (uint32_t size);
-  virtual uint32_t GetRcvBufSize (void) const;
-  virtual void     SetSegSize (uint32_t size);
-  virtual uint32_t GetSegSize (void) const;
-  virtual void     SetInitialSSThresh (uint32_t threshold);
-  virtual uint32_t GetInitialSSThresh (void) const;
-  virtual void     SetInitialCwnd (uint32_t cwnd);
-  virtual uint32_t GetInitialCwnd (void) const;
-  virtual void     SetConnTimeout (Time timeout);
-  virtual Time     GetConnTimeout (void) const;
-  virtual void     SetSynRetries (uint32_t count);
-  virtual uint32_t GetSynRetries (void) const;
-  virtual void     SetDataRetries (uint32_t retries);
-  virtual uint32_t GetDataRetries (void) const;
-  virtual void     SetDelAckTimeout (Time timeout);
-  virtual Time     GetDelAckTimeout (void) const;
-  virtual void     SetDelAckMaxCount (uint32_t count);
-  virtual uint32_t GetDelAckMaxCount (void) const;
-  virtual void     SetTcpNoDelay (bool noDelay);
-  virtual bool     GetTcpNoDelay (void) const;
-  virtual void     SetPersistTimeout (Time timeout);
-  virtual Time     GetPersistTimeout (void) const;
-  virtual bool     SetAllowBroadcast (bool allowBroadcast);
-  virtual bool     GetAllowBroadcast (void) const;
-
-
+  virtual void SetSndBufSize(uint32_t size);
+  virtual uint32_t GetSndBufSize(void) const;
+  virtual void SetRcvBufSize(uint32_t size);
+  virtual uint32_t GetRcvBufSize(void) const;
+  virtual void SetSegSize(uint32_t size);
+  virtual uint32_t GetSegSize(void) const;
+  virtual void SetInitialSSThresh(uint32_t threshold);
+  virtual uint32_t GetInitialSSThresh(void) const;
+  virtual void SetInitialCwnd(uint32_t cwnd);
+  virtual uint32_t GetInitialCwnd(void) const;
+  virtual void SetConnTimeout(Time timeout);
+  virtual Time GetConnTimeout(void) const;
+  virtual void SetSynRetries(uint32_t count);
+  virtual uint32_t GetSynRetries(void) const;
+  virtual void SetDataRetries(uint32_t retries);
+  virtual uint32_t GetDataRetries(void) const;
+  virtual void SetDelAckTimeout(Time timeout);
+  virtual Time GetDelAckTimeout(void) const;
+  virtual void SetDelAckMaxCount(uint32_t count);
+  virtual uint32_t GetDelAckMaxCount(void) const;
+  virtual void SetTcpNoDelay(bool noDelay);
+  virtual bool GetTcpNoDelay(void) const;
+  virtual void SetPersistTimeout(Time timeout);
+  virtual Time GetPersistTimeout(void) const;
+  virtual bool SetAllowBroadcast(bool allowBroadcast);
+  virtual bool GetAllowBroadcast(void) const;
 
   // Helper functions: Connection set up
 
@@ -608,33 +607,33 @@ protected:
    *
    * \returns 0 on success, -1 on failure
    */
-  int SetupCallback (void);
+  int SetupCallback(void);
 
   /**
    * \brief Perform the real connection tasks: Send SYN if allowed, RST if invalid
    *
    * \returns 0 on success
    */
-  int DoConnect (void);
+  int DoConnect(void);
 
   /**
    * \brief Schedule-friendly wrapper for Socket::NotifyConnectionSucceeded()
    */
-  void ConnectionSucceeded (void);
+  void ConnectionSucceeded(void);
 
   /**
    * \brief Configure the endpoint to a local address. Called by Connect() if Bind() didn't specify one.
    *
    * \returns 0 on success
    */
-  int SetupEndpoint (void);
+  int SetupEndpoint(void);
 
   /**
    * \brief Configure the endpoint v6 to a local address. Called by Connect() if Bind() didn't specify one.
    *
    * \returns 0 on success
    */
-  int SetupEndpoint6 (void);
+  int SetupEndpoint6(void);
 
   /**
    * \brief Complete a connection by forking the socket
@@ -648,10 +647,8 @@ protected:
    * \param fromAddress the address of the remote host
    * \param toAddress the address the connection is directed to
    */
-  virtual void CompleteFork (Ptr<Packet> p, const TcpHeader& tcpHeader,
-                             const Address& fromAddress, const Address& toAddress);
-
-
+  virtual void CompleteFork(Ptr<Packet> p, const TcpHeader &tcpHeader,
+                            const Address &fromAddress, const Address &toAddress);
 
   // Helper functions: Transfer operation
 
@@ -662,8 +659,8 @@ protected:
    * \param tcpHeaderSize the size of packet's TCP header
    * \param tcpPayloadSize the size of TCP payload
    */
-  bool IsValidTcpSegment (const SequenceNumber32 seq, const uint32_t tcpHeaderSize,
-                          const uint32_t tcpPayloadSize);
+  bool IsValidTcpSegment(const SequenceNumber32 seq, const uint32_t tcpHeaderSize,
+                         const uint32_t tcpPayloadSize);
 
   /**
    * \brief Called by the L3 protocol when it received a packet to pass on to TCP.
@@ -673,7 +670,7 @@ protected:
    * \param port the remote port
    * \param incomingInterface the incoming interface
    */
-  void ForwardUp (Ptr<Packet> packet, Ipv4Header header, uint16_t port, Ptr<Ipv4Interface> incomingInterface);
+  void ForwardUp(Ptr<Packet> packet, Ipv4Header header, uint16_t port, Ptr<Ipv4Interface> incomingInterface);
 
   /**
    * \brief Called by the L3 protocol when it received a packet to pass on to TCP.
@@ -683,7 +680,7 @@ protected:
    * \param port the remote port
    * \param incomingInterface the incoming interface
    */
-  void ForwardUp6 (Ptr<Packet> packet, Ipv6Header header, uint16_t port, Ptr<Ipv6Interface> incomingInterface);
+  void ForwardUp6(Ptr<Packet> packet, Ipv6Header header, uint16_t port, Ptr<Ipv6Interface> incomingInterface);
 
   /**
    * \brief Called by TcpSocketBase::ForwardUp{,6}().
@@ -697,8 +694,8 @@ protected:
    * \param fromAddress the address of the sender of packet
    * \param toAddress the address of the receiver of packet (hopefully, us)
    */
-  virtual void DoForwardUp (Ptr<Packet> packet, const Address &fromAddress,
-                            const Address &toAddress);
+  virtual void DoForwardUp(Ptr<Packet> packet, const Address &fromAddress,
+                           const Address &toAddress);
 
   /**
    * \brief Called by the L3 protocol when it received an ICMP packet to pass on to TCP.
@@ -709,7 +706,7 @@ protected:
    * \param icmpCode the ICMP Code
    * \param icmpInfo the ICMP Info
    */
-  void ForwardIcmp (Ipv4Address icmpSource, uint8_t icmpTtl, uint8_t icmpType, uint8_t icmpCode, uint32_t icmpInfo);
+  void ForwardIcmp(Ipv4Address icmpSource, uint8_t icmpTtl, uint8_t icmpType, uint8_t icmpCode, uint32_t icmpInfo);
 
   /**
    * \brief Called by the L3 protocol when it received an ICMPv6 packet to pass on to TCP.
@@ -720,7 +717,7 @@ protected:
    * \param icmpCode the ICMP Code
    * \param icmpInfo the ICMP Info
    */
-  void ForwardIcmp6 (Ipv6Address icmpSource, uint8_t icmpTtl, uint8_t icmpType, uint8_t icmpCode, uint32_t icmpInfo);
+  void ForwardIcmp6(Ipv6Address icmpSource, uint8_t icmpTtl, uint8_t icmpType, uint8_t icmpCode, uint32_t icmpInfo);
 
   /**
    * \brief Send as much pending data as possible according to the Tx window.
@@ -730,7 +727,7 @@ protected:
    * \param withAck forces an ACK to be sent
    * \returns the number of packets sent
    */
-  uint32_t SendPendingData (bool withAck = false);
+  uint32_t SendPendingData(bool withAck = false);
 
   /**
    * \brief Extract at most maxSize bytes from the TxBuffer at sequence seq, add the
@@ -741,19 +738,19 @@ protected:
    * \param withAck forces an ACK to be sent
    * \returns the number of bytes sent
    */
-  virtual uint32_t SendDataPacket (SequenceNumber32 seq, uint32_t maxSize, bool withAck);
+  virtual uint32_t SendDataPacket(SequenceNumber32 seq, uint32_t maxSize, bool withAck);
 
   /**
    * \brief Send a empty packet that carries a flag, e.g., ACK
    *
    * \param flags the packet's flags
    */
-  virtual void SendEmptyPacket (uint8_t flags);
+  virtual void SendEmptyPacket(uint8_t flags);
 
   /**
    * \brief Send reset and tear down this socket
    */
-  void SendRST (void);
+  void SendRST(void);
 
   /**
    * \brief Check if a sequence number range is within the rx window
@@ -762,8 +759,7 @@ protected:
    * \param tail end of the Sequence window
    * \returns true if it is in range
    */
-  bool OutOfRange (SequenceNumber32 head, SequenceNumber32 tail) const;
-
+  bool OutOfRange(SequenceNumber32 head, SequenceNumber32 tail) const;
 
   // Helper functions: Connection close
 
@@ -772,12 +768,12 @@ protected:
    *
    * \returns 0 on success
    */
-  int DoClose (void);
+  int DoClose(void);
 
   /**
    * \brief Peacefully close the socket by notifying the upper layer and deallocate end point
    */
-  void CloseAndNotify (void);
+  void CloseAndNotify(void);
 
   /**
    * \brief Kill this socket by zeroing its attributes (IPv4)
@@ -785,7 +781,7 @@ protected:
    * This is a callback function configured to m_endpoint in
    * SetupCallback(), invoked when the endpoint is destroyed.
    */
-  void Destroy (void);
+  void Destroy(void);
 
   /**
    * \brief Kill this socket by zeroing its attributes (IPv6)
@@ -793,12 +789,12 @@ protected:
    * This is a callback function configured to m_endpoint in
    * SetupCallback(), invoked when the endpoint is destroyed.
    */
-  void Destroy6 (void);
+  void Destroy6(void);
 
   /**
    * \brief Deallocate m_endPoint and m_endPoint6
    */
-  void DeallocateEndPoint (void);
+  void DeallocateEndPoint(void);
 
   /**
    * \brief Received a FIN from peer, notify rx buffer
@@ -806,22 +802,22 @@ protected:
    * \param p the packet
    * \param tcpHeader the packet's TCP header
    */
-  void PeerClose (Ptr<Packet> p, const TcpHeader& tcpHeader);
+  void PeerClose(Ptr<Packet> p, const TcpHeader &tcpHeader);
 
   /**
    * \brief FIN is in sequence, notify app and respond with a FIN
    */
-  void DoPeerClose (void);
+  void DoPeerClose(void);
 
   /**
    * \brief Cancel all timer when endpoint is deleted
    */
-  void CancelAllTimers (void);
+  void CancelAllTimers(void);
 
   /**
    * \brief Move from CLOSING or FIN_WAIT_2 to TIME_WAIT state
    */
-  void TimeWait (void);
+  void TimeWait(void);
 
   // State transition functions
 
@@ -833,7 +829,7 @@ protected:
    * \param packet the packet
    * \param tcpHeader the packet's TCP header
    */
-  void ProcessEstablished (Ptr<Packet> packet, const TcpHeader& tcpHeader); // Received a packet upon ESTABLISHED state
+  void ProcessEstablished(Ptr<Packet> packet, const TcpHeader &tcpHeader); // Received a packet upon ESTABLISHED state
 
   /**
    * \brief Received a packet upon LISTEN state.
@@ -843,8 +839,8 @@ protected:
    * \param fromAddress the source address
    * \param toAddress the destination address
    */
-  void ProcessListen (Ptr<Packet> packet, const TcpHeader& tcpHeader,
-                      const Address& fromAddress, const Address& toAddress);
+  void ProcessListen(Ptr<Packet> packet, const TcpHeader &tcpHeader,
+                     const Address &fromAddress, const Address &toAddress);
 
   /**
    * \brief Received a packet upon SYN_SENT
@@ -852,7 +848,7 @@ protected:
    * \param packet the packet
    * \param tcpHeader the packet's TCP header
    */
-  void ProcessSynSent (Ptr<Packet> packet, const TcpHeader& tcpHeader);
+  void ProcessSynSent(Ptr<Packet> packet, const TcpHeader &tcpHeader);
 
   /**
    * \brief Received a packet upon SYN_RCVD.
@@ -862,8 +858,8 @@ protected:
    * \param fromAddress the source address
    * \param toAddress the destination address
    */
-  void ProcessSynRcvd (Ptr<Packet> packet, const TcpHeader& tcpHeader,
-                       const Address& fromAddress, const Address& toAddress);
+  void ProcessSynRcvd(Ptr<Packet> packet, const TcpHeader &tcpHeader,
+                      const Address &fromAddress, const Address &toAddress);
 
   /**
    * \brief Received a packet upon CLOSE_WAIT, FIN_WAIT_1, FIN_WAIT_2
@@ -871,7 +867,7 @@ protected:
    * \param packet the packet
    * \param tcpHeader the packet's TCP header
    */
-  void ProcessWait (Ptr<Packet> packet, const TcpHeader& tcpHeader);
+  void ProcessWait(Ptr<Packet> packet, const TcpHeader &tcpHeader);
 
   /**
    * \brief Received a packet upon CLOSING
@@ -879,7 +875,7 @@ protected:
    * \param packet the packet
    * \param tcpHeader the packet's TCP header
    */
-  void ProcessClosing (Ptr<Packet> packet, const TcpHeader& tcpHeader);
+  void ProcessClosing(Ptr<Packet> packet, const TcpHeader &tcpHeader);
 
   /**
    * \brief Received a packet upon LAST_ACK
@@ -887,7 +883,7 @@ protected:
    * \param packet the packet
    * \param tcpHeader the packet's TCP header
    */
-  void ProcessLastAck (Ptr<Packet> packet, const TcpHeader& tcpHeader);
+  void ProcessLastAck(Ptr<Packet> packet, const TcpHeader &tcpHeader);
 
   // Window management
 
@@ -898,7 +894,7 @@ protected:
    *
    * \returns count of number of unacked bytes
    */
-  virtual uint32_t UnAckDataCount (void) const;
+  virtual uint32_t UnAckDataCount(void) const;
 
   /**
    * \brief Return total bytes in flight
@@ -907,19 +903,19 @@ protected:
    *
    * \returns total bytes in flight
    */
-  virtual uint32_t BytesInFlight (void) const;
+  virtual uint32_t BytesInFlight(void) const;
 
   /**
    * \brief Return the max possible number of unacked bytes
    * \returns the max possible number of unacked bytes
    */
-  virtual uint32_t Window (void) const;
+  virtual uint32_t Window(void) const;
 
   /**
    * \brief Return unfilled portion of window
    * \return unfilled portion of window
    */
-  virtual uint32_t AvailableWindow (void) const;
+  virtual uint32_t AvailableWindow(void) const;
 
   /**
    * \brief The amount of Rx window announced to the peer
@@ -927,7 +923,7 @@ protected:
    * almost all cases, except when we are sending a SYN
    * \returns size of Rx window announced to the peer
    */
-  virtual uint16_t AdvertisedWindowSize (bool scale = true) const;
+  virtual uint16_t AdvertisedWindowSize(bool scale = true) const;
 
   /**
    * \brief Update the receiver window (RWND) based on the value of the
@@ -941,8 +937,7 @@ protected:
    *
    * \param header TcpHeader from which to extract the new window value
    */
-  void UpdateWindowSize (const TcpHeader& header);
-
+  void UpdateWindowSize(const TcpHeader &header);
 
   // Manage data tx/rx
 
@@ -950,14 +945,14 @@ protected:
    * \brief Call CopyObject<> to clone me
    * \returns a copy of the socket
    */
-  virtual Ptr<TcpSocketBase> Fork (void);
+  virtual Ptr<TcpSocketBase> Fork(void);
 
   /**
    * \brief Received an ACK packet
    * \param packet the packet
    * \param tcpHeader the packet's TCP header
    */
-  virtual void ReceivedAck (Ptr<Packet> packet, const TcpHeader& tcpHeader);
+  virtual void ReceivedAck(Ptr<Packet> packet, const TcpHeader &tcpHeader);
 
   /**
    * \brief Process a received ack
@@ -966,21 +961,21 @@ protected:
    * \param oldHeadSequence value of HeadSequence before ack
    * updated with SACK information
    */
-  virtual void ProcessAck (const SequenceNumber32 &ackNumber, bool scoreboardUpdated,
-                           const SequenceNumber32 &oldHeadSequence);
+  virtual void ProcessAck(const SequenceNumber32 &ackNumber, bool scoreboardUpdated,
+                          const SequenceNumber32 &oldHeadSequence);
 
   /**
    * \brief Recv of a data, put into buffer, call L7 to get it if necessary
    * \param packet the packet
    * \param tcpHeader the packet's TCP header
    */
-  virtual void ReceivedData (Ptr<Packet> packet, const TcpHeader& tcpHeader);
+  virtual void ReceivedData(Ptr<Packet> packet, const TcpHeader &tcpHeader);
 
   /**
    * \brief Take into account the packet for RTT estimation
    * \param tcpHeader the packet's TCP header
    */
-  virtual void EstimateRtt (const TcpHeader& tcpHeader);
+  virtual void EstimateRtt(const TcpHeader &tcpHeader);
 
   /**
    * \brief Update the RTT history, when we send TCP segments
@@ -990,51 +985,51 @@ protected:
    * \param isRetransmission Whether or not the segment is a retransmission
    */
 
-  virtual void UpdateRttHistory (const SequenceNumber32 &seq, uint32_t sz,
-                                 bool isRetransmission);
+  virtual void UpdateRttHistory(const SequenceNumber32 &seq, uint32_t sz,
+                                bool isRetransmission);
 
   /**
    * \brief Update buffers w.r.t. ACK
    * \param seq the sequence number
    * \param resetRTO indicates if RTO should be reset
    */
-  virtual void NewAck (SequenceNumber32 const& seq, bool resetRTO);
+  virtual void NewAck(SequenceNumber32 const &seq, bool resetRTO);
 
   /**
    * \brief Dupack management
    */
-  void DupAck ();
+  void DupAck();
 
   /**
    * \brief Enter the CA_RECOVERY, and retransmit the head
    */
-  void EnterRecovery ();
+  void EnterRecovery();
 
   /**
    * \brief An RTO event happened
    */
-  virtual void ReTxTimeout (void);
+  virtual void ReTxTimeout(void);
 
   /**
    * \brief Action upon delay ACK timeout, i.e. send an ACK
    */
-  virtual void DelAckTimeout (void);
+  virtual void DelAckTimeout(void);
 
   /**
    * \brief Timeout at LAST_ACK, close the connection
    */
-  virtual void LastAckTimeout (void);
+  virtual void LastAckTimeout(void);
 
   /**
    * \brief Send 1 byte probe to get an updated window size
    */
-  virtual void PersistTimeout (void);
+  virtual void PersistTimeout(void);
 
   /**
    * \brief Retransmit the first segment marked as lost, without considering
    * available window nor pacing.
    */
-  void DoRetransmit (void);
+  void DoRetransmit(void);
 
   /** \brief Add options to TcpHeader
    *
@@ -1043,7 +1038,7 @@ protected:
    *
    * \param tcpHeader TcpHeader to add options to
    */
-  void AddOptions (TcpHeader& tcpHeader);
+  void AddOptions(TcpHeader &tcpHeader);
 
   /**
    * \brief Read TCP options before Ack processing
@@ -1054,7 +1049,7 @@ protected:
    * \param scoreboardUpdated indicates if the scoreboard was updated due to a
    * SACK option
    */
-  void ReadOptions (const TcpHeader &tcpHeader, bool &scoreboardUpdated);
+  void ReadOptions(const TcpHeader &tcpHeader, bool &scoreboardUpdated);
 
   /**
    * \brief Return true if the specified option is enabled
@@ -1062,7 +1057,7 @@ protected:
    * \param kind kind of TCP option
    * \return true if the option is enabled
    */
-  bool IsTcpOptionEnabled (uint8_t kind) const;
+  bool IsTcpOptionEnabled(uint8_t kind) const;
 
   /**
    * \brief Read and parse the Window scale option
@@ -1072,7 +1067,7 @@ protected:
    *
    * \param option Window scale option read from the header
    */
-  void ProcessOptionWScale (const Ptr<const TcpOption> option);
+  void ProcessOptionWScale(const Ptr<const TcpOption> option);
   /**
    * \brief Add the window scale option to the header
    *
@@ -1081,7 +1076,7 @@ protected:
    *
    * \param header TcpHeader where the method should add the window scale option
    */
-  void AddOptionWScale (TcpHeader& header);
+  void AddOptionWScale(TcpHeader &header);
 
   /**
    * \brief Calculate window scale value based on receive buffer space
@@ -1090,7 +1085,7 @@ protected:
    *
    * \returns the Window Scale factor
    */
-  uint8_t CalculateWScale () const;
+  uint8_t CalculateWScale() const;
 
   /**
    * \brief Read the SACK PERMITTED option
@@ -1100,7 +1095,7 @@ protected:
    *
    * \param option SACK PERMITTED option from the header
    */
-  void ProcessOptionSackPermitted (const Ptr<const TcpOption> option);
+  void ProcessOptionSackPermitted(const Ptr<const TcpOption> option);
 
   /**
    * \brief Read the SACK option
@@ -1108,21 +1103,21 @@ protected:
    * \param option SACK option from the header
    * \returns true in case of an update to the SACKed blocks
    */
-  bool ProcessOptionSack (const Ptr<const TcpOption> option);
+  bool ProcessOptionSack(const Ptr<const TcpOption> option);
 
   /**
    * \brief Add the SACK PERMITTED option to the header
    *
    * \param header TcpHeader where the method should add the option
    */
-  void AddOptionSackPermitted (TcpHeader &header);
+  void AddOptionSackPermitted(TcpHeader &header);
 
   /**
    * \brief Add the SACK option to the header
    *
    * \param header TcpHeader where the method should add the option
    */
-  void AddOptionSack (TcpHeader& header);
+  void AddOptionSack(TcpHeader &header);
 
   /** \brief Process the timestamp option from other side
    *
@@ -1134,8 +1129,8 @@ protected:
    * \param option Option from the segment
    * \param seq Sequence number of the segment
    */
-  void ProcessOptionTimestamp (const Ptr<const TcpOption> option,
-                               const SequenceNumber32 &seq);
+  void ProcessOptionTimestamp(const Ptr<const TcpOption> option,
+                              const SequenceNumber32 &seq);
   /**
    * \brief Add the timestamp option to the header
    *
@@ -1144,7 +1139,7 @@ protected:
    *
    * \param header TcpHeader to which add the option to
    */
-  void AddOptionTimestamp (TcpHeader& header);
+  void AddOptionTimestamp(TcpHeader &header);
 
   /**
    * \brief Performs a safe subtraction between a and b (a-b)
@@ -1155,59 +1150,59 @@ protected:
    * \param b second number
    * \return 0 if b>0, (a-b) otherwise
    */
-  static uint32_t SafeSubtraction (uint32_t a, uint32_t b);
+  static uint32_t SafeSubtraction(uint32_t a, uint32_t b);
 
   /**
    * \brief Notify Pacing
    */
-  void NotifyPacingPerformed (void);
+  void NotifyPacingPerformed(void);
 
   /**
    * \brief Add Tags for the Socket
    * \param p Packet
    */
-  void AddSocketTags (const Ptr<Packet> &p) const;
+  void AddSocketTags(const Ptr<Packet> &p) const;
 
 protected:
   // Counters and events
-  EventId           m_retxEvent     {}; //!< Retransmission event
-  EventId           m_lastAckEvent  {}; //!< Last ACK timeout event
-  EventId           m_delAckEvent   {}; //!< Delayed ACK timeout event
-  EventId           m_persistEvent  {}; //!< Persist event: Send 1 byte to probe for a non-zero Rx window
-  EventId           m_timewaitEvent {}; //!< TIME_WAIT expiration event: Move this socket to CLOSED state
+  EventId m_retxEvent{};     //!< Retransmission event
+  EventId m_lastAckEvent{};  //!< Last ACK timeout event
+  EventId m_delAckEvent{};   //!< Delayed ACK timeout event
+  EventId m_persistEvent{};  //!< Persist event: Send 1 byte to probe for a non-zero Rx window
+  EventId m_timewaitEvent{}; //!< TIME_WAIT expiration event: Move this socket to CLOSED state
 
   // ACK management
-  uint32_t          m_dupAckCount {0};     //!< Dupack counter
-  uint32_t          m_delAckCount {0};     //!< Delayed ACK counter
-  uint32_t          m_delAckMaxCount {0};  //!< Number of packet to fire an ACK before delay timeout
+  uint32_t m_dupAckCount{0};    //!< Dupack counter
+  uint32_t m_delAckCount{0};    //!< Delayed ACK counter
+  uint32_t m_delAckMaxCount{0}; //!< Number of packet to fire an ACK before delay timeout
 
   // Nagle algorithm
-  bool              m_noDelay {false};     //!< Set to true to disable Nagle's algorithm
+  bool m_noDelay{false}; //!< Set to true to disable Nagle's algorithm
 
   // Retries
-  uint32_t          m_synCount     {0}; //!< Count of remaining connection retries
-  uint32_t          m_synRetries   {0}; //!< Number of connection attempts
-  uint32_t          m_dataRetrCount {0}; //!< Count of remaining data retransmission attempts
-  uint32_t          m_dataRetries  {0}; //!< Number of data retransmission attempts
+  uint32_t m_synCount{0};      //!< Count of remaining connection retries
+  uint32_t m_synRetries{0};    //!< Number of connection attempts
+  uint32_t m_dataRetrCount{0}; //!< Count of remaining data retransmission attempts
+  uint32_t m_dataRetries{0};   //!< Number of data retransmission attempts
 
   // Timeouts
-  TracedValue<Time> m_rto     {Seconds (0.0)}; //!< Retransmit timeout
-  Time              m_minRto  {Time::Max ()};   //!< minimum value of the Retransmit timeout
-  Time              m_clockGranularity {Seconds (0.001)}; //!< Clock Granularity used in RTO calcs
-  Time              m_delAckTimeout    {Seconds (0.0)};   //!< Time to delay an ACK
-  Time              m_persistTimeout   {Seconds (0.0)};   //!< Time between sending 1-byte probes
-  Time              m_cnTimeout        {Seconds (0.0)};   //!< Timeout for connection retry
+  TracedValue<Time> m_rto{Seconds(0.0)};   //!< Retransmit timeout
+  Time m_minRto{Time::Max()};              //!< minimum value of the Retransmit timeout
+  Time m_clockGranularity{Seconds(0.001)}; //!< Clock Granularity used in RTO calcs
+  Time m_delAckTimeout{Seconds(0.0)};      //!< Time to delay an ACK
+  Time m_persistTimeout{Seconds(0.0)};     //!< Time between sending 1-byte probes
+  Time m_cnTimeout{Seconds(0.0)};          //!< Timeout for connection retry
 
   // History of RTT
-  std::deque<RttHistory>      m_history;         //!< List of sent packet
+  std::deque<RttHistory> m_history; //!< List of sent packet
 
   // Connections to other layers of TCP/IP
-  Ipv4EndPoint*       m_endPoint  {nullptr}; //!< the IPv4 endpoint
-  Ipv6EndPoint*       m_endPoint6 {nullptr}; //!< the IPv6 endpoint
-  Ptr<Node>           m_node;                //!< the associated node
-  Ptr<TcpL4Protocol>  m_tcp;                 //!< the associated TCP L4 protocol
-  Callback<void, Ipv4Address,uint8_t,uint8_t,uint8_t,uint32_t> m_icmpCallback;  //!< ICMP callback
-  Callback<void, Ipv6Address,uint8_t,uint8_t,uint8_t,uint32_t> m_icmpCallback6; //!< ICMPv6 callback
+  Ipv4EndPoint *m_endPoint{nullptr};                                                //!< the IPv4 endpoint
+  Ipv6EndPoint *m_endPoint6{nullptr};                                               //!< the IPv6 endpoint
+  Ptr<Node> m_node;                                                                 //!< the associated node
+  Ptr<TcpL4Protocol> m_tcp;                                                         //!< the associated TCP L4 protocol
+  Callback<void, Ipv4Address, uint8_t, uint8_t, uint8_t, uint32_t> m_icmpCallback;  //!< ICMP callback
+  Callback<void, Ipv6Address, uint8_t, uint8_t, uint8_t, uint32_t> m_icmpCallback6; //!< ICMPv6 callback
 
   Ptr<RttEstimator> m_rtt; //!< Round trip time estimator
 
@@ -1216,62 +1211,64 @@ protected:
   Ptr<TcpTxBuffer> m_txBuffer; //!< Tx buffer
 
   // State-related attributes
-  TracedValue<TcpStates_t> m_state {CLOSED};         //!< TCP state
-  mutable enum SocketErrno m_errno {ERROR_NOTERROR}; //!< Socket error code
-  bool                     m_closeNotified {false};  //!< Told app to close socket
-  bool                     m_closeOnEmpty  {false};  //!< Close socket upon tx buffer emptied
-  bool                     m_shutdownSend  {false};  //!< Send no longer allowed
-  bool                     m_shutdownRecv  {false};  //!< Receive no longer allowed
-  bool                     m_connected     {false};  //!< Connection established
-  double                   m_msl           {0.0};    //!< Max segment lifetime
+  TracedValue<TcpStates_t> m_state{CLOSED};            //!< TCP state
+  mutable enum SocketErrno m_errno { ERROR_NOTERROR }; //!< Socket error code
+  bool m_closeNotified{false};                         //!< Told app to close socket
+  bool m_closeOnEmpty{false};                          //!< Close socket upon tx buffer emptied
+  bool m_shutdownSend{false};                          //!< Send no longer allowed
+  bool m_shutdownRecv{false};                          //!< Receive no longer allowed
+  bool m_connected{false};                             //!< Connection established
+  double m_msl{0.0};                                   //!< Max segment lifetime
 
   // Window management
-  uint16_t         m_maxWinSize              {0};  //!< Maximum window size to advertise
-  uint32_t         m_bytesAckedNotProcessed  {0};  //!< Bytes acked, but not processed
-  SequenceNumber32 m_highTxAck               {0};  //!< Highest ack sent
-  TracedValue<uint32_t> m_rWnd               {0};  //!< Receiver window (RCV.WND in RFC793)
-  TracedValue<uint32_t> m_advWnd             {0};  //!< Advertised Window size
-  TracedValue<SequenceNumber32> m_highRxMark {0};  //!< Highest seqno received
-  TracedValue<SequenceNumber32> m_highRxAckMark {0}; //!< Highest ack received
+  uint16_t m_maxWinSize{0};                         //!< Maximum window size to advertise
+  uint32_t m_bytesAckedNotProcessed{0};             //!< Bytes acked, but not processed
+  SequenceNumber32 m_highTxAck{0};                  //!< Highest ack sent
+  TracedValue<uint32_t> m_rWnd{0};                  //!< Receiver window (RCV.WND in RFC793)
+  TracedValue<uint32_t> m_advWnd{0};                //!< Advertised Window size
+  TracedValue<SequenceNumber32> m_highRxMark{0};    //!< Highest seqno received
+  TracedValue<SequenceNumber32> m_highRxAckMark{0}; //!< Highest ack received
 
   // Options
-  bool    m_sackEnabled       {true}; //!< RFC SACK option enabled
-  bool    m_winScalingEnabled {true}; //!< Window Scale option enabled (RFC 7323)
-  uint8_t m_rcvWindShift      {0};    //!< Window shift to apply to outgoing segments
-  uint8_t m_sndWindShift      {0};    //!< Window shift to apply to incoming segments
-  bool     m_timestampEnabled {true}; //!< Timestamp option enabled
-  uint32_t m_timestampToEcho  {0};    //!< Timestamp to echo
+  bool m_sackEnabled{true};       //!< RFC SACK option enabled
+  bool m_winScalingEnabled{true}; //!< Window Scale option enabled (RFC 7323)
+  uint8_t m_rcvWindShift{0};      //!< Window shift to apply to outgoing segments
+  uint8_t m_sndWindShift{0};      //!< Window shift to apply to incoming segments
+  bool m_timestampEnabled{true};  //!< Timestamp option enabled
+  uint32_t m_timestampToEcho{0};  //!< Timestamp to echo
 
-  EventId m_sendPendingDataEvent {}; //!< micro-delay event to send pending data
+  EventId m_sendPendingDataEvent{}; //!< micro-delay event to send pending data
 
   // Fast Retransmit and Recovery
-  SequenceNumber32       m_recover    {0};   //!< Previous highest Tx seqnum for fast recovery (set it to initial seq number)
-  uint32_t               m_retxThresh {3};   //!< Fast Retransmit threshold
-  bool                   m_limitedTx  {true}; //!< perform limited transmit
+  SequenceNumber32 m_recover{0}; //!< Previous highest Tx seqnum for fast recovery (set it to initial seq number)
+  uint32_t m_retxThresh{3};      //!< Fast Retransmit threshold
+  bool m_limitedTx{true};        //!< perform limited transmit
 
   // Transmission Control Block
-  Ptr<TcpSocketState>    m_tcb;               //!< Congestion control information
-  Ptr<TcpCongestionOps>  m_congestionControl; //!< Congestion control
-  Ptr<TcpRecoveryOps>    m_recoveryOps;       //!< Recovery Algorithm
+  Ptr<TcpSocketState> m_tcb;                 //!< Congestion control information
+  Ptr<TcpCongestionOps> m_congestionControl; //!< Congestion control
+  Ptr<TcpRecoveryOps> m_recoveryOps;         //!< Recovery Algorithm
 
   // Guesses over the other connection end
-  bool m_isFirstPartialAck {true}; //!< First partial ACK during RECOVERY
+  bool m_isFirstPartialAck{true}; //!< First partial ACK during RECOVERY
 
   // The following two traces pass a packet with a TCP header
-  TracedCallback<Ptr<const Packet>, const TcpHeader&,
-                 Ptr<const TcpSocketBase> > m_txTrace; //!< Trace of transmitted packets
+  TracedCallback<Ptr<const Packet>, const TcpHeader &,
+                 Ptr<const TcpSocketBase>>
+      m_txTrace; //!< Trace of transmitted packets
 
-  TracedCallback<Ptr<const Packet>, const TcpHeader&,
-                 Ptr<const TcpSocketBase> > m_rxTrace; //!< Trace of received packets
+  TracedCallback<Ptr<const Packet>, const TcpHeader &,
+                 Ptr<const TcpSocketBase>>
+      m_rxTrace; //!< Trace of received packets
 
   // Pacing related variable
-  Timer m_pacingTimer {Timer::REMOVE_ON_DESTROY}; //!< Pacing Event
+  Timer m_pacingTimer{Timer::REMOVE_ON_DESTROY}; //!< Pacing Event
 
   // Parameters related to Explicit Congestion Notification
-  EcnMode_t                     m_ecnMode    {EcnMode_t::NoEcn};      //!< Socket ECN capability
-  TracedValue<SequenceNumber32> m_ecnEchoSeq {0};      //!< Sequence number of the last received ECN Echo
-  TracedValue<SequenceNumber32> m_ecnCESeq   {0};      //!< Sequence number of the last received Congestion Experienced
-  TracedValue<SequenceNumber32> m_ecnCWRSeq  {0};      //!< Sequence number of the last sent CWR
+  EcnMode_t m_ecnMode{EcnMode_t::NoEcn};         //!< Socket ECN capability
+  TracedValue<SequenceNumber32> m_ecnEchoSeq{0}; //!< Sequence number of the last received ECN Echo
+  TracedValue<SequenceNumber32> m_ecnCESeq{0};   //!< Sequence number of the last received Congestion Experienced
+  TracedValue<SequenceNumber32> m_ecnCWRSeq{0};  //!< Sequence number of the last sent CWR
 };
 
 /**
@@ -1281,8 +1278,8 @@ protected:
  * \param [in] oldValue original value of the traced variable
  * \param [in] newValue new value of the traced variable
  */
-typedef void (* TcpCongStatesTracedValueCallback)(const TcpSocketState::TcpCongState_t oldValue,
-                                                  const TcpSocketState::TcpCongState_t newValue);
+typedef void (*TcpCongStatesTracedValueCallback)(const TcpSocketState::TcpCongState_t oldValue,
+                                                 const TcpSocketState::TcpCongState_t newValue);
 
 /**
  * \ingroup tcp
@@ -1291,8 +1288,8 @@ typedef void (* TcpCongStatesTracedValueCallback)(const TcpSocketState::TcpCongS
  * \param [in] oldValue original value of the traced variable
  * \param [in] newValue new value of the traced variable
  */
-typedef void (* EcnStatesTracedValueCallback)(const TcpSocketState::EcnState_t oldValue,
-                                                  const TcpSocketState::EcnState_t newValue);
+typedef void (*EcnStatesTracedValueCallback)(const TcpSocketState::EcnState_t oldValue,
+                                             const TcpSocketState::EcnState_t newValue);
 
 } // namespace ns3
 

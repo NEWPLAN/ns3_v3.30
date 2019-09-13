@@ -19,7 +19,8 @@
 #include "ns3/tcp-socket-factory.h"
 #include "ns3/ptr.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class NscTcpL4Protocol;
 
@@ -44,19 +45,20 @@ class NscTcpL4Protocol;
 class NscTcpSocketFactoryImpl : public TcpSocketFactory
 {
 public:
-  NscTcpSocketFactoryImpl ();
-  virtual ~NscTcpSocketFactoryImpl ();
+  NscTcpSocketFactoryImpl();
+  virtual ~NscTcpSocketFactoryImpl();
 
   /**
    * \brief Set the associated TCP L4 protocol.
    * \param tcp the TCP L4 protocol
    */
-  void SetTcp (Ptr<NscTcpL4Protocol> tcp);
+  void SetTcp(Ptr<NscTcpL4Protocol> tcp);
 
-  virtual Ptr<Socket> CreateSocket (void);
+  virtual Ptr<Socket> CreateSocket(void);
 
 protected:
-  virtual void DoDispose (void);
+  virtual void DoDispose(void);
+
 private:
   Ptr<NscTcpL4Protocol> m_tcp; //!< the associated TCP L4 protocol
 };

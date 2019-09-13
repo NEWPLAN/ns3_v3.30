@@ -24,7 +24,8 @@
 #include "ns3/traced-value.h"
 #include "wifi-remote-station-manager.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 struct AmrrWifiRemoteStation;
 
@@ -48,54 +49,53 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
-  AmrrWifiManager ();
-  virtual ~AmrrWifiManager ();
-
+  AmrrWifiManager();
+  virtual ~AmrrWifiManager();
 
 private:
   // Overridden from base class.
-  void DoInitialize (void);
-  WifiRemoteStation * DoCreateStation (void) const;
-  void DoReportRxOk (WifiRemoteStation *station,
-                     double rxSnr, WifiMode txMode);
-  void DoReportRtsFailed (WifiRemoteStation *station);
-  void DoReportDataFailed (WifiRemoteStation *station);
-  void DoReportRtsOk (WifiRemoteStation *station,
-                      double ctsSnr, WifiMode ctsMode, double rtsSnr);
-  void DoReportDataOk (WifiRemoteStation *station,
-                       double ackSnr, WifiMode ackMode, double dataSnr);
-  void DoReportFinalRtsFailed (WifiRemoteStation *station);
-  void DoReportFinalDataFailed (WifiRemoteStation *station);
-  WifiTxVector DoGetDataTxVector (WifiRemoteStation *station);
-  WifiTxVector DoGetRtsTxVector (WifiRemoteStation *station);
-  bool IsLowLatency (void) const;
+  void DoInitialize(void);
+  WifiRemoteStation *DoCreateStation(void) const;
+  void DoReportRxOk(WifiRemoteStation *station,
+                    double rxSnr, WifiMode txMode);
+  void DoReportRtsFailed(WifiRemoteStation *station);
+  void DoReportDataFailed(WifiRemoteStation *station);
+  void DoReportRtsOk(WifiRemoteStation *station,
+                     double ctsSnr, WifiMode ctsMode, double rtsSnr);
+  void DoReportDataOk(WifiRemoteStation *station,
+                      double ackSnr, WifiMode ackMode, double dataSnr);
+  void DoReportFinalRtsFailed(WifiRemoteStation *station);
+  void DoReportFinalDataFailed(WifiRemoteStation *station);
+  WifiTxVector DoGetDataTxVector(WifiRemoteStation *station);
+  WifiTxVector DoGetRtsTxVector(WifiRemoteStation *station);
+  bool IsLowLatency(void) const;
 
   /**
    * Update the mode used to send to the given station.
    *
    * \param station
    */
-  void UpdateMode (AmrrWifiRemoteStation *station);
+  void UpdateMode(AmrrWifiRemoteStation *station);
   /**
    * Reset transmission statistics of the given station.
    *
    * \param station
    */
-  void ResetCnt (AmrrWifiRemoteStation *station);
+  void ResetCnt(AmrrWifiRemoteStation *station);
   /**
    * Increase the transmission rate to the given station.
    *
    * \param station
    */
-  void IncreaseRate (AmrrWifiRemoteStation *station);
+  void IncreaseRate(AmrrWifiRemoteStation *station);
   /**
    * Decrease the transmission rate to the given station.
    *
    * \param station
    */
-  void DecreaseRate (AmrrWifiRemoteStation *station);
+  void DecreaseRate(AmrrWifiRemoteStation *station);
   /**
    * Check if the current rate for the given station is the
    * minimum rate.
@@ -105,7 +105,7 @@ private:
    * \return true if the current rate is the minimum rate,
    *         false otherwise
    */
-  bool IsMinRate (AmrrWifiRemoteStation *station) const;
+  bool IsMinRate(AmrrWifiRemoteStation *station) const;
   /**
    * Check if the current rate for the given station is the
    * maximum rate.
@@ -115,7 +115,7 @@ private:
    * \return true if the current rate is the maximum rate,
    *         false otherwise
    */
-  bool IsMaxRate (AmrrWifiRemoteStation *station) const;
+  bool IsMaxRate(AmrrWifiRemoteStation *station) const;
   /**
    * Check if the number of retransmission and transmission error
    * is less than the number of successful transmission (times ratio).
@@ -126,7 +126,7 @@ private:
    *              is less than the number of successful transmission
    *              (times ratio), false otherwise
    */
-  bool IsSuccess (AmrrWifiRemoteStation *station) const;
+  bool IsSuccess(AmrrWifiRemoteStation *station) const;
   /**
    * Check if the number of retransmission and transmission error
    * is greater than the number of successful transmission (times ratio).
@@ -137,7 +137,7 @@ private:
    *              is less than the number of successful transmission
    *              (times ratio), false otherwise
    */
-  bool IsFailure (AmrrWifiRemoteStation *station) const;
+  bool IsFailure(AmrrWifiRemoteStation *station) const;
   /**
    * Check if the number of retransmission, transmission error,
    * and successful transmission are greater than 10.
@@ -147,11 +147,11 @@ private:
    *         and successful transmission are greater than 10,
    *         false otherwise
    */
-  bool IsEnough (AmrrWifiRemoteStation *station) const;
+  bool IsEnough(AmrrWifiRemoteStation *station) const;
 
-  Time m_updatePeriod; ///< update period
-  double m_failureRatio; ///< failure ratio
-  double m_successRatio; ///< success ratio
+  Time m_updatePeriod;            ///< update period
+  double m_failureRatio;          ///< failure ratio
+  double m_successRatio;          ///< success ratio
   uint32_t m_maxSuccessThreshold; ///< maximum success threshold
   uint32_t m_minSuccessThreshold; ///< mnimum success threshold
 

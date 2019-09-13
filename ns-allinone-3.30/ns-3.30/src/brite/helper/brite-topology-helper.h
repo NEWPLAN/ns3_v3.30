@@ -32,7 +32,8 @@
 //located in BRITE source directory
 #include "Brite.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class PointToPointHelper;
 
@@ -66,18 +67,18 @@ public:
    * \param seedFile a BRITE seed file
    * \param newseedFile a BRITE seed file with newly generated values
    */
-  BriteTopologyHelper (std::string confFile,
-                       std::string seedFile,
-                       std::string newseedFile);
+  BriteTopologyHelper(std::string confFile,
+                      std::string seedFile,
+                      std::string newseedFile);
 
   /**
    * Construct a BriteTopologyHelper using NS3 to generate seed values
    * need by BRITE
    *
    */
-  BriteTopologyHelper (std::string confFile);
+  BriteTopologyHelper(std::string confFile);
 
-  ~BriteTopologyHelper ();
+  ~BriteTopologyHelper();
 
   /**
    * Assigns stream number to UniformRandomVariable used to
@@ -86,14 +87,14 @@ public:
    * \param streamNumber the stream number to assign
    *
    */
-  void AssignStreams (int64_t streamNumber);
+  void AssignStreams(int64_t streamNumber);
 
   /**
    *  Create NS3 topology using information generated from BRITE.
    *
    *  \param stack Internet stack to assign to nodes in topology
    */
-  void BuildBriteTopology (InternetStackHelper& stack);
+  void BuildBriteTopology(InternetStackHelper &stack);
 
   /**
    * Create NS3 topology using information generated from BRITE and configure topology for MPI use.
@@ -102,7 +103,7 @@ public:
    * \param systemCount The number of MPI instances to be used in the simulation.
    *
    */
-  void BuildBriteTopology (InternetStackHelper& stack, const uint32_t systemCount);
+  void BuildBriteTopology(InternetStackHelper &stack, const uint32_t systemCount);
 
   /**
    * Returns the number of router leaf nodes for a given AS
@@ -111,7 +112,7 @@ public:
    * \returns the number of leaf nodes in the specified AS
    *
    */
-  uint32_t GetNLeafNodesForAs (uint32_t asNum);
+  uint32_t GetNLeafNodesForAs(uint32_t asNum);
 
   /**
    * Returns a given router leaf node from a given AS
@@ -120,7 +121,7 @@ public:
    * \param leafNum the leaf number
    * \returns the specified node
    */
-  Ptr<Node> GetLeafNodeForAs (uint32_t asNum, uint32_t leafNum);
+  Ptr<Node> GetLeafNodeForAs(uint32_t asNum, uint32_t leafNum);
 
   /**
    * Returns the total number of nodes for a given AS
@@ -128,7 +129,7 @@ public:
    * \param asNum the AS number
    * \returns the total number of nodes in the given AS
    */
-  uint32_t GetNNodesForAs (uint32_t asNum);
+  uint32_t GetNNodesForAs(uint32_t asNum);
 
   /**
    * Returns a given router node for a given AS
@@ -137,14 +138,14 @@ public:
    * \return the specified node
    *
    */
-  Ptr<Node> GetNodeForAs (uint32_t asNum, uint32_t nodeNum);
+  Ptr<Node> GetNodeForAs(uint32_t asNum, uint32_t nodeNum);
 
   /**
     * Returns the number of AS created in the topology
     *
     * \returns the number of AS created in the topology
     */
-  uint32_t GetNAs (void) const;
+  uint32_t GetNAs(void) const;
 
   /**
     * Returns the system number for the MPI instance that this AS is assigned to.  Will always return 0 if MPI not used
@@ -153,21 +154,21 @@ public:
     *
     * param asNum The AS Number
     */
-  uint32_t GetSystemNumberForAs (uint32_t asNum) const;
+  uint32_t GetSystemNumberForAs(uint32_t asNum) const;
 
   /**
     * \param address an Ipv4AddressHelper which is used to install
     *                Ipv4 addresses on all the node interfaces in
     *                the topology
     */
-  void AssignIpv4Addresses (Ipv4AddressHelper& address);
+  void AssignIpv4Addresses(Ipv4AddressHelper &address);
 
   /**
     * \param network an IPv6 address representing the network portion
     *                of the IPv6 Address
     * \param prefix the prefix length
     */
-  void AssignIpv6Addresses (Ipv6AddressHelper& address);
+  void AssignIpv6Addresses(Ipv6AddressHelper &address);
 
   /**
     * Returns the number of nodes created within
@@ -175,7 +176,7 @@ public:
     *
     * \returns the total number of nodes within the brite topology
     */
-  uint32_t GetNNodesTopology () const;
+  uint32_t GetNNodesTopology() const;
 
   /**
     * Returns the number of edges created within
@@ -183,7 +184,7 @@ public:
     *
     * \returns the total number of edges within the brite topology
     */
-  uint32_t GetNEdgesTopology () const;
+  uint32_t GetNEdgesTopology() const;
 
 private:
   //brite values are unitless however all examples provided use mbps to specify rate
@@ -231,10 +232,10 @@ private:
   //stores all of the nodes used in the BRITE generated topology
   NodeContainer m_nodes;
 
-  void BuildBriteNodeInfoList (void);
-  void BuildBriteEdgeInfoList (void);
-  void ConstructTopology (void);
-  void GenerateBriteTopology (void);
+  void BuildBriteNodeInfoList(void);
+  void BuildBriteEdgeInfoList(void);
+  void ConstructTopology(void);
+  void GenerateBriteTopology(void);
 
   /// brite configuration file to use
   std::string m_confFile;
@@ -249,19 +250,19 @@ private:
   uint32_t m_numAs;
 
   /// stores the netdevices created for each AS
-  std::vector<NetDeviceContainer*> m_netDevices;
+  std::vector<NetDeviceContainer *> m_netDevices;
 
   /// stores the leaf router nodes for each AS
-  std::vector<NodeContainer*> m_asLeafNodes;
+  std::vector<NodeContainer *> m_asLeafNodes;
 
   /// stores all of the nodes in the brite topology by AS number
-  std::vector<NodeContainer*> m_nodesByAs;
+  std::vector<NodeContainer *> m_nodesByAs;
 
   /// stores the MPI system number each AS assigned to.  All assigned to 0 if MPI not used.
   std::vector<int> m_systemForAs;
 
   /// the Brite topology
-  brite::Topology* m_topology;
+  brite::Topology *m_topology;
 
   /// stores the number of nodes created in the BRITE topology
   uint32_t m_numNodes;

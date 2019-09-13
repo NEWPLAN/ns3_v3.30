@@ -21,98 +21,93 @@
 #include "ns3/address-utils.h"
 #include "amsdu-subframe-header.h"
 
-namespace ns3 {
+namespace ns3
+{
 
-NS_OBJECT_ENSURE_REGISTERED (AmsduSubframeHeader);
+NS_OBJECT_ENSURE_REGISTERED(AmsduSubframeHeader);
 
 TypeId
-AmsduSubframeHeader::GetTypeId ()
+AmsduSubframeHeader::GetTypeId()
 {
-  static TypeId tid = TypeId ("ns3::AmsduSubframeHeader")
-    .SetParent<Header> ()
-    .SetGroupName ("Wifi")
-    .AddConstructor<AmsduSubframeHeader> ()
-  ;
+  static TypeId tid = TypeId("ns3::AmsduSubframeHeader")
+                          .SetParent<Header>()
+                          .SetGroupName("Wifi")
+                          .AddConstructor<AmsduSubframeHeader>();
   return tid;
 }
 
 TypeId
-AmsduSubframeHeader::GetInstanceTypeId (void) const
+AmsduSubframeHeader::GetInstanceTypeId(void) const
 {
-  return GetTypeId ();
+  return GetTypeId();
 }
 
-AmsduSubframeHeader::AmsduSubframeHeader ()
-  : m_length (0)
+AmsduSubframeHeader::AmsduSubframeHeader()
+    : m_length(0)
 {
 }
 
-AmsduSubframeHeader::~AmsduSubframeHeader ()
+AmsduSubframeHeader::~AmsduSubframeHeader()
 {
 }
 
 uint32_t
-AmsduSubframeHeader::GetSerializedSize () const
+AmsduSubframeHeader::GetSerializedSize() const
 {
   return (6 + 6 + 2);
 }
 
-void
-AmsduSubframeHeader::Serialize (Buffer::Iterator i) const
+void AmsduSubframeHeader::Serialize(Buffer::Iterator i) const
 {
-  WriteTo (i, m_da);
-  WriteTo (i, m_sa);
-  i.WriteHtonU16 (m_length);
+  WriteTo(i, m_da);
+  WriteTo(i, m_sa);
+  i.WriteHtonU16(m_length);
 }
 
 uint32_t
-AmsduSubframeHeader::Deserialize (Buffer::Iterator start)
+AmsduSubframeHeader::Deserialize(Buffer::Iterator start)
 {
   Buffer::Iterator i = start;
-  ReadFrom (i, m_da);
-  ReadFrom (i, m_sa);
-  m_length = i.ReadNtohU16 ();
-  return i.GetDistanceFrom (start);
+  ReadFrom(i, m_da);
+  ReadFrom(i, m_sa);
+  m_length = i.ReadNtohU16();
+  return i.GetDistanceFrom(start);
 }
 
-void
-AmsduSubframeHeader::Print (std::ostream &os) const
+void AmsduSubframeHeader::Print(std::ostream &os) const
 {
   os << "DA = " << m_da << ", SA = " << m_sa << ", length = " << m_length;
 }
 
-void
-AmsduSubframeHeader::SetDestinationAddr (Mac48Address to)
+void AmsduSubframeHeader::SetDestinationAddr(Mac48Address to)
 {
   m_da = to;
 }
 
-void
-AmsduSubframeHeader::SetSourceAddr (Mac48Address from)
+void AmsduSubframeHeader::SetSourceAddr(Mac48Address from)
 {
   m_sa = from;
 }
 
-void
-AmsduSubframeHeader::SetLength (uint16_t length)
+void AmsduSubframeHeader::SetLength(uint16_t length)
 {
   m_length = length;
 }
 
 Mac48Address
-AmsduSubframeHeader::GetDestinationAddr (void) const
+AmsduSubframeHeader::GetDestinationAddr(void) const
 {
   return m_da;
 }
 
 Mac48Address
-AmsduSubframeHeader::GetSourceAddr (void) const
+AmsduSubframeHeader::GetSourceAddr(void) const
 {
   return m_sa;
 }
 
 uint16_t
-AmsduSubframeHeader::GetLength (void) const
+AmsduSubframeHeader::GetLength(void) const
 {
   return m_length;
 }

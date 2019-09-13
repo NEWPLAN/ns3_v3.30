@@ -20,119 +20,107 @@
 
 #include "capability-information.h"
 
-namespace ns3 {
+namespace ns3
+{
 
-CapabilityInformation::CapabilityInformation ()
-  : m_capability (0)
+CapabilityInformation::CapabilityInformation()
+    : m_capability(0)
 {
 }
 
-void
-CapabilityInformation::SetEss (void)
+void CapabilityInformation::SetEss(void)
 {
-  Set (0);
-  Clear (1);
+  Set(0);
+  Clear(1);
 }
 
-void
-CapabilityInformation::SetIbss (void)
+void CapabilityInformation::SetIbss(void)
 {
-  Clear (0);
-  Set (1);
+  Clear(0);
+  Set(1);
 }
 
-void
-CapabilityInformation::SetShortPreamble (bool shortPreamble)
+void CapabilityInformation::SetShortPreamble(bool shortPreamble)
 {
   if (shortPreamble)
-    {
-      Set (5);
-    }
+  {
+    Set(5);
+  }
 }
 
-void
-CapabilityInformation::SetShortSlotTime (bool shortSlotTime)
+void CapabilityInformation::SetShortSlotTime(bool shortSlotTime)
 {
   if (shortSlotTime)
-    {
-      Set (10);
-    }
+  {
+    Set(10);
+  }
 }
 
-void
-CapabilityInformation::SetCfPollable (void)
+void CapabilityInformation::SetCfPollable(void)
 {
-  Set (2);
+  Set(2);
 }
 
-bool
-CapabilityInformation::IsEss (void) const
+bool CapabilityInformation::IsEss(void) const
 {
-  return Is (0);
+  return Is(0);
 }
 
-bool
-CapabilityInformation::IsIbss (void) const
+bool CapabilityInformation::IsIbss(void) const
 {
-  return Is (1);
+  return Is(1);
 }
 
-bool
-CapabilityInformation::IsShortPreamble (void) const
+bool CapabilityInformation::IsShortPreamble(void) const
 {
-  return Is (5);
+  return Is(5);
 }
 
-bool
-CapabilityInformation::IsShortSlotTime (void) const
+bool CapabilityInformation::IsShortSlotTime(void) const
 {
-  return Is (10);
+  return Is(10);
 }
 
-bool
-CapabilityInformation::IsCfPollable (void) const
+bool CapabilityInformation::IsCfPollable(void) const
 {
-  return Is (2);
+  return Is(2);
 }
 
-void
-CapabilityInformation::Set (uint8_t n)
+void CapabilityInformation::Set(uint8_t n)
 {
   uint32_t mask = 1 << n;
   m_capability |= mask;
 }
 
-void
-CapabilityInformation::Clear (uint8_t n)
+void CapabilityInformation::Clear(uint8_t n)
 {
   uint32_t mask = 1 << n;
   m_capability &= ~mask;
 }
 
-bool
-CapabilityInformation::Is (uint8_t n) const
+bool CapabilityInformation::Is(uint8_t n) const
 {
   uint32_t mask = 1 << n;
   return (m_capability & mask) == mask;
 }
 
 uint32_t
-CapabilityInformation::GetSerializedSize (void) const
+CapabilityInformation::GetSerializedSize(void) const
 {
   return 2;
 }
 
 Buffer::Iterator
-CapabilityInformation::Serialize (Buffer::Iterator start) const
+CapabilityInformation::Serialize(Buffer::Iterator start) const
 {
-  start.WriteHtolsbU16 (m_capability);
+  start.WriteHtolsbU16(m_capability);
   return start;
 }
 
 Buffer::Iterator
-CapabilityInformation::Deserialize (Buffer::Iterator start)
+CapabilityInformation::Deserialize(Buffer::Iterator start)
 {
-  m_capability = start.ReadLsbtohU16 ();
+  m_capability = start.ReadLsbtohU16();
   return start;
 }
 

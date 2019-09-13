@@ -38,7 +38,8 @@
 #include "ns3/trace-source-accessor.h"
 #include "ns3/event-id.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup traffic-control
@@ -48,122 +49,119 @@ namespace ns3 {
 class TbfQueueDisc : public QueueDisc
 {
 public:
-
   /**
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
   /**
    * \brief TbfQueueDisc Constructor
    *
    * Create a TBF queue disc
    */
-  TbfQueueDisc ();
+  TbfQueueDisc();
 
   /**
    * \brief Destructor
    *
    * Destructor
    */
-  virtual ~TbfQueueDisc ();
+  virtual ~TbfQueueDisc();
 
   /**
     * \brief Set the size of the first bucket in bytes.
     *
     * \param burst The size of first bucket in bytes.
     */
-  void SetBurst (uint32_t burst);
+  void SetBurst(uint32_t burst);
 
   /**
     * \brief Get the size of the first bucket in bytes.
     *
     * \returns The size of the first bucket in bytes.
     */
-  uint32_t GetBurst (void) const;
+  uint32_t GetBurst(void) const;
 
   /**
     * \brief Set the size of the second bucket in bytes.
     *
     * \param mtu The size of second bucket in bytes.
     */
-  void SetMtu (uint32_t mtu);
+  void SetMtu(uint32_t mtu);
 
   /**
     * \brief Get the size of the second bucket in bytes.
     *
     * \returns The size of the second bucket in bytes.
     */
-  uint32_t GetMtu (void) const;
+  uint32_t GetMtu(void) const;
 
   /**
     * \brief Set the rate of the tokens entering the first bucket.
     *
     * \param rate The rate of first bucket tokens.
     */
-  void SetRate (DataRate rate);
+  void SetRate(DataRate rate);
 
   /**
     * \brief Get the rate of the tokens entering the first bucket.
     *
     * \returns The rate of first bucket tokens.
     */
-  DataRate GetRate (void) const;
+  DataRate GetRate(void) const;
 
   /**
     * \brief Set the rate of the tokens entering the second bucket.
     *
     * \param peakRate The rate of second bucket tokens.
     */
-  void SetPeakRate (DataRate peakRate);
+  void SetPeakRate(DataRate peakRate);
 
   /**
     * \brief Get the rate of the tokens entering the second bucket.
     *
     * \returns The rate of second bucket tokens.
     */
-  DataRate GetPeakRate (void) const;
+  DataRate GetPeakRate(void) const;
 
   /**
     * \brief Get the current number of tokens inside the first bucket in bytes.
     *
     * \returns The number of first bucket tokens in bytes.
     */
-  uint32_t GetFirstBucketTokens (void) const;
+  uint32_t GetFirstBucketTokens(void) const;
 
   /**
     * \brief Get the current number of tokens inside the second bucket in bytes.
     *
     * \returns The number of second bucket tokens in bytes.
     */
-  uint32_t GetSecondBucketTokens (void) const;
+  uint32_t GetSecondBucketTokens(void) const;
 
 protected:
   /**
    * \brief Dispose of the object
    */
-  virtual void DoDispose (void);
+  virtual void DoDispose(void);
 
 private:
-
-  virtual bool DoEnqueue (Ptr<QueueDiscItem> item);
-  virtual Ptr<QueueDiscItem> DoDequeue (void);
-  virtual bool CheckConfig (void);
-  virtual void InitializeParams (void);
+  virtual bool DoEnqueue(Ptr<QueueDiscItem> item);
+  virtual Ptr<QueueDiscItem> DoDequeue(void);
+  virtual bool CheckConfig(void);
+  virtual void InitializeParams(void);
 
   /* parameters for the TBF Queue Disc */
-  uint32_t m_burst;      //!< Size of first bucket in bytes
-  uint32_t m_mtu;        //!< Size of second bucket in bytes
-  DataRate m_rate;       //!< Rate at which tokens enter the first bucket
-  DataRate m_peakRate;   //!< Rate at which tokens enter the second bucket
+  uint32_t m_burst;    //!< Size of first bucket in bytes
+  uint32_t m_mtu;      //!< Size of second bucket in bytes
+  DataRate m_rate;     //!< Rate at which tokens enter the first bucket
+  DataRate m_peakRate; //!< Rate at which tokens enter the second bucket
 
   /* variables stored by TBF Queue Disc */
   TracedValue<uint32_t> m_btokens; //!< Current number of tokens in first bucket
   TracedValue<uint32_t> m_ptokens; //!< Current number of tokens in second bucket
   Time m_timeCheckPoint;           //!< Time check-point
   EventId m_id;                    //!< EventId of the scheduled queue waking event when enough tokens are available
-
 };
 
 } // namespace ns3

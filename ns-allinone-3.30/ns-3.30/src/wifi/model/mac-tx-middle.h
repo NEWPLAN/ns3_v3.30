@@ -26,7 +26,8 @@
 #include <map>
 #include "ns3/simple-ref-count.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class WifiMacHeader;
 class Mac48Address;
@@ -39,8 +40,8 @@ class Mac48Address;
 class MacTxMiddle : public SimpleRefCount<MacTxMiddle>
 {
 public:
-  MacTxMiddle ();
-  ~MacTxMiddle ();
+  MacTxMiddle();
+  ~MacTxMiddle();
 
   /**
    * Return the next sequence number for the given header.
@@ -48,7 +49,7 @@ public:
    * \param hdr Wi-Fi header
    * \return the next sequence number
    */
-  uint16_t GetNextSequenceNumberFor (const WifiMacHeader *hdr);
+  uint16_t GetNextSequenceNumberFor(const WifiMacHeader *hdr);
   /**
    * Return the next sequence number for the Traffic ID and destination, but do not pick it (i.e. the current sequence number remains unchanged).
    * This functions is used for A-MPDU aggregation.
@@ -56,7 +57,7 @@ public:
    * \param hdr Wi-Fi header
    * \return the next sequence number
    */
-  uint16_t PeekNextSequenceNumberFor (const WifiMacHeader *hdr);
+  uint16_t PeekNextSequenceNumberFor(const WifiMacHeader *hdr);
   /**
    * Return the next sequence number for the Traffic ID and destination.
    *
@@ -64,12 +65,11 @@ public:
    * \param addr destination address
    * \return the next sequence number
    */
-  uint16_t GetNextSeqNumberByTidAndAddress (uint8_t tid, Mac48Address addr) const;
-
+  uint16_t GetNextSeqNumberByTidAndAddress(uint8_t tid, Mac48Address addr) const;
 
 private:
-  std::map <Mac48Address,uint16_t*> m_qosSequences; ///< QOS sequences
-  uint16_t m_sequence; ///< current sequence number
+  std::map<Mac48Address, uint16_t *> m_qosSequences; ///< QOS sequences
+  uint16_t m_sequence;                               ///< current sequence number
 };
 
 } //namespace ns3

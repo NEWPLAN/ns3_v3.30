@@ -35,7 +35,8 @@
 #include "ns3/simulator.h"
 #include "ns3/probe.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup ipv6
@@ -54,10 +55,10 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
-  Ipv6PacketProbe ();
-  virtual ~Ipv6PacketProbe ();
+  Ipv6PacketProbe();
+  virtual ~Ipv6PacketProbe();
 
   /**
    * \brief Set a probe value
@@ -66,7 +67,7 @@ public:
    * \param ipv6 set the IPv6 object for the traced packet equal to this
    * \param interface set the IPv6 interface for the traced packet equal to this
    */
-  void SetValue (Ptr<const Packet> packet, Ptr<Ipv6> ipv6, uint32_t interface);
+  void SetValue(Ptr<const Packet> packet, Ptr<Ipv6> ipv6, uint32_t interface);
 
   /**
    * \brief Set a probe value by its name in the Config system
@@ -76,7 +77,7 @@ public:
    * \param ipv6 set the IPv6 object for the traced packet equal to this
    * \param interface set the IPv6 interface for the traced packet equal to this
    */
-  static void SetValueByPath (std::string path, Ptr<const Packet> packet, Ptr<Ipv6> ipv6, uint32_t interface);
+  static void SetValueByPath(std::string path, Ptr<const Packet> packet, Ptr<Ipv6> ipv6, uint32_t interface);
 
   /**
    * \brief connect to a trace source attribute provided by a given object
@@ -85,7 +86,7 @@ public:
    * \param obj ns3::Object to connect to
    * \return true if the trace source was successfully connected
    */
-  virtual bool ConnectByObject (std::string traceSource, Ptr<Object> obj);
+  virtual bool ConnectByObject(std::string traceSource, Ptr<Object> obj);
 
   /**
    * \brief connect to a trace source provided by a config path
@@ -95,7 +96,7 @@ public:
    * Note, if an invalid path is provided, the probe will not be connected
    * to anything.
    */
-  virtual void ConnectByPath (std::string path);
+  virtual void ConnectByPath(std::string path);
 
 private:
   /**
@@ -106,7 +107,7 @@ private:
    * \param ipv6 the IPv6 object for the traced packet
    * \param interface the IPv6 interface for the traced packet
    */
-  void TraceSink (Ptr<const Packet> packet, Ptr<Ipv6> ipv6, uint32_t interface);
+  void TraceSink(Ptr<const Packet> packet, Ptr<Ipv6> ipv6, uint32_t interface);
 
   /// Traced Callback: the packet, the Ipv6 object and the interface.
   ns3::TracedCallback<Ptr<const Packet>, Ptr<Ipv6>, uint32_t> m_output;
@@ -125,7 +126,6 @@ private:
   /// The size of the traced packet.
   uint32_t m_packetSizeOld;
 };
-
 
 } // namespace ns3
 

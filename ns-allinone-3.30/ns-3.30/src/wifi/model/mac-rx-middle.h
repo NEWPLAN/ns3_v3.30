@@ -25,7 +25,8 @@
 #include "ns3/simple-ref-count.h"
 #include "ns3/callback.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class WifiMacHeader;
 class OriginatorRxStatus;
@@ -43,24 +44,24 @@ public:
   /**
    * typedef for callback
    */
-  typedef Callback<void, Ptr<Packet>, const WifiMacHeader*> ForwardUpCallback;
+  typedef Callback<void, Ptr<Packet>, const WifiMacHeader *> ForwardUpCallback;
 
-  MacRxMiddle ();
-  ~MacRxMiddle ();
+  MacRxMiddle();
+  ~MacRxMiddle();
 
   /**
    * Set a callback to forward the packet up.
    *
    * \param callback
    */
-  void SetForwardCallback (ForwardUpCallback callback);
+  void SetForwardCallback(ForwardUpCallback callback);
 
   /**
    * Set a callback to trigger the next PCF frame.
    *
    * \param callback
    */
-  void SetPcfCallback (Callback<void> callback);
+  void SetPcfCallback(Callback<void> callback);
 
   /**
    * Receive a packet.
@@ -68,8 +69,7 @@ public:
    * \param packet the packet
    * \param hdr MAC header
    */
-  void Receive (Ptr<Packet> packet, const WifiMacHeader *hdr);
-
+  void Receive(Ptr<Packet> packet, const WifiMacHeader *hdr);
 
 private:
   /// allow MacRxMiddleTest associated class access
@@ -83,7 +83,7 @@ private:
    *
    * \return OriginatorRxStatus
    */
-  OriginatorRxStatus* Lookup (const WifiMacHeader* hdr);
+  OriginatorRxStatus *Lookup(const WifiMacHeader *hdr);
   /**
    * Check if we have already received the packet from the sender before
    * (by looking at the sequence control field).
@@ -94,7 +94,7 @@ private:
    * \return true if we already received the packet previously,
    *         false otherwise
    */
-  bool IsDuplicate (const WifiMacHeader* hdr, OriginatorRxStatus *originator) const;
+  bool IsDuplicate(const WifiMacHeader *hdr, OriginatorRxStatus *originator) const;
   /**
    * Check if the received packet is a fragment and handle it appropriately.
    * If the packet is not a fragment, the method returns the packet.
@@ -110,29 +110,29 @@ private:
    * \return a packet if the packet is successfully reassembled (or not a fragment),
    *         0 if we failed to reassemble the packet (e.g. missing fragments/out-of-order).
    */
-  Ptr<Packet> HandleFragments (Ptr<Packet> packet, const WifiMacHeader* hdr,
-                               OriginatorRxStatus *originator);
+  Ptr<Packet> HandleFragments(Ptr<Packet> packet, const WifiMacHeader *hdr,
+                              OriginatorRxStatus *originator);
 
   /**
    * typedef for a map between address and OriginatorRxStatus
    */
-  typedef std::map <Mac48Address, OriginatorRxStatus *, std::less<Mac48Address> > Originators;
+  typedef std::map<Mac48Address, OriginatorRxStatus *, std::less<Mac48Address>> Originators;
   /**
    * typedef for a map between address, OriginatorRxStatus, and Traffic ID
    */
-  typedef std::map <std::pair<Mac48Address, uint8_t>, OriginatorRxStatus *, std::less<std::pair<Mac48Address,uint8_t> > > QosOriginators;
+  typedef std::map<std::pair<Mac48Address, uint8_t>, OriginatorRxStatus *, std::less<std::pair<Mac48Address, uint8_t>>> QosOriginators;
   /**
    * typedef for an iterator for Originators
    */
-  typedef std::map <Mac48Address, OriginatorRxStatus *, std::less<Mac48Address> >::iterator OriginatorsI;
+  typedef std::map<Mac48Address, OriginatorRxStatus *, std::less<Mac48Address>>::iterator OriginatorsI;
   /**
    * typedef for an iterator for QosOriginators
    */
-  typedef std::map <std::pair<Mac48Address, uint8_t>, OriginatorRxStatus *, std::less<std::pair<Mac48Address,uint8_t> > >::iterator QosOriginatorsI;
+  typedef std::map<std::pair<Mac48Address, uint8_t>, OriginatorRxStatus *, std::less<std::pair<Mac48Address, uint8_t>>>::iterator QosOriginatorsI;
 
-  Originators m_originatorStatus; ///< originator status
+  Originators m_originatorStatus;       ///< originator status
   QosOriginators m_qosOriginatorStatus; ///< QOS originator status
-  ForwardUpCallback m_callback; ///< forward up callback
+  ForwardUpCallback m_callback;         ///< forward up callback
 
   Callback<void> m_pcfCallback; //!< PCF callback
 };

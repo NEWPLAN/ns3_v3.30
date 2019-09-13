@@ -30,7 +30,8 @@
 #include "ns3/ipv4-address.h"
 #include "ns3/ipv6-address.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class Node;
 class Channel;
@@ -99,18 +100,17 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
   virtual ~NetDevice();
 
   /**
    * \param index ifIndex of the device 
    */
-  virtual void SetIfIndex (const uint32_t index) = 0;
+  virtual void SetIfIndex(const uint32_t index) = 0;
   /**
    * \return index ifIndex of the device 
    */
-  virtual uint32_t GetIfIndex (void) const = 0;
-
+  virtual uint32_t GetIfIndex(void) const = 0;
 
   /**
    * \return the channel this NetDevice is connected to. The value
@@ -119,18 +119,18 @@ public:
    *         concept of a channel. i.e., callers _must_ check for zero
    *         and be ready to handle it.
    */
-  virtual Ptr<Channel> GetChannel (void) const = 0;
+  virtual Ptr<Channel> GetChannel(void) const = 0;
 
   /**
    * Set the address of this interface
    * \param address address to set
    */
-  virtual void SetAddress (Address address) = 0;
+  virtual void SetAddress(Address address) = 0;
 
   /**
    * \return the current Address of this interface.
    */
-  virtual Address GetAddress (void) const = 0;
+  virtual Address GetAddress(void) const = 0;
 
   /**
    * \param mtu MTU value, in bytes, to set for the device
@@ -138,22 +138,22 @@ public:
    * 
    * Override for default MTU defined on a per-type basis.
    */
-  virtual bool SetMtu (const uint16_t mtu) = 0;
+  virtual bool SetMtu(const uint16_t mtu) = 0;
   /**
    * \return the link-level MTU in bytes for this interface.
    * 
    * This value is typically used by the IP layer to perform
    * IP fragmentation when needed.
    */
-  virtual uint16_t GetMtu (void) const = 0;
+  virtual uint16_t GetMtu(void) const = 0;
   /**
    * \return true if link is up; false otherwise
    */
-  virtual bool IsLinkUp (void) const = 0;
+  virtual bool IsLinkUp(void) const = 0;
   /**
    * TracedCallback signature for link changed event.
    */
-  typedef void (* LinkChangeTracedCallback) (void);
+  typedef void (*LinkChangeTracedCallback)(void);
   /**
    * \param callback the callback to invoke
    *
@@ -162,12 +162,12 @@ public:
    * by the IP/ARP layer to flush the ARP cache and by IPv6 stack
    * to flush NDISC cache whenever the link goes up.
    */
-  virtual void AddLinkChangeCallback (Callback<void> callback) = 0;
+  virtual void AddLinkChangeCallback(Callback<void> callback) = 0;
   /**
    * \return true if this interface supports a broadcast address,
    *         false otherwise.
    */
-  virtual bool IsBroadcast (void) const = 0;
+  virtual bool IsBroadcast(void) const = 0;
   /**
    * \return the broadcast address supported by
    *         this netdevice.
@@ -175,12 +175,12 @@ public:
    * Calling this method is invalid if IsBroadcast returns
    * not true.
    */
-  virtual Address GetBroadcast (void) const = 0;
+  virtual Address GetBroadcast(void) const = 0;
 
   /**
    * \return value of m_isMulticast flag
    */
-  virtual bool IsMulticast (void) const = 0;
+  virtual bool IsMulticast(void) const = 0;
 
   /**
    * \brief Make and return a MAC multicast address using the provided
@@ -209,7 +209,7 @@ public:
    * \warning Calling this method is invalid if IsMulticast returns not true.
    * \see IsMulticast()
    */
-  virtual Address GetMulticast (Ipv4Address multicastGroup) const = 0;
+  virtual Address GetMulticast(Ipv4Address multicastGroup) const = 0;
 
   /**
    * \brief Get the MAC multicast address corresponding
@@ -218,21 +218,21 @@ public:
    * \return the MAC multicast address
    * \warning Calling this method is invalid if IsMulticast returns not true.
    */
-  virtual Address GetMulticast (Ipv6Address addr) const = 0;
+  virtual Address GetMulticast(Ipv6Address addr) const = 0;
 
   /**
    * \brief Return true if the net device is acting as a bridge.
    *
    * \return value of m_isBridge flag
    */
-  virtual bool IsBridge (void) const = 0;
+  virtual bool IsBridge(void) const = 0;
 
   /**
    * \brief Return true if the net device is on a point-to-point link.
    *
    * \return value of m_isPointToPoint flag
    */
-  virtual bool IsPointToPoint (void) const = 0;
+  virtual bool IsPointToPoint(void) const = 0;
   /**
    * \param packet packet sent from above down to Network Device
    * \param dest mac address of the destination (already resolved)
@@ -245,7 +245,7 @@ public:
    * 
    * \return whether the Send operation succeeded 
    */
-  virtual bool Send (Ptr<Packet> packet, const Address& dest, uint16_t protocolNumber) = 0;
+  virtual bool Send(Ptr<Packet> packet, const Address &dest, uint16_t protocolNumber) = 0;
   /**
    * \param packet packet sent from above down to Network Device
    * \param source source mac address (so called "MAC spoofing")
@@ -259,7 +259,7 @@ public:
    * 
    * \return whether the Send operation succeeded 
    */
-  virtual bool SendFrom (Ptr<Packet> packet, const Address& source, const Address& dest, uint16_t protocolNumber) = 0;
+  virtual bool SendFrom(Ptr<Packet> packet, const Address &source, const Address &dest, uint16_t protocolNumber) = 0;
   /**
    * \returns the node base class which contains this network
    *          interface.
@@ -268,14 +268,14 @@ public:
    * base class to print the nodeid for example, it can invoke
    * this method.
    */
-  virtual Ptr<Node> GetNode (void) const = 0;
+  virtual Ptr<Node> GetNode(void) const = 0;
 
   /**
    * \param node the node associated to this netdevice.
    *
    * This method is called from ns3::Node::AddDevice.
    */
-  virtual void SetNode (Ptr<Node> node) = 0;
+  virtual void SetNode(Ptr<Node> node) = 0;
 
   /**
    * \returns true if ARP is needed, false otherwise.
@@ -283,8 +283,7 @@ public:
    * Called by higher-layers to check if this NetDevice requires
    * ARP to be used.
    */
-  virtual bool NeedsArp (void) const = 0;
-
+  virtual bool NeedsArp(void) const = 0;
 
   /** 
    * Packet types are used as they are in Linux.  GCC name resolution on 
@@ -295,13 +294,13 @@ public:
    */
   enum PacketType
   {
-    PACKET_HOST = 1,   /**< Packet addressed oo us */
+    PACKET_HOST = 1, /**< Packet addressed oo us */
     NS3_PACKET_HOST = PACKET_HOST,
-    PACKET_BROADCAST,   /**< Packet addressed to all */
+    PACKET_BROADCAST, /**< Packet addressed to all */
     NS3_PACKET_BROADCAST = PACKET_BROADCAST,
-    PACKET_MULTICAST,   /**< Packet addressed to multicast group */
+    PACKET_MULTICAST, /**< Packet addressed to multicast group */
     NS3_PACKET_MULTICAST = PACKET_MULTICAST,
-    PACKET_OTHERHOST,   /**< Packet addressed to someone else */
+    PACKET_OTHERHOST, /**< Packet addressed to someone else */
     NS3_PACKET_OTHERHOST = PACKET_OTHERHOST,
   };
 
@@ -315,7 +314,7 @@ public:
    * \returns true if the callback could handle the packet successfully, false
    *          otherwise.
    */
-  typedef Callback< bool, Ptr<NetDevice>, Ptr<const Packet>, uint16_t, const Address & > ReceiveCallback;
+  typedef Callback<bool, Ptr<NetDevice>, Ptr<const Packet>, uint16_t, const Address &> ReceiveCallback;
 
   /**
    * \param cb callback to invoke whenever a packet has been received and must
@@ -324,8 +323,7 @@ public:
    * Set the callback to be used to notify higher layers when a packet has been
    * received.
    */
-  virtual void SetReceiveCallback (ReceiveCallback cb) = 0;
-
+  virtual void SetReceiveCallback(ReceiveCallback cb) = 0;
 
   /**
    * \param device a pointer to the net device which is calling this callback
@@ -339,8 +337,9 @@ public:
    * \returns true if the callback could handle the packet successfully, false
    *          otherwise.
    */
-  typedef Callback< bool, Ptr<NetDevice>, Ptr<const Packet>, uint16_t,
-                    const Address &, const Address &, enum PacketType > PromiscReceiveCallback;
+  typedef Callback<bool, Ptr<NetDevice>, Ptr<const Packet>, uint16_t,
+                   const Address &, const Address &, enum PacketType>
+      PromiscReceiveCallback;
 
   /**
    * \param cb callback to invoke whenever a packet has been received in promiscuous mode and must
@@ -352,13 +351,12 @@ public:
    * sensed by the netdevice but which are intended to be received by
    * other hosts.
    */
-  virtual void SetPromiscReceiveCallback (PromiscReceiveCallback cb) = 0;
+  virtual void SetPromiscReceiveCallback(PromiscReceiveCallback cb) = 0;
 
   /**
    * \return true if this interface supports a bridging mode, false otherwise.
    */
-  virtual bool SupportsSendFrom (void) const = 0;
-
+  virtual bool SupportsSendFrom(void) const = 0;
 };
 
 } // namespace ns3

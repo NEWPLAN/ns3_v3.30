@@ -29,7 +29,8 @@
 #include "ns3/ptr.h"
 #include "ns3/object.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class Node;
 class Packet;
@@ -52,10 +53,10 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
- 
-  UdpSocket (void);
-  virtual ~UdpSocket (void);
+  static TypeId GetTypeId(void);
+
+  UdpSocket(void);
+  virtual ~UdpSocket(void);
 
   /**
    * \brief Corresponds to socket option MCAST_JOIN_GROUP
@@ -81,7 +82,7 @@ public:
    * This enables host multihoming, and the ability to join the same 
    * group on different interfaces.
    */
-  virtual int MulticastJoinGroup (uint32_t interface, const Address &groupAddress) = 0;
+  virtual int MulticastJoinGroup(uint32_t interface, const Address &groupAddress) = 0;
 
   /**
    * \brief Corresponds to socket option MCAST_LEAVE_GROUP
@@ -101,7 +102,7 @@ public:
    *
    * \attention IGMP is not yet implemented in ns-3
    */
-  virtual int MulticastLeaveGroup (uint32_t interface, const Address &groupAddress) = 0;
+  virtual int MulticastLeaveGroup(uint32_t interface, const Address &groupAddress) = 0;
 
 private:
   // Indirect the attribute setting and getting through private virtual methods
@@ -109,32 +110,32 @@ private:
    * \brief Set the receiving buffer size
    * \param size the buffer size
    */
-  virtual void SetRcvBufSize (uint32_t size) = 0;
+  virtual void SetRcvBufSize(uint32_t size) = 0;
   /**
    * \brief Get the receiving buffer size
    * \returns the buffer size
    */
-  virtual uint32_t GetRcvBufSize (void) const = 0;
+  virtual uint32_t GetRcvBufSize(void) const = 0;
   /**
    * \brief Set the IP multicast TTL
    * \param ipTtl the IP multicast TTL
    */
-  virtual void SetIpMulticastTtl (uint8_t ipTtl) = 0;
+  virtual void SetIpMulticastTtl(uint8_t ipTtl) = 0;
   /**
    * \brief Get the IP multicast TTL
    * \returns the IP multicast TTL
    */
-  virtual uint8_t GetIpMulticastTtl (void) const = 0;
+  virtual uint8_t GetIpMulticastTtl(void) const = 0;
   /**
    * \brief Set the IP multicast interface
    * \param ipIf the IP multicast interface
    */
-  virtual void SetIpMulticastIf (int32_t ipIf) = 0;
+  virtual void SetIpMulticastIf(int32_t ipIf) = 0;
   /**
    * \brief Get the IP multicast interface
    * \returns the IP multicast interface
    */
-  virtual int32_t GetIpMulticastIf (void) const = 0;
+  virtual int32_t GetIpMulticastIf(void) const = 0;
   /**
    * \brief Set the IP multicast loop capability
    *
@@ -144,7 +145,7 @@ private:
    *
    * \param loop the IP multicast loop capability
    */
-  virtual void SetIpMulticastLoop (bool loop) = 0;
+  virtual void SetIpMulticastLoop(bool loop) = 0;
   /**
    * \brief Get the IP multicast loop capability
    *
@@ -154,23 +155,21 @@ private:
    *
    * \returns the IP multicast loop capability
    */
-  virtual bool GetIpMulticastLoop (void) const = 0;
+  virtual bool GetIpMulticastLoop(void) const = 0;
   /**
    * \brief Set the MTU discover capability
    *
    * \param discover the MTU discover capability
    */
-  virtual void SetMtuDiscover (bool discover) = 0;
+  virtual void SetMtuDiscover(bool discover) = 0;
   /**
    * \brief Get the MTU discover capability
    *
    * \returns the MTU discover capability
    */
-  virtual bool GetMtuDiscover (void) const = 0;
+  virtual bool GetMtuDiscover(void) const = 0;
 };
 
 } // namespace ns3
 
 #endif /* UDP_SOCKET_H */
-
-

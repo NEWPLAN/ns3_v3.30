@@ -29,7 +29,8 @@
 #include "ns3/node-container.h"
 #include "ns3/net-device-container.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup ipv4Helpers
@@ -46,13 +47,13 @@ public:
    * Construct an Ipv4StaticRoutingHelper object, used to make configuration
    * of static routing easier.
    */
-  Ipv4StaticRoutingHelper ();
+  Ipv4StaticRoutingHelper();
 
   /**
    * \brief Construct an Ipv4StaticRoutingHelper from another previously 
    * initialized instance (Copy Constructor).
    */
-  Ipv4StaticRoutingHelper (const Ipv4StaticRoutingHelper &);
+  Ipv4StaticRoutingHelper(const Ipv4StaticRoutingHelper &);
 
   /**
    * \returns pointer to clone of this Ipv4StaticRoutingHelper
@@ -60,7 +61,7 @@ public:
    * This method is mainly for internal use by the other helpers;
    * clients are expected to free the dynamic memory allocated by this method
    */
-  Ipv4StaticRoutingHelper* Copy (void) const;
+  Ipv4StaticRoutingHelper *Copy(void) const;
 
   /**
    * \param node the node on which the routing protocol will run
@@ -68,7 +69,7 @@ public:
    *
    * This method will be called by ns3::InternetStackHelper::Install
    */
-  virtual Ptr<Ipv4RoutingProtocol> Create (Ptr<Node> node) const;
+  virtual Ptr<Ipv4RoutingProtocol> Create(Ptr<Node> node) const;
 
   /**
    * Try and find the static routing protocol as either the main routing
@@ -78,7 +79,7 @@ public:
    * \param ipv4 the Ptr<Ipv4> to search for the static routing protocol
    * \returns Ipv4StaticRouting pointer or 0 if not found
    */
-  Ptr<Ipv4StaticRouting> GetStaticRouting (Ptr<Ipv4> ipv4) const;
+  Ptr<Ipv4StaticRouting> GetStaticRouting(Ptr<Ipv4> ipv4) const;
 
   /**
    * \brief Add a multicast route to a node and net device using explicit 
@@ -90,8 +91,8 @@ public:
    * \param input Input NetDevice.
    * \param output Output NetDevices.
    */
-  void AddMulticastRoute (Ptr<Node> n, Ipv4Address source, Ipv4Address group,
-                          Ptr<NetDevice> input, NetDeviceContainer output);
+  void AddMulticastRoute(Ptr<Node> n, Ipv4Address source, Ipv4Address group,
+                         Ptr<NetDevice> input, NetDeviceContainer output);
 
   /**
    * \brief Add a multicast route to a node and device using a name string 
@@ -104,8 +105,8 @@ public:
    * \param input Input NetDevice.
    * \param output Output NetDevices.
    */
-  void AddMulticastRoute (std::string n, Ipv4Address source, Ipv4Address group,
-                          Ptr<NetDevice> input, NetDeviceContainer output);
+  void AddMulticastRoute(std::string n, Ipv4Address source, Ipv4Address group,
+                         Ptr<NetDevice> input, NetDeviceContainer output);
 
   /**
    * \brief Add a multicast route to a node and device using a Ptr<Node> and a 
@@ -117,8 +118,8 @@ public:
    * \param inputName Input NetDevice.
    * \param output Output NetDevices.
    */
-  void AddMulticastRoute (Ptr<Node> n, Ipv4Address source, Ipv4Address group,
-                          std::string inputName, NetDeviceContainer output);
+  void AddMulticastRoute(Ptr<Node> n, Ipv4Address source, Ipv4Address group,
+                         std::string inputName, NetDeviceContainer output);
 
   /**
    * \brief Add a multicast route to a node and device using name strings
@@ -131,8 +132,8 @@ public:
    * \param inputName Input NetDevice.
    * \param output Output NetDevices.
    */
-  void AddMulticastRoute (std::string nName, Ipv4Address source, Ipv4Address group,
-                          std::string inputName, NetDeviceContainer output);
+  void AddMulticastRoute(std::string nName, Ipv4Address source, Ipv4Address group,
+                         std::string inputName, NetDeviceContainer output);
 
   /**
    * \brief Add a default route to the static routing protocol to forward
@@ -143,7 +144,7 @@ public:
    * \param n node
    * \param nd device of the node to add default route
    */
-  void SetDefaultMulticastRoute (Ptr<Node> n, Ptr<NetDevice> nd);
+  void SetDefaultMulticastRoute(Ptr<Node> n, Ptr<NetDevice> nd);
 
   /**
    * \brief Add a default route to the static routing protocol to forward
@@ -155,7 +156,7 @@ public:
    * \param ndName string with name previously associated to device using the 
    *        Object Name Service
    */
-  void SetDefaultMulticastRoute (Ptr<Node> n, std::string ndName);
+  void SetDefaultMulticastRoute(Ptr<Node> n, std::string ndName);
 
   /**
    * \brief Add a default route to the static routing protocol to forward
@@ -167,7 +168,7 @@ public:
    *        Object Name Service
    * \param nd device of the node to add default route
    */
-  void SetDefaultMulticastRoute (std::string nName, Ptr<NetDevice> nd);
+  void SetDefaultMulticastRoute(std::string nName, Ptr<NetDevice> nd);
 
   /**
    * \brief Add a default route to the static routing protocol to forward
@@ -180,14 +181,15 @@ public:
    * \param ndName string with name previously associated to device using the 
    *        Object Name Service
    */
-  void SetDefaultMulticastRoute (std::string nName, std::string ndName);
+  void SetDefaultMulticastRoute(std::string nName, std::string ndName);
+
 private:
   /**
    * \brief Assignment operator declared private and not implemented to disallow
    * assignment and prevent the compiler from happily inserting its own.
    * \returns
    */
-  Ipv4StaticRoutingHelper &operator = (const Ipv4StaticRoutingHelper &);
+  Ipv4StaticRoutingHelper &operator=(const Ipv4StaticRoutingHelper &);
 };
 
 } // namespace ns3

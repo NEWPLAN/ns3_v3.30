@@ -24,7 +24,8 @@
 #include "ns3/traced-value.h"
 #include "wifi-remote-station-manager.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 struct AarfcdWifiRemoteStation;
 
@@ -48,19 +49,18 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
-  AarfcdWifiManager ();
-  virtual ~AarfcdWifiManager ();
-
+  static TypeId GetTypeId(void);
+  AarfcdWifiManager();
+  virtual ~AarfcdWifiManager();
 
 private:
   // Overridden from base class.
-  void DoInitialize (void);
-  WifiRemoteStation * DoCreateStation (void) const;
-  void DoReportRxOk (WifiRemoteStation *station,
-                     double rxSnr, WifiMode txMode);
+  void DoInitialize(void);
+  WifiRemoteStation *DoCreateStation(void) const;
+  void DoReportRxOk(WifiRemoteStation *station,
+                    double rxSnr, WifiMode txMode);
 
-  void DoReportRtsFailed (WifiRemoteStation *station);
+  void DoReportRtsFailed(WifiRemoteStation *station);
   /**
    * It is important to realize that "recovery" mode starts after failure of
    * the first transmission after a rate increase and ends at the first successful
@@ -72,62 +72,62 @@ private:
    *
    * \param station the station that we failed to send DATA
    */
-  void DoReportDataFailed (WifiRemoteStation *station);
-  void DoReportRtsOk (WifiRemoteStation *station,
-                      double ctsSnr, WifiMode ctsMode, double rtsSnr);
-  void DoReportDataOk (WifiRemoteStation *station,
-                       double ackSnr, WifiMode ackMode, double dataSnr);
-  void DoReportFinalRtsFailed (WifiRemoteStation *station);
-  void DoReportFinalDataFailed (WifiRemoteStation *station);
-  WifiTxVector DoGetDataTxVector (WifiRemoteStation *station);
-  WifiTxVector DoGetRtsTxVector (WifiRemoteStation *station);
-  bool DoNeedRts (WifiRemoteStation *station,
-                  Ptr<const Packet> packet, bool normally);
-  bool IsLowLatency (void) const;
+  void DoReportDataFailed(WifiRemoteStation *station);
+  void DoReportRtsOk(WifiRemoteStation *station,
+                     double ctsSnr, WifiMode ctsMode, double rtsSnr);
+  void DoReportDataOk(WifiRemoteStation *station,
+                      double ackSnr, WifiMode ackMode, double dataSnr);
+  void DoReportFinalRtsFailed(WifiRemoteStation *station);
+  void DoReportFinalDataFailed(WifiRemoteStation *station);
+  WifiTxVector DoGetDataTxVector(WifiRemoteStation *station);
+  WifiTxVector DoGetRtsTxVector(WifiRemoteStation *station);
+  bool DoNeedRts(WifiRemoteStation *station,
+                 Ptr<const Packet> packet, bool normally);
+  bool IsLowLatency(void) const;
 
   /**
    * Check if the use of RTS for the given station can be turned off.
    *
    * \param station the station that we are checking
    */
-  void CheckRts (AarfcdWifiRemoteStation *station);
+  void CheckRts(AarfcdWifiRemoteStation *station);
   /**
    * Increase the RTS window size of the given station.
    *
    * \param station the station to increase RTS window
    */
-  void IncreaseRtsWnd (AarfcdWifiRemoteStation *station);
+  void IncreaseRtsWnd(AarfcdWifiRemoteStation *station);
   /**
    * Reset the RTS window of the given station.
    *
    * \param station the station to reset RTS window
    */
-  void ResetRtsWnd (AarfcdWifiRemoteStation *station);
+  void ResetRtsWnd(AarfcdWifiRemoteStation *station);
   /**
    * Turn off RTS for the given station.
    *
    * \param station the station to turn RTS off
    */
-  void TurnOffRts (AarfcdWifiRemoteStation *station);
+  void TurnOffRts(AarfcdWifiRemoteStation *station);
   /**
    * Turn on RTS for the given station.
    *
    * \param station the station to turn RTS on
    */
-  void TurnOnRts (AarfcdWifiRemoteStation *station);
+  void TurnOnRts(AarfcdWifiRemoteStation *station);
 
   //aarf fields below
-  uint32_t m_minTimerThreshold; ///< minimum timer threshold
+  uint32_t m_minTimerThreshold;   ///< minimum timer threshold
   uint32_t m_minSuccessThreshold; ///< minimum success threshold
-  double m_successK; ///< Multiplication factor for the success threshold
+  double m_successK;              ///< Multiplication factor for the success threshold
   uint32_t m_maxSuccessThreshold; ///< maximum success threshold
-  double m_timerK; ///< Multiplication factor for the timer threshold
+  double m_timerK;                ///< Multiplication factor for the timer threshold
 
   //aarf-cd fields below
-  uint32_t m_minRtsWnd; ///< minimum RTS window
-  uint32_t m_maxRtsWnd; ///< maximum RTS window
+  uint32_t m_minRtsWnd;               ///< minimum RTS window
+  uint32_t m_maxRtsWnd;               ///< maximum RTS window
   bool m_turnOffRtsAfterRateDecrease; ///< turn off RTS after rate decrease
-  bool m_turnOnRtsAfterRateIncrease; ///< turn on RTS after rate increase
+  bool m_turnOnRtsAfterRateIncrease;  ///< turn on RTS after rate increase
 
   TracedValue<uint64_t> m_currentRate; //!< Trace rate changes
 };

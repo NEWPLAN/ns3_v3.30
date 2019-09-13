@@ -23,7 +23,8 @@
 
 #include "ns3/node-container.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \brief Give ns3::PacketSocket powers to ns3::Node.
@@ -37,7 +38,7 @@ public:
    *
    * \param node Node on which to aggregate the ns3::PacketSocketFactory.
    */
-  void Install (Ptr<Node> node) const;
+  void Install(Ptr<Node> node) const;
 
   /**
    * Aggregate an instance of a ns3::PacketSocketFactory onto the provided
@@ -45,7 +46,7 @@ public:
    *
    * \param nodeName The name of the node on which to aggregate the ns3::PacketSocketFactory.
    */
-  void Install (std::string nodeName) const;
+  void Install(std::string nodeName) const;
 
   /**
    * For each node in the provided container, aggregate an instance of a
@@ -54,7 +55,7 @@ public:
    * \param c NodeContainer of the set of nodes to aggregate the 
    * ns3::PacketSocketFactory on.
    */
-  void Install (NodeContainer c) const;
+  void Install(NodeContainer c) const;
 };
 
 } // namespace ns3

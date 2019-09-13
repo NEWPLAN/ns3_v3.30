@@ -30,7 +30,8 @@
 #include "ns3/tcp-scalable.h"
 #include "ns3/tcp-recovery-ops.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup congestionOps
@@ -76,21 +77,21 @@ public:
    * \brief Get the type ID.
    * \return the object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
   /**
    * Create an unbound tcp socket.
    */
-  TcpYeah (void);
+  TcpYeah(void);
 
   /**
    * \brief Copy constructor
    * \param sock the object to copy
    */
-  TcpYeah (const TcpYeah& sock);
-  virtual ~TcpYeah (void);
+  TcpYeah(const TcpYeah &sock);
+  virtual ~TcpYeah(void);
 
-  virtual std::string GetName () const;
+  virtual std::string GetName() const;
 
   /**
    * \brief Compute RTTs needed to execute YeAH algorithm
@@ -107,8 +108,8 @@ public:
    * \param rtt last RTT
    *
    */
-  virtual void PktsAcked (Ptr<TcpSocketState> tcb, uint32_t segmentsAcked,
-                          const Time& rtt);
+  virtual void PktsAcked(Ptr<TcpSocketState> tcb, uint32_t segmentsAcked,
+                         const Time &rtt);
 
   /**
    * \brief Enable/disable YeAH algorithm depending on the congestion state
@@ -118,8 +119,8 @@ public:
    * \param tcb internal congestion state
    * \param newState new congestion state to which the TCP is going to switch
    */
-  virtual void CongestionStateSet (Ptr<TcpSocketState> tcb,
-                                   const TcpSocketState::TcpCongState_t newState);
+  virtual void CongestionStateSet(Ptr<TcpSocketState> tcb,
+                                  const TcpSocketState::TcpCongState_t newState);
 
   /**
    * \brief Adjust cwnd following YeAH dual-mode algorithm
@@ -127,7 +128,7 @@ public:
    * \param tcb internal congestion state
    * \param segmentsAcked count of segments ACKed
    */
-  virtual void IncreaseWindow (Ptr<TcpSocketState> tcb, uint32_t segmentsAcked);
+  virtual void IncreaseWindow(Ptr<TcpSocketState> tcb, uint32_t segmentsAcked);
 
   /**
    * \brief Get slow start threshold upon the receipt of 3 dupACKs
@@ -137,10 +138,10 @@ public:
    *
    * \return the slow start threshold value
    */
-  virtual uint32_t GetSsThresh (Ptr<const TcpSocketState> tcb,
-                                uint32_t bytesInFlight);
+  virtual uint32_t GetSsThresh(Ptr<const TcpSocketState> tcb,
+                               uint32_t bytesInFlight);
 
-  virtual Ptr<TcpCongestionOps> Fork ();
+  virtual Ptr<TcpCongestionOps> Fork();
 
 protected:
 private:
@@ -155,12 +156,12 @@ private:
    *
    * \param nextTxSequence Sequence to transmit next
    */
-  void EnableYeah (const SequenceNumber32 &nextTxSequence);
+  void EnableYeah(const SequenceNumber32 &nextTxSequence);
 
   /**
    * \brief Stop taking YeAH samples
    */
-  void DisableYeah ();
+  void DisableYeah();
 
 private:
   uint32_t m_alpha;   //!< Maximum backlog allowed at the bottleneck queue; Q_max in the paper
@@ -171,11 +172,11 @@ private:
   uint32_t m_rho;     //!< Minimum number of consecutive RTT to consider competition with Reno flows on loss
   uint32_t m_zeta;    //!< Minimum number of state switches to reset m_renoCount
 
-  uint32_t m_stcpAiFactor;  //!< STCP additive increase parameter
-  Ptr<TcpScalable> m_stcp;  //!< TcpScalable object
-  Time m_baseRtt;           //!< Minimum of all YeAH RTT measurements seen during connection
-  Time m_minRtt;            //!< Minimum of all RTTs measured within last RTT
-  uint32_t m_cntRtt;        //!< Number of RTT measurements during last RTT
+  uint32_t m_stcpAiFactor;      //!< STCP additive increase parameter
+  Ptr<TcpScalable> m_stcp;      //!< TcpScalable object
+  Time m_baseRtt;               //!< Minimum of all YeAH RTT measurements seen during connection
+  Time m_minRtt;                //!< Minimum of all RTTs measured within last RTT
+  uint32_t m_cntRtt;            //!< Number of RTT measurements during last RTT
   bool m_doingYeahNow;          //!< If true, do YeAH for this RTT
   SequenceNumber32 m_begSndNxt; //!< Right edge during last RTT
   uint32_t m_lastQ;             //!< Last number of packets in the bottleneck queue

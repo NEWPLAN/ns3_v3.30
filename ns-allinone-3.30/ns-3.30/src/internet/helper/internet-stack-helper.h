@@ -30,7 +30,8 @@
 #include "ns3/ipv6-l3-protocol.h"
 #include "internet-trace-helper.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 class Node;
 class Ipv4RoutingHelper;
@@ -83,8 +84,7 @@ class Ipv6RoutingHelper;
  *  - Ipv4 routing (a list routing object, a global routing object, and a static routing object)
  *  - Ipv6 routing (a static routing object)
  */
-class InternetStackHelper : public PcapHelperForIpv4, public PcapHelperForIpv6, 
-                            public AsciiTraceHelperForIpv4, public AsciiTraceHelperForIpv6
+class InternetStackHelper : public PcapHelperForIpv4, public PcapHelperForIpv6, public AsciiTraceHelperForIpv4, public AsciiTraceHelperForIpv6
 {
 public:
   /**
@@ -107,19 +107,19 @@ public:
    * \brief Copy constructor
    * \param o Object to copy from.
    */
-  InternetStackHelper (const InternetStackHelper &o);
+  InternetStackHelper(const InternetStackHelper &o);
 
   /**
    * \brief Copy constructor
    * \param o Object to copy from.
    * \returns A copy of the InternetStackHelper.
    */
-  InternetStackHelper &operator = (const InternetStackHelper &o);
+  InternetStackHelper &operator=(const InternetStackHelper &o);
 
   /**
    * Return helper internal state to that of a newly constructed one
    */
-  void Reset (void);
+  void Reset(void);
 
   /**
    * \param routing a new routing helper
@@ -130,13 +130,13 @@ public:
    * object is then associated to a single ns3::Ipv4 object through its 
    * ns3::Ipv4::SetRoutingProtocol.
    */
-  void SetRoutingHelper (const Ipv4RoutingHelper &routing);
+  void SetRoutingHelper(const Ipv4RoutingHelper &routing);
 
   /**
    * \brief Set IPv6 routing helper.
    * \param routing IPv6 routing helper
    */
-  void SetRoutingHelper (const Ipv6RoutingHelper &routing);
+  void SetRoutingHelper(const Ipv6RoutingHelper &routing);
 
   /**
    * Aggregate implementations of the ns3::Ipv4, ns3::Ipv6, ns3::Udp, and ns3::Tcp classes
@@ -145,7 +145,7 @@ public:
    * 
    * \param nodeName The name of the node on which to install the stack.
    */
-  void Install (std::string nodeName) const;
+  void Install(std::string nodeName) const;
 
   /**
    * Aggregate implementations of the ns3::Ipv4, ns3::Ipv6, ns3::Udp, and ns3::Tcp classes
@@ -154,7 +154,7 @@ public:
    * 
    * \param node The node on which to install the stack.
    */
-  void Install (Ptr<Node> node) const;
+  void Install(Ptr<Node> node) const;
 
   /**
    * For each node in the input container, aggregate implementations of the 
@@ -165,12 +165,12 @@ public:
    * \param c NodeContainer that holds the set of nodes on which to install the
    * new stacks.
    */
-  void Install (NodeContainer c) const;
+  void Install(NodeContainer c) const;
 
   /**
    * Aggregate IPv4, IPv6, UDP, and TCP stacks to all nodes in the simulation
    */
-  void InstallAll (void) const;
+  void InstallAll(void) const;
 
   /**
    * \brief set the Tcp stack which will not need any other parameter.
@@ -183,7 +183,7 @@ public:
    *
    * \param tid the type id, typically it is set to  "ns3::TcpL4Protocol"
    */
-  void SetTcp (std::string tid);
+  void SetTcp(std::string tid);
 
   /**
    * \brief This function is used to setup the Network Simulation Cradle stack with library value.
@@ -197,31 +197,31 @@ public:
    * \param attr The attribute name that must be setup, for example "Library"
    * \param val The attribute value, which will be in fact the shared library name (example:"liblinux2.6.26.so")
    */
-  void SetTcp (std::string tid, std::string attr, const AttributeValue &val); 
+  void SetTcp(std::string tid, std::string attr, const AttributeValue &val);
 
   /**
    * \brief Enable/disable IPv4 stack install.
    * \param enable enable state
    */
-  void SetIpv4StackInstall (bool enable);
+  void SetIpv4StackInstall(bool enable);
 
   /**
    * \brief Enable/disable IPv6 stack install.
    * \param enable enable state
    */
-  void SetIpv6StackInstall (bool enable);
+  void SetIpv6StackInstall(bool enable);
 
   /**
    * \brief Enable/disable IPv4 ARP Jitter.
    * \param enable enable state
    */
-  void SetIpv4ArpJitter (bool enable);
+  void SetIpv4ArpJitter(bool enable);
 
   /**
    * \brief Enable/disable IPv6 NS and RS Jitter.
    * \param enable enable state
    */
-  void SetIpv6NsRsJitter (bool enable);
+  void SetIpv6NsRsJitter(bool enable);
 
   /**
   * Assign a fixed random variable stream number to the random variables
@@ -234,7 +234,7 @@ public:
   *          should be modified to use a fixed stream
   * \return the number of stream indices assigned by this helper
   */
-  int64_t AssignStreams (NodeContainer c, int64_t stream);
+  int64_t AssignStreams(NodeContainer c, int64_t stream);
 
 private:
   /**
@@ -245,10 +245,10 @@ private:
    * @param interface Interface ID on the Ipv4 on which you want to enable tracing.
    * @param explicitFilename Treat the prefix as an explicit filename if true
    */
-  virtual void EnablePcapIpv4Internal (std::string prefix, 
-                                       Ptr<Ipv4> ipv4, 
-                                       uint32_t interface,
-                                       bool explicitFilename);
+  virtual void EnablePcapIpv4Internal(std::string prefix,
+                                      Ptr<Ipv4> ipv4,
+                                      uint32_t interface,
+                                      bool explicitFilename);
 
   /**
    * @brief Enable ascii trace output on the indicated Ipv4 and interface pair.
@@ -260,11 +260,11 @@ private:
    * @param interface Interface ID on the Ipv4 on which you want to enable tracing.
    * @param explicitFilename Treat the prefix as an explicit filename if true
    */
-  virtual void EnableAsciiIpv4Internal (Ptr<OutputStreamWrapper> stream, 
-                                        std::string prefix, 
-                                        Ptr<Ipv4> ipv4, 
-                                        uint32_t interface,
-                                        bool explicitFilename);
+  virtual void EnableAsciiIpv4Internal(Ptr<OutputStreamWrapper> stream,
+                                       std::string prefix,
+                                       Ptr<Ipv4> ipv4,
+                                       uint32_t interface,
+                                       bool explicitFilename);
 
   /**
    * @brief Enable pcap output the indicated Ipv6 and interface pair.
@@ -274,10 +274,10 @@ private:
    * @param interface Interface ID on the Ipv6 on which you want to enable tracing.
    * @param explicitFilename Treat the prefix as an explicit filename if true
    */
-  virtual void EnablePcapIpv6Internal (std::string prefix, 
-                                       Ptr<Ipv6> ipv6, 
-                                       uint32_t interface,
-                                       bool explicitFilename);
+  virtual void EnablePcapIpv6Internal(std::string prefix,
+                                      Ptr<Ipv6> ipv6,
+                                      uint32_t interface,
+                                      bool explicitFilename);
 
   /**
    * @brief Enable ascii trace output on the indicated Ipv6 and interface pair.
@@ -289,16 +289,16 @@ private:
    * @param interface Interface ID on the Ipv6 on which you want to enable tracing.
    * @param explicitFilename Treat the prefix as an explicit filename if true
    */
-  virtual void EnableAsciiIpv6Internal (Ptr<OutputStreamWrapper> stream, 
-                                        std::string prefix, 
-                                        Ptr<Ipv6> ipv6, 
-                                        uint32_t interface,
-                                        bool explicitFilename);
+  virtual void EnableAsciiIpv6Internal(Ptr<OutputStreamWrapper> stream,
+                                       std::string prefix,
+                                       Ptr<Ipv6> ipv6,
+                                       uint32_t interface,
+                                       bool explicitFilename);
 
   /**
    * \brief Initialize the helper to its default values
    */
-  void Initialize (void);
+  void Initialize(void);
 
   /**
    * \brief TCP objects factory
@@ -320,35 +320,35 @@ private:
    * \param node the node
    * \param typeId the object TypeId
    */
-  static void CreateAndAggregateObjectFromTypeId (Ptr<Node> node, const std::string typeId);
+  static void CreateAndAggregateObjectFromTypeId(Ptr<Node> node, const std::string typeId);
 
   /**
    * \brief checks if there is an hook to a Pcap wrapper
    * \param ipv4 pointer to the IPv4 object
    * \returns true if a hook is found
    */
-  bool PcapHooked (Ptr<Ipv4> ipv4);
+  bool PcapHooked(Ptr<Ipv4> ipv4);
 
   /**
    * \brief checks if there is an hook to an ascii output stream
    * \param ipv4 pointer to the IPv4 object
    * \returns true if a hook is found
    */
-  bool AsciiHooked (Ptr<Ipv4> ipv4);
+  bool AsciiHooked(Ptr<Ipv4> ipv4);
 
   /**
    * \brief checks if there is an hook to a Pcap wrapper
    * \param ipv6 pointer to the IPv6 object
    * \returns true if a hook is found
    */
-  bool PcapHooked (Ptr<Ipv6> ipv6);
+  bool PcapHooked(Ptr<Ipv6> ipv6);
 
   /**
    * \brief checks if there is an hook to an ascii output stream
    * \param ipv6 pointer to the IPv6 object
    * \returns true if a hook is found
    */
-  bool AsciiHooked (Ptr<Ipv6> ipv6);
+  bool AsciiHooked(Ptr<Ipv6> ipv6);
 
   /**
    * \brief IPv4 install state (enabled/disabled) ?

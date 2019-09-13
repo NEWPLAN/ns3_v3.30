@@ -26,123 +26,119 @@
 #include "ns3/tcp-congestion-ops.h"
 #include "ns3/log.h"
 
-namespace ns3 {
+namespace ns3
+{
 
-NS_LOG_COMPONENT_DEFINE ("TcpPrrRecovery");
-NS_OBJECT_ENSURE_REGISTERED (TcpPrrRecovery);
+NS_LOG_COMPONENT_DEFINE("TcpPrrRecovery");
+NS_OBJECT_ENSURE_REGISTERED(TcpPrrRecovery);
 
 TypeId
-TcpPrrRecovery::GetTypeId (void)
+TcpPrrRecovery::GetTypeId(void)
 {
-  static TypeId tid = TypeId ("ns3::TcpPrrRecovery")
-    .SetParent<TcpClassicRecovery> ()
-    .AddConstructor<TcpPrrRecovery> ()
-    .SetGroupName ("Internet")
-    .AddAttribute ("ReductionBound", "Type of Reduction Bound",
-                   EnumValue (SSRB),
-                   MakeEnumAccessor (&TcpPrrRecovery::m_reductionBoundMode),
-                   MakeEnumChecker (CRB, "CRB",
-                                    SSRB, "SSRB"))
-  ;
+  static TypeId tid = TypeId("ns3::TcpPrrRecovery")
+                          .SetParent<TcpClassicRecovery>()
+                          .AddConstructor<TcpPrrRecovery>()
+                          .SetGroupName("Internet")
+                          .AddAttribute("ReductionBound", "Type of Reduction Bound",
+                                        EnumValue(SSRB),
+                                        MakeEnumAccessor(&TcpPrrRecovery::m_reductionBoundMode),
+                                        MakeEnumChecker(CRB, "CRB",
+                                                        SSRB, "SSRB"));
   return tid;
 }
 
-TcpPrrRecovery::TcpPrrRecovery (void)
-  : TcpClassicRecovery ()
+TcpPrrRecovery::TcpPrrRecovery(void)
+    : TcpClassicRecovery()
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
 }
 
-TcpPrrRecovery::TcpPrrRecovery (const TcpPrrRecovery& recovery)
-  : TcpClassicRecovery (recovery),
-    m_prrDelivered (recovery.m_prrDelivered),
-    m_prrOut (recovery.m_prrOut),
-    m_recoveryFlightSize (recovery.m_recoveryFlightSize),
-    m_previousSackedBytes (recovery.m_previousSackedBytes),
-    m_reductionBoundMode (recovery.m_reductionBoundMode)
+TcpPrrRecovery::TcpPrrRecovery(const TcpPrrRecovery &recovery)
+    : TcpClassicRecovery(recovery),
+      m_prrDelivered(recovery.m_prrDelivered),
+      m_prrOut(recovery.m_prrOut),
+      m_recoveryFlightSize(recovery.m_recoveryFlightSize),
+      m_previousSackedBytes(recovery.m_previousSackedBytes),
+      m_reductionBoundMode(recovery.m_reductionBoundMode)
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
 }
 
-TcpPrrRecovery::~TcpPrrRecovery (void)
+TcpPrrRecovery::~TcpPrrRecovery(void)
 {
-  NS_LOG_FUNCTION (this);
+  NS_LOG_FUNCTION(this);
 }
 
-void
-TcpPrrRecovery::EnterRecovery (Ptr<TcpSocketState> tcb, uint32_t dupAckCount,
-                            uint32_t unAckDataCount, uint32_t lastSackedBytes)
+void TcpPrrRecovery::EnterRecovery(Ptr<TcpSocketState> tcb, uint32_t dupAckCount,
+                                   uint32_t unAckDataCount, uint32_t lastSackedBytes)
 {
-  NS_LOG_FUNCTION (this << tcb << dupAckCount << unAckDataCount << lastSackedBytes);
-  NS_UNUSED (dupAckCount);
+  NS_LOG_FUNCTION(this << tcb << dupAckCount << unAckDataCount << lastSackedBytes);
+  NS_UNUSED(dupAckCount);
 
   m_prrOut = 0;
   m_prrDelivered = 0;
   m_recoveryFlightSize = unAckDataCount;
   m_previousSackedBytes = lastSackedBytes;
 
-  DoRecovery (tcb, 0, lastSackedBytes);
+  DoRecovery(tcb, 0, lastSackedBytes);
 }
 
-void
-TcpPrrRecovery::DoRecovery (Ptr<TcpSocketState> tcb, uint32_t lastAckedBytes,
-                         uint32_t lastSackedBytes)
+void TcpPrrRecovery::DoRecovery(Ptr<TcpSocketState> tcb, uint32_t lastAckedBytes,
+                                uint32_t lastSackedBytes)
 {
-  NS_LOG_FUNCTION (this << tcb << lastAckedBytes << lastSackedBytes);
+  NS_LOG_FUNCTION(this << tcb << lastAckedBytes << lastSackedBytes);
   uint32_t lastDeliveredBytes;
-  int changeInSackedBytes = int (lastSackedBytes - m_previousSackedBytes);
+  int changeInSackedBytes = int(lastSackedBytes - m_previousSackedBytes);
   lastDeliveredBytes = lastAckedBytes + changeInSackedBytes > 0 ? lastAckedBytes + changeInSackedBytes : 0;
   m_previousSackedBytes = lastSackedBytes;
   m_prrDelivered += lastDeliveredBytes;
 
   int sendCount;
   if (tcb->m_bytesInFlight > tcb->m_ssThresh)
-    {
-      sendCount = std::ceil (m_prrDelivered * tcb->m_ssThresh * 1.0 / m_recoveryFlightSize) - m_prrOut;
-    }
+  {
+    sendCount = std::ceil(m_prrDelivered * tcb->m_ssThresh * 1.0 / m_recoveryFlightSize) - m_prrOut;
+  }
   else
+  {
+    int limit = static_cast<int>(tcb->m_ssThresh - tcb->m_bytesInFlight);
+    if (m_reductionBoundMode == CRB)
     {
-      int limit = static_cast<int> (tcb->m_ssThresh - tcb->m_bytesInFlight);
-      if (m_reductionBoundMode == CRB)
-        {
-          limit = m_prrDelivered - m_prrOut;
-        }
-      else if (m_reductionBoundMode == SSRB)
-        {
-          limit = std::max (m_prrDelivered - m_prrOut, lastDeliveredBytes) + tcb->m_segmentSize;
-        }
-      sendCount = std::min (limit, static_cast<int> (tcb->m_ssThresh - tcb->m_bytesInFlight));
+      limit = m_prrDelivered - m_prrOut;
     }
+    else if (m_reductionBoundMode == SSRB)
+    {
+      limit = std::max(m_prrDelivered - m_prrOut, lastDeliveredBytes) + tcb->m_segmentSize;
+    }
+    sendCount = std::min(limit, static_cast<int>(tcb->m_ssThresh - tcb->m_bytesInFlight));
+  }
 
   /* Force a fast retransmit upon entering fast recovery */
-  sendCount = std::max (sendCount, static_cast<int> (m_prrOut > 0 ? 0 : tcb->m_segmentSize));
+  sendCount = std::max(sendCount, static_cast<int>(m_prrOut > 0 ? 0 : tcb->m_segmentSize));
   tcb->m_cWnd = tcb->m_bytesInFlight + sendCount;
   tcb->m_cWndInfl = tcb->m_cWnd;
 }
 
-void
-TcpPrrRecovery::ExitRecovery (Ptr<TcpSocketState> tcb)
+void TcpPrrRecovery::ExitRecovery(Ptr<TcpSocketState> tcb)
 {
-  NS_LOG_FUNCTION (this << tcb);
-  tcb->m_cWnd = tcb->m_ssThresh.Get ();
+  NS_LOG_FUNCTION(this << tcb);
+  tcb->m_cWnd = tcb->m_ssThresh.Get();
   tcb->m_cWndInfl = tcb->m_cWnd;
 }
 
-void
-TcpPrrRecovery::UpdateBytesSent (uint32_t bytesSent)
+void TcpPrrRecovery::UpdateBytesSent(uint32_t bytesSent)
 {
-  NS_LOG_FUNCTION (this << bytesSent);
+  NS_LOG_FUNCTION(this << bytesSent);
   m_prrOut += bytesSent;
 }
 
 Ptr<TcpRecoveryOps>
-TcpPrrRecovery::Fork (void)
+TcpPrrRecovery::Fork(void)
 {
-  return CopyObject<TcpPrrRecovery> (this);
+  return CopyObject<TcpPrrRecovery>(this);
 }
 
 std::string
-TcpPrrRecovery::GetName () const
+TcpPrrRecovery::GetName() const
 {
   return "PrrRecovery";
 }

@@ -24,7 +24,8 @@
 #include "ns3/mac48-address.h"
 #include "ns3/event-id.h"
 
-namespace ns3 {
+namespace ns3
+{
 /**
  * \brief Maintains information for a block ack agreement.
  * \ingroup wifi
@@ -34,7 +35,6 @@ class BlockAckAgreement
   /// Provide access to MacLow class
   friend class MacLow;
 
-
 public:
   /**
    * Constructor for BlockAckAgreement with given peer and TID.
@@ -42,122 +42,121 @@ public:
    * \param peer
    * \param tid
    */
-  BlockAckAgreement (Mac48Address peer, uint8_t tid);
-  ~BlockAckAgreement ();
+  BlockAckAgreement(Mac48Address peer, uint8_t tid);
+  ~BlockAckAgreement();
   /**
    * Set buffer size.
    *
    * \param bufferSize
    */
-  void SetBufferSize (uint16_t bufferSize);
+  void SetBufferSize(uint16_t bufferSize);
   /**
    * Set timeout.
    *
    * \param timeout
    */
-  void SetTimeout (uint16_t timeout);
+  void SetTimeout(uint16_t timeout);
   /**
    * Set starting sequence number.
    *
    * \param seq the starting sequence number
    */
-  void SetStartingSequence (uint16_t seq);
+  void SetStartingSequence(uint16_t seq);
   /**
    * Set starting sequence control.
    *
    * \param seq the starting sequence control
    */
-  void SetStartingSequenceControl (uint16_t seq);
+  void SetStartingSequenceControl(uint16_t seq);
   /**
    * Set Block ACK policy to immediate ACK.
    */
-  void SetImmediateBlockAck (void);
+  void SetImmediateBlockAck(void);
   /**
    * Set Block ACK policy to delayed ACK.
    */
-  void SetDelayedBlockAck (void);
+  void SetDelayedBlockAck(void);
   /**
    * Enable or disable A-MSDU support.
    *
    * \param supported enable or disable A-MSDU support
    */
-  void SetAmsduSupport (bool supported);
+  void SetAmsduSupport(bool supported);
   /**
    * Set ending sequence number.
    *
    * \param seq the ending sequence number
    */
-  void SetWinEnd (uint16_t seq);
+  void SetWinEnd(uint16_t seq);
   /**
    * Return the Traffic ID (TID).
    *
    * \return TID
    */
-  uint8_t GetTid (void) const;
+  uint8_t GetTid(void) const;
   /**
    * Return the peer address.
    *
    * \return Mac48Address
    */
-  Mac48Address GetPeer (void) const;
+  Mac48Address GetPeer(void) const;
   /**
    * Return the buffer size.
    *
    * \return buffer size
    */
-  uint16_t GetBufferSize (void) const;
+  uint16_t GetBufferSize(void) const;
   /**
    * Return the timeout.
    *
    * \return timeout
    */
-  uint16_t GetTimeout (void) const;
+  uint16_t GetTimeout(void) const;
   /**
    * Return the starting squence number.
    *
    * \return starting sequence number
    */
-  uint16_t GetStartingSequence (void) const;
+  uint16_t GetStartingSequence(void) const;
   /**
    * Return the starting sequence control
    *
    * \return starting sequence control
    */
-  uint16_t GetStartingSequenceControl (void) const;
+  uint16_t GetStartingSequenceControl(void) const;
   /**
    * Return the ending sequence number
    *
    * \return ending sequence number
    */
-  uint16_t GetWinEnd (void) const;
+  uint16_t GetWinEnd(void) const;
   /**
    * Check whether the current ACK policy is immediate block ACK.
    *
    * \return true if the current ACK policy is immediate block ACK,
    *         false otherwise
    */
-  bool IsImmediateBlockAck (void) const;
+  bool IsImmediateBlockAck(void) const;
   /**
    * Check whether A-MSDU is supported
    *
    * \return true if A-MSDU is supported,
    *         false otherwise
    */
-  bool IsAmsduSupported (void) const;
+  bool IsAmsduSupported(void) const;
   /**
    * Enable or disable HT support.
    *
    * \param htSupported enable or disable HT support
    */
-  void SetHtSupported (bool htSupported);
+  void SetHtSupported(bool htSupported);
   /**
    * Check whether HT is supported
    *
    * \return true if HT is supported,
    *         false otherwise
    */
-  bool IsHtSupported (void) const;
-
+  bool IsHtSupported(void) const;
 
 protected:
   Mac48Address m_peer;       //!< Peer address

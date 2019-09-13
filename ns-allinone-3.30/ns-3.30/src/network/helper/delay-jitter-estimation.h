@@ -23,7 +23,8 @@
 #include "ns3/nstime.h"
 #include "ns3/packet.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup stats
@@ -34,7 +35,7 @@ namespace ns3 {
 class DelayJitterEstimation
 {
 public:
-  DelayJitterEstimation ();
+  DelayJitterEstimation();
 
   /**
    * \param packet the packet to send over a wire
@@ -46,7 +47,7 @@ public:
    * that it does not use any network resources and is not
    * taken into account in transmission delay calculations.
    */
-  static void PrepareTx (Ptr<const Packet> packet);
+  static void PrepareTx(Ptr<const Packet> packet);
   /**
    * \param packet the packet received
    *
@@ -54,19 +55,19 @@ public:
    * After a call to this method, \ref GetLastDelay and \ref GetLastJitter
    * will return an updated delay and jitter.
    */
-  void RecordRx (Ptr<const Packet> packet);
+  void RecordRx(Ptr<const Packet> packet);
 
   /**
    * \returns the updated delay.
    */
-  Time GetLastDelay (void) const;
+  Time GetLastDelay(void) const;
   /**
    * The jitter is calculated using the \RFC{1889} (RTP) jitter
    * definition.
    *
    * \returns the updated jitter.
    */
-  uint64_t GetLastJitter (void) const;
+  uint64_t GetLastJitter(void) const;
 
 private:
   Time m_previousRx;   //!< Previous Rx time

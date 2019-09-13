@@ -38,7 +38,8 @@
  * one of the nsc_errno numbers below, etc.
  *
  */
-enum nsc_errno {
+enum nsc_errno
+{
   NSC_EUNKNOWN = -1,
   NSC_EADDRINUSE = -10,
   NSC_EADDRNOTAVAIL = -11,
@@ -53,7 +54,7 @@ enum nsc_errno {
   NSC_EMSGSIZE = -70,
   NSC_ENETUNREACH = -82,
   NSC_ENOTCONN = -86,
-  NSC_ENOTDIR = -87,        // used by sysctl(2)
+  NSC_ENOTDIR = -87, // used by sysctl(2)
   NSC_ESHUTDOWN = -130,
   NSC_ETIMEDOUT = -140,
 };

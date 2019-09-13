@@ -23,7 +23,8 @@
 
 #include "obss-pd-algorithm.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \brief Constant OBSS PD algorithm
@@ -42,23 +43,23 @@ namespace ns3 {
 class ConstantObssPdAlgorithm : public ObssPdAlgorithm
 {
 public:
-  ConstantObssPdAlgorithm ();
+  ConstantObssPdAlgorithm();
 
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
   /**
    * Connect the WifiNetDevice and setup eventual callbacks.
    *
    * \param device the WifiNetDevice
    */
-  void ConnectWifiNetDevice (const Ptr<WifiNetDevice> device);
+  void ConnectWifiNetDevice(const Ptr<WifiNetDevice> device);
 
   /**
    * \param params the HE SIG parameters
    *
    * Evaluate the receipt of HE SIG.
    */
-  void ReceiveHeSig (HePreambleParameters params);
+  void ReceiveHeSig(HePreambleParameters params);
 };
 
 } //namespace ns3

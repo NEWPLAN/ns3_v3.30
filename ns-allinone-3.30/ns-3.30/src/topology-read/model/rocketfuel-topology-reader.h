@@ -23,8 +23,8 @@
 
 #include "topology-reader.h"
 
-namespace ns3 {
-
+namespace ns3
+{
 
 // ------------------------------------------------------------
 // --------------------------------------------
@@ -46,10 +46,10 @@ public:
    * \brief Get the type ID.
    * \return The object TypeId
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
-  RocketfuelTopologyReader ();
-  virtual ~RocketfuelTopologyReader ();
+  RocketfuelTopologyReader();
+  virtual ~RocketfuelTopologyReader();
 
   /**
    * \brief Main topology reading function.
@@ -61,7 +61,7 @@ public:
    *
    * \return The container of the nodes created (or empty container if there was an error)
    */
-  virtual NodeContainer Read (void);
+  virtual NodeContainer Read(void);
 
 private:
   /**
@@ -74,7 +74,7 @@ private:
    * \param [in] argv Argument vector.
    * \return The container of the nodes created (or empty container if there was an error).
    */
-  NodeContainer GenerateFromMapsFile (int argc, char *argv[]);
+  NodeContainer GenerateFromMapsFile(int argc, char *argv[]);
 
   /**
    * \brief Topology read function from a file containing the nodes weights.
@@ -86,7 +86,7 @@ private:
    * \param [in] argv Argument vector.
    * \return The container of the nodes created (or empty container if there was an error).
    */
-  NodeContainer GenerateFromWeightsFile (int argc, char *argv[]);
+  NodeContainer GenerateFromWeightsFile(int argc, char *argv[]);
 
   /**
    * \brief Enum of the possible file types.
@@ -98,17 +98,16 @@ private:
     RF_UNKNOWN
   };
 
-
   /**
    * \brief Classifies the file type according to its content.
    *
    * \return The file type (RF_MAPS, RF_WEIGHTS, or RF_UNKNOWN)
    */
-  enum RF_FileType GetFileType (const char *);
+  enum RF_FileType GetFileType(const char *);
 
-  int m_linksNumber; //!< Number of links.
-  int m_nodesNumber; //!< Number of nodes.
-  std::map<std::string, Ptr<Node> > m_nodeMap; //!< Map of the nodes (name, node).
+  int m_linksNumber;                          //!< Number of links.
+  int m_nodesNumber;                          //!< Number of nodes.
+  std::map<std::string, Ptr<Node>> m_nodeMap; //!< Map of the nodes (name, node).
 
 private:
   /**
@@ -116,23 +115,19 @@ private:
    *
    * Defined and unimplemented to avoid misuse.
    */
-  RocketfuelTopologyReader (const RocketfuelTopologyReader&);
+  RocketfuelTopologyReader(const RocketfuelTopologyReader &);
   /**
    * \brief Copy constructor
    *
    * Defined and unimplemented to avoid misuse.
    * \returns
    */
-  RocketfuelTopologyReader& operator= (const RocketfuelTopologyReader&);
-
+  RocketfuelTopologyReader &operator=(const RocketfuelTopologyReader &);
 
   // end class RocketfuelTopologyReader
 };
 
 // end namespace ns3
-};
-
+}; // namespace ns3
 
 #endif /* ROCKETFUEL_TOPOLOGY_READER_H */
-
-

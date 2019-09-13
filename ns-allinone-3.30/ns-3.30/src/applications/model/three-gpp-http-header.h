@@ -25,8 +25,8 @@
 #include <ns3/header.h>
 #include <ns3/nstime.h>
 
-
-namespace ns3 {
+namespace ns3
+{
 
 class Packet;
 
@@ -56,75 +56,75 @@ class ThreeGppHttpHeader : public Header
 {
 public:
   /// Creates an empty instance	.
-  ThreeGppHttpHeader ();
+  ThreeGppHttpHeader();
 
   /**
    * Returns the object TypeId.
    * \return The object TypeId.
    */
-  static TypeId GetTypeId ();
+  static TypeId GetTypeId();
 
   // Inherited from ObjectBase base class.
-  virtual TypeId GetInstanceTypeId () const;
+  virtual TypeId GetInstanceTypeId() const;
 
   // Inherited from Header base class.
-  virtual uint32_t GetSerializedSize () const;
-  virtual void Serialize (Buffer::Iterator start) const;
-  virtual uint32_t Deserialize (Buffer::Iterator start);
-  virtual void Print (std::ostream &os) const;
+  virtual uint32_t GetSerializedSize() const;
+  virtual void Serialize(Buffer::Iterator start) const;
+  virtual uint32_t Deserialize(Buffer::Iterator start);
+  virtual void Print(std::ostream &os) const;
 
   /**
    * \return The string representation of the header.
    */
-  std::string ToString () const;
+  std::string ToString() const;
 
   /// The possible types of content (default = NOT_SET).
   enum ContentType_t
   {
-    NOT_SET,         ///< Integer equivalent = 0.
-    MAIN_OBJECT,     ///< Integer equivalent = 1.
-    EMBEDDED_OBJECT  ///< Integer equivalent = 2.
+    NOT_SET,        ///< Integer equivalent = 0.
+    MAIN_OBJECT,    ///< Integer equivalent = 1.
+    EMBEDDED_OBJECT ///< Integer equivalent = 2.
   };
 
   /**
    * \param contentType The content type.
    */
-  void SetContentType (ContentType_t contentType);
+  void SetContentType(ContentType_t contentType);
 
   /**
    * \return The content type.
    */
-  ContentType_t GetContentType () const;
+  ContentType_t GetContentType() const;
 
   /**
    * \param contentLength The content length (in bytes).
    */
-  void SetContentLength (uint32_t contentLength);
+  void SetContentLength(uint32_t contentLength);
 
   /**
    * \return The content length (in bytes).
    */
-  uint32_t GetContentLength () const;
+  uint32_t GetContentLength() const;
 
   /**
    * \param clientTs The client time stamp.
    */
-  void SetClientTs (Time clientTs);
+  void SetClientTs(Time clientTs);
 
   /**
    * \return The client time stamp.
    */
-  Time GetClientTs () const;
+  Time GetClientTs() const;
 
   /**
    * \param serverTs The server time stamp.
    */
-  void SetServerTs (Time serverTs);
+  void SetServerTs(Time serverTs);
 
   /**
    * \return The server time stamp.
    */
-  Time GetServerTs () const;
+  Time GetServerTs() const;
 
 private:
   uint16_t m_contentType;   //!<" Content type field in integer format.
@@ -134,8 +134,6 @@ private:
 
 }; // end of `class ThreeGppHttpHeader`
 
-
-} // end of `namespace ns3`
-
+} // namespace ns3
 
 #endif /* THREE_GPP_HTTP_HEADER_H */

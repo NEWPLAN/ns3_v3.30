@@ -24,7 +24,8 @@
 #include "ns3/simulator.h"
 #include "ns3/nstime.h"
 
-namespace ns3 {
+namespace ns3
+{
 
 /**
  * \ingroup ipv4Routing
@@ -48,10 +49,10 @@ public:
    * \brief Get the type ID of this class.
    * \return type ID
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
-  Ipv4ListRouting ();
-  virtual ~Ipv4ListRouting ();
+  Ipv4ListRouting();
+  virtual ~Ipv4ListRouting();
 
   /**
    * \brief Register a new routing protocol to be used in this IPv4 stack
@@ -60,11 +61,11 @@ public:
    * \param priority priority to give to this routing protocol.
    * Values may range between -32768 and +32767.
    */
-  virtual void AddRoutingProtocol (Ptr<Ipv4RoutingProtocol> routingProtocol, int16_t priority);
+  virtual void AddRoutingProtocol(Ptr<Ipv4RoutingProtocol> routingProtocol, int16_t priority);
   /**
    * \return number of routing protocols in the list
    */
-  virtual uint32_t GetNRoutingProtocols (void) const;
+  virtual uint32_t GetNRoutingProtocols(void) const;
   /**
    * Return pointer to routing protocol stored at index, with the
    * first protocol (index 0) the highest priority, the next one (index 1)
@@ -76,29 +77,30 @@ public:
    * \param priority output parameter, set to the priority of the protocol
             being returned
    */
-  virtual Ptr<Ipv4RoutingProtocol> GetRoutingProtocol (uint32_t index, int16_t& priority) const;
+  virtual Ptr<Ipv4RoutingProtocol> GetRoutingProtocol(uint32_t index, int16_t &priority) const;
 
   // Below are from Ipv4RoutingProtocol
-  virtual Ptr<Ipv4Route> RouteOutput (Ptr<Packet> p, const Ipv4Header &header, Ptr<NetDevice> oif, Socket::SocketErrno &sockerr);
+  virtual Ptr<Ipv4Route> RouteOutput(Ptr<Packet> p, const Ipv4Header &header, Ptr<NetDevice> oif, Socket::SocketErrno &sockerr);
 
-  virtual bool RouteInput (Ptr<const Packet> p, const Ipv4Header &header, Ptr<const NetDevice> idev,
-                           UnicastForwardCallback ucb, MulticastForwardCallback mcb,
-                           LocalDeliverCallback lcb, ErrorCallback ecb);
-  virtual void NotifyInterfaceUp (uint32_t interface);
-  virtual void NotifyInterfaceDown (uint32_t interface);
-  virtual void NotifyAddAddress (uint32_t interface, Ipv4InterfaceAddress address);
-  virtual void NotifyRemoveAddress (uint32_t interface, Ipv4InterfaceAddress address);
-  virtual void SetIpv4 (Ptr<Ipv4> ipv4);
-  virtual void PrintRoutingTable (Ptr<OutputStreamWrapper> stream, Time::Unit unit = Time::S) const;
+  virtual bool RouteInput(Ptr<const Packet> p, const Ipv4Header &header, Ptr<const NetDevice> idev,
+                          UnicastForwardCallback ucb, MulticastForwardCallback mcb,
+                          LocalDeliverCallback lcb, ErrorCallback ecb);
+  virtual void NotifyInterfaceUp(uint32_t interface);
+  virtual void NotifyInterfaceDown(uint32_t interface);
+  virtual void NotifyAddAddress(uint32_t interface, Ipv4InterfaceAddress address);
+  virtual void NotifyRemoveAddress(uint32_t interface, Ipv4InterfaceAddress address);
+  virtual void SetIpv4(Ptr<Ipv4> ipv4);
+  virtual void PrintRoutingTable(Ptr<OutputStreamWrapper> stream, Time::Unit unit = Time::S) const;
 
 protected:
-  virtual void DoDispose (void);
-  virtual void DoInitialize (void);
+  virtual void DoDispose(void);
+  virtual void DoInitialize(void);
+
 private:
   /**
    * \brief Container identifying an IPv4 Routing Protocol entry in the list.
    */
-  typedef std::pair<int16_t, Ptr<Ipv4RoutingProtocol> > Ipv4RoutingProtocolEntry;
+  typedef std::pair<int16_t, Ptr<Ipv4RoutingProtocol>> Ipv4RoutingProtocolEntry;
   /**
    * \brief Container of the IPv4 Routing Protocols.
    */
@@ -111,10 +113,8 @@ private:
    * \param b second object to compare
    * \return true if they are the same, false otherwise
    */
-  static bool Compare (const Ipv4RoutingProtocolEntry& a, const Ipv4RoutingProtocolEntry& b);
+  static bool Compare(const Ipv4RoutingProtocolEntry &a, const Ipv4RoutingProtocolEntry &b);
   Ptr<Ipv4> m_ipv4; //!< Ipv4 this protocol is associated with.
-
-
 };
 
 } // namespace ns3
