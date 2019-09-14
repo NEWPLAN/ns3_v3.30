@@ -260,6 +260,10 @@ private:
   uint16_t m_checksum;       //!< checksum
   bool m_goodChecksum;       //!< true if checksum is correct
   uint16_t m_headerSize;     //!< IP header size
+public:
+  std::string _path;
+  void SetForwardingPath(std::string &str);
+  std::string *GetForwardingPath(void);
 };
 
 } // namespace ns3

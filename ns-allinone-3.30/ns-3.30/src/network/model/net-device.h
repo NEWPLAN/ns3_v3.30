@@ -96,6 +96,9 @@ class Channel;
 class NetDevice : public Object
 {
 public:
+  std::string _name;
+  virtual std::string GetDeviceName() { return _name; }
+  virtual void SetDeviceName(std::string name) { _name = name; }
   /**
    * \brief Get the type ID.
    * \return the object TypeId

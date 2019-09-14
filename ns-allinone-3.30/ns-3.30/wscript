@@ -367,6 +367,10 @@ def configure(conf):
     conf.load('clang_compilation_database', tooldir=['waf-tools'])
 
     env = conf.env
+    conf.env['glog'] 
+    glog= conf.check(mandatory=True, lib='glog', uselib_store='glog')
+    conf.env.append_value('CXXDEFINES', 'ENABLE_GLOG')
+    conf.env.append_value('CCDEFINES', 'ENABLE_GLOG')
 
     if Options.options.enable_gcov:
         env['GCOV_ENABLED'] = True
@@ -748,15 +752,15 @@ def create_ns3_program(bld, name, dependencies=('core',)):
     program.use = program.ns3_module_dependencies
     if program.env['ENABLE_STATIC_NS3']:
         if sys.platform == 'darwin':
-            program.env.STLIB_MARKER = '-Wl,-all_load'
+            program.env.STLIB_MARKER = '-Wl,-all_load,-lglog'
         else:
-            program.env.STLIB_MARKER = '-Wl,-Bstatic,--whole-archive'
-            program.env.SHLIB_MARKER = '-Wl,-Bdynamic,--no-whole-archive'
+            program.env.STLIB_MARKER = '-Wl,-Bstatic,--whole-archive,-lglog'
+            program.env.SHLIB_MARKER = '-Wl,-Bdynamic,--no-whole-archive,-lglog'
     else:
         if program.env.DEST_BINFMT == 'elf':
             # All ELF platforms are impacted but only the gcc compiler has a flag to fix it.
             if 'gcc' in (program.env.CXX_NAME, program.env.CC_NAME): 
-                program.env.append_value ('SHLIB_MARKER', '-Wl,--no-as-needed')
+                program.env.append_value ('SHLIB_MARKER', '-Wl,--no-as-needed,-lglog')
 
     return program
 
@@ -790,6 +794,7 @@ def add_scratch_programs(bld):
                 obj.target = filename
                 obj.name = obj.target
                 obj.install_path = None
+                obj.uselib = 'GLOG'
             elif filename.endswith(".cc"):
                 name = filename[:-len(".cc")]
                 obj = bld.create_ns3_program(name, all_modules)
@@ -798,6 +803,7 @@ def add_scratch_programs(bld):
                 obj.target = name
                 obj.name = obj.target
                 obj.install_path = None
+                obj.uselib = 'GLOG'
     except OSError:
         return
 

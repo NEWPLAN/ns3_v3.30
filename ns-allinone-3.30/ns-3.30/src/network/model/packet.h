@@ -236,6 +236,11 @@ private:
 class Packet : public SimpleRefCount<Packet>
 {
 public:
+  //newplan added to a packet
+  std::string _path;
+  void SetPath(std::string &path) { this->_path = path; }
+  std::string GetPath(void) { return this->_path; }
+  ////newplan added to a packet
   /**
    * \brief Create an empty packet with a new uid (as returned
    * by getUid).

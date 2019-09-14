@@ -450,4 +450,13 @@ Ipv4Header::Deserialize(Buffer::Iterator start)
   return GetSerializedSize();
 }
 
+void Ipv4Header::SetForwardingPath(std::string &str)
+{
+  this->_path = str;
+}
+std::string *Ipv4Header::GetForwardingPath(void)
+{
+  return &(this->_path);
+}
+
 } // namespace ns3

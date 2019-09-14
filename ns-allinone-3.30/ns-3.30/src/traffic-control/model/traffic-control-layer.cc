@@ -26,6 +26,8 @@
 #include "ns3/queue-disc.h"
 #include <tuple>
 
+#include "glog/logging.h"
+
 namespace ns3
 {
 
@@ -78,6 +80,8 @@ void TrafficControlLayer::DoInitialize(void)
 {
   NS_LOG_FUNCTION(this);
 
+  LOG(INFO) << "<<<<TrafficControlLayer::DoInitialize NEWPLAN>>>>>";
+
   ScanDevices();
 
   // initialize the root queue discs
@@ -111,6 +115,7 @@ void TrafficControlLayer::RegisterProtocolHandler(Node::ProtocolHandler handler,
 void TrafficControlLayer::ScanDevices(void)
 {
   NS_LOG_FUNCTION(this);
+  LOG(INFO) << "Scan Devices" << std::endl;
 
   NS_ASSERT_MSG(m_node, "Cannot run ScanDevices without an aggregated node");
 
@@ -319,12 +324,25 @@ void TrafficControlLayer::Send(Ptr<NetDevice> device, Ptr<QueueDiscItem> item)
   NS_LOG_FUNCTION(this << device << item);
 
   NS_LOG_DEBUG("Send packet to device " << device << " protocol number " << item->GetProtocol());
+  LOG(INFO) << "Send packet to device " << device << " protocol number " << item->GetProtocol();
 
   Ptr<NetDeviceQueueInterface> devQueueIface;
   std::map<Ptr<NetDevice>, NetDeviceInfo>::iterator ndi = m_netDevices.find(device);
 
   if (ndi != m_netDevices.end())
   {
+    if (ndi->second.m_ndqi == 0)
+    { //rescan device and send to qdisc...
+      ScanDevices();
+      // initialize the root queue discs
+      for (auto &ndi : m_netDevices)
+      {
+        if (ndi.second.m_rootQueueDisc)
+        {
+          ndi.second.m_rootQueueDisc->Initialize();
+        }
+      }
+    }
     devQueueIface = ndi->second.m_ndqi;
   }
 
@@ -341,7 +359,9 @@ void TrafficControlLayer::Send(Ptr<NetDevice> device, Ptr<QueueDiscItem> item)
     // devices provide a select queue callback
   }
 
-  NS_ASSERT(!devQueueIface || txq < devQueueIface->GetNTxQueues());
+  LOG(INFO) << "devQueueIface: " << devQueueIface << ", " << !devQueueIface;
+
+  NS_ASSERT((!devQueueIface) || (txq < devQueueIface->GetNTxQueues()));
 
   if (ndi == m_netDevices.end() || ndi->second.m_rootQueueDisc == 0)
   {
@@ -364,6 +384,10 @@ void TrafficControlLayer::Send(Ptr<NetDevice> device, Ptr<QueueDiscItem> item)
     // Enqueue the packet in the queue disc associated with the netdevice queue
     // selected for the packet and try to dequeue packets from such queue disc
     item->SetTxQueueIndex(txq);
+
+    LOG(INFO) << "m_queueDiscsToWake.size = " << ndi->second.m_queueDiscsToWake.size();
+
+    NS_ASSERT(ndi->second.m_queueDiscsToWake.size() > txq);
 
     Ptr<QueueDisc> qDisc = ndi->second.m_queueDiscsToWake[txq];
     NS_ASSERT(qDisc);

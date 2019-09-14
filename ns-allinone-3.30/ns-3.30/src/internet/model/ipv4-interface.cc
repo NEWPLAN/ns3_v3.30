@@ -31,6 +31,8 @@
 #include "ns3/pointer.h"
 #include "ns3/traffic-control-layer.h"
 
+#include <glog/logging.h>
+
 namespace ns3
 {
 
@@ -104,6 +106,7 @@ void Ipv4Interface::SetTrafficControl(Ptr<TrafficControlLayer> tc)
 {
   NS_LOG_FUNCTION(this << tc);
   m_tc = tc;
+  LOG(INFO) << "-----SetUP: TrafficControl";
 }
 
 void Ipv4Interface::DoSetup(void)
