@@ -87,7 +87,7 @@ void buildHost(NodeContainer &hosts)
   {
     NodeContainer ctmp = NodeContainer(hosts.Get(from[node_index]), hosts.Get(to[node_index]));
     PointToPointHelper p2p;
-    p2p.SetDeviceAttribute("DataRate", StringValue("50Mbps"));
+    p2p.SetDeviceAttribute("DataRate", StringValue("10Mbps"));
     p2p.SetChannelAttribute("Delay", StringValue("1ms"));
     NetDeviceContainer devtemp = p2p.Install(ctmp);
     std::string ipaddr = "10.10.";
@@ -131,10 +131,10 @@ void buildApps(void)
   Ptr<Socket> client = buildClient();
 
   Simulator::Schedule(Seconds(1), &send, client);
-  Simulator::Schedule(Seconds(3), &send, client);
-  Simulator::Schedule(Seconds(5), &send, client);
-  Simulator::Schedule(Seconds(7), &send, client);
-  Simulator::Schedule(Seconds(9), &send, client);
+  //Simulator::Schedule(Seconds(3), &send, client);
+  //Simulator::Schedule(Seconds(5), &send, client);
+  //Simulator::Schedule(Seconds(7), &send, client);
+  //Simulator::Schedule(Seconds(9), &send, client);
 }
 
 void enableRoutingSystem(void)
@@ -148,7 +148,6 @@ void enableRoutingSystem(void)
 int main(int argc, char *argv[])
 {
   LogComponentEnable("ABIExample", LOG_LEVEL_ALL);
-
   LogComponentEnable("APPEXAMPLE", LOG_LEVEL_ALL);
   // The below value configures the default behavior of global routing.
   // By default, it is disabled.  To respond to interface events, set to true
@@ -158,6 +157,7 @@ int main(int argc, char *argv[])
   // Bind ()s at run-time, via command-line arguments
   CommandLine cmd;
   cmd.Parse(argc, argv);
+  Config::SetDefault("ns3::TcpSocket::SegmentSize", UintegerValue(1448));
 
   NodeContainer cc = buildTopo();
   LOG(INFO) << cc.GetN();
@@ -167,7 +167,7 @@ int main(int argc, char *argv[])
   enableRoutingSystem();
   buildApps();
 
-  Simulator::Stop(Seconds(20));
+  Simulator::Stop(Seconds(10));
 
   // Trace routing tables
   Ipv4GlobalRoutingHelper g;

@@ -80,7 +80,7 @@ void TrafficControlLayer::DoInitialize(void)
 {
   NS_LOG_FUNCTION(this);
 
-  LOG(INFO) << "<<<<TrafficControlLayer::DoInitialize NEWPLAN>>>>>";
+  //LOG(INFO) << "<<<<TrafficControlLayer::DoInitialize NEWPLAN>>>>>";
 
   ScanDevices();
 
@@ -115,7 +115,7 @@ void TrafficControlLayer::RegisterProtocolHandler(Node::ProtocolHandler handler,
 void TrafficControlLayer::ScanDevices(void)
 {
   NS_LOG_FUNCTION(this);
-  LOG(INFO) << "Scan Devices" << std::endl;
+  //LOG(INFO) << "Scan Devices" << std::endl;
 
   NS_ASSERT_MSG(m_node, "Cannot run ScanDevices without an aggregated node");
 
@@ -324,7 +324,7 @@ void TrafficControlLayer::Send(Ptr<NetDevice> device, Ptr<QueueDiscItem> item)
   NS_LOG_FUNCTION(this << device << item);
 
   NS_LOG_DEBUG("Send packet to device " << device << " protocol number " << item->GetProtocol());
-  LOG(INFO) << "Send packet to device " << device << " protocol number " << item->GetProtocol();
+  // << "Send packet to device " << device << " protocol number " << item->GetProtocol();
 
   Ptr<NetDeviceQueueInterface> devQueueIface;
   std::map<Ptr<NetDevice>, NetDeviceInfo>::iterator ndi = m_netDevices.find(device);
@@ -359,7 +359,7 @@ void TrafficControlLayer::Send(Ptr<NetDevice> device, Ptr<QueueDiscItem> item)
     // devices provide a select queue callback
   }
 
-  LOG(INFO) << "devQueueIface: " << devQueueIface << ", " << !devQueueIface;
+  //LOG(INFO) << "devQueueIface: " << devQueueIface << ", " << !devQueueIface;
 
   NS_ASSERT((!devQueueIface) || (txq < devQueueIface->GetNTxQueues()));
 
@@ -385,7 +385,7 @@ void TrafficControlLayer::Send(Ptr<NetDevice> device, Ptr<QueueDiscItem> item)
     // selected for the packet and try to dequeue packets from such queue disc
     item->SetTxQueueIndex(txq);
 
-    LOG(INFO) << "m_queueDiscsToWake.size = " << ndi->second.m_queueDiscsToWake.size();
+    //LOG(INFO) << "m_queueDiscsToWake.size = " << ndi->second.m_queueDiscsToWake.size();
 
     NS_ASSERT(ndi->second.m_queueDiscsToWake.size() > txq);
 

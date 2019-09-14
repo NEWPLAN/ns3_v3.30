@@ -705,7 +705,7 @@ void Ipv4L3Protocol::Send(Ptr<Packet> packet,
 {
   NS_LOG_FUNCTION(this << packet << source << destination << uint32_t(protocol) << route);
 
-  LOG(INFO) << "Packet: " << source << ", " << destination << ", " << uint32_t(protocol) << "," << route;
+  //LOG(INFO) << "Packet: " << source << ", " << destination << ", " << uint32_t(protocol) << "," << route;
 
   Ipv4Header ipHeader;
   bool mayFragment = true;
@@ -894,7 +894,7 @@ void Ipv4L3Protocol::SendRealOut(Ptr<Ipv4Route> route,
                                  Ipv4Header const &ipHeader)
 {
   NS_LOG_FUNCTION(this << route << packet << &ipHeader);
-  LOG(INFO) << "Send packet: " << ipHeader << ", by " << route->GetOutputDevice()->GetDeviceName();
+  //LOG(INFO) << "Send packet: " << ipHeader << ", by " << route->GetOutputDevice()->GetDeviceName();
   if (route == 0)
   {
     NS_LOG_WARN("No route to host.  Drop.");

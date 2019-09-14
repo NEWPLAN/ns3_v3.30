@@ -618,7 +618,7 @@ int TcpSocketBase::Connect(const Address &address)
 {
   NS_LOG_FUNCTION(this << address);
 
-  LOG(INFO) << this << address << std::endl;
+  //LOG(INFO) << this << address << std::endl;
 
   // If haven't do so, Bind() this socket first
   if (InetSocketAddress::IsMatchingType(address))
@@ -637,7 +637,7 @@ int TcpSocketBase::Connect(const Address &address)
     SetIpTos(transport.GetTos());
     m_endPoint6 = nullptr;
 
-    LOG(INFO) << "Address: " << transport.GetIpv4() << ", port: " << transport.GetPort();
+    //LOG(INFO) << "Address: " << transport.GetIpv4() << ", port: " << transport.GetPort();
 
     // Get the appropriate local address and port number from the routing protocol and set up endpoint
     if (SetupEndpoint() != 0)
@@ -2469,7 +2469,7 @@ void TcpSocketBase::SendEmptyPacket(uint8_t flags)
 
   if (m_endPoint != nullptr)
   {
-    LOG(INFO) << m_endPoint->GetLocalAddress() << "-->" << m_endPoint->GetPeerAddress();
+    //LOG(INFO) << m_endPoint->GetLocalAddress() << "-->" << m_endPoint->GetPeerAddress();
     m_tcp->SendPacket(p, header, m_endPoint->GetLocalAddress(),
                       m_endPoint->GetPeerAddress(), m_boundnetdevice);
   }

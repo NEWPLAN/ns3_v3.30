@@ -537,7 +537,7 @@ void TcpL4Protocol::SendPacketV4(Ptr<Packet> packet, const TcpHeader &outgoing,
                                  Ptr<NetDevice> oif) const
 {
   NS_LOG_FUNCTION(this << packet << saddr << daddr << oif);
-  LOG(INFO) << this << ",packet: " << packet << ",saddr: " << saddr << ",daddr: " << daddr << ",oif: " << oif;
+  //LOG(INFO) << this << ",packet: " << packet << ",saddr: " << saddr << ",daddr: " << daddr << ",oif: " << oif;
   NS_LOG_LOGIC("TcpL4Protocol " << this
                                 << " sending seq " << outgoing.GetSequenceNumber()
                                 << " ack " << outgoing.GetAckNumber()
@@ -641,7 +641,7 @@ void TcpL4Protocol::SendPacket(Ptr<Packet> pkt, const TcpHeader &outgoing,
                                Ptr<NetDevice> oif) const
 {
   NS_LOG_FUNCTION(this << pkt << outgoing << saddr << daddr << oif);
-  LOG(INFO) << this << ", PKT: " << pkt << ", outgoing: " << outgoing << ", saddr: " << saddr << ", daddr: " << daddr << ", oif: " << oif;
+  //LOG(INFO) << this << ", PKT: " << pkt << ", outgoing: " << outgoing << ", saddr: " << saddr << ", daddr: " << daddr << ", oif: " << oif;
   if (Ipv4Address::IsMatchingType(saddr))
   {
     NS_ASSERT(Ipv4Address::IsMatchingType(daddr));

@@ -15,17 +15,19 @@
 using namespace ns3;
 using namespace std;
 
-#define DATALEN 500
+#define DATALEN 5000
 NS_LOG_COMPONENT_DEFINE("APPEXAMPLE");
 //回调函数
+uint64_t nums = 0;
 static void recvCallback(Ptr<Socket> sock)
 {
-    char databuf[DATALEN] = {0};
+    //char databuf[DATALEN] = {0};
 
     Ptr<Packet> packet = sock->Recv();
-    packet->CopyData((uint8_t *)databuf, DATALEN);
-    printf("%s\n", databuf);
-    cout << "pkt path: " << packet->GetPath() << ",size:" << packet->GetSize() << endl;
+    nums += packet->GetSize();
+    //packet->CopyData((uint8_t *)databuf, DATALEN);
+    //printf("%s\n", databuf);
+    LOG_EVERY_N(INFO, 1000) << "RECV: size:" << nums << endl;
 }
 void send(Ptr<Socket> sock)
 {
@@ -34,9 +36,15 @@ void send(Ptr<Socket> sock)
     Ptr<Packet> pkt = Create<Packet>((const uint8_t *)data, DATALEN);
     pkt->SetPath(path);
     sock->Send(pkt);
-    std::cout << "path" << std::endl;
-    NS_LOG_INFO("aaaaaaaaaaa");
-    NS_LOG_INFO(sock->GetErrno());
+    //std::cout << "path" << std::endl;
+    //NS_LOG_INFO("aaaaaaaaaaa");
+    //NS_LOG_INFO(sock->GetErrno());
+}
+
+static void sendCallback(Ptr<Socket> sock, uint32_t nums)
+{
+    LOG_EVERY_N(INFO, 1000) << nums << ", Send callback: " << Simulator::Now().GetSeconds();
+    send(sock);
 }
 
 //Socket：服务端socket，unknownddress：客户端地址
@@ -77,6 +85,7 @@ Ptr<Socket> buildClient(void)
     {
         LOG(INFO) << client->GetErrno();
     }
+    client->SetSendCallback(MakeCallback(&sendCallback));
     return client;
 }
 Ptr<Socket> buildServer(void)
