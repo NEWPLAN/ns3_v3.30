@@ -32,91 +32,10 @@
 
 #include <glog/logging.h>
 #include "App.h"
-
+#include "network.h"
 using namespace ns3;
 
 NS_LOG_COMPONENT_DEFINE("ABIExample");
-
-void checkIp(void)
-{
-  //freopen("/dev/tty", "w", stdout);
-  // LOG(INFO) << "check ip:\n";
-  for (uint32_t i = 1; i < NodeList::GetNNodes(); i++)
-  {
-    Ptr<Node> node = NodeList::GetNode(i);
-    Ptr<Ipv4L3Protocol> l3p = node->GetObject<Ipv4L3Protocol>();
-    std::cout << "Node: " << i << " DevNums: " << l3p->GetNInterfaces() - 1 << std::endl;
-    for (uint32_t j = 1; j < l3p->GetNInterfaces(); j++)
-    {
-      Ipv4Address ipAddress = l3p->GetInterface(j)->GetAddress(0).GetLocal();
-      std::cout << " Dev: " << j << " ip: " << ipAddress << "\n";
-    }
-  }
-}
-
-int abc = 1;
-
-void buildRouter(NodeContainer &routers)
-{
-  uint32_t from[] = {1, 2, 2, 2, 3, 3, 4, 4, 4, 5, 5, 6, 8, 9, 10};
-  uint32_t to[] = {2, 5, 6, 12, 6, 9, 7, 10, 11, 7, 8, 7, 10, 12, 11};
-  for (uint32_t node_index = 0; node_index < 15; node_index++)
-  {
-    NodeContainer ctmp = NodeContainer(routers.Get(from[node_index]), routers.Get(to[node_index]));
-    PointToPointHelper p2p;
-    p2p.SetDeviceAttribute("DataRate", StringValue("5Mbps"));
-    p2p.SetChannelAttribute("Delay", StringValue("2ms"));
-    NetDeviceContainer devtemp = p2p.Install(ctmp);
-    std::string ipaddr = "10.10.";
-    ipaddr += std::string(std::to_string(10 + node_index));
-    ipaddr += std::string(".0");
-    Ipv4AddressHelper ipv4;
-    ipv4.SetBase(ipaddr.c_str(), "255.255.255.0");
-    ipv4.Assign(devtemp);
-    std::string names = "scratch/data/router";
-    names += std::to_string(from[node_index]) + std::string("--") + std::to_string(to[node_index]) + std::string(".");
-    p2p.EnablePcap(names.c_str(), devtemp.Get(0), true);
-  }
-}
-
-void buildHost(NodeContainer &hosts)
-{
-  uint32_t from[] = {13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24};
-  uint32_t to[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
-  for (uint32_t node_index = 0; node_index < 12; node_index++)
-  {
-    NodeContainer ctmp = NodeContainer(hosts.Get(from[node_index]), hosts.Get(to[node_index]));
-    PointToPointHelper p2p;
-    p2p.SetDeviceAttribute("DataRate", StringValue("10Mbps"));
-    p2p.SetChannelAttribute("Delay", StringValue("1ms"));
-    NetDeviceContainer devtemp = p2p.Install(ctmp);
-    std::string ipaddr = "10.10.";
-    ipaddr += std::string(std::to_string(100 + node_index));
-    ipaddr += std::string(".0");
-    Ipv4AddressHelper ipv4;
-    ipv4.SetBase(ipaddr.c_str(), "255.255.255.0");
-    ipv4.Assign(devtemp);
-    std::string names = "scratch/data/host";
-    names += std::to_string(from[node_index]) + std::string("--") + std::to_string(to[node_index]) + std::string(".");
-    p2p.EnablePcap(names.c_str(), devtemp.Get(0), true);
-  }
-}
-
-NodeContainer buildTopo(void)
-{
-  NodeContainer allnodes;
-  allnodes.Create(12 + 1 + 12);
-  //set up ip stacks
-  InternetStackHelper internet;
-  internet.Install(allnodes);
-  //set up nodes
-  buildRouter(allnodes);
-  buildHost(allnodes);
-
-  checkIp();
-
-  return allnodes;
-}
 
 void buildApps(void)
 {
@@ -127,22 +46,32 @@ void buildApps(void)
     Ipv4Address ipAddress = l3p->GetInterface(1)->GetAddress(0).GetLocal();
     LOG(INFO) << "IP address for client: " << ipAddress;
   }
-  Ptr<Socket> server = buildServer();
-  Ptr<Socket> client = buildClient();
+  /* Ptr<Socket> server = buildServer(13, 1006);
+  Ptr<Socket> client = buildClient(23, 13, 1006);
+  Ptr<Socket> server2 = buildServer(23, 1006);
+  Ptr<Socket> client2 = buildClient(13, 23, 1006);
 
   Simulator::Schedule(Seconds(1), &send, client);
+  */
+  //Simulator::Schedule(Seconds(1.2), &send, client2);
+  for (uint16_t portnum = 100; portnum < 120; portnum++)
+  {
+    for (uint32_t sid = 13; sid < 25; sid++)
+    {
+      buildServer(sid, portnum);
+      for (uint32_t did = 13; did < 25; did++)
+      {
+        if (sid == did)
+          continue;
+        Ptr<Socket> client = buildClient(did, sid, portnum);
+        Simulator::Schedule(Seconds(1), &send, client);
+      }
+    }
+  }
   //Simulator::Schedule(Seconds(3), &send, client);
   //Simulator::Schedule(Seconds(5), &send, client);
   //Simulator::Schedule(Seconds(7), &send, client);
   //Simulator::Schedule(Seconds(9), &send, client);
-}
-
-void enableRoutingSystem(void)
-{
-  // Create router nodes, initialize routing database and set up the routing
-  // tables in the nodes.
-  Ipv4GlobalRoutingHelper::PopulateRoutingTables();
-  ns3::PacketMetadata::Enable();
 }
 
 int main(int argc, char *argv[])
@@ -164,8 +93,10 @@ int main(int argc, char *argv[])
 
   // Create router nodes, initialize routing database and set up the routing
   // tables in the nodes.
-  enableRoutingSystem();
+  //enableRoutingSystem();
   buildApps();
+
+  Simulator::Schedule(Seconds(1.2), &trackPackets, 0.1);
 
   Simulator::Stop(Seconds(10));
 

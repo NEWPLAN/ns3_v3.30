@@ -45,11 +45,11 @@ using namespace ns3;
 NS_LOG_COMPONENT_DEFINE("TcpLargeTransfer");
 
 // The number of bytes to send in this simulation.
-static const uint32_t totalTxBytes = 2000000;
+static const uint32_t totalTxBytes = 2000000 * 1000;
 static uint32_t currentTxBytes = 0;
 // Perform series of 1040 byte writes (this is a multiple of 26 since
 // we want to detect data splicing in the output stream)
-static const uint32_t writeSize = 1040;
+static const uint32_t writeSize = 1040 * 1000;
 uint8_t data[writeSize];
 
 // These are for starting the writing process, and handling the sending
@@ -63,6 +63,7 @@ void WriteUntilBufferFull(Ptr<Socket>, uint32_t);
 static void
 CwndTracer(uint32_t oldval, uint32_t newval)
 {
+    std::cout << "Moving cwnd from " << oldval << " to " << newval << std::endl;
     NS_LOG_INFO("Moving cwnd from " << oldval << " to " << newval);
 }
 
@@ -145,8 +146,7 @@ int main(int argc, char *argv[])
     // "Application".
 
     // Create and bind the socket...
-    Ptr<Socket> localSocket =
-        Socket::CreateSocket(n0n1.Get(0), TcpSocketFactory::GetTypeId());
+    Ptr<Socket> localSocket = Socket::CreateSocket(n0n1.Get(0), TcpSocketFactory::GetTypeId());
     localSocket->Bind();
 
     // Trace changes to the congestion window

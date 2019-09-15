@@ -99,6 +99,13 @@ public:
   std::string _name;
   virtual std::string GetDeviceName() { return _name; }
   virtual void SetDeviceName(std::string name) { _name = name; }
+
+  uint64_t out_bytes = 0; // sent packets number from this device
+  uint64_t in_bytes = 0;  // received packets number to this device
+  virtual uint64_t GetInBytes(void) { return in_bytes; }
+  virtual uint64_t GetOutBytes(void) { return out_bytes; }
+  virtual void ClearInBytes(void) { in_bytes = 0; }
+  virtual void ClearOutBytes(void) { out_bytes = 0; }
   /**
    * \brief Get the type ID.
    * \return the object TypeId
