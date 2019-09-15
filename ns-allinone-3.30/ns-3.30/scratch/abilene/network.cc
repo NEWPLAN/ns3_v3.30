@@ -29,7 +29,10 @@ static void buildRouter(NodeContainer &routers)
     {
         NodeContainer ctmp = NodeContainer(routers.Get(from[node_index]), routers.Get(to[node_index]));
         PointToPointHelper p2p;
-        p2p.SetDeviceAttribute("DataRate", StringValue("20Mbps"));
+        if (node_index == 0)
+            p2p.SetDeviceAttribute("DataRate", StringValue("5Mbps"));
+        else
+            p2p.SetDeviceAttribute("DataRate", StringValue("20Mbps"));
         p2p.SetChannelAttribute("Delay", StringValue("2ms"));
         NetDeviceContainer devtemp = p2p.Install(ctmp);
         std::string ipaddr = "10.10.";
