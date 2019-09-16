@@ -11,11 +11,13 @@
 #include "ns3/node-list.h"
 #include <iostream>
 #include <glog/logging.h>
+#include "util.h"
+#include "flowGenerator.h"
 
 using namespace ns3;
 using namespace std;
 
-#define DATALEN 5000
+#define DATALEN 100000
 NS_LOG_COMPONENT_DEFINE("APPEXAMPLE");
 //回调函数
 uint64_t nums = 0;
@@ -29,22 +31,56 @@ static void recvCallback(Ptr<Socket> sock)
     //printf("%s\n", databuf);
     LOG_EVERY_N(INFO, 1000) << "RECV: size:" << nums << endl;
 }
-void send(Ptr<Socket> sock)
+
+void send(Ptr<Socket> sock, uint32_t nums)
 {
-    const char *data = "hello world!";
-    std::string path = "12344354";
-    Ptr<Packet> pkt = Create<Packet>((const uint8_t *)data, DATALEN);
-    pkt->SetPath(path);
+    LOG_EVERY_N(INFO, 100) << "Send flow Size: " << nums;
+    //const char *data = "hello world!";
+    //std::string path = "12344354";
+    //if (maxnum < sock->GetTxAvailable())
+    //    maxnum = sock->GetTxAvailable();
+    //LOG(INFO) << "can sent numbers: " << sock->GetTxAvailable() << ", MAX: " << maxnum;
+    //GetTxAvailable
+    //Ptr<Packet> pkt = Create<Packet>((const uint8_t *)data, DATALEN);
+    Ptr<Packet> pkt = Create<Packet>(nums);
+    //pkt->SetPath(path);
     sock->Send(pkt);
     //std::cout << "path" << std::endl;
     //NS_LOG_INFO("aaaaaaaaaaa");
     //NS_LOG_INFO(sock->GetErrno());
 }
+/*
+void writeUntilBufferFull(Ptr<Socket> localSocket, uint32_t txSpace)
+{
+    while (currentTxBytes < totalTxBytes && localSocket->GetTxAvailable() > 0)
+    {
+        uint32_t left = totalTxBytes - currentTxBytes;
+        uint32_t dataOffset = currentTxBytes % writeSize;
+        uint32_t toWrite = writeSize - dataOffset;
+        toWrite = std::min(toWrite, left);
+        toWrite = std::min(toWrite, localSocket->GetTxAvailable());
+        int amountSent = localSocket->Send(&data[dataOffset], toWrite, 0);
+        if (amountSent < 0)
+        {
+            // we will be called again when new tx space becomes available.
+            return;
+        }
+        currentTxBytes += amountSent;
+    }
+    localSocket->Close();
+}
+*/
+
+static void sleepForATime(Ptr<Socket> sock)
+{
+    send(sock, genFlowSize());
+}
 
 static void sendCallback(Ptr<Socket> sock, uint32_t nums)
 {
     LOG_EVERY_N(INFO, 1000) << nums << ", Send callback: " << Simulator::Now().GetSeconds();
-    send(sock);
+    //send(sock, GenFlowSize());
+    Simulator::Schedule(Seconds(genFlowInterval() / 1000), &sleepForATime, sock);
 }
 
 //Socket：服务端socket，unknownddress：客户端地址
@@ -109,4 +145,31 @@ Ptr<Socket> buildServer(uint32_t nodeid, uint16_t port)
     //注意这里
     server->SetAcceptCallback(MakeCallback(&ConnectionRequest), MakeCallback(&NewConnectionCreated));
     return server;
+}
+
+void buildClientOnOff(uint32_t clientid, uint32_t serverid, uint16_t port)
+{
+    // Create the OnOff application to send TCP datagrams of size
+    // 210 bytes at a rate of 448 Kb/s
+    LOG(INFO) << "Create Applications.";
+
+    OnOffHelper onoff("ns3::TcpSocketFactory",
+                      InetSocketAddress(NodeList::GetNode(serverid)->GetObject<Ipv4L3Protocol>()->GetInterface(1)->GetAddress(0).GetLocal(), port));
+    onoff.SetConstantRate(DataRate("20kbps"));
+    onoff.SetAttribute("PacketSize", UintegerValue(1000));
+
+    ApplicationContainer apps = onoff.Install(NodeList::GetNode(clientid));
+    apps.Start(Seconds(1.0));
+    apps.Stop(Seconds(10.0));
+}
+
+void buildServerOnOff(uint32_t nodeid, uint16_t port)
+{
+    LOG(INFO) << "Create Server Port " << port;
+    // Create an optional packet sink to receive these packets
+    PacketSinkHelper sink("ns3::TcpSocketFactory",
+                          Address(InetSocketAddress(Ipv4Address::GetAny(), port)));
+    ApplicationContainer apps = sink.Install(NodeList::GetNode(nodeid));
+    apps.Start(Seconds(0));
+    //apps.Stop(Seconds(10.0));
 }

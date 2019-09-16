@@ -106,6 +106,13 @@ public:
   virtual uint64_t GetOutBytes(void) { return out_bytes; }
   virtual void ClearInBytes(void) { in_bytes = 0; }
   virtual void ClearOutBytes(void) { out_bytes = 0; }
+
+  bool tracked = false;
+
+  virtual bool track_counter() { return tracked; }
+  virtual void track_setter(bool set = false) { tracked = set; }
+  virtual void showTM(std::string saved_file, uint32_t show_index) { std::cout << "empty for net_dev.h" << std::endl; }
+  virtual void cleanCounts() { std::cout << "clean out in netdevice" << std::endl; }
   /**
    * \brief Get the type ID.
    * \return the object TypeId

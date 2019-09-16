@@ -28,6 +28,12 @@
 #include "point-to-point-net-device.h"
 #include "point-to-point-channel.h"
 #include "ppp-header.h"
+#include "ns3/ipv4-header.h"
+
+#include <glog/logging.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
 
 namespace ns3
 {
@@ -353,7 +359,43 @@ void PointToPointNetDevice::Receive(Ptr<Packet> packet)
     // normal receive callback sees.
     //
     ProcessHeader(packet, protocol);
-    in_bytes += packet->GetSize();
+    //in_bytes += packet->GetSize();
+    { //newplan added
+      if (track_counter())
+      {
+        class Ipv4Address;
+        this->in_bytes += packet->GetSize();
+        //packet->Print(std::cout);
+        Ipv4Header hdr;
+        packet->PeekHeader(hdr);
+        //hdr.Print(std::cout);
+        uint8_t srcIP[4] = {0};
+        uint8_t dstIP[4] = {0};
+        //hdr.GetSource().Print(std::cout);
+        hdr.GetSource().Serialize(srcIP);
+        //hdr.GetDestination().Print(std::cout);
+        hdr.GetDestination().Serialize(dstIP);
+        uint32_t srcbit = hdr.GetSource().Get();
+        uint32_t dstbit = hdr.GetDestination().Get();
+        /*
+        printf("\n[%s:%d]%d.%d.%d.%d --> %d.%d.%d.%d  %d--%d\n", __FILE__, __LINE__,
+               srcIP[0], srcIP[1], srcIP[2], srcIP[3],
+               dstIP[0], dstIP[1], dstIP[2], dstIP[3],
+               srcbit, dstbit);
+        */
+        updateTM(srcbit, dstbit, (uint64_t)(packet->GetSize()));
+        if (0)
+        {
+          uint32_t ip_size = ip2index.size();
+          for (uint32_t index = 0; index < ip_size; index++)
+          {
+            for (uint32_t index2 = 0; index2 < ip_size; index2++)
+              std::cout << TM[index][index2] << ",  ";
+            std::cout << std::endl;
+          }
+        }
+      }
+    }
 
     if (!m_promiscCallback.IsNull())
     {
@@ -646,5 +688,87 @@ PointToPointNetDevice::EtherToPpp(uint16_t proto)
   }
   return 0;
 }
+
+/**************new added********************/
+void PointToPointNetDevice::cleanCounts()
+{
+  memset(this->TM, 0, sizeof(this->TM));
+}
+
+void PointToPointNetDevice::updateTM(uint32_t srcIP, uint32_t dstIP, uint64_t packet_size)
+{
+#define default_value 1000
+  uint32_t vect_size = this->ip2index.size();
+  //LOG(INFO) << "vec_size = " << vect_size;
+  uint32_t src_index = default_value, dst_index = default_value;
+  for (uint32_t sindex = 0; sindex < vect_size; sindex++)
+  {
+    if (ip2index[sindex] == srcIP)
+      src_index = sindex;
+    if (ip2index[sindex] == dstIP)
+      dst_index = sindex;
+    if (src_index < default_value && dst_index < default_value)
+    {
+      break;
+    }
+  }
+  if (src_index == default_value)
+  {
+    src_index = this->ip2index.size();
+    ip2index.push_back(srcIP);
+  }
+  if (dst_index == default_value)
+  {
+    dst_index = this->ip2index.size();
+    ip2index.push_back(dstIP);
+  }
+  this->TM[src_index][dst_index] += packet_size;
+}
+
+void PointToPointNetDevice::showTM(std::string saved_file, uint32_t show_index)
+{
+
+  char ipstr[16];
+  struct in_addr s;
+  //u_int32_t ip = 1246899950;
+  //std::string saved_file = "/home/newplan/project/Mars-Code/scratch/TM2/TM.";
+  //saved_file += std::to_string(Simulator::Now().GetSeconds());
+  saved_file += std::to_string(show_index);
+  LOG_EVERY_N(INFO, 20) << "TM in file: " << saved_file;
+  FILE *fp = fopen(saved_file.c_str(), "a+");
+  if (fp == NULL || fp == nullptr)
+  {
+    LOG(FATAL) << "Can not open file..." << saved_file;
+  }
+
+  uint64_t total_size = 0;
+  {
+    uint32_t ip_size = ip2index.size();
+    for (uint32_t ipindex = 0; ipindex < ip_size; ipindex++)
+    {
+      memset(ipstr, 0, sizeof(ipstr));
+      s.s_addr = htonl(ip2index[ipindex]);
+      inet_ntop(AF_INET, (void *)&s, ipstr, (socklen_t)sizeof(ipstr));
+      //printf("%s, ", ipstr);
+      fprintf(fp, "%s, ", ipstr);
+    }
+    //printf("\n");
+    fprintf(fp, "\n");
+    for (uint32_t index = 0; index < 1; index++)
+    {
+      for (uint32_t index2 = 0; index2 < ip_size; index2++)
+      {
+        total_size += TM[index][index2];
+        //std::cout << TM[index][index2] << ",  ";
+        fprintf(fp, "%llu, ", TM[index][index2]);
+      }
+      fprintf(fp, "\n");
+      //std::cout << std::endl;
+    }
+    fclose(fp);
+    //std::cout << Simulator::Now().GetSeconds() << ", total bytes: " << total_size / 1000.0 << std::endl;
+  }
+}
+/**************new added********************/
 
 } // namespace ns3

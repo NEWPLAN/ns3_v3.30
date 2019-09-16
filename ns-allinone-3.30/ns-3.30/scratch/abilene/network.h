@@ -36,6 +36,7 @@
 using namespace ns3;
 NodeContainer buildTopo(void);
 void trackPackets(float time_space = 1);
+void trackTMs(float time_space);
 //void enableRoutingSystem(void);
 
 #endif

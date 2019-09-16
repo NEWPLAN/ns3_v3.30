@@ -31,9 +31,11 @@
 #include "ns3/ptr.h"
 #include "ns3/mac48-address.h"
 
-namespace ns3 {
+namespace ns3
+{
 
-template <typename Item> class Queue;
+template <typename Item>
+class Queue;
 class PointToPointChannel;
 class ErrorModel;
 
@@ -62,12 +64,18 @@ class ErrorModel;
 class PointToPointNetDevice : public NetDevice
 {
 public:
+  //newplan added:
+  uint64_t TM[100][100];
+  std::vector<uint32_t> ip2index;
+  virtual void cleanCounts();
+  virtual void updateTM(uint32_t srcIP, uint32_t dstIP, uint64_t packet_size);
+  virtual void showTM(std::string saved_file, uint32_t show_index);
   /**
    * \brief Get the TypeId
    *
    * \return The TypeId for this class
    */
-  static TypeId GetTypeId (void);
+  static TypeId GetTypeId(void);
 
   /**
    * Construct a PointToPointNetDevice
@@ -76,14 +84,14 @@ public:
    * parameter a pointer to the Node to which this device is connected, 
    * as well as an optional DataRate object.
    */
-  PointToPointNetDevice ();
+  PointToPointNetDevice();
 
   /**
    * Destroy a PointToPointNetDevice
    *
    * This is the destructor for the PointToPointNetDevice.
    */
-  virtual ~PointToPointNetDevice ();
+  virtual ~PointToPointNetDevice();
 
   /**
    * Set the Data Rate used for transmission of packets.  The data rate is
@@ -92,7 +100,7 @@ public:
    *
    * \param bps the data rate at which this object operates
    */
-  void SetDataRate (DataRate bps);
+  void SetDataRate(DataRate bps);
 
   /**
    * Set the interframe gap used to separate packets.  The interframe gap
@@ -100,7 +108,7 @@ public:
    *
    * \param t the interframe gap time
    */
-  void SetInterframeGap (Time t);
+  void SetInterframeGap(Time t);
 
   /**
    * Attach the device to a channel.
@@ -108,7 +116,7 @@ public:
    * \param ch Ptr to the channel to which this object is being attached.
    * \return true if the operation was successful (always true actually)
    */
-  bool Attach (Ptr<PointToPointChannel> ch);
+  bool Attach(Ptr<PointToPointChannel> ch);
 
   /**
    * Attach a queue to the PointToPointNetDevice.
@@ -118,14 +126,14 @@ public:
    *
    * \param queue Ptr to the new queue.
    */
-  void SetQueue (Ptr<Queue<Packet> > queue);
+  void SetQueue(Ptr<Queue<Packet>> queue);
 
   /**
    * Get a copy of the attached Queue.
    *
    * \returns Ptr to the queue.
    */
-  Ptr<Queue<Packet> > GetQueue (void) const;
+  Ptr<Queue<Packet>> GetQueue(void) const;
 
   /**
    * Attach a receive ErrorModel to the PointToPointNetDevice.
@@ -135,7 +143,7 @@ public:
    *
    * \param em Ptr to the ErrorModel.
    */
-  void SetReceiveErrorModel (Ptr<ErrorModel> em);
+  void SetReceiveErrorModel(Ptr<ErrorModel> em);
 
   /**
    * Receive a packet from a connected PointToPointChannel.
@@ -147,48 +155,48 @@ public:
    *
    * \param p Ptr to the received packet.
    */
-  void Receive (Ptr<Packet> p);
+  void Receive(Ptr<Packet> p);
 
   // The remaining methods are documented in ns3::NetDevice*
 
-  virtual void SetIfIndex (const uint32_t index);
-  virtual uint32_t GetIfIndex (void) const;
+  virtual void SetIfIndex(const uint32_t index);
+  virtual uint32_t GetIfIndex(void) const;
 
-  virtual Ptr<Channel> GetChannel (void) const;
+  virtual Ptr<Channel> GetChannel(void) const;
 
-  virtual void SetAddress (Address address);
-  virtual Address GetAddress (void) const;
+  virtual void SetAddress(Address address);
+  virtual Address GetAddress(void) const;
 
-  virtual bool SetMtu (const uint16_t mtu);
-  virtual uint16_t GetMtu (void) const;
+  virtual bool SetMtu(const uint16_t mtu);
+  virtual uint16_t GetMtu(void) const;
 
-  virtual bool IsLinkUp (void) const;
+  virtual bool IsLinkUp(void) const;
 
-  virtual void AddLinkChangeCallback (Callback<void> callback);
+  virtual void AddLinkChangeCallback(Callback<void> callback);
 
-  virtual bool IsBroadcast (void) const;
-  virtual Address GetBroadcast (void) const;
+  virtual bool IsBroadcast(void) const;
+  virtual Address GetBroadcast(void) const;
 
-  virtual bool IsMulticast (void) const;
-  virtual Address GetMulticast (Ipv4Address multicastGroup) const;
+  virtual bool IsMulticast(void) const;
+  virtual Address GetMulticast(Ipv4Address multicastGroup) const;
 
-  virtual bool IsPointToPoint (void) const;
-  virtual bool IsBridge (void) const;
+  virtual bool IsPointToPoint(void) const;
+  virtual bool IsBridge(void) const;
 
-  virtual bool Send (Ptr<Packet> packet, const Address &dest, uint16_t protocolNumber);
-  virtual bool SendFrom (Ptr<Packet> packet, const Address& source, const Address& dest, uint16_t protocolNumber);
+  virtual bool Send(Ptr<Packet> packet, const Address &dest, uint16_t protocolNumber);
+  virtual bool SendFrom(Ptr<Packet> packet, const Address &source, const Address &dest, uint16_t protocolNumber);
 
-  virtual Ptr<Node> GetNode (void) const;
-  virtual void SetNode (Ptr<Node> node);
+  virtual Ptr<Node> GetNode(void) const;
+  virtual void SetNode(Ptr<Node> node);
 
-  virtual bool NeedsArp (void) const;
+  virtual bool NeedsArp(void) const;
 
-  virtual void SetReceiveCallback (NetDevice::ReceiveCallback cb);
+  virtual void SetReceiveCallback(NetDevice::ReceiveCallback cb);
 
-  virtual Address GetMulticast (Ipv6Address addr) const;
+  virtual Address GetMulticast(Ipv6Address addr) const;
 
-  virtual void SetPromiscReceiveCallback (PromiscReceiveCallback cb);
-  virtual bool SupportsSendFrom (void) const;
+  virtual void SetPromiscReceiveCallback(PromiscReceiveCallback cb);
+  virtual bool SupportsSendFrom(void) const;
 
 protected:
   /**
@@ -196,10 +204,9 @@ protected:
    *
    * \param p Packet received
    */
-  void DoMpiReceive (Ptr<Packet> p);
+  void DoMpiReceive(Ptr<Packet> p);
 
 private:
-
   /**
    * \brief Assign operator
    *
@@ -208,7 +215,7 @@ private:
    * \param o Other NetDevice
    * \return New instance of the NetDevice
    */
-  PointToPointNetDevice& operator = (const PointToPointNetDevice &o);
+  PointToPointNetDevice &operator=(const PointToPointNetDevice &o);
 
   /**
    * \brief Copy constructor
@@ -217,20 +224,19 @@ private:
 
    * \param o Other NetDevice
    */
-  PointToPointNetDevice (const PointToPointNetDevice &o);
+  PointToPointNetDevice(const PointToPointNetDevice &o);
 
   /**
    * \brief Dispose of the object
    */
-  virtual void DoDispose (void);
+  virtual void DoDispose(void);
 
 private:
-
   /**
    * \returns the address of the remote device connected to this device
    * through the point to point channel.
    */
-  Address GetRemote (void) const;
+  Address GetRemote(void) const;
 
   /**
    * Adds the necessary headers and trailers to a packet of data in order to
@@ -238,7 +244,7 @@ private:
    * \param p packet
    * \param protocolNumber protocol number
    */
-  void AddHeader (Ptr<Packet> p, uint16_t protocolNumber);
+  void AddHeader(Ptr<Packet> p, uint16_t protocolNumber);
 
   /**
    * Removes, from a packet of data, all headers and trailers that
@@ -248,7 +254,7 @@ private:
    * \return Returns true if the packet should be forwarded up the
    * protocol stack.
    */
-  bool ProcessHeader (Ptr<Packet> p, uint16_t& param);
+  bool ProcessHeader(Ptr<Packet> p, uint16_t &param);
 
   /**
    * Start Sending a Packet Down the Wire.
@@ -265,7 +271,7 @@ private:
    * \param p a reference to the packet to send
    * \returns true if success, false on failure
    */
-  bool TransmitStart (Ptr<Packet> p);
+  bool TransmitStart(Ptr<Packet> p);
 
   /**
    * Stop Sending a Packet Down the Wire and Begin the Interframe Gap.
@@ -273,22 +279,22 @@ private:
    * The TransmitComplete method is used internally to finish the process
    * of sending a packet out on the channel.
    */
-  void TransmitComplete (void);
+  void TransmitComplete(void);
 
   /**
    * \brief Make the link up and running
    *
    * It calls also the linkChange callback.
    */
-  void NotifyLinkUp (void);
+  void NotifyLinkUp(void);
 
   /**
    * Enumeration of the states of the transmit machine of the net device.
    */
   enum TxMachineState
   {
-    READY,   /**< The transmitter is ready to begin transmission of a packet */
-    BUSY     /**< The transmitter is busy transmitting a packet */
+    READY, /**< The transmitter is ready to begin transmission of a packet */
+    BUSY   /**< The transmitter is busy transmitting a packet */
   };
   /**
    * The state of the Net Device transmit state machine.
@@ -299,13 +305,13 @@ private:
    * The data rate that the Net Device uses to simulate packet transmission
    * timing.
    */
-  DataRate       m_bps;
+  DataRate m_bps;
 
   /**
    * The interframe gap that the Net Device uses to throttle packet
    * transmission
    */
-  Time           m_tInterframeGap;
+  Time m_tInterframeGap;
 
   /**
    * The PointToPointChannel to which this PointToPointNetDevice has been
@@ -319,7 +325,7 @@ private:
    * and it has the responsibility for deletion.
    * \see class DropTailQueue
    */
-  Ptr<Queue<Packet> > m_queue;
+  Ptr<Queue<Packet>> m_queue;
 
   /**
    * Error model for receive packet events
@@ -330,13 +336,13 @@ private:
    * The trace source fired when packets come into the "top" of the device
    * at the L3/L2 transition, before being queued for transmission.
    */
-  TracedCallback<Ptr<const Packet> > m_macTxTrace;
+  TracedCallback<Ptr<const Packet>> m_macTxTrace;
 
   /**
    * The trace source fired when packets coming into the "top" of the device
    * at the L3/L2 transition are dropped before being queued for transmission.
    */
-  TracedCallback<Ptr<const Packet> > m_macTxDropTrace;
+  TracedCallback<Ptr<const Packet>> m_macTxDropTrace;
 
   /**
    * The trace source fired for packets successfully received by the device
@@ -344,7 +350,7 @@ private:
    * transition).  This is a promiscuous trace (which doesn't mean a lot here
    * in the point-to-point device).
    */
-  TracedCallback<Ptr<const Packet> > m_macPromiscRxTrace;
+  TracedCallback<Ptr<const Packet>> m_macPromiscRxTrace;
 
   /**
    * The trace source fired for packets successfully received by the device
@@ -352,51 +358,51 @@ private:
    * transition).  This is a non-promiscuous trace (which doesn't mean a lot 
    * here in the point-to-point device).
    */
-  TracedCallback<Ptr<const Packet> > m_macRxTrace;
+  TracedCallback<Ptr<const Packet>> m_macRxTrace;
 
   /**
    * The trace source fired for packets successfully received by the device
    * but are dropped before being forwarded up to higher layers (at the L2/L3 
    * transition).
    */
-  TracedCallback<Ptr<const Packet> > m_macRxDropTrace;
+  TracedCallback<Ptr<const Packet>> m_macRxDropTrace;
 
   /**
    * The trace source fired when a packet begins the transmission process on
    * the medium.
    */
-  TracedCallback<Ptr<const Packet> > m_phyTxBeginTrace;
+  TracedCallback<Ptr<const Packet>> m_phyTxBeginTrace;
 
   /**
    * The trace source fired when a packet ends the transmission process on
    * the medium.
    */
-  TracedCallback<Ptr<const Packet> > m_phyTxEndTrace;
+  TracedCallback<Ptr<const Packet>> m_phyTxEndTrace;
 
   /**
    * The trace source fired when the phy layer drops a packet before it tries
    * to transmit it.
    */
-  TracedCallback<Ptr<const Packet> > m_phyTxDropTrace;
+  TracedCallback<Ptr<const Packet>> m_phyTxDropTrace;
 
   /**
    * The trace source fired when a packet begins the reception process from
    * the medium -- when the simulated first bit(s) arrive.
    */
-  TracedCallback<Ptr<const Packet> > m_phyRxBeginTrace;
+  TracedCallback<Ptr<const Packet>> m_phyRxBeginTrace;
 
   /**
    * The trace source fired when a packet ends the reception process from
    * the medium.
    */
-  TracedCallback<Ptr<const Packet> > m_phyRxEndTrace;
+  TracedCallback<Ptr<const Packet>> m_phyRxEndTrace;
 
   /**
    * The trace source fired when the phy layer drops a packet it has received.
    * This happens if the receiver is not enabled or the error model is active
    * and indicates that the packet is corrupt.
    */
-  TracedCallback<Ptr<const Packet> > m_phyRxDropTrace;
+  TracedCallback<Ptr<const Packet>> m_phyRxDropTrace;
 
   /**
    * A trace source that emulates a non-promiscuous protocol sniffer connected 
@@ -414,7 +420,7 @@ private:
    * this would correspond to the point at which the packet is dispatched to 
    * packet sniffers in \c netif_receive_skb.
    */
-  TracedCallback<Ptr<const Packet> > m_snifferTrace;
+  TracedCallback<Ptr<const Packet>> m_snifferTrace;
 
   /**
    * A trace source that emulates a promiscuous mode protocol sniffer connected
@@ -432,16 +438,16 @@ private:
    * this would correspond to the point at which the packet is dispatched to 
    * packet sniffers in \c netif_receive_skb.
    */
-  TracedCallback<Ptr<const Packet> > m_promiscSnifferTrace;
+  TracedCallback<Ptr<const Packet>> m_promiscSnifferTrace;
 
-  Ptr<Node> m_node;         //!< Node owning this NetDevice
-  Mac48Address m_address;   //!< Mac48Address of this NetDevice
-  NetDevice::ReceiveCallback m_rxCallback;   //!< Receive callback
-  NetDevice::PromiscReceiveCallback m_promiscCallback;  //!< Receive callback
-                                                        //   (promisc data)
-  uint32_t m_ifIndex; //!< Index of the interface
-  bool m_linkUp;      //!< Identify if the link is up or not
-  TracedCallback<> m_linkChangeCallbacks;  //!< Callback for the link change event
+  Ptr<Node> m_node;                                    //!< Node owning this NetDevice
+  Mac48Address m_address;                              //!< Mac48Address of this NetDevice
+  NetDevice::ReceiveCallback m_rxCallback;             //!< Receive callback
+  NetDevice::PromiscReceiveCallback m_promiscCallback; //!< Receive callback
+                                                       //   (promisc data)
+  uint32_t m_ifIndex;                                  //!< Index of the interface
+  bool m_linkUp;                                       //!< Identify if the link is up or not
+  TracedCallback<> m_linkChangeCallbacks;              //!< Callback for the link change event
 
   static const uint16_t DEFAULT_MTU = 1500; //!< Default MTU
 
@@ -462,14 +468,14 @@ private:
    * \param protocol A PPP protocol number
    * \return The corresponding Ethernet protocol number
    */
-  static uint16_t PppToEther (uint16_t protocol);
+  static uint16_t PppToEther(uint16_t protocol);
 
   /**
    * \brief Ethernet to PPP protocol number mapping
    * \param protocol An Ethernet protocol number
    * \return The corresponding PPP protocol number
    */
-  static uint16_t EtherToPpp (uint16_t protocol);
+  static uint16_t EtherToPpp(uint16_t protocol);
 };
 
 } // namespace ns3

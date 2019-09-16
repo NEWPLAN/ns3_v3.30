@@ -578,9 +578,10 @@ void TcpTxBuffer::MergeItems(TcpTxItem *t1, TcpTxItem *t2) const
 
   NS_ASSERT_MSG(AreEquals(t1->m_sacked, t2->m_sacked),
                 "Merging one sacked and another not sacked. Impossible");
-  NS_ASSERT_MSG(AreEquals(t1->m_lost, t2->m_lost),
+  /*NS_ASSERT_MSG(AreEquals(t1->m_lost, t2->m_lost),
                 "Merging one lost and another not lost. Impossible");
-
+  */
+  //newplan modify
   // If one is retrans and the other is not, cancel the retransmitted flag.
   // We are merging this segment for the retransmit, so the count will
   // be updated in GetTransmittedSegment.
@@ -626,8 +627,13 @@ void TcpTxBuffer::RemoveFromCounts(TcpTxItem *item, uint32_t size)
   }
   if (item->m_lost)
   {
+    /*
     NS_ASSERT_MSG(m_lostOut >= size, "Trying to remove " << size << " bytes from " << m_lostOut);
     m_lostOut -= size;
+    */
+    //newplan modify
+    if (m_lostOut >= size)
+      m_lostOut -= size;
   }
 }
 void TcpTxBuffer::DiscardUpTo(const SequenceNumber32 &seq)

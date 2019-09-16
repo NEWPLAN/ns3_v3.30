@@ -15,5 +15,8 @@
 using namespace ns3;
 Ptr<Socket> buildServer(uint32_t nodeid = 13, uint16_t port = 10086);
 Ptr<Socket> buildClient(uint32_t clientid = 23, uint32_t serverid = 23, uint16_t port = 10086);
-void send(Ptr<Socket> sock);
+void send(Ptr<Socket> sock, uint32_t nums);
+
+void buildServerOnOff(uint32_t nodeid = 13, uint16_t port = 10086);
+void buildClientOnOff(uint32_t clientid = 23, uint32_t serverid = 23, uint16_t port = 10086);
 #endif

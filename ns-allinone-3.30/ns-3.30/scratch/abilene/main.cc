@@ -46,6 +46,7 @@ void buildApps(void)
     Ipv4Address ipAddress = l3p->GetInterface(1)->GetAddress(0).GetLocal();
     LOG(INFO) << "IP address for client: " << ipAddress;
   }
+
   /* Ptr<Socket> server = buildServer(13, 1006);
   Ptr<Socket> client = buildClient(23, 13, 1006);
   Ptr<Socket> server2 = buildServer(23, 1006);
@@ -54,17 +55,19 @@ void buildApps(void)
   Simulator::Schedule(Seconds(1), &send, client);
   */
   //Simulator::Schedule(Seconds(1.2), &send, client2);
-  for (uint16_t portnum = 100; portnum < 120; portnum++)
+  for (uint16_t portnum = 100; portnum < 105; portnum++)
   {
     for (uint32_t sid = 13; sid < 25; sid++)
     {
-      buildServer(sid, portnum);
+      //buildServer(sid, portnum);
+      buildServerOnOff(sid, portnum);
       for (uint32_t did = 13; did < 25; did++)
       {
         if (sid == did)
           continue;
         Ptr<Socket> client = buildClient(did, sid, portnum);
-        Simulator::Schedule(Seconds(1), &send, client);
+        //buildClientOnOff(did, sid, portnum);
+        Simulator::Schedule(Seconds(1), &send, client, 100);
       }
     }
   }
@@ -73,9 +76,15 @@ void buildApps(void)
   //Simulator::Schedule(Seconds(7), &send, client);
   //Simulator::Schedule(Seconds(9), &send, client);
 }
-
+#include "util.h"
+#include "flowGenerator.h"
 int main(int argc, char *argv[])
 {
+  setupFLowGenerator();
+  // while (1)
+  // {
+  //   LOG(INFO) << genFlowInterval() << ", " << genFlowSize();
+  // }
   LogComponentEnable("ABIExample", LOG_LEVEL_ALL);
   LogComponentEnable("APPEXAMPLE", LOG_LEVEL_ALL);
   // The below value configures the default behavior of global routing.
@@ -96,15 +105,17 @@ int main(int argc, char *argv[])
   //enableRoutingSystem();
   buildApps();
 
-  Simulator::Schedule(Seconds(1.2), &trackPackets, 0.1);
+  Simulator::Schedule(Seconds(0.2), &trackPackets, 0.1);
 
-  Simulator::Stop(Seconds(10));
+  Simulator::Schedule(Seconds(0.2), &trackTMs, 0.01);
+  Simulator::Stop(Seconds(100000));
 
+  /*
   // Trace routing tables
   Ipv4GlobalRoutingHelper g;
   Ptr<OutputStreamWrapper> routingStream = Create<OutputStreamWrapper>("scratch/data/abilene.routes", std::ios::out);
   g.PrintRoutingTableAllAt(Seconds(0), routingStream);
-
+*/
   NS_LOG_INFO("Run Simulation.");
   Simulator::Run();
   Simulator::Destroy();

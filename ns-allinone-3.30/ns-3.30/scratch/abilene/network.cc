@@ -1,5 +1,7 @@
 #include "network.h"
+#include <vector>
 
+std::vector<Ptr<NetDevice>> tracking_List;
 std::vector<Ptr<NetDevice>> devList;
 
 static void checkIp(void)
@@ -29,11 +31,11 @@ static void buildRouter(NodeContainer &routers)
     {
         NodeContainer ctmp = NodeContainer(routers.Get(from[node_index]), routers.Get(to[node_index]));
         PointToPointHelper p2p;
-        if (node_index == 0)
-            p2p.SetDeviceAttribute("DataRate", StringValue("5Mbps"));
-        else
-            p2p.SetDeviceAttribute("DataRate", StringValue("20Mbps"));
-        p2p.SetChannelAttribute("Delay", StringValue("2ms"));
+        //if (node_index == 0)
+        //    p2p.SetDeviceAttribute("DataRate", StringValue("5Mbps"));
+        //else
+        p2p.SetDeviceAttribute("DataRate", StringValue("100Mbps"));
+        p2p.SetChannelAttribute("Delay", StringValue("1ms"));
         NetDeviceContainer devtemp = p2p.Install(ctmp);
         std::string ipaddr = "10.10.";
         ipaddr += std::string(std::to_string(10 + node_index));
@@ -45,7 +47,7 @@ static void buildRouter(NodeContainer &routers)
         names += std::to_string(from[node_index]) + std::string("--") + std::to_string(to[node_index]) + std::string(".");
         devtemp.Get(0)->SetDeviceName(std::to_string(from[node_index]) + std::string("--") + std::to_string(to[node_index]));
         devtemp.Get(1)->SetDeviceName(std::to_string(to[node_index]) + std::string("--") + std::to_string(from[node_index]));
-        p2p.EnablePcap(names.c_str(), devtemp.Get(0), true);
+        //p2p.EnablePcap(names.c_str(), devtemp.Get(0), true);
         devList.push_back(devtemp.Get(0));
         devList.push_back(devtemp.Get(1));
     }
@@ -59,7 +61,7 @@ static void buildHost(NodeContainer &hosts)
     {
         NodeContainer ctmp = NodeContainer(hosts.Get(from[node_index]), hosts.Get(to[node_index]));
         PointToPointHelper p2p;
-        p2p.SetDeviceAttribute("DataRate", StringValue("10Mbps"));
+        p2p.SetDeviceAttribute("DataRate", StringValue("200Mbps"));
         p2p.SetChannelAttribute("Delay", StringValue("1ms"));
         NetDeviceContainer devtemp = p2p.Install(ctmp);
         std::string ipaddr = "10.10.";
@@ -72,9 +74,16 @@ static void buildHost(NodeContainer &hosts)
         names += std::to_string(from[node_index]) + std::string("--") + std::to_string(to[node_index]) + std::string(".");
         devtemp.Get(0)->SetDeviceName(std::to_string(from[node_index]) + std::string("--") + std::to_string(to[node_index]));
         devtemp.Get(1)->SetDeviceName(std::to_string(to[node_index]) + std::string("--") + std::to_string(from[node_index]));
-        p2p.EnablePcap(names.c_str(), devtemp.Get(0), true);
+        //p2p.EnablePcap(names.c_str(), devtemp.Get(0), true);
         devList.push_back(devtemp.Get(0));
         devList.push_back(devtemp.Get(1));
+        if (devtemp.Get(1)->GetNode()->GetId() < 13)
+        { //tracking data
+            LOG(INFO) << "Node: " << devtemp.Get(1)->GetNode()->GetId()
+                      << ", dev INFO: " << devtemp.Get(1)->GetDeviceName();
+            tracking_List.push_back(devtemp.Get(1));
+            devtemp.Get(1)->track_setter(true);
+        }
     }
 }
 
@@ -139,4 +148,19 @@ void trackPackets(float time_space)
   }
   */
     Simulator::Schedule(Seconds(time_space), &trackPackets, time_space);
+}
+uint64_t indexnum_0 = 0;
+void trackTMs(float time_space)
+{
+
+    for (uint32_t index_size = 0; index_size < tracking_List.size(); index_size++)
+    {
+        //std::cout << tracking_List[index_size]->GetDeviceName() << std::endl;
+        std::string path = "scratch/data/TM.";
+        tracking_List[index_size]->showTM(path, indexnum_0);
+        tracking_List[index_size]->cleanCounts();
+    }
+    indexnum_0++;
+
+    Simulator::Schedule(Seconds(time_space), &trackTMs, time_space);
 }
